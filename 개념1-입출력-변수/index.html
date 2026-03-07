@@ -136,8 +136,7 @@
       color: #f9fafb;
     }
 
-    .input-row input,
-    .input-row select {
+    .input-row input {
       flex: 1;
       width: 100%;
       padding: 12px 14px;
@@ -247,58 +246,15 @@
           <div class="submit-grid">
             <div class="input-row">
               <label for="classroom">반</label>
-              <select id="classroom">
-                <option value="">선택</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-              </select>
+              <input type="text" id="classroom" />
             </div>
-
             <div class="input-row">
               <label for="studentNumber">번호</label>
-              <select id="studentNumber">
-                <option value="">선택</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-                <option value="21">21</option>
-                <option value="22">22</option>
-                <option value="23">23</option>
-                <option value="24">24</option>
-                <option value="25">25</option>
-                <option value="26">26</option>
-                <option value="27">27</option>
-              </select>
+              <input type="text" id="studentNumber" />
             </div>
           </div>
-
           <div class="submit-help">
-            반과 번호를 선택한 뒤 제출하세요. 작성 코드는 자동으로 들어가고, 적용 여부는 정답 확인 결과에 따라 자동으로 저장됩니다.
+            반과 번호를 입력한 뒤 제출하세요. 작성 코드는 자동으로 들어가고, 적용 여부는 정답 확인 결과에 따라 자동으로 저장됩니다.
           </div>
           <button class="submit-btn" onclick="submitToGoogleForm()">구글폼 제출</button>
         </div>
@@ -492,7 +448,7 @@
       const code = document.getElementById('code').value;
 
       if (!classroom || !studentNumber) {
-        alert('반과 번호를 모두 선택하세요.');
+        alert('반과 번호를 모두 입력하세요.');
         return;
       }
 
