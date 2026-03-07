@@ -399,8 +399,8 @@
           title: "print()로 출력하기",
 
           /* [수정] 문제 설명 */
-          instructionText: "print()는 화면에 내용을 보여 주는 함수이다.",
-          instructionSubText: "문자열은 따옴표로 묶고, 숫자는 그대로 작성한다.",
+          instructionText: "print() 관로 안의 내용을 출력한다.",
+          instructionText: "문자열은 따옴표로, 숫자는 그대로",
 
           /* [수정] input() 사용 여부 */
           useInputPrompt: false,
@@ -447,139 +447,165 @@
         {
           tabName: "실습2",
           title: "변수 출력하기",
-          instructionText: "이름을 입력받아 한 줄을 출력하세요.",
-          instructionSubText: "실행하면 작은 입력창이 떠서 값을 입력합니다.",
-
-          useInputPrompt: true,
-
+          instructionText: "변수에 저장한 값과 문자열의 차이를 확인해 보세요.",
+          instructionSubText: "print(a)와 print(\"a\")의 결과를 비교해 봅시다.",
+          
+          useInputPrompt: false,
+          
           showBlankPrompt: true,
           blankTitle: "작성해야 할 문제",
-          blankPrompt: `1) 이름을 입력받기
-2) "안녕하세요 [이름]" 출력하기`,
-
-          showInputExample: true,
-          inputExampleTitle: "입력 예시",
-          inputExampleOutput: `민지`,
-
+          blankPrompt: `1) 변수 a에 "오늘도 코딩하러 오셨군요" 저장하기
+          2) print(a) 작성하기
+          3) print("a") 작성하기`,
+          
+          showInputExample: false,
+          inputExampleTitle: "",
+          inputExampleOutput: "",
+          
           showOutputExample: true,
           outputExampleTitle: "출력 예시",
-          outputExampleOutput: `안녕하세요 민지`,
-
+          outputExampleOutput: `오늘도 코딩하러 오셨군요
+          a`,
+          
           showHintBox: true,
           hintTitle: "힌트",
-          hintText: `input() 1번, print() 1번 사용 가능`,
-
-          tipText: "실행 버튼을 누르면 작은 입력창이 뜹니다.",
-
+          hintText: `a = "오늘도 코딩하러 오셨군요"
+          print(a)
+          print("a")`,
+          
+          tipText: "변수 a와 문자열 \"a\"는 다릅니다.",
+          
           starterCode: ``,
           promptInputs: [],
-          expectedOutput: `안녕하세요 민지`,
+          expectedOutput: `오늘도 코딩하러 오셨군요
+          a`,
           showSubmit: false
         },
 
         {
           tabName: "실습3",
-          title: "입력받아 출력하기",
-          instructionText: "숫자를 입력받아 10 이상이면 큰수, 아니면 작은수를 출력하세요.",
-          instructionSubText: "if / else를 사용해 보세요.",
-
-          useInputPrompt: true,
-
+          title: "변수와 문자열 함께 출력하기",
+          instructionText: "변수에 저장한 값을 문장 속에 넣어 출력해 보세요.",
+          instructionSubText: "콤마, +, f-string 중 한 가지 방법을 사용하면 됩니다.",
+          
+          useInputPrompt: false,
+          
           showBlankPrompt: true,
           blankTitle: "작성해야 할 문제",
-          blankPrompt: `1) 숫자를 입력받기
-2) 10 이상이면 "큰수" 출력
-3) 아니면 "작은수" 출력`,
-
-          showInputExample: true,
-          inputExampleTitle: "입력 예시",
-          inputExampleOutput: `12`,
-
+          blankPrompt: `1) 변수 name에 "버그사냥꾼" 저장하기
+          2) 변수 값을 넣어 문장으로 출력하기
+             예: 이름: 버그사냥꾼
+             또는 반갑습니다. 버그사냥꾼 입니다.`,
+          
+          showInputExample: false,
+          inputExampleTitle: "",
+          inputExampleOutput: "",
+          
           showOutputExample: true,
           outputExampleTitle: "출력 예시",
-          outputExampleOutput: `큰수`,
-
+          outputExampleOutput: `이름: 버그사냥꾼`,
+          
           showHintBox: true,
           hintTitle: "힌트",
-          hintText: `input()으로 받은 값은 int()로 바꾸는 것이 좋음`,
-
-          tipText: "실행하면 입력창이 뜹니다.",
-
+          hintText: `name = "버그사냥꾼"
+          print("이름:", name)
+          
+          또는
+          
+          name = "버그사냥꾼"
+          print("이름:" + name)
+          
+          또는
+          
+          name = "버그사냥꾼"
+          print(f"반갑습니다. {name} 입니다.")`,
+          
+          tipText: "변수 값을 문장 속에 넣어 출력해 보세요.",
+          
           starterCode: ``,
           promptInputs: [],
-          expectedOutput: `큰수`,
+          expectedOutput: `이름: 버그사냥꾼`,
           showSubmit: false
         },
        {
           tabName: "실습4",
-          title: "변수 출력하기",
-          instructionText: "이름을 입력받아 한 줄을 출력하세요.",
-          instructionSubText: "실행하면 작은 입력창이 떠서 값을 입력합니다.",
-
+          title: "input()으로 값 입력받기",
+          instructionText: "input()을 사용하여 값을 입력받고, 입력한 값을 다시 출력해 보세요.",
+          instructionSubText: "입력한 값은 변수에 저장한 뒤 print()로 출력할 수 있습니다.",
+          
           useInputPrompt: true,
-
+          
           showBlankPrompt: true,
           blankTitle: "작성해야 할 문제",
-          blankPrompt: `1) 이름을 입력받기
-2) "안녕하세요 [이름]" 출력하기`,
-
+          blankPrompt: `1) input()으로 좋아하는 음식을 입력받기
+          2) 입력한 값을 변수 food에 저장하기
+          3) "오늘은 내가 [음식] 요리사" 형태로 출력하기`,
+          
           showInputExample: true,
           inputExampleTitle: "입력 예시",
-          inputExampleOutput: `민지`,
-
+          inputExampleOutput: `짜파게티`,
+          
           showOutputExample: true,
           outputExampleTitle: "출력 예시",
-          outputExampleOutput: `안녕하세요 민지`,
-
+          outputExampleOutput: `오늘은 내가 짜파게티 요리사`,
+          
           showHintBox: true,
           hintTitle: "힌트",
-          hintText: `input() 1번, print() 1번 사용 가능`,
-
+          hintText: `food = input("좋아하는 음식을 입력하세요: ")
+          print(f"오늘은 내가 {food} 요리사")`,
+          
           tipText: "실행 버튼을 누르면 작은 입력창이 뜹니다.",
-
+          
           starterCode: ``,
           promptInputs: [],
-          expectedOutput: `안녕하세요 민지`,
+          expectedOutput: `오늘은 내가 짜파게티 요리사`,
           showSubmit: false
         },
         
-        {
-          tabName: "과제",
-          title: "과제",
-          instructionText: "이름과 점수를 입력받아 결과를 출력하세요.",
-
+       {  
+          tabName: "오늘의과제",
+          title: "오늘의 과제",
+          instructionText: "질문 답변을 활용하여 동아리 이름을 만들어 보세요.",
+          instructionSubText: "input()으로 여러 값을 입력받고, f-string으로 자연스럽게 출력해 봅시다.",
+        
           useInputPrompt: true,
-
+        
           showBlankPrompt: true,
-          blankTitle: "문제",
-          blankPrompt: `1) 이름 입력받기
-2) 점수 입력받기
-3) 첫 줄: "[이름]님의 점수는 [점수]점입니다." 출력
-4) 둘째 줄: "합격" 출력`,
-
+          blankTitle: "작성해야 할 문제",
+          blankPrompt: `1) 좋아하는 분야를 입력받아 변수에 저장하기
+        2) 동아리 분위기를 한 단어로 입력받아 변수에 저장하기
+        3) 멋있어 보이는 단어를 입력받아 변수에 저장하기
+        4) "동아리 이름이 생성되었습니다!" 출력하기
+        5) 입력한 세 단어를 활용해 동아리 이름 출력하기`,
+        
           showInputExample: true,
           inputExampleTitle: "입력 예시",
-          inputExampleOutput: `홍길동
-85`,
-
+          inputExampleOutput: `AI
+        Creative
+        Lab`,
+        
           showOutputExample: true,
           outputExampleTitle: "출력 예시",
-          outputExampleOutput: `홍길동님의 점수는 85점입니다.
-합격`,
-
+          outputExampleOutput: `동아리 이름이 생성되었습니다!
+        AI Creative Lab`,
+        
           showHintBox: true,
           hintTitle: "힌트",
-          hintText: `input() 2번 사용
-문자열 연결 또는 쉼표 출력 가능`,
-
+          hintText: `field = input("좋아하는 분야를 입력하세요: ")
+        mood = input("동아리 분위기를 한 단어로 입력하세요: ")
+        word = input("멋있어 보이는 단어를 입력하세요: ")
+        
+        print("동아리 이름이 생성되었습니다!")
+        print(f"{field} {mood} {word}")`,
+        
+          tipText: "실행 버튼을 누르면 작은 입력창이 순서대로 3번 뜹니다.",
+        
           starterCode: ``,
-          promptInputs: ["홍길동", "85"],
-          expectedOutput: `홍길동님의 점수는 85점입니다.
-합격`,
-
-          /* [수정] 제출 문제는 true */
+          promptInputs: [],
+          expectedOutput: `동아리 이름이 생성되었습니다!
+        AI Creative Lab`,
           showSubmit: true
-        }
+      }
       ],
 
       /********************************************************
