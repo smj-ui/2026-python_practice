@@ -86,12 +86,65 @@
       min-width: 0;
     }
 
-    .topbar {
-      padding: 16px 20px;
-      border-bottom: 1px solid #2c3445;
+    /* 상단 헤더 전체 영역 */
+    .header-area {
       background: #1a1f2b;
+      border-bottom: 1px solid #2c3445;
+    }
+
+    .topbar {
+      padding: 16px 20px 10px 20px;
       font-weight: 700;
       font-size: 22px;
+    }
+
+    /* 상단 헤더 안의 제출 영역 */
+    .top-submit-area {
+      padding: 0 20px 16px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .top-submit-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #f9fafb;
+      margin-right: 8px;
+    }
+
+    .top-submit-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .top-submit-row label {
+      font-size: 14px;
+      font-weight: 700;
+      color: #e5e7eb;
+    }
+
+    .top-submit-row select {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      background: #111827;
+      color: #f9fafb;
+      font-size: 14px;
+      outline: none;
+      min-width: 90px;
+    }
+
+    .top-submit-help {
+      width: 100%;
+      color: #cbd5e1;
+      font-size: 13px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      margin-top: 2px;
     }
 
     .tabs {
@@ -163,7 +216,6 @@
       padding: 16px;
       background: #111827;
       border-top: 1px solid #2c3445;
-      border-bottom: 0;
     }
 
     button {
@@ -179,93 +231,6 @@
     .check-btn { background: #7c3aed; color: white; }
     .reset-btn { background: #374151; color: white; }
     .submit-btn { background: #10b981; color: white; }
-
-    .submit-area {
-      border-top: 1px solid #2c3445;
-      padding: 18px 16px 20px;
-      background: #0f172a;
-    }
-
-    .sidebar .submit-area {
-      margin: 0 0 20px 0;
-      border-top: 0;
-      border: 1px solid #d1d5db;
-      background: #ffffff;
-      color: #1f2937;
-      border-radius: 14px;
-      padding: 16px;
-    }
-
-    .submit-title {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .sidebar .submit-title {
-      color: #111827;
-    }
-
-    .submit-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(140px, 1fr));
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-
-    .input-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      width: 100%;
-    }
-
-    .input-row label {
-      min-width: 42px;
-      font-size: 16px;
-      font-weight: 700;
-      color: #f9fafb;
-    }
-
-    .sidebar .input-row label {
-      color: #111827;
-    }
-
-    .input-row select {
-      flex: 1;
-      width: 100%;
-      padding: 12px 14px;
-      border-radius: 12px;
-      border: 1px solid #334155;
-      background: #111827;
-      color: #f9fafb;
-      font-size: 16px;
-      outline: none;
-    }
-
-    .sidebar .input-row select {
-      background: #f9fafb;
-      color: #111827;
-      border: 1px solid #d1d5db;
-    }
-
-    .submit-help {
-      color: #cbd5e1;
-      font-size: 14px;
-      line-height: 1.7;
-      margin-bottom: 12px;
-      white-space: pre-wrap;
-    }
-
-    .sidebar .submit-help {
-      color: #4b5563;
-    }
-
-    .result {
-      background: #0b1020;
-      padding: 20px;
-      overflow: auto;
-    }
 
     .panel {
       border: 1px solid #2c3445;
@@ -307,7 +272,7 @@
     @media (max-width: 900px) {
       .app { grid-template-columns: 1fr; }
       .sidebar { border-right: 0; border-bottom: 1px solid #d1d5db; }
-      .submit-grid { grid-template-columns: 1fr; }
+      .top-submit-area { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -315,31 +280,6 @@
   <div class="app">
     <aside class="sidebar">
       <h1 id="guideTitle"></h1>
-
-      <!-- [수정 없음] 최종과제 탭일 때만 보이는 제출 박스 -->
-      <div id="sidebarSubmitSection" class="submit-area hidden">
-        <div class="submit-title">최종 제출하기</div>
-
-        <div class="submit-grid">
-          <div class="input-row">
-            <label for="sidebarClassroom">반</label>
-            <select id="sidebarClassroom"></select>
-          </div>
-
-          <div class="input-row">
-            <label for="sidebarStudentNumber">번호</label>
-            <select id="sidebarStudentNumber"></select>
-          </div>
-        </div>
-
-        <div class="submit-help">
-최종 과제 탭에서만 제출하세요.
-작성 코드는 자동으로 들어가고, 적용 여부는 이 탭의 정답 확인 결과가 저장됩니다.
-        </div>
-
-        <button class="submit-btn" type="button" id="sidebarSubmitBtn">구글폼 제출</button>
-      </div>
-
       <h2 id="sidebarLessonTitle"></h2>
       <p id="sidebarInstruction"></p>
       <p id="sidebarInstructionSub"></p>
@@ -365,11 +305,34 @@
       </div>
 
       <div class="hint" id="sidebarTipBox"></div>
-      <div class="mini">교사용 수정 템플릿 (주석 포함 최종 배치 버전)</div>
+      <div class="mini">교사용 수정 템플릿 (최종 상단 제출 배치 버전)</div>
     </aside>
 
     <main class="main">
-      <div class="topbar" id="pageTitle"></div>
+      <div class="header-area">
+        <div class="topbar" id="pageTitle"></div>
+
+        <!-- [수정 없음] 최종과제 탭일 때만 보이는 상단 제출 영역 -->
+        <div id="topSubmitArea" class="top-submit-area hidden">
+          <div class="top-submit-title">최종 제출하기</div>
+
+          <div class="top-submit-row">
+            <label for="topClassroom">반</label>
+            <select id="topClassroom"></select>
+          </div>
+
+          <div class="top-submit-row">
+            <label for="topStudentNumber">번호</label>
+            <select id="topStudentNumber"></select>
+          </div>
+
+          <button class="submit-btn" type="button" id="topSubmitBtn">구글폼 제출</button>
+
+          <div class="top-submit-help">최종 과제 탭에서만 제출하세요.
+작성 코드는 자동으로 들어가고, 적용 여부는 이 탭의 정답 확인 결과가 저장됩니다.</div>
+        </div>
+      </div>
+
       <div class="tabs" id="tabsContainer"></div>
       <div id="panelsContainer"></div>
     </main>
@@ -710,8 +673,8 @@ Python`,
 
       document.getElementById('sidebarTipBox').textContent = lesson.tipText || '';
 
-      const submitSection = document.getElementById('sidebarSubmitSection');
-      submitSection.classList.toggle('hidden', !lesson.showSubmit);
+      const submitArea = document.getElementById('topSubmitArea');
+      submitArea.classList.toggle('hidden', !lesson.showSubmit);
     }
 
     function switchTab(index) {
@@ -858,8 +821,8 @@ Python`,
     }
 
     function submitFinalTask(index) {
-      const classroom = document.getElementById('sidebarClassroom').value.trim();
-      const studentNumber = document.getElementById('sidebarStudentNumber').value.trim();
+      const classroom = document.getElementById('topClassroom').value.trim();
+      const studentNumber = document.getElementById('topStudentNumber').value.trim();
       const code = document.getElementById(`code-${index}`).value;
       const result = latestCheckResults[index];
 
@@ -888,9 +851,10 @@ Python`,
       buildTabs();
       buildPanels();
 
-      document.getElementById('sidebarClassroom').innerHTML = createSelectOptions(CONFIG.classOptions);
-      document.getElementById('sidebarStudentNumber').innerHTML = createSelectOptions(CONFIG.numberOptions);
-      document.getElementById('sidebarSubmitBtn').addEventListener('click', () => {
+      document.getElementById('topClassroom').innerHTML = createSelectOptions(CONFIG.classOptions);
+      document.getElementById('topStudentNumber').innerHTML = createSelectOptions(CONFIG.numberOptions);
+
+      document.getElementById('topSubmitBtn').addEventListener('click', () => {
         submitFinalTask(activeLessonIndex);
       });
 
