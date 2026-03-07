@@ -327,40 +327,44 @@
       setOutput('여기에 실행 결과와 채점 결과가 표시됩니다.');
     }
 
-    async function submitToGoogleForm() {
-      const classroom = document.getElementById('classroom').value.trim();
-      const studentNumber = document.getElementById('studentNumber').value.trim();
-      const code = document.getElementById('code').value;
-
-      if (!classroom || !studentNumber) {
-        alert('반과 번호를 모두 입력하세요.');
-        return;
-      }
-
-      if (latestCheckResult === '미확인') {
-        alert('먼저 정답 확인을 눌러 채점 결과를 만든 뒤 제출하세요.');
-        return;
-      }
-
-      const formData = new FormData();
-      formData.append(CONFIG.entryClassroom, classroom);
-      formData.append(CONFIG.entryStudentNumber, studentNumber);
-      formData.append(CONFIG.entryCode, code);
-      formData.append(CONFIG.entryResult, latestCheckResult);
-
-      try {
-        await fetch(CONFIG.formUrl, {
-          method: 'POST',
-          mode: 'no-cors',
-          body: formData
-        });
-
-        alert(`제출되었습니다.\n반: ${classroom}\n번호: ${studentNumber}\n적용 여부: ${latestCheckResult}`);
-      } catch (e) {
-        alert('제출 중 문제가 발생했습니다. 인터넷 연결 또는 설문지 설정을 확인하세요.');
-      }
-    }
-
+  <script>
+  async function submitToGoogleForm() {
+  const classroom = document.getElementById('classroom').value.trim();
+  const studentNumber = document.getElementById('studentNumber').value.trim();
+  const code = document.getElementById('code').value;
+  
+  if (!classroom || !studentNumber) {
+    alert('반과 번호를 모두 입력하세요.');
+    return;
+  }
+  
+  if (latestCheckResult === '미확인') {
+    alert('먼저 정답 확인을 눌러 채점 결과를 만든 뒤 제출하세요.');
+    return;
+  }
+  
+  const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdylJ-XFRgBLSF8SvM7Hn_6w-NpzJhDnhSBu0vPdOqBhkymIw/formResponse';
+  
+  const params = new URLSearchParams();
+  params.append('entry.1342927365', classroom);
+  params.append('entry.194717561', studentNumber);
+  params.append('entry.668448153', code);
+  params.append('entry.1180100706', latestCheckResult);
+  
+  try {
+    await fetch(formUrl, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: params.toString()
+    });
+  
+    alert(`제출되었습니다.\n반: ${classroom}\n번호: ${studentNumber}\n적용 여부: ${latestCheckResult}`);
+  } catch (e) {
+    alert('제출 중 문제가 발생했습니다.');
+  }
     applyConfig();
   </script>
 </body>
