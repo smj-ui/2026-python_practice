@@ -86,14 +86,12 @@
       min-width: 0;
     }
 
-    /* 상단 헤더 전체 영역 */
     .header-area {
       background: #1a1f2b;
       border-bottom: 1px solid #2c3445;
       padding: 0 20px 12px 20px;
     }
 
-    /* 헤더 제목과 제출 영역이 같은 줄 */
     .header-row {
       display: flex;
       align-items: center;
@@ -109,7 +107,6 @@
       flex: 1;
     }
 
-    /* 최종 제출 영역: 헤더 오른쪽 */
     .top-submit-area {
       display: flex;
       align-items: center;
@@ -243,7 +240,6 @@
     .reset-btn { background: #374151; color: white; }
     .submit-btn { background: #10b981; color: white; }
 
-    /* 결과창: 버튼 바로 아래 */
     .panel {
       border: 1px solid #2c3445;
       border-radius: 16px;
@@ -331,7 +327,6 @@
         <div class="header-row">
           <div class="topbar" id="pageTitle"></div>
 
-          <!-- [수정 없음] 최종과제 탭일 때만 보이는 제출 영역 -->
           <div id="topSubmitArea" class="top-submit-area hidden">
             <div class="top-submit-title">최종 제출하기</div>
 
@@ -349,7 +344,7 @@
           </div>
         </div>
 
-        <div id="topSubmitHelp" class="top-submit-help hidden">제출 버튼을 눌러 작성한 과제를 제출하세요
+        <div id="topSubmitHelp" class="top-submit-help hidden">제출 버튼을 눌러 작성한 과제를 제출하세요</div>
       </div>
 
       <div class="tabs" id="tabsContainer"></div>
@@ -361,86 +356,42 @@
   <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
 
   <script>
-    /************************************************************
-     * [수정] 여기부터가 민지님이 수업마다 바꾸는 핵심 영역
-     ************************************************************/
     const CONFIG = {
-      /********************************************************
-       * [수정] 1. 전체 페이지 제목
-       ********************************************************/
       guideTitle: "Python",
       pageTitle: "개념1 - 입출력, 변수",
 
-      /********************************************************
-       * [수정] 2. 실습 목록
-       *
-       * 각 문제마다 자주 바꾸는 항목:
-       * - tabName
-       * - title
-       * - instructionText
-       * - instructionSubText
-       * - useInputPrompt
-       * - blankPrompt
-       * - inputExampleOutput
-       * - outputExampleOutput
-       * - hintText
-       * - tipText
-       * - starterCode
-       * - promptInputs
-       * - expectedOutput
-       * - showSubmit
-       ********************************************************/
       lessons: [
         {
-          /* [수정] 탭 이름 */
           tabName: "실습1",
-
-          /* [수정] 문제 제목 */
           title: "print()로 출력하기",
-
-          /* [수정] 문제 설명 */
           instructionText: "print() 괄호 안의 내용을 출력한다.",
-          instructionText: "문자열은 따옴표로, 숫자는 그대로",
+          instructionSubText: "문자열은 따옴표로, 숫자는 그대로 출력합니다.",
 
-          /* [수정] input() 사용 여부 */
           useInputPrompt: false,
 
-          /* [수정] 작성해야 할 문제 박스 */
           showBlankPrompt: true,
           blankTitle: "작성해야 할 문제",
-          blankPrompt: `1) 첫째 줄에 안녕, 신도고 출력 
+          blankPrompt: `1) 첫째 줄에 안녕, 신도고 출력
 2) 둘째 줄에 2026 출력`,
 
-          /* [수정] 입력 예시 박스 */
           showInputExample: false,
           inputExampleTitle: "입력 예시",
           inputExampleOutput: ``,
 
-          /* [수정] 출력 예시 박스 */
           showOutputExample: true,
           outputExampleTitle: "출력 예시",
           outputExampleOutput: `안녕, 신도고
 2026`,
 
-          /* [수정] 힌트 박스 */
           showHintBox: true,
           hintTitle: "힌트",
           hintText: `print()를 2번 사용할 수 있음`,
 
-          /* [수정] 팁 */
           tipText: "print()만 사용하세요.",
-
-          /* [수정] 처음 코드창 내용 */
           starterCode: ``,
-
-          /* [수정] 정답 확인용 입력값 */
           promptInputs: [],
-
-          /* [수정] 채점용 정답 */
           expectedOutput: `안녕, 신도고
 2026`,
-
-          /* [수정] 제출 버튼 표시 여부 */
           showSubmit: false
         },
 
@@ -449,36 +400,35 @@
           title: "변수 출력하기",
           instructionText: "변수에 저장한 값과 문자열의 차이를 확인해 보세요.",
           instructionSubText: "print(a)와 print(\"a\")의 결과를 비교해 봅시다.",
-          
+
           useInputPrompt: false,
-          
+
           showBlankPrompt: true,
           blankTitle: "작성해야 할 문제",
           blankPrompt: `1) 변수 a에 "오늘도 코딩하러 오셨군요" 저장하기
 2) print(a) 작성하기
 3) print("a") 작성하기`,
-          
+
           showInputExample: false,
           inputExampleTitle: "",
           inputExampleOutput: "",
-          
+
           showOutputExample: true,
           outputExampleTitle: "출력 예시",
           outputExampleOutput: `오늘도 코딩하러 오셨군요
 a`,
-          
+
           showHintBox: true,
           hintTitle: "힌트",
           hintText: `a = "오늘도 코딩하러 오셨군요"
-          print(a)
-          print("a")`,
-          
+print(a)
+print("a")`,
+
           tipText: "변수 a와 문자열 \"a\"는 다릅니다.",
-          
           starterCode: ``,
           promptInputs: [],
           expectedOutput: `오늘도 코딩하러 오셨군요
-          a`,
+a`,
           showSubmit: false
         },
 
@@ -487,83 +437,83 @@ a`,
           title: "변수와 문자열 함께 출력하기",
           instructionText: "변수에 저장한 값을 문장 속에 넣어 출력해 보세요.",
           instructionSubText: "콤마, +, f-string 중 한 가지 방법을 사용하면 됩니다.",
-          
+
           useInputPrompt: false,
-          
+
           showBlankPrompt: true,
           blankTitle: "작성해야 할 문제",
           blankPrompt: `1) 변수 name에 "버그사냥꾼" 저장하기
 2) 변수 값을 넣어 문장으로 출력하기
-예: 이름: 버그사냥꾼`        
+예: 이름: 버그사냥꾼`,
+
           showInputExample: false,
           inputExampleTitle: "",
           inputExampleOutput: "",
-          
+
           showOutputExample: true,
           outputExampleTitle: "출력 예시",
           outputExampleOutput: `이름: 버그사냥꾼`,
-          
+
           showHintBox: true,
           hintTitle: "힌트",
           hintText: `name = "버그사냥꾼"
-print("이름:", name)        
-또는     
+print("이름:", name)
+또는
 name = "버그사냥꾼"
 print("이름:" + name)
 또는
 name = "버그사냥꾼"
 print(f"반갑습니다. {name} 입니다.")`,
-          
+
           tipText: "변수 값을 문장 속에 넣어 출력해 보세요.",
-          
           starterCode: ``,
           promptInputs: [],
           expectedOutput: `이름: 버그사냥꾼`,
           showSubmit: false
         },
-       {
+
+        {
           tabName: "실습4",
           title: "input()으로 값 입력받기",
           instructionText: "input()을 사용하여 값을 입력받고, 입력한 값을 다시 출력해 보세요.",
           instructionSubText: "입력한 값은 변수에 저장한 뒤 print()로 출력할 수 있습니다.",
-          
+
           useInputPrompt: true,
-          
+
           showBlankPrompt: true,
           blankTitle: "작성해야 할 문제",
           blankPrompt: `1) input()으로 좋아하는 음식을 입력받기
 2) 입력한 값을 변수 food에 저장하기
 3) "오늘은 내가 [음식] 요리사" 형태로 출력하기`,
-          
+
           showInputExample: true,
           inputExampleTitle: "입력 예시",
           inputExampleOutput: `짜파게티`,
-          
+
           showOutputExample: true,
           outputExampleTitle: "출력 예시",
           outputExampleOutput: `오늘은 내가 짜파게티 요리사`,
-          
+
           showHintBox: true,
           hintTitle: "힌트",
           hintText: `food = input("좋아하는 음식을 입력하세요: ")
-          print(f"오늘은 내가 {food} 요리사")`,
-          
+print(f"오늘은 내가 {food} 요리사")`,
+
           tipText: "실행 버튼을 누르면 작은 입력창이 뜹니다.",
-          
           starterCode: ``,
-          promptInputs: [],
+          promptInputs: ["짜파게티"],
           expectedOutput: `오늘은 내가 짜파게티 요리사`,
           showSubmit: false
         },
-        
-       {  
+
+        {
           tabName: "오늘의과제",
           title: "오늘의 과제",
           instructionText: "질문 답변을 활용하여 동아리 이름을 만들어 보세요.",
           instructionSubText: "input()으로 여러 값을 입력받고, f-string으로 자연스럽게 출력해 봅시다.",
-        
+
           useInputPrompt: true,
-        
+
           showBlankPrompt: true,
           blankTitle: "작성해야 할 문제",
           blankPrompt: `1) 좋아하는 분야를 입력받아 변수에 저장하기
@@ -571,18 +521,18 @@ print(f"반갑습니다. {name} 입니다.")`,
 3) 멋있어 보이는 단어를 입력받아 변수에 저장하기
 4) "동아리 이름이 생성되었습니다!" 출력하기
 5) 입력한 세 단어를 활용해 동아리 이름 출력하기`,
-        
+
           showInputExample: true,
           inputExampleTitle: "입력 예시",
           inputExampleOutput: `AI
 Creative
 Lab`,
-        
+
           showOutputExample: true,
           outputExampleTitle: "출력 예시",
           outputExampleOutput: `동아리 이름이 생성되었습니다!
 AI Creative Lab`,
-        
+
           showHintBox: true,
           hintTitle: "힌트",
           hintText: `field = input("좋아하는 분야를 입력하세요: ")
@@ -591,28 +541,19 @@ word = input("멋있어 보이는 단어를 입력하세요: ")
 
 print("동아리 이름이 생성되었습니다!")
 print(f"{field} {mood} {word}")`,
-        
+
           tipText: "실행 버튼을 누르면 작은 입력창이 순서대로 3번 뜹니다.",
-        
           starterCode: ``,
-          promptInputs: [],
+          promptInputs: ["AI", "Creative", "Lab"],
           expectedOutput: `동아리 이름이 생성되었습니다!
 AI Creative Lab`,
           showSubmit: true
-      }
+        }
       ],
 
-      /********************************************************
-       * [수정] 3. 반 목록 / 번호 목록
-       ********************************************************/
       classOptions: ["1","2","3","4","5","6","7","8","9","10"],
       numberOptions: ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27"],
 
-      /********************************************************
-       * [수정] 4. 설문지 연결 정보
-       *
-       * 새 설문지 만들 때 아래 5개만 교체
-       ********************************************************/
       formBaseUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSdylJ-XFRgBLSF8SvM7Hn_6w-NpzJhDnhSBu0vPdOqBhkymIw/formResponse',
       entryClassroom: 'entry.1342927365',
       entryStudentNumber: 'entry.194717561',
@@ -620,9 +561,6 @@ AI Creative Lab`,
       entryResult: 'entry.1180100706'
     };
 
-    /************************************************************
-     * 아래는 보통 수정 안 해도 되는 실행 로직
-     ************************************************************/
     let activeLessonIndex = 0;
     let latestCheckResults = [];
 
