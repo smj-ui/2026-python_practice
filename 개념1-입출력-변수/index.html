@@ -136,7 +136,6 @@
       color: #f9fafb;
     }
 
-    .input-row input,
     .input-row select {
       flex: 1;
       width: 100%;
@@ -245,6 +244,7 @@
         <div class="submit-area">
           <div class="submit-title">제출하기</div>
           <div class="submit-grid">
+            <!-- 반 목록 수정이 필요하면 아래 option 숫자만 바꾸면 됨 -->
             <div class="input-row">
               <label for="classroom">반</label>
               <select id="classroom">
@@ -262,6 +262,7 @@
               </select>
             </div>
 
+            <!-- 번호 목록 수정이 필요하면 아래 option 숫자만 바꾸면 됨 -->
             <div class="input-row">
               <label for="studentNumber">번호</label>
               <select id="studentNumber">
@@ -314,35 +315,32 @@
     </main>
   </div>
 
-  <iframe name="hidden_iframe" style="display:none;"></iframe>
-
-  <form
-    id="googleForm"
-    action="https://docs.google.com/forms/d/e/1FAIpQLSdylJ-XFRgBLSF8SvM7Hn_6w-NpzJhDnhSBu0vPdOqBhkymIw/formResponse"
-    method="POST"
-    target="hidden_iframe"
-    style="display:none;"
-  >
-    <input type="hidden" name="entry.1342927365" id="formClassroom">
-    <input type="hidden" name="entry.194717561" id="formStudentNumber">
-    <textarea name="entry.668448153" id="formCode" style="display:none;"></textarea>
-    <input type="hidden" name="entry.1180100706" id="formResult">
-  </form>
-
   <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
   <script>
     /************************************************************
-     * 여기만 수정하면 됩니다
+     * [가장 중요] 여기만 수정하면 됩니다
      ************************************************************/
     const CONFIG = {
+      /***********************
+       * 1. 화면 제목/이름
+       ***********************/
       guideTitle: "지침",
       problemTitle: "출력 실습",
       pageTitle: "Python 출력 실습",
 
+      /***********************
+       * 2. 문제 설명
+       * - 학생이 읽는 안내문
+       ***********************/
       instructionText: "아래 안내를 참고하여 레시피를 출력하는 파이썬 프로그램을 작성하세요. 총 5줄을 출력해야 하며, 각 줄은 완전한 영어 문장이어야 합니다.",
       instructionSubText: "각 줄에는 번호가 붙어야 하고, 재료의 양과 시간, 온도 같은 숫자 정보도 정확해야 합니다. 빈칸 문제와 힌트를 보고 직접 완성해 보세요.",
 
+      /***********************
+       * 3. 학생이 채워야 할 문제 틀
+       * - 화면 왼쪽 '작성해야 할 문제' 박스에 보임
+       * - 필요 없으면 showBlankPrompt: false
+       ***********************/
       showBlankPrompt: true,
       blankTitle: "작성해야 할 문제",
       blankPrompt: `1번째 줄: print("1. ________________________________")
@@ -351,6 +349,12 @@
 4번째 줄: print("4. ________________________________")
 5번째 줄: print("5. ________________________________")`,
 
+      /***********************
+       * 4. 힌트 박스
+       * - 학생에게 보여줄 힌트
+       * - 정답 전체를 넣지 말고 힌트만 넣기
+       * - 필요 없으면 showExampleBox: false
+       ***********************/
       showExampleBox: true,
       exampleTitle: "참고 힌트",
       exampleOutput: `1번째 줄: 밀가루 500g, 이스트 10g, 물 300ml를 bowl에 넣는 문장
@@ -359,17 +363,59 @@
 4번째 줄: 2시간 동안 발효시키는 문장
 5번째 줄: 200도에서 30분 굽는 문장`,
 
+      /***********************
+       * 5. 추가 팁 문구
+       ***********************/
       hintText: "팁: print()를 5번 사용해서 각 줄을 직접 완성해 보세요.",
 
+      /***********************
+       * 6. 처음 코드창에 보일 코드
+       * - 비워두면 빈 코드창
+       * - 예시 코드를 넣고 싶으면 여기에 넣기
+       ***********************/
       starterCode: ``,
 
+      /***********************
+       * 7. 채점용 정답
+       * - 학생에게는 안 보임
+       * - 실제 출력 결과와 완전히 같아야 정답 처리됨
+       ***********************/
       expectedOutput: `1. Mix 500g of Flour, 10g Yeast and 300ml Water in a bowl.
 2. Knead the dough for 10 minutes.
 3. Add 3g of Salt.
 4. Leave to rise for 2 hours.
-5. Bake at 200 degrees C for 30 minutes.`
+5. Bake at 200 degrees C for 30 minutes.`,
+
+      /***********************
+       * 8. [차시마다 꼭 바꿔야 하는 부분]
+       * 새 설문지를 만들면 아래 5개를 새 값으로 바꿔야 함
+       *
+       * (1) formBaseUrl
+       *     - 구글 설문지 주소 중 viewform 말고
+       *       formResponse 주소를 넣어야 함
+       *
+       * (2) entryClassroom
+       *     - 반 문항의 entry 번호
+       *
+       * (3) entryStudentNumber
+       *     - 번호 문항의 entry 번호
+       *
+       * (4) entryCode
+       *     - 작성 코드 문항의 entry 번호
+       *
+       * (5) entryResult
+       *     - 적용 여부 문항의 entry 번호
+       ***********************/
+      formBaseUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSdylJ-XFRgBLSF8SvM7Hn_6w-NpzJhDnhSBu0vPdOqBhkymIw/formResponse',
+      entryClassroom: 'entry.1342927365',
+      entryStudentNumber: 'entry.194717561',
+      entryCode: 'entry.668448153',
+      entryResult: 'entry.1180100706'
     };
 
+    /************************************************************
+     * 아래 함수들은 보통 건드리지 않아도 됩니다
+     ************************************************************/
     let latestCheckResult = '미확인';
 
     function applyConfig() {
@@ -495,6 +541,11 @@
       setOutput('여기에 실행 결과와 채점 결과가 표시됩니다.');
     }
 
+    /************************************************************
+     * 제출 함수
+     * - 지금 민지님이 계속 쓰는 "이전 제출 방식" 기준
+     * - 설문지가 섹션 분리되지 않은 형태일 때 사용
+     ************************************************************/
     function submitToGoogleForm() {
       const classroom = document.getElementById('classroom').value.trim();
       const studentNumber = document.getElementById('studentNumber').value.trim();
@@ -511,14 +562,22 @@
         return;
       }
 
-      document.getElementById('formClassroom').value = classroom;
-      document.getElementById('formStudentNumber').value = studentNumber;
-      document.getElementById('formCode').value = code;
-      document.getElementById('formResult').value = result;
+      /************************************************
+       * 구글폼으로 보내는 최종 주소 생성
+       * - 여기 로직은 보통 안 바꿔도 됨
+       ************************************************/
+      const url =
+        CONFIG.formBaseUrl +
+        '?' + CONFIG.entryClassroom + '=' + encodeURIComponent(classroom) +
+        '&' + CONFIG.entryStudentNumber + '=' + encodeURIComponent(studentNumber) +
+        '&' + CONFIG.entryCode + '=' + encodeURIComponent(code) +
+        '&' + CONFIG.entryResult + '=' + encodeURIComponent(result);
 
-      document.getElementById('googleForm').submit();
-
-      alert(`제출되었습니다.\n반: ${classroom}\n번호: ${studentNumber}\n적용 여부: ${result}`);
+      /************************************************
+       * 현재 페이지에서 바로 제출 주소로 이동
+       * - 민지님이 실제로 성공한 방식
+       ************************************************/
+      window.location.href = url;
     }
 
     applyConfig();
