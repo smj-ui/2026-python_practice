@@ -90,41 +90,53 @@
     .header-area {
       background: #1a1f2b;
       border-bottom: 1px solid #2c3445;
+      padding: 0 20px 12px 20px;
+    }
+
+    /* 헤더 제목과 제출 영역이 같은 줄 */
+    .header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 64px;
     }
 
     .topbar {
-      padding: 16px 20px 10px 20px;
+      padding: 16px 0;
       font-weight: 700;
       font-size: 22px;
+      flex: 1;
     }
 
-    /* 상단 헤더 안의 제출 영역 */
+    /* 최종 제출 영역: 헤더 오른쪽 */
     .top-submit-area {
-      padding: 0 20px 16px 20px;
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
-      gap: 12px;
-      border-top: 1px solid rgba(255,255,255,0.06);
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
     .top-submit-title {
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 700;
       color: #f9fafb;
-      margin-right: 8px;
+      margin-right: 4px;
+      white-space: nowrap;
     }
 
     .top-submit-row {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
     .top-submit-row label {
       font-size: 14px;
       font-weight: 700;
       color: #e5e7eb;
+      white-space: nowrap;
     }
 
     .top-submit-row select {
@@ -135,16 +147,15 @@
       color: #f9fafb;
       font-size: 14px;
       outline: none;
-      min-width: 90px;
+      min-width: 88px;
     }
 
     .top-submit-help {
-      width: 100%;
       color: #cbd5e1;
       font-size: 13px;
       line-height: 1.6;
       white-space: pre-wrap;
-      margin-top: 2px;
+      margin-top: 4px;
     }
 
     .tabs {
@@ -232,6 +243,7 @@
     .reset-btn { background: #374151; color: white; }
     .submit-btn { background: #10b981; color: white; }
 
+    /* 결과창: 버튼 바로 아래 */
     .panel {
       border: 1px solid #2c3445;
       border-radius: 16px;
@@ -272,7 +284,13 @@
     @media (max-width: 900px) {
       .app { grid-template-columns: 1fr; }
       .sidebar { border-right: 0; border-bottom: 1px solid #d1d5db; }
-      .top-submit-area { flex-direction: column; align-items: flex-start; }
+      .header-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .top-submit-area {
+        justify-content: flex-start;
+      }
     }
   </style>
 </head>
@@ -305,32 +323,34 @@
       </div>
 
       <div class="hint" id="sidebarTipBox"></div>
-      <div class="mini">교사용 수정 템플릿 (최종 상단 제출 배치 버전)</div>
+      <div class="mini">교사용 수정 템플릿 (헤더 오른쪽 제출 배치 최종본)</div>
     </aside>
 
     <main class="main">
       <div class="header-area">
-        <div class="topbar" id="pageTitle"></div>
+        <div class="header-row">
+          <div class="topbar" id="pageTitle"></div>
 
-        <!-- [수정 없음] 최종과제 탭일 때만 보이는 상단 제출 영역 -->
-        <div id="topSubmitArea" class="top-submit-area hidden">
-          <div class="top-submit-title">최종 제출하기</div>
+          <!-- [수정 없음] 최종과제 탭일 때만 보이는 제출 영역 -->
+          <div id="topSubmitArea" class="top-submit-area hidden">
+            <div class="top-submit-title">최종 제출하기</div>
 
-          <div class="top-submit-row">
-            <label for="topClassroom">반</label>
-            <select id="topClassroom"></select>
+            <div class="top-submit-row">
+              <label for="topClassroom">반</label>
+              <select id="topClassroom"></select>
+            </div>
+
+            <div class="top-submit-row">
+              <label for="topStudentNumber">번호</label>
+              <select id="topStudentNumber"></select>
+            </div>
+
+            <button class="submit-btn" type="button" id="topSubmitBtn">구글폼 제출</button>
           </div>
-
-          <div class="top-submit-row">
-            <label for="topStudentNumber">번호</label>
-            <select id="topStudentNumber"></select>
-          </div>
-
-          <button class="submit-btn" type="button" id="topSubmitBtn">구글폼 제출</button>
-
-          <div class="top-submit-help">최종 과제 탭에서만 제출하세요.
-작성 코드는 자동으로 들어가고, 적용 여부는 이 탭의 정답 확인 결과가 저장됩니다.</div>
         </div>
+
+        <div id="topSubmitHelp" class="top-submit-help hidden">최종 과제 탭에서만 제출하세요.
+작성 코드는 자동으로 들어가고, 적용 여부는 이 탭의 정답 확인 결과가 저장됩니다.</div>
       </div>
 
       <div class="tabs" id="tabsContainer"></div>
@@ -392,8 +412,7 @@
           blankPrompt: `1) 첫 줄에 Hello 출력
 2) 둘째 줄에 Python 출력`,
 
-          /* [수정] 입력 예시 박스
-             input() 없는 문제면 보통 false */
+          /* [수정] 입력 예시 박스 */
           showInputExample: false,
           inputExampleTitle: "입력 예시",
           inputExampleOutput: ``,
@@ -415,16 +434,14 @@ Python`,
           /* [수정] 처음 코드창 내용 */
           starterCode: ``,
 
-          /* [수정] 정답 확인용 입력값
-             input() 없는 문제면 [] */
+          /* [수정] 정답 확인용 입력값 */
           promptInputs: [],
 
           /* [수정] 채점용 정답 */
           expectedOutput: `Hello
 Python`,
 
-          /* [수정] 제출 버튼 표시 여부
-             마지막 제출 문제만 true */
+          /* [수정] 제출 버튼 표시 여부 */
           showSubmit: false
         },
 
@@ -456,10 +473,7 @@ Python`,
           tipText: "실행 버튼을 누르면 작은 입력창이 뜹니다.",
 
           starterCode: ``,
-
-          /* [수정] 정답 확인 시 자동으로 넣을 값 */
           promptInputs: ["민지"],
-
           expectedOutput: `안녕하세요 민지`,
           showSubmit: false
         },
@@ -674,7 +688,9 @@ Python`,
       document.getElementById('sidebarTipBox').textContent = lesson.tipText || '';
 
       const submitArea = document.getElementById('topSubmitArea');
+      const submitHelp = document.getElementById('topSubmitHelp');
       submitArea.classList.toggle('hidden', !lesson.showSubmit);
+      submitHelp.classList.toggle('hidden', !lesson.showSubmit);
     }
 
     function switchTab(index) {
