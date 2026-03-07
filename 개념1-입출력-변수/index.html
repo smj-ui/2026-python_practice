@@ -136,7 +136,8 @@
       color: #f9fafb;
     }
 
-    .input-row input {
+    .input-row input,
+    .input-row select {
       flex: 1;
       width: 100%;
       padding: 12px 14px;
@@ -246,15 +247,58 @@
           <div class="submit-grid">
             <div class="input-row">
               <label for="classroom">반</label>
-              <input type="text" id="classroom" />
+              <select id="classroom">
+                <option value="">선택</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
             </div>
+
             <div class="input-row">
               <label for="studentNumber">번호</label>
-              <input type="text" id="studentNumber" />
+              <select id="studentNumber">
+                <option value="">선택</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+              </select>
             </div>
           </div>
+
           <div class="submit-help">
-            반과 번호를 입력한 뒤 제출하세요. 작성 코드는 자동으로 들어가고, 적용 여부는 정답 확인 결과에 따라 자동으로 저장됩니다.
+            반과 번호를 선택한 뒤 제출하세요. 작성 코드는 자동으로 들어가고, 적용 여부는 정답 확인 결과에 따라 자동으로 저장됩니다.
           </div>
           <button class="submit-btn" onclick="submitToGoogleForm()">구글폼 제출</button>
         </div>
@@ -269,6 +313,21 @@
       </section>
     </main>
   </div>
+
+  <iframe name="hidden_iframe" style="display:none;"></iframe>
+
+  <form
+    id="googleForm"
+    action="https://docs.google.com/forms/d/e/1FAIpQLSdylJ-XFRgBLSF8SvM7Hn_6w-NpzJhDnhSBu0vPdOqBhkymIw/formResponse"
+    method="POST"
+    target="hidden_iframe"
+    style="display:none;"
+  >
+    <input type="hidden" name="entry.1342927365" id="formClassroom">
+    <input type="hidden" name="entry.194717561" id="formStudentNumber">
+    <textarea name="entry.668448153" id="formCode" style="display:none;"></textarea>
+    <input type="hidden" name="entry.1180100706" id="formResult">
+  </form>
 
   <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
@@ -308,13 +367,7 @@
 2. Knead the dough for 10 minutes.
 3. Add 3g of Salt.
 4. Leave to rise for 2 hours.
-5. Bake at 200 degrees C for 30 minutes.`,
-
-      formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSdylJ-XFRgBLSF8SvM7Hn_6w-NpzJhDnhSBu0vPdOqBhkymIw/formResponse',
-      entryClassroom: 'entry.1342927365',
-      entryStudentNumber: 'entry.194717561',
-      entryCode: 'entry.668448153',
-      entryResult: 'entry.1180100706'
+5. Bake at 200 degrees C for 30 minutes.`
     };
 
     let latestCheckResult = '미확인';
@@ -442,41 +495,30 @@
       setOutput('여기에 실행 결과와 채점 결과가 표시됩니다.');
     }
 
-    async function submitToGoogleForm() {
+    function submitToGoogleForm() {
       const classroom = document.getElementById('classroom').value.trim();
       const studentNumber = document.getElementById('studentNumber').value.trim();
       const code = document.getElementById('code').value;
+      const result = latestCheckResult;
 
       if (!classroom || !studentNumber) {
-        alert('반과 번호를 모두 입력하세요.');
+        alert('반과 번호를 모두 선택하세요.');
         return;
       }
 
-      if (latestCheckResult === '미확인') {
+      if (result === '미확인') {
         alert('먼저 정답 확인을 눌러 채점 결과를 만든 뒤 제출하세요.');
         return;
       }
 
-      const params = new URLSearchParams();
-      params.append(CONFIG.entryClassroom, classroom);
-      params.append(CONFIG.entryStudentNumber, studentNumber);
-      params.append(CONFIG.entryCode, code);
-      params.append(CONFIG.entryResult, latestCheckResult);
+      document.getElementById('formClassroom').value = classroom;
+      document.getElementById('formStudentNumber').value = studentNumber;
+      document.getElementById('formCode').value = code;
+      document.getElementById('formResult').value = result;
 
-      try {
-        await fetch(CONFIG.formUrl, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body: params.toString()
-        });
+      document.getElementById('googleForm').submit();
 
-        alert(`제출되었습니다.\n반: ${classroom}\n번호: ${studentNumber}\n적용 여부: ${latestCheckResult}`);
-      } catch (e) {
-        alert('제출 중 문제가 발생했습니다.');
-      }
+      alert(`제출되었습니다.\n반: ${classroom}\n번호: ${studentNumber}\n적용 여부: ${result}`);
     }
 
     applyConfig();
