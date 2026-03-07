@@ -48,8 +48,30 @@
     .reset-btn { background: #374151; color: white; }
     .submit-area { border-top: 1px solid #2c3445; padding: 18px 16px 20px; background: #0f172a; }
     .submit-title { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
-    .submit-grid { display: grid; grid-template-columns: repeat(2, minmax(180px, 260px)); gap: 12px; margin-bottom: 12px; }
-    .submit-grid input { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid #334155; background: #111827; color: #f9fafb; font-size: 16px; outline: none; }
+    .submit-grid { display: grid; grid-template-columns: repeat(2, minmax(220px, 320px)); gap: 12px; margin-bottom: 12px; }
+    .input-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+    }
+    .input-row label {
+      min-width: 42px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #f9fafb;
+    }
+    .input-row input {
+      flex: 1;
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid #334155;
+      background: #111827;
+      color: #f9fafb;
+      font-size: 16px;
+      outline: none;
+    }
     .submit-help { color: #cbd5e1; font-size: 14px; line-height: 1.7; margin-bottom: 12px; }
     .result { background: #0b1020; padding: 20px; overflow: auto; }
     .panel { border: 1px solid #2c3445; border-radius: 16px; overflow: hidden; background: #111827; }
@@ -107,8 +129,14 @@
         <div class="submit-area">
           <div class="submit-title">제출하기</div>
           <div class="submit-grid">
-            <input type="text" id="classroom" placeholder="반 입력 (예: 7반)" />
-            <input type="text" id="studentNumber" placeholder="번호 입력 (예: 27)" />
+            <div class="input-row">
+              <label for="classroom">반</label>
+              <input type="text" id="classroom" />
+            </div>
+            <div class="input-row">
+              <label for="studentNumber">번호</label>
+              <input type="text" id="studentNumber" />
+            </div>
           </div>
           <div class="submit-help">
             반과 번호를 입력한 뒤 제출하세요. 작성 코드는 자동으로 들어가고, 적용 여부는 정답 확인 결과에 따라 자동으로 저장됩니다.
@@ -134,16 +162,13 @@
      * 여기만 수정하면 됩니다
      ************************************************************/
     const CONFIG = {
-      // 1. 화면 제목
       guideTitle: "지침",
       problemTitle: "출력 실습",
       pageTitle: "Python 출력 실습",
 
-      // 2. 문제 설명
       instructionText: "아래 안내를 참고하여 레시피를 출력하는 파이썬 프로그램을 작성하세요. 총 5줄을 출력해야 하며, 각 줄은 완전한 영어 문장이어야 합니다.",
       instructionSubText: "각 줄에는 번호가 붙어야 하고, 재료의 양과 시간, 온도 같은 숫자 정보도 정확해야 합니다. 빈칸 문제와 힌트를 보고 직접 완성해 보세요.",
 
-      // 3. 학생이 채워야 할 문제 틀
       showBlankPrompt: true,
       blankTitle: "작성해야 할 문제",
       blankPrompt: `1번째 줄: print("1. ________________________________")
@@ -152,7 +177,6 @@
 4번째 줄: print("4. ________________________________")
 5번째 줄: print("5. ________________________________")`,
 
-      // 4. 힌트 박스
       showExampleBox: true,
       exampleTitle: "참고 힌트",
       exampleOutput: `1번째 줄: 밀가루 500g, 이스트 10g, 물 300ml를 bowl에 넣는 문장
@@ -161,39 +185,22 @@
 4번째 줄: 2시간 동안 발효시키는 문장
 5번째 줄: 200도에서 30분 굽는 문장`,
 
-      // 5. 추가 팁
       hintText: "팁: print()를 5번 사용해서 각 줄을 직접 완성해 보세요.",
 
-      // 6. 처음 코드창에 보일 내용
       starterCode: ``,
 
-      // 7. 채점용 정답 (학생에게는 안 보임)
       expectedOutput: `1. Mix 500g of Flour, 10g Yeast and 300ml Water in a bowl.
 2. Knead the dough for 10 minutes.
 3. Add 3g of Salt.
 4. Leave to rise for 2 hours.
 5. Bake at 200 degrees C for 30 minutes.`,
 
-      // 8. 구글폼 제출 정보
       formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSdylJ-XFRgBLSF8SvM7Hn_6w-NpzJhDnhSBu0vPdOqBhkymIw/formResponse',
       entryClassroom: 'entry.1342927365',
       entryStudentNumber: 'entry.194717561',
       entryCode: 'entry.668448153',
       entryResult: 'entry.1180100706'
     };
-
-    /*
-    수정 순서
-    1. problemTitle / pageTitle 바꾸기
-    2. instructionText / instructionSubText 바꾸기
-    3. blankPrompt에 학생이 채워야 할 틀 적기
-    4. exampleOutput에 힌트 적기
-    5. hintText 바꾸기
-    6. starterCode 넣거나 비우기
-    7. expectedOutput에 실제 정답 넣기
-    8. 설문지가 바뀌면 formUrl, entry 값 바꾸기
-    */
-    /************************************************************/
 
     let latestCheckResult = '미확인';
 
