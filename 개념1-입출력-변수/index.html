@@ -396,11 +396,11 @@
           tabName: "실습1",
 
           /* [수정] 문제 제목 */
-          title: "출력하기",
+          title: "print()로 출력하기",
 
           /* [수정] 문제 설명 */
-          instructionText: "두 줄을 출력하세요.",
-          instructionSubText: "띄어쓰기와 줄바꿈을 정확히 맞춰야 합니다.",
+          instructionText: "print()는 화면에 내용을 보여 주는 함수이다.",
+          instructionSubText: "문자열은 따옴표로 묶고, 숫자는 그대로 작성한다.",
 
           /* [수정] input() 사용 여부 */
           useInputPrompt: false,
@@ -408,8 +408,8 @@
           /* [수정] 작성해야 할 문제 박스 */
           showBlankPrompt: true,
           blankTitle: "작성해야 할 문제",
-          blankPrompt: `1) 첫 줄에 Hello 출력
-2) 둘째 줄에 Python 출력`,
+          blankPrompt: `1) 첫째 줄에 안녕, 신도고 출력 
+2) 둘째 줄에 2026 출력`,
 
           /* [수정] 입력 예시 박스 */
           showInputExample: false,
@@ -419,8 +419,8 @@
           /* [수정] 출력 예시 박스 */
           showOutputExample: true,
           outputExampleTitle: "출력 예시",
-          outputExampleOutput: `Hello
-Python`,
+          outputExampleOutput: `안녕, 신도고
+2026`,
 
           /* [수정] 힌트 박스 */
           showHintBox: true,
@@ -428,7 +428,7 @@ Python`,
           hintText: `print()를 2번 사용할 수 있음`,
 
           /* [수정] 팁 */
-          tipText: "input() 없이 print()만 사용하세요.",
+          tipText: "print()만 사용하세요.",
 
           /* [수정] 처음 코드창 내용 */
           starterCode: ``,
@@ -437,8 +437,8 @@ Python`,
           promptInputs: [],
 
           /* [수정] 채점용 정답 */
-          expectedOutput: `Hello
-Python`,
+          expectedOutput: `안녕, 신도고
+2026`,
 
           /* [수정] 제출 버튼 표시 여부 */
           showSubmit: false
@@ -510,7 +510,39 @@ Python`,
           expectedOutput: `큰수`,
           showSubmit: false
         },
+       {
+          tabName: "실습4",
+          title: "변수 출력하기",
+          instructionText: "이름을 입력받아 한 줄을 출력하세요.",
+          instructionSubText: "실행하면 작은 입력창이 떠서 값을 입력합니다.",
 
+          useInputPrompt: true,
+
+          showBlankPrompt: true,
+          blankTitle: "작성해야 할 문제",
+          blankPrompt: `1) 이름을 입력받기
+2) "안녕하세요 [이름]" 출력하기`,
+
+          showInputExample: true,
+          inputExampleTitle: "입력 예시",
+          inputExampleOutput: `민지`,
+
+          showOutputExample: true,
+          outputExampleTitle: "출력 예시",
+          outputExampleOutput: `안녕하세요 민지`,
+
+          showHintBox: true,
+          hintTitle: "힌트",
+          hintText: `input() 1번, print() 1번 사용 가능`,
+
+          tipText: "실행 버튼을 누르면 작은 입력창이 뜹니다.",
+
+          starterCode: ``,
+          promptInputs: [],
+          expectedOutput: `안녕하세요 민지`,
+          showSubmit: false
+        },
+        
         {
           tabName: "과제",
           title: "과제",
