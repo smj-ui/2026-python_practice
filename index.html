@@ -1,49 +1,25 @@
-html_content = r'''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>출력 실습 웹페이지</title>
+  <title>파이썬 출력 실습 템플릿</title>
   <style>
     * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
-      background: #0f1117;
-      color: #e5e7eb;
-    }
-    .app {
-      display: grid;
-      grid-template-columns: 340px 1fr;
-      min-height: 100vh;
-    }
-    .sidebar {
-      background: #f7f7f8;
-      color: #1f2937;
-      border-right: 1px solid #d1d5db;
-      padding: 24px 20px;
-      overflow-y: auto;
-    }
-    .sidebar h1 {
-      font-size: 28px;
-      margin: 0 0 20px;
-    }
-    .sidebar h2 {
-      font-size: 22px;
-      margin: 0 0 16px;
-    }
-    .sidebar p {
-      line-height: 1.8;
-      margin: 0 0 14px;
-      font-size: 16px;
-    }
-    .example-box {
-      margin-top: 20px;
+    body { margin: 0; font-family: "Pretendard","Noto Sans KR",Arial,sans-serif; background: #0f1117; color: #e5e7eb; }
+    .app { display: grid; grid-template-columns: 360px 1fr; min-height: 100vh; }
+    .sidebar { background: #f7f7f8; color: #1f2937; border-right: 1px solid #d1d5db; padding: 24px 20px; overflow-y: auto; }
+    .sidebar h1 { font-size: 28px; margin: 0 0 20px; }
+    .sidebar h2 { font-size: 22px; margin: 0 0 16px; }
+    .sidebar h3 { font-size: 16px; margin: 22px 0 10px; color: #374151; }
+    .sidebar p { line-height: 1.8; margin: 0 0 14px; font-size: 16px; }
+    .box {
+      margin-top: 10px;
       background: white;
       border: 1px solid #d1d5db;
       border-radius: 12px;
       padding: 14px;
-      font-family: Consolas, monospace;
+      font-family: Consolas, Monaco, monospace;
       white-space: pre-wrap;
       line-height: 1.8;
       font-size: 14px;
@@ -56,138 +32,34 @@ html_content = r'''<!DOCTYPE html>
       color: #312e81;
       font-size: 15px;
       line-height: 1.7;
+      white-space: pre-wrap;
     }
-    .mini {
-      color: #6b7280;
-      font-size: 14px;
-      margin-top: 10px;
-    }
-    .main {
-      display: grid;
-      grid-template-rows: auto auto 1fr;
-      min-width: 0;
-    }
-    .topbar {
-      padding: 16px 20px;
-      border-bottom: 1px solid #2c3445;
-      background: #1a1f2b;
-      font-weight: 700;
-      font-size: 22px;
-    }
-    .editor-wrap {
-      padding: 0;
-      background: #111827;
-      border-bottom: 1px solid #2c3445;
-    }
-    .editor-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 16px;
-      background: #2b3242;
-      font-size: 18px;
-      font-weight: 700;
-    }
-    .editor {
-      width: 100%;
-      min-height: 320px;
-      resize: vertical;
-      border: 0;
-      outline: none;
-      padding: 18px;
-      background: #000;
-      color: #f9fafb;
-      font-size: 19px;
-      line-height: 1.7;
-      font-family: Consolas, Monaco, monospace;
-      tab-size: 4;
-    }
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      padding: 16px;
-      background: #111827;
-      border-top: 1px solid #2c3445;
-    }
-    button {
-      border: 0;
-      border-radius: 12px;
-      padding: 12px 18px;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-    }
+    .mini { color: #6b7280; font-size: 14px; margin-top: 14px; }
+    .main { display: grid; grid-template-rows: auto auto 1fr; min-width: 0; }
+    .topbar { padding: 16px 20px; border-bottom: 1px solid #2c3445; background: #1a1f2b; font-weight: 700; font-size: 22px; }
+    .editor-wrap { padding: 0; background: #111827; border-bottom: 1px solid #2c3445; }
+    .editor-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: #2b3242; font-size: 18px; font-weight: 700; }
+    .editor { width: 100%; min-height: 320px; resize: vertical; border: 0; outline: none; padding: 18px; background: #000; color: #f9fafb; font-size: 19px; line-height: 1.7; font-family: Consolas, Monaco, monospace; tab-size: 4; }
+    .controls { display: flex; flex-wrap: wrap; gap: 12px; padding: 16px; background: #111827; border-top: 1px solid #2c3445; }
+    button { border: 0; border-radius: 12px; padding: 12px 18px; font-size: 16px; font-weight: 700; cursor: pointer; }
     .run-btn { background: #ffffff; color: #111827; }
     .check-btn { background: #7c3aed; color: white; }
     .submit-btn { background: #10b981; color: white; }
     .reset-btn { background: #374151; color: white; }
-    .submit-area {
-      border-top: 1px solid #2c3445;
-      padding: 18px 16px 20px;
-      background: #0f172a;
-    }
-    .submit-title {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-    .submit-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(180px, 260px));
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-    .submit-grid input {
-      width: 100%;
-      padding: 12px 14px;
-      border-radius: 12px;
-      border: 1px solid #334155;
-      background: #111827;
-      color: #f9fafb;
-      font-size: 16px;
-      outline: none;
-    }
-    .submit-help {
-      color: #cbd5e1;
-      font-size: 14px;
-      line-height: 1.7;
-      margin-bottom: 12px;
-    }
-    .result {
-      background: #0b1020;
-      padding: 20px;
-      overflow: auto;
-    }
-    .panel {
-      border: 1px solid #2c3445;
-      border-radius: 16px;
-      overflow: hidden;
-      background: #111827;
-    }
-    .panel-title {
-      padding: 14px 18px;
-      background: #171e2d;
-      border-bottom: 1px solid #2c3445;
-      font-size: 18px;
-      font-weight: 700;
-    }
-    .status {
-      padding: 16px 18px 0;
-      font-size: 18px;
-      font-weight: 700;
-    }
+    .submit-area { border-top: 1px solid #2c3445; padding: 18px 16px 20px; background: #0f172a; }
+    .submit-title { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+    .submit-grid { display: grid; grid-template-columns: repeat(2, minmax(180px, 260px)); gap: 12px; margin-bottom: 12px; }
+    .submit-grid input { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid #334155; background: #111827; color: #f9fafb; font-size: 16px; outline: none; }
+    .submit-help { color: #cbd5e1; font-size: 14px; line-height: 1.7; margin-bottom: 12px; }
+    .result { background: #0b1020; padding: 20px; overflow: auto; }
+    .panel { border: 1px solid #2c3445; border-radius: 16px; overflow: hidden; background: #111827; }
+    .panel-title { padding: 14px 18px; background: #171e2d; border-bottom: 1px solid #2c3445; font-size: 18px; font-weight: 700; }
+    .status { padding: 16px 18px 0; font-size: 18px; font-weight: 700; }
     .status.pass { color: #34d399; }
     .status.fail { color: #f87171; }
     .status.info { color: #93c5fd; }
-    .log {
-      white-space: pre-wrap;
-      padding: 14px 18px 20px;
-      font-family: Consolas, Monaco, monospace;
-      font-size: 16px;
-      line-height: 1.7;
-      color: #e5e7eb;
-    }
+    .log { white-space: pre-wrap; padding: 14px 18px 20px; font-family: Consolas, Monaco, monospace; font-size: 16px; line-height: 1.7; color: #e5e7eb; }
+    .hidden { display: none; }
     @media (max-width: 900px) {
       .app { grid-template-columns: 1fr; }
       .sidebar { border-right: 0; border-bottom: 1px solid #d1d5db; }
@@ -198,38 +70,34 @@ html_content = r'''<!DOCTYPE html>
 <body>
   <div class="app">
     <aside class="sidebar">
-      <h1>지침</h1>
-      <h2>출력 실습</h2>
-      <p>
-        아래 레시피를 출력하는 파이썬 프로그램을 작성하세요. 예시 출력과 <b>완전히 동일한 5줄</b>이 출력되어야 합니다.
-      </p>
-      <p>
-        모든 텍스트, 대소문자, 쉼표, 마침표, 숫자, 띄어쓰기가 정확히 같아야 정답으로 처리됩니다.
-      </p>
-      <div class="example-box">1. Mix 500g of Flour, 10g Yeast and 300ml Water in a bowl.
-2. Knead the dough for 10 minutes.
-3. Add 3g of Salt.
-4. Leave to rise for 2 hours.
-5. Bake at 200 degrees C for 30 minutes.</div>
-      <div class="hint">
-        팁: 이 문제는 <code>print()</code>를 5번 사용해서 해결할 수 있습니다.
+      <h1 id="guideTitle"></h1>
+      <h2 id="problemTitle"></h2>
+      <p id="instructionText"></p>
+      <p id="instructionSubText"></p>
+
+      <div id="blankSection">
+        <h3 id="blankTitle"></h3>
+        <div class="box" id="blankPrompt"></div>
       </div>
-      <div class="mini">정답 확인 후 설문지로 자동 제출되는 학생용 실습 페이지</div>
+
+      <div id="exampleSection">
+        <h3 id="exampleTitle"></h3>
+        <div class="box" id="exampleOutput"></div>
+      </div>
+
+      <div class="hint" id="hintText"></div>
+      <div class="mini">교사용 수정 템플릿</div>
     </aside>
 
     <main class="main">
-      <div class="topbar">Python 출력 실습</div>
+      <div class="topbar" id="pageTitle"></div>
 
       <section class="editor-wrap">
         <div class="editor-header">
           <span>main.py</span>
           <span>Python 코드 입력</span>
         </div>
-        <textarea id="code" class="editor">print("1. Mix 500g of Flour, 10g Yeast and 300ml Water in a bowl.")
-print("2. Knead the dough for 10 minutes.")
-print("3. Add 3g of Salt.")
-print("4. Leave to rise for 2 hours.")
-print("5. Bake at 200 degrees C for 30 minutes.")</textarea>
+        <textarea id="code" class="editor"></textarea>
         <div class="controls">
           <button class="run-btn" onclick="runCode()">실행</button>
           <button class="check-btn" onclick="checkAnswer()">정답 확인</button>
@@ -243,7 +111,7 @@ print("5. Bake at 200 degrees C for 30 minutes.")</textarea>
             <input type="text" id="studentNumber" placeholder="번호 입력 (예: 27)" />
           </div>
           <div class="submit-help">
-            반과 번호를 입력한 뒤 제출하세요. 작성 코드는 자동으로 들어가고, 적용 여부는 정답 확인 결과에 따라 자동으로 정답 또는 오답으로 저장됩니다.
+            반과 번호를 입력한 뒤 제출하세요. 작성 코드는 자동으로 들어가고, 적용 여부는 정답 확인 결과에 따라 자동으로 저장됩니다.
           </div>
           <button class="submit-btn" onclick="submitToGoogleForm()">구글폼 제출</button>
         </div>
@@ -262,25 +130,100 @@ print("5. Bake at 200 degrees C for 30 minutes.")</textarea>
   <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
   <script>
-    const starterCode = `print("1. Mix 500g of Flour, 10g Yeast and 300ml Water in a bowl.")
-print("2. Knead the dough for 10 minutes.")
-print("3. Add 3g of Salt.")
-print("4. Leave to rise for 2 hours.")
-print("5. Bake at 200 degrees C for 30 minutes.")`;
+    /************************************************************
+     * 여기만 수정하면 됩니다
+     ************************************************************/
+    const CONFIG = {
+      // 1. 화면 제목
+      guideTitle: "지침",
+      problemTitle: "출력 실습",
+      pageTitle: "Python 출력 실습",
 
-    const expectedOutput = `1. Mix 500g of Flour, 10g Yeast and 300ml Water in a bowl.
+      // 2. 문제 설명
+      instructionText: "아래 안내를 참고하여 레시피를 출력하는 파이썬 프로그램을 작성하세요. 총 5줄을 출력해야 하며, 각 줄은 완전한 영어 문장이어야 합니다.",
+      instructionSubText: "각 줄에는 번호가 붙어야 하고, 재료의 양과 시간, 온도 같은 숫자 정보도 정확해야 합니다. 빈칸 문제와 힌트를 보고 직접 완성해 보세요.",
+
+      // 3. 학생이 채워야 할 문제 틀
+      showBlankPrompt: true,
+      blankTitle: "작성해야 할 문제",
+      blankPrompt: `1번째 줄: print("1. ________________________________")
+2번째 줄: print("2. ________________________________")
+3번째 줄: print("3. ________________________________")
+4번째 줄: print("4. ________________________________")
+5번째 줄: print("5. ________________________________")`,
+
+      // 4. 힌트 박스
+      showExampleBox: true,
+      exampleTitle: "참고 힌트",
+      exampleOutput: `1번째 줄: 밀가루 500g, 이스트 10g, 물 300ml를 bowl에 넣는 문장
+2번째 줄: 반죽을 10분 동안 치대는 문장
+3번째 줄: 소금 3g을 추가하는 문장
+4번째 줄: 2시간 동안 발효시키는 문장
+5번째 줄: 200도에서 30분 굽는 문장`,
+
+      // 5. 추가 팁
+      hintText: "팁: print()를 5번 사용해서 각 줄을 직접 완성해 보세요.",
+
+      // 6. 처음 코드창에 보일 내용
+      starterCode: ``,
+
+      // 7. 채점용 정답 (학생에게는 안 보임)
+      expectedOutput: `1. Mix 500g of Flour, 10g Yeast and 300ml Water in a bowl.
 2. Knead the dough for 10 minutes.
 3. Add 3g of Salt.
 4. Leave to rise for 2 hours.
-5. Bake at 200 degrees C for 30 minutes.`;
+5. Bake at 200 degrees C for 30 minutes.`,
 
-    const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdylJ-XFRgBLSF8SvM7Hn_6w-NpzJhDnhSBu0vPdOqBhkymIw/formResponse';
-    const entryClassroom = 'entry.1342927365';
-    const entryStudentNumber = 'entry.194717561';
-    const entryCode = 'entry.668448153';
-    const entryResult = 'entry.1180100706';
+      // 8. 구글폼 제출 정보
+      formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSdylJ-XFRgBLSF8SvM7Hn_6w-NpzJhDnhSBu0vPdOqBhkymIw/formResponse',
+      entryClassroom: 'entry.1342927365',
+      entryStudentNumber: 'entry.194717561',
+      entryCode: 'entry.668448153',
+      entryResult: 'entry.1180100706'
+    };
+
+    /*
+    수정 순서
+    1. problemTitle / pageTitle 바꾸기
+    2. instructionText / instructionSubText 바꾸기
+    3. blankPrompt에 학생이 채워야 할 틀 적기
+    4. exampleOutput에 힌트 적기
+    5. hintText 바꾸기
+    6. starterCode 넣거나 비우기
+    7. expectedOutput에 실제 정답 넣기
+    8. 설문지가 바뀌면 formUrl, entry 값 바꾸기
+    */
+    /************************************************************/
 
     let latestCheckResult = '미확인';
+
+    function applyConfig() {
+      document.getElementById('guideTitle').textContent = CONFIG.guideTitle;
+      document.getElementById('problemTitle').textContent = CONFIG.problemTitle;
+      document.getElementById('pageTitle').textContent = CONFIG.pageTitle;
+      document.getElementById('instructionText').textContent = CONFIG.instructionText;
+      document.getElementById('instructionSubText').textContent = CONFIG.instructionSubText;
+      document.getElementById('hintText').textContent = CONFIG.hintText;
+      document.getElementById('code').value = CONFIG.starterCode;
+
+      const blankSection = document.getElementById('blankSection');
+      if (CONFIG.showBlankPrompt) {
+        blankSection.classList.remove('hidden');
+        document.getElementById('blankTitle').textContent = CONFIG.blankTitle;
+        document.getElementById('blankPrompt').textContent = CONFIG.blankPrompt;
+      } else {
+        blankSection.classList.add('hidden');
+      }
+
+      const exampleSection = document.getElementById('exampleSection');
+      if (CONFIG.showExampleBox) {
+        exampleSection.classList.remove('hidden');
+        document.getElementById('exampleTitle').textContent = CONFIG.exampleTitle;
+        document.getElementById('exampleOutput').textContent = CONFIG.exampleOutput;
+      } else {
+        exampleSection.classList.add('hidden');
+      }
+    }
 
     function setStatus(message, type) {
       const status = document.getElementById('status');
@@ -303,9 +246,7 @@ print("5. Bake at 200 degrees C for 30 minutes.")`;
       let output = '';
       Sk.pre = 'output';
       Sk.configure({
-        output: function(text) {
-          output += text;
-        },
+        output: function(text) { output += text; },
         read: builtinRead,
         __future__: Sk.python3
       });
@@ -347,13 +288,13 @@ print("5. Bake at 200 degrees C for 30 minutes.")`;
         return;
       }
 
-      if (result.output === expectedOutput) {
+      if (result.output === CONFIG.expectedOutput) {
         latestCheckResult = '정답';
-        setStatus('정답입니다! 출력이 예시와 완전히 같습니다.', 'pass');
+        setStatus('정답입니다! 출력이 채점 기준과 일치합니다.', 'pass');
         setOutput(`실행 결과\n\n${result.output}\n\n채점 결과\n정답`);
       } else {
         latestCheckResult = '오답';
-        const expectedLines = expectedOutput.split('\n');
+        const expectedLines = CONFIG.expectedOutput.split('\n');
         const actualLines = result.output.split('\n');
         let feedback = '실행 결과\n\n' + (result.output || '(출력 없음)') + '\n\n채점 결과\n오답\n\n';
         feedback += '비교 안내\n';
@@ -364,7 +305,7 @@ print("5. Bake at 200 degrees C for 30 minutes.")`;
           if (expected === actual) {
             feedback += `${i + 1}번째 줄: 일치\n`;
           } else {
-            feedback += `${i + 1}번째 줄: 다름\n- 정답: ${expected}\n- 작성: ${actual}\n`;
+            feedback += `${i + 1}번째 줄: 다름\n`;
           }
         }
         setStatus('오답입니다. 출력 내용을 다시 확인하세요.', 'fail');
@@ -373,7 +314,7 @@ print("5. Bake at 200 degrees C for 30 minutes.")`;
     }
 
     function resetCode() {
-      document.getElementById('code').value = starterCode;
+      document.getElementById('code').value = CONFIG.starterCode;
       latestCheckResult = '미확인';
       setStatus('코드를 초기 상태로 되돌렸습니다.', 'info');
       setOutput('여기에 실행 결과와 채점 결과가 표시됩니다.');
@@ -395,13 +336,13 @@ print("5. Bake at 200 degrees C for 30 minutes.")`;
       }
 
       const formData = new FormData();
-      formData.append(entryClassroom, classroom);
-      formData.append(entryStudentNumber, studentNumber);
-      formData.append(entryCode, code);
-      formData.append(entryResult, latestCheckResult);
+      formData.append(CONFIG.entryClassroom, classroom);
+      formData.append(CONFIG.entryStudentNumber, studentNumber);
+      formData.append(CONFIG.entryCode, code);
+      formData.append(CONFIG.entryResult, latestCheckResult);
 
       try {
-        await fetch(formUrl, {
+        await fetch(CONFIG.formUrl, {
           method: 'POST',
           mode: 'no-cors',
           body: formData
@@ -412,13 +353,8 @@ print("5. Bake at 200 degrees C for 30 minutes.")`;
         alert('제출 중 문제가 발생했습니다. 인터넷 연결 또는 설문지 설정을 확인하세요.');
       }
     }
+
+    applyConfig();
   </script>
 </body>
 </html>
-'''
-
-path = "/mnt/data/index.html"
-with open(path, "w", encoding="utf-8") as f:
-    f.write(html_content)
-
-print(path)
