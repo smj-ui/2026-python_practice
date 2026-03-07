@@ -323,7 +323,7 @@
       </div>
 
       <div class="hint" id="sidebarTipBox"></div>
-      <div class="mini">교사용 수정 템플릿 (헤더 오른쪽 제출 배치 최종본)</div>
+      <div class="mini">2026년 신도고 1학년 정보수업만을 위해 제작된 페이지입니다.</div>
     </aside>
 
     <main class="main">
@@ -349,8 +349,7 @@
           </div>
         </div>
 
-        <div id="topSubmitHelp" class="top-submit-help hidden">최종 과제 탭에서만 제출하세요.
-작성 코드는 자동으로 들어가고, 적용 여부는 이 탭의 정답 확인 결과가 저장됩니다.</div>
+        <div id="topSubmitHelp" class="top-submit-help hidden">제출 버튼을 눌러 작성한 과제를 제출하세요
       </div>
 
       <div class="tabs" id="tabsContainer"></div>
@@ -369,8 +368,8 @@
       /********************************************************
        * [수정] 1. 전체 페이지 제목
        ********************************************************/
-      guideTitle: "지침",
-      pageTitle: "Python 멀티 실습",
+      guideTitle: "Python",
+      pageTitle: "개념1 - 입출력, 변수",
 
       /********************************************************
        * [수정] 2. 실습 목록
@@ -397,7 +396,7 @@
           tabName: "실습1",
 
           /* [수정] 문제 제목 */
-          title: "출력 실습",
+          title: "실습1 - ",
 
           /* [수정] 문제 설명 */
           instructionText: "두 줄을 출력하세요.",
@@ -473,7 +472,7 @@ Python`,
           tipText: "실행 버튼을 누르면 작은 입력창이 뜹니다.",
 
           starterCode: ``,
-          promptInputs: ["민지"],
+          promptInputs: [],
           expectedOutput: `안녕하세요 민지`,
           showSubmit: false
         },
@@ -507,21 +506,20 @@ Python`,
           tipText: "실행하면 입력창이 뜹니다.",
 
           starterCode: ``,
-          promptInputs: ["12"],
+          promptInputs: [],
           expectedOutput: `큰수`,
           showSubmit: false
         },
 
         {
-          tabName: "최종과제",
-          title: "최종 과제",
+          tabName: "과제",
+          title: "과제",
           instructionText: "이름과 점수를 입력받아 결과를 출력하세요.",
-          instructionSubText: "정답 확인 후 이 탭에서만 최종 제출하세요.",
 
           useInputPrompt: true,
 
           showBlankPrompt: true,
-          blankTitle: "작성해야 할 문제",
+          blankTitle: "문제",
           blankPrompt: `1) 이름 입력받기
 2) 점수 입력받기
 3) 첫 줄: "[이름]님의 점수는 [점수]점입니다." 출력
@@ -538,11 +536,9 @@ Python`,
 합격`,
 
           showHintBox: true,
-          hintTitle: "참고 힌트",
+          hintTitle: "힌트",
           hintText: `input() 2번 사용
 문자열 연결 또는 쉼표 출력 가능`,
-
-          tipText: "이 탭의 정답 확인 결과가 제출됩니다.",
 
           starterCode: ``,
           promptInputs: ["홍길동", "85"],
@@ -705,8 +701,8 @@ Python`,
       });
 
       updateSidebar(index);
-      setStatus(index, `${CONFIG.lessons[index].tabName} 탭으로 이동했습니다.`, 'info');
-      setOutput(index, '여기에 실행 결과와 채점 결과가 표시됩니다.');
+      setStatus(index, `${CONFIG.lessons[index].tabName} 입니다.`, 'info');
+      setOutput(index, '코드를 작성하여 실행 결과와 채점 결과를 확인하세요');
     }
 
     function setStatus(index, message, type) {
