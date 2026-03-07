@@ -399,7 +399,7 @@
           title: "print()로 출력하기",
 
           /* [수정] 문제 설명 */
-          instructionText: "print() 관로 안의 내용을 출력한다.",
+          instructionText: "print() 괄호 안의 내용을 출력한다.",
           instructionText: "문자열은 따옴표로, 숫자는 그대로",
 
           /* [수정] input() 사용 여부 */
@@ -455,8 +455,8 @@
           showBlankPrompt: true,
           blankTitle: "작성해야 할 문제",
           blankPrompt: `1) 변수 a에 "오늘도 코딩하러 오셨군요" 저장하기
-          2) print(a) 작성하기
-          3) print("a") 작성하기`,
+2) print(a) 작성하기
+3) print("a") 작성하기`,
           
           showInputExample: false,
           inputExampleTitle: "",
@@ -465,7 +465,7 @@
           showOutputExample: true,
           outputExampleTitle: "출력 예시",
           outputExampleOutput: `오늘도 코딩하러 오셨군요
-          a`,
+a`,
           
           showHintBox: true,
           hintTitle: "힌트",
@@ -493,10 +493,8 @@
           showBlankPrompt: true,
           blankTitle: "작성해야 할 문제",
           blankPrompt: `1) 변수 name에 "버그사냥꾼" 저장하기
-          2) 변수 값을 넣어 문장으로 출력하기
-             예: 이름: 버그사냥꾼
-             또는 반갑습니다. 버그사냥꾼 입니다.`,
-          
+2) 변수 값을 넣어 문장으로 출력하기
+예: 이름: 버그사냥꾼`        
           showInputExample: false,
           inputExampleTitle: "",
           inputExampleOutput: "",
@@ -508,17 +506,13 @@
           showHintBox: true,
           hintTitle: "힌트",
           hintText: `name = "버그사냥꾼"
-          print("이름:", name)
-          
-          또는
-          
-          name = "버그사냥꾼"
-          print("이름:" + name)
-          
-          또는
-          
-          name = "버그사냥꾼"
-          print(f"반갑습니다. {name} 입니다.")`,
+print("이름:", name)        
+또는     
+name = "버그사냥꾼"
+print("이름:" + name)
+또는
+name = "버그사냥꾼"
+print(f"반갑습니다. {name} 입니다.")`,
           
           tipText: "변수 값을 문장 속에 넣어 출력해 보세요.",
           
@@ -538,8 +532,8 @@
           showBlankPrompt: true,
           blankTitle: "작성해야 할 문제",
           blankPrompt: `1) input()으로 좋아하는 음식을 입력받기
-          2) 입력한 값을 변수 food에 저장하기
-          3) "오늘은 내가 [음식] 요리사" 형태로 출력하기`,
+2) 입력한 값을 변수 food에 저장하기
+3) "오늘은 내가 [음식] 요리사" 형태로 출력하기`,
           
           showInputExample: true,
           inputExampleTitle: "입력 예시",
@@ -573,37 +567,37 @@
           showBlankPrompt: true,
           blankTitle: "작성해야 할 문제",
           blankPrompt: `1) 좋아하는 분야를 입력받아 변수에 저장하기
-        2) 동아리 분위기를 한 단어로 입력받아 변수에 저장하기
-        3) 멋있어 보이는 단어를 입력받아 변수에 저장하기
-        4) "동아리 이름이 생성되었습니다!" 출력하기
-        5) 입력한 세 단어를 활용해 동아리 이름 출력하기`,
+2) 동아리 분위기를 한 단어로 입력받아 변수에 저장하기
+3) 멋있어 보이는 단어를 입력받아 변수에 저장하기
+4) "동아리 이름이 생성되었습니다!" 출력하기
+5) 입력한 세 단어를 활용해 동아리 이름 출력하기`,
         
           showInputExample: true,
           inputExampleTitle: "입력 예시",
           inputExampleOutput: `AI
-        Creative
-        Lab`,
+Creative
+Lab`,
         
           showOutputExample: true,
           outputExampleTitle: "출력 예시",
           outputExampleOutput: `동아리 이름이 생성되었습니다!
-        AI Creative Lab`,
+AI Creative Lab`,
         
           showHintBox: true,
           hintTitle: "힌트",
           hintText: `field = input("좋아하는 분야를 입력하세요: ")
-        mood = input("동아리 분위기를 한 단어로 입력하세요: ")
-        word = input("멋있어 보이는 단어를 입력하세요: ")
-        
-        print("동아리 이름이 생성되었습니다!")
-        print(f"{field} {mood} {word}")`,
+mood = input("동아리 분위기를 한 단어로 입력하세요: ")
+word = input("멋있어 보이는 단어를 입력하세요: ")
+
+print("동아리 이름이 생성되었습니다!")
+print(f"{field} {mood} {word}")`,
         
           tipText: "실행 버튼을 누르면 작은 입력창이 순서대로 3번 뜹니다.",
         
           starterCode: ``,
           promptInputs: [],
           expectedOutput: `동아리 이름이 생성되었습니다!
-        AI Creative Lab`,
+AI Creative Lab`,
           showSubmit: true
       }
       ],
