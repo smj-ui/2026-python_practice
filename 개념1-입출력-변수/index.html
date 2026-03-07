@@ -3,16 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>파이썬 출력 실습 템플릿</title>
+  <title>파이썬 실습 템플릿</title>
   <style>
     * { box-sizing: border-box; }
-    body { margin: 0; font-family: "Pretendard","Noto Sans KR",Arial,sans-serif; background: #0f1117; color: #e5e7eb; }
-    .app { display: grid; grid-template-columns: 360px 1fr; min-height: 100vh; }
-    .sidebar { background: #f7f7f8; color: #1f2937; border-right: 1px solid #d1d5db; padding: 24px 20px; overflow-y: auto; }
-    .sidebar h1 { font-size: 28px; margin: 0 0 20px; }
-    .sidebar h2 { font-size: 22px; margin: 0 0 16px; }
-    .sidebar h3 { font-size: 16px; margin: 22px 0 10px; color: #374151; }
-    .sidebar p { line-height: 1.8; margin: 0 0 14px; font-size: 16px; }
+
+    body {
+      margin: 0;
+      font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
+      background: #0f1117;
+      color: #e5e7eb;
+    }
+
+    .app {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      background: #f7f7f8;
+      color: #1f2937;
+      border-right: 1px solid #d1d5db;
+      padding: 24px 20px;
+      overflow-y: auto;
+    }
+
+    .sidebar h1 {
+      font-size: 28px;
+      margin: 0 0 20px;
+    }
+
+    .sidebar h2 {
+      font-size: 22px;
+      margin: 0 0 16px;
+    }
+
+    .sidebar h3 {
+      font-size: 16px;
+      margin: 22px 0 10px;
+      color: #374151;
+    }
+
+    .sidebar p {
+      line-height: 1.8;
+      margin: 0 0 14px;
+      font-size: 16px;
+    }
 
     .box {
       margin-top: 10px;
@@ -37,9 +73,17 @@
       white-space: pre-wrap;
     }
 
-    .mini { color: #6b7280; font-size: 14px; margin-top: 14px; }
+    .mini {
+      color: #6b7280;
+      font-size: 14px;
+      margin-top: 14px;
+    }
 
-    .main { display: grid; grid-template-rows: auto auto 1fr; min-width: 0; }
+    .main {
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+      min-width: 0;
+    }
 
     .topbar {
       padding: 16px 20px;
@@ -67,7 +111,7 @@
 
     .editor {
       width: 100%;
-      min-height: 320px;
+      min-height: 280px;
       resize: vertical;
       border: 0;
       outline: none;
@@ -78,6 +122,42 @@
       line-height: 1.7;
       font-family: Consolas, Monaco, monospace;
       tab-size: 4;
+    }
+
+    .input-data-wrap {
+      border-top: 1px solid #2c3445;
+      background: #0b1220;
+      padding: 16px;
+    }
+
+    .input-data-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #e5e7eb;
+    }
+
+    .input-data-desc {
+      font-size: 14px;
+      color: #cbd5e1;
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    .input-data {
+      width: 100%;
+      min-height: 100px;
+      resize: vertical;
+      border: 1px solid #334155;
+      outline: none;
+      padding: 14px;
+      border-radius: 12px;
+      background: #020617;
+      color: #f9fafb;
+      font-size: 16px;
+      line-height: 1.6;
+      font-family: Consolas, Monaco, monospace;
+      white-space: pre-wrap;
     }
 
     .controls {
@@ -222,8 +302,13 @@
         <div class="box" id="exampleOutput"></div>
       </div>
 
+      <div id="inputExampleSection">
+        <h3 id="inputExampleTitle"></h3>
+        <div class="box" id="inputExampleOutput"></div>
+      </div>
+
       <div class="hint" id="hintText"></div>
-      <div class="mini">교사용 수정 템플릿</div>
+      <div class="mini">교사용 수정 템플릿 (input 사용/미사용 겸용)</div>
     </aside>
 
     <main class="main">
@@ -234,7 +319,15 @@
           <span>main.py</span>
           <span>Python 코드 입력</span>
         </div>
+
         <textarea id="code" class="editor"></textarea>
+
+        <div class="input-data-wrap" id="inputDataWrap">
+          <div class="input-data-title">입력 데이터</div>
+          <div class="input-data-desc" id="inputDataDesc"></div>
+          <textarea id="inputData" class="input-data"></textarea>
+        </div>
+
         <div class="controls">
           <button class="run-btn" onclick="runCode()">실행</button>
           <button class="check-btn" onclick="checkAnswer()">정답 확인</button>
@@ -244,7 +337,7 @@
         <div class="submit-area">
           <div class="submit-title">제출하기</div>
           <div class="submit-grid">
-            <!-- 반 목록 수정이 필요하면 아래 option 숫자만 바꾸면 됨 -->
+            <!-- 반 목록 수정 필요 시 option 숫자만 수정 -->
             <div class="input-row">
               <label for="classroom">반</label>
               <select id="classroom">
@@ -262,7 +355,7 @@
               </select>
             </div>
 
-            <!-- 번호 목록 수정이 필요하면 아래 option 숫자만 바꾸면 됨 -->
+            <!-- 번호 목록 수정 필요 시 option 숫자만 수정 -->
             <div class="input-row">
               <label for="studentNumber">번호</label>
               <select id="studentNumber">
@@ -319,92 +412,123 @@
   <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
   <script>
     /************************************************************
-     * [가장 중요] 여기만 수정하면 됩니다
+     * [매번 수정하는 핵심 영역]
+     * 차시 바뀔 때 보통 여기만 수정하면 됩니다
      ************************************************************/
     const CONFIG = {
       /***********************
-       * 1. 화면 제목/이름
+       * 1. 화면 제목
        ***********************/
       guideTitle: "지침",
-      problemTitle: "출력 실습",
-      pageTitle: "Python 출력 실습",
+      problemTitle: "입력 + 출력 실습",
+      pageTitle: "Python 입력/출력 실습",
 
       /***********************
        * 2. 문제 설명
-       * - 학생이 읽는 안내문
        ***********************/
-      instructionText: "아래 안내를 참고하여 레시피를 출력하는 파이썬 프로그램을 작성하세요. 총 5줄을 출력해야 하며, 각 줄은 완전한 영어 문장이어야 합니다.",
-      instructionSubText: "각 줄에는 번호가 붙어야 하고, 재료의 양과 시간, 온도 같은 숫자 정보도 정확해야 합니다. 빈칸 문제와 힌트를 보고 직접 완성해 보세요.",
+      instructionText: "아래 안내를 참고하여 프로그램을 작성하세요.",
+      instructionSubText: "출력 형식, 띄어쓰기, 줄바꿈을 정확하게 맞춰야 합니다.",
 
       /***********************
-       * 3. 학생이 채워야 할 문제 틀
-       * - 화면 왼쪽 '작성해야 할 문제' 박스에 보임
-       * - 필요 없으면 showBlankPrompt: false
+       * 3. input() 사용 여부
+       *
+       * [중요]
+       * input()을 사용하는 차시:
+       *   useInputBox: true
+       *
+       * input()을 사용하지 않는 차시(출력만 하는 차시):
+       *   useInputBox: false
+       *
+       * false로 바꾸면:
+       * - 입력 데이터 칸이 화면에서 사라짐
+       * - 입력 예시 박스도 숨길 수 있음
+       ***********************/
+      useInputBox: true,
+
+      /***********************
+       * 4. 학생이 채워야 할 문제 틀
+       * 필요 없으면 showBlankPrompt: false
        ***********************/
       showBlankPrompt: true,
       blankTitle: "작성해야 할 문제",
-      blankPrompt: `1번째 줄: print("1. ________________________________")
-2번째 줄: print("2. ________________________________")
-3번째 줄: print("3. ________________________________")
-4번째 줄: print("4. ________________________________")
-5번째 줄: print("5. ________________________________")`,
+      blankPrompt: `1) 첫 줄에서 이름을 입력받기
+2) 둘째 줄에서 과목을 입력받기
+3) "안녕하세요, [이름]님" 출력하기
+4) "[과목] 과목을 좋아하는군요." 출력하기`,
 
       /***********************
-       * 4. 힌트 박스
-       * - 학생에게 보여줄 힌트
-       * - 정답 전체를 넣지 말고 힌트만 넣기
-       * - 필요 없으면 showExampleBox: false
+       * 5. 힌트 박스
+       * 정답 전체 말고 힌트만 넣기
+       * 필요 없으면 showExampleBox: false
        ***********************/
       showExampleBox: true,
       exampleTitle: "참고 힌트",
-      exampleOutput: `1번째 줄: 밀가루 500g, 이스트 10g, 물 300ml를 bowl에 넣는 문장
-2번째 줄: 반죽을 10분 동안 치대는 문장
-3번째 줄: 소금 3g을 추가하는 문장
-4번째 줄: 2시간 동안 발효시키는 문장
-5번째 줄: 200도에서 30분 굽는 문장`,
+      exampleOutput: `- input()을 2번 사용할 수 있음
+- print()를 2번 사용할 수 있음
+- 문자열과 입력값을 함께 출력해야 함`,
 
       /***********************
-       * 5. 추가 팁 문구
+       * 6. 입력 예시 박스
+       * input()을 쓰는 차시에서 학생에게 예시 입력값을 보여주고 싶을 때 사용
+       *
+       * input()을 안 쓰는 차시라면:
+       * - showInputExample: false 로 바꾸기 권장
        ***********************/
-      hintText: "팁: print()를 5번 사용해서 각 줄을 직접 완성해 보세요.",
+      showInputExample: true,
+      inputExampleTitle: "입력 예시",
+      inputExampleOutput: `홍길동
+수학`,
 
       /***********************
-       * 6. 처음 코드창에 보일 코드
-       * - 비워두면 빈 코드창
-       * - 예시 코드를 넣고 싶으면 여기에 넣기
+       * 7. 입력 데이터 칸 안내문
+       * input()을 쓰는 차시에만 의미 있음
+       ***********************/
+      inputDataDescription: "input()으로 읽을 값을 한 줄에 하나씩 입력하세요.",
+
+      /***********************
+       * 8. 처음 코드창에 보일 내용
+       * 비워두면 빈 코드창
        ***********************/
       starterCode: ``,
 
       /***********************
-       * 7. 채점용 정답
-       * - 학생에게는 안 보임
-       * - 실제 출력 결과와 완전히 같아야 정답 처리됨
+       * 9. 입력 데이터 칸 기본값
+       *
+       * input()을 쓰는 차시:
+       *   예시 입력값 넣기 가능
+       *
+       * input()을 안 쓰는 차시:
+       *   그냥 `` 로 비워두기
        ***********************/
-      expectedOutput: `1. Mix 500g of Flour, 10g Yeast and 300ml Water in a bowl.
-2. Knead the dough for 10 minutes.
-3. Add 3g of Salt.
-4. Leave to rise for 2 hours.
-5. Bake at 200 degrees C for 30 minutes.`,
+      starterInputData: `홍길동
+수학`,
 
       /***********************
-       * 8. [차시마다 꼭 바꿔야 하는 부분]
-       * 새 설문지를 만들면 아래 5개를 새 값으로 바꿔야 함
+       * 10. 채점용 정답 출력
+       * 학생에게는 안 보임
+       ***********************/
+      expectedOutput: `안녕하세요, 홍길동님
+수학 과목을 좋아하는군요.`,
+
+      /***********************
+       * 11. [차시마다 설문지 바꿀 때 꼭 수정]
        *
-       * (1) formBaseUrl
-       *     - 구글 설문지 주소 중 viewform 말고
-       *       formResponse 주소를 넣어야 함
+       * 새 구글 설문지를 만들면 아래 5개를 새 값으로 바꿔야 함
        *
-       * (2) entryClassroom
-       *     - 반 문항의 entry 번호
+       * formBaseUrl:
+       *   응답자 링크(viewform)에서 마지막을 formResponse로 바꾼 주소
        *
-       * (3) entryStudentNumber
-       *     - 번호 문항의 entry 번호
+       * entryClassroom:
+       *   반 문항의 entry 번호
        *
-       * (4) entryCode
-       *     - 작성 코드 문항의 entry 번호
+       * entryStudentNumber:
+       *   번호 문항의 entry 번호
        *
-       * (5) entryResult
-       *     - 적용 여부 문항의 entry 번호
+       * entryCode:
+       *   작성 코드 문항의 entry 번호
+       *
+       * entryResult:
+       *   적용 여부 문항의 entry 번호
        ***********************/
       formBaseUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSdylJ-XFRgBLSF8SvM7Hn_6w-NpzJhDnhSBu0vPdOqBhkymIw/formResponse',
       entryClassroom: 'entry.1342927365',
@@ -414,7 +538,7 @@
     };
 
     /************************************************************
-     * 아래 함수들은 보통 건드리지 않아도 됩니다
+     * 아래는 보통 수정하지 않아도 되는 실행 로직
      ************************************************************/
     let latestCheckResult = '미확인';
 
@@ -426,6 +550,8 @@
       document.getElementById('instructionSubText').textContent = CONFIG.instructionSubText;
       document.getElementById('hintText').textContent = CONFIG.hintText;
       document.getElementById('code').value = CONFIG.starterCode;
+      document.getElementById('inputData').value = CONFIG.starterInputData;
+      document.getElementById('inputDataDesc').textContent = CONFIG.inputDataDescription;
 
       const blankSection = document.getElementById('blankSection');
       if (CONFIG.showBlankPrompt) {
@@ -443,6 +569,22 @@
         document.getElementById('exampleOutput').textContent = CONFIG.exampleOutput;
       } else {
         exampleSection.classList.add('hidden');
+      }
+
+      const inputExampleSection = document.getElementById('inputExampleSection');
+      if (CONFIG.useInputBox && CONFIG.showInputExample) {
+        inputExampleSection.classList.remove('hidden');
+        document.getElementById('inputExampleTitle').textContent = CONFIG.inputExampleTitle;
+        document.getElementById('inputExampleOutput').textContent = CONFIG.inputExampleOutput;
+      } else {
+        inputExampleSection.classList.add('hidden');
+      }
+
+      const inputDataWrap = document.getElementById('inputDataWrap');
+      if (CONFIG.useInputBox) {
+        inputDataWrap.classList.remove('hidden');
+      } else {
+        inputDataWrap.classList.add('hidden');
       }
     }
 
@@ -463,13 +605,37 @@
       return Sk.builtinFiles['files'][x];
     }
 
+    function getInputLines() {
+      if (!CONFIG.useInputBox) return [];
+      const raw = document.getElementById('inputData').value;
+      if (!raw) return [];
+      return raw.replace(/\r/g, '').split('\n');
+    }
+
     async function executePython(code) {
       let output = '';
+      const inputLines = getInputLines();
+      let inputIndex = 0;
+
       Sk.pre = 'output';
       Sk.configure({
-        output: function(text) { output += text; },
+        output: function(text) {
+          output += text;
+        },
         read: builtinRead,
-        __future__: Sk.python3
+        __future__: Sk.python3,
+        inputfun: function(promptText) {
+          if (!CONFIG.useInputBox) {
+            return Promise.resolve('');
+          }
+          if (inputIndex >= inputLines.length) {
+            return Promise.resolve('');
+          }
+          const value = inputLines[inputIndex];
+          inputIndex += 1;
+          return Promise.resolve(value);
+        },
+        inputfunTakesPrompt: true
       });
 
       try {
@@ -536,6 +702,7 @@
 
     function resetCode() {
       document.getElementById('code').value = CONFIG.starterCode;
+      document.getElementById('inputData').value = CONFIG.starterInputData;
       latestCheckResult = '미확인';
       setStatus('코드를 초기 상태로 되돌렸습니다.', 'info');
       setOutput('여기에 실행 결과와 채점 결과가 표시됩니다.');
@@ -543,8 +710,8 @@
 
     /************************************************************
      * 제출 함수
-     * - 지금 민지님이 계속 쓰는 "이전 제출 방식" 기준
-     * - 설문지가 섹션 분리되지 않은 형태일 때 사용
+     * - 민지님이 계속 쓰는 "이전 제출 방식" 기준
+     * - 섹션 안 나눈 구글 설문지 기준
      ************************************************************/
     function submitToGoogleForm() {
       const classroom = document.getElementById('classroom').value.trim();
@@ -562,10 +729,6 @@
         return;
       }
 
-      /************************************************
-       * 구글폼으로 보내는 최종 주소 생성
-       * - 여기 로직은 보통 안 바꿔도 됨
-       ************************************************/
       const url =
         CONFIG.formBaseUrl +
         '?' + CONFIG.entryClassroom + '=' + encodeURIComponent(classroom) +
@@ -573,10 +736,6 @@
         '&' + CONFIG.entryCode + '=' + encodeURIComponent(code) +
         '&' + CONFIG.entryResult + '=' + encodeURIComponent(result);
 
-      /************************************************
-       * 현재 페이지에서 바로 제출 주소로 이동
-       * - 민지님이 실제로 성공한 방식
-       ************************************************/
       window.location.href = url;
     }
 
