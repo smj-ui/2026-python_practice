@@ -382,7 +382,8 @@ const CONFIG = {
 3) 3.5의 자료형 출력하기
 4) False의 자료형 출력하기
 5) "Hello"의 첫 글자 출력하기
-6) "Hello"의 마지막 글자 출력하기`,
+6) "Hello"의 다섯번째 글자 출력하기
+7) "Hello"의 마지막 글자 출력하기`,
 
       showInputExample: false,
       inputExampleTitle: "입력",
@@ -412,6 +413,7 @@ o`,
 <class 'float'>
 <class 'bool'>
 H
+o
 o`,
       showSubmit: false
     },
@@ -426,10 +428,11 @@ o`,
 
       showBlankPrompt: true,
       blankTitle: "작성해야 할 문제",
-      blankPrompt: `1) "123" + "345" 출력하기
-2) 123 + 345 출력하기
-3) "7" + "3" 출력하기
-4) 7 + 3 출력하기`,
+      blankPrompt: `1) "치킨" + "버거" 출력하기
+2) "123" + "345" 출력하기
+3) 123 + 345 출력하기
+4) "7" + "3" 출력하기
+5) 7 + 3 출력하기`,
 
       showInputExample: false,
       inputExampleTitle: "입력",
@@ -437,7 +440,8 @@ o`,
 
       showOutputExample: true,
       outputExampleTitle: "출력 결과",
-      outputExampleOutput: `123345
+      outputExampleOutput: `치킨버거
+123345
 468
 73
 10`,
@@ -527,13 +531,11 @@ o`,
       showBlankPrompt: true,
       blankTitle: "작성해야 할 문제",
       blankPrompt: `1) "hello"의 길이 출력하기
-2) "123"의 자료형 출력하기
-3) 123의 자료형 출력하기
-4) "12" + "5" 출력하기
-5) int("12") + int("5") 출력하기
-6) food = "떡볶이", price = "12000" 저장하기
-7) f-string으로 음식 문장 출력하기
-8) f-string으로 가격 문장 출력하기`,
+2) "12" + "5" 출력하기
+3) int("12") + int("5") 출력하기
+4-1) food = "떡볶이", price = "12000" 저장하기
+4-2) f-string으로 음식 문장 출력하기
+4-3) f-string으로 가격 문장 출력하기`,
 
       showInputExample: false,
       inputExampleTitle: "입력",
@@ -542,8 +544,6 @@ o`,
       showOutputExample: true,
       outputExampleTitle: "출력 결과",
       outputExampleOutput: `5
-<class 'str'>
-<class 'int'>
 125
 17
 오늘 먹고 싶은 음식은 떡볶이입니다.
@@ -561,8 +561,6 @@ o`,
       starterCode: ``,
       promptInputs: [],
       expectedOutput: `5
-<class 'str'>
-<class 'int'>
 125
 17
 오늘 먹고 싶은 음식은 떡볶이입니다.
@@ -580,16 +578,10 @@ o`,
 
       showBlankPrompt: true,
       blankTitle: "작성해야 할 문제",
-      blankPrompt: `1) snack 변수에 "떡볶이" 저장하기
+      blankPrompt: `1) snack 변수에 "신전A세트" 저장하기
 2) price 변수에 "12000" 저장하기
 3) people 변수에 3 저장하기
-4) snack의 자료형 출력하기
-5) price의 자료형 출력하기
-6) 간식 이름의 글자 수 구하기
-7) price를 계산 가능한 자료형으로 바꾸기
-8) 1인당 금액 계산하기
-9) f-string으로 글자 수 문장 출력하기
-10) f-string으로 1인당 금액 문장 출력하기`,
+ `,
 
       showInputExample: false,
       inputExampleTitle: "입력 예시",
@@ -597,27 +589,17 @@ o`,
 
       showOutputExample: true,
       outputExampleTitle: "출력 결과",
-      outputExampleOutput: `<class 'str'>
-<class 'str'>
-떡볶이는 글자 수가 3글자입니다.
-1인당 내야 할 금액은 4000원입니다.`,
+      outputExampleOutput: `1인당 내야 할 금액은 4000원입니다.`,
 
       showHintBox: true,
       hintTitle: "힌트",
-      hintText: `- snack, price, people 변수를 먼저 만들어 보기
-- 글자 수는 len()으로 구할 수 있음
-- price는 문자열이라 계산 전에 바꿔야 함
-- 1인당 금액은 전체 가격을 사람 수로 나누면 됨
-- 마지막 두 문장은 f-string으로 출력 가능`,
+      hintText: `- 12000원을 3명에서 나눠내면 어떻게 될까요?`,
 
       tipText: "이번 과제는 정답 확인 후 제출하세요.",
 
       starterCode: ``,
       promptInputs: [],
-      expectedOutput: `<class 'str'>
-<class 'str'>
-떡볶이는 글자 수가 3글자입니다.
-1인당 내야 할 금액은 4000원입니다.`,
+      expectedOutput: `1인당 내야 할 금액은 4000원입니다.`,
       showSubmit: true
     }
   ],
