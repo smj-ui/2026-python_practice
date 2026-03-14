@@ -1,1 +1,1021 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>파이썬 실습</title>
+  <style>
+    * { box-sizing: border-box; }
 
+    body {
+      margin: 0;
+      font-family: "Pretendard","Noto Sans KR",Arial,sans-serif;
+      background: #0f1117;
+      color: #e5e7eb;
+    }
+
+    .app {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      background: #f7f7f8;
+      color: #1f2937;
+      border-right: 1px solid #d1d5db;
+      padding: 24px 20px;
+      overflow-y: auto;
+    }
+
+    .sidebar h1 {
+      font-size: 28px;
+      margin: 0 0 20px;
+    }
+
+    .sidebar h2 {
+      font-size: 22px;
+      margin: 0 0 16px;
+    }
+
+    .sidebar h3 {
+      font-size: 16px;
+      margin: 22px 0 10px;
+      color: #374151;
+    }
+
+    .sidebar p {
+      line-height: 1.8;
+      margin: 0 0 14px;
+      font-size: 16px;
+      white-space: pre-wrap;
+    }
+
+    .box {
+      margin-top: 10px;
+      background: white;
+      border: 1px solid #d1d5db;
+      border-radius: 12px;
+      padding: 14px;
+      font-family: Consolas, Monaco, monospace;
+      white-space: pre-wrap;
+      line-height: 1.8;
+      font-size: 14px;
+    }
+
+    .hint {
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 12px;
+      background: #eef2ff;
+      color: #312e81;
+      font-size: 15px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+
+    .mini {
+      color: #6b7280;
+      font-size: 14px;
+      margin-top: 14px;
+    }
+
+    .main {
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+      min-width: 0;
+    }
+
+    .header-area {
+      background: #1a1f2b;
+      border-bottom: 1px solid #2c3445;
+      padding: 0 20px 12px 20px;
+    }
+
+    .header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 64px;
+    }
+
+    .topbar {
+      padding: 16px 0;
+      font-weight: 700;
+      font-size: 22px;
+      flex: 1;
+    }
+
+    .top-submit-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .top-submit-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #f9fafb;
+      margin-right: 4px;
+      white-space: nowrap;
+    }
+
+    .top-submit-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .top-submit-row label {
+      font-size: 14px;
+      font-weight: 700;
+      color: #e5e7eb;
+      white-space: nowrap;
+    }
+
+    .top-submit-row select {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      background: #111827;
+      color: #f9fafb;
+      font-size: 14px;
+      outline: none;
+      min-width: 88px;
+    }
+
+    .top-submit-help {
+      color: #cbd5e1;
+      font-size: 13px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      margin-top: 4px;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 14px 16px;
+      background: #111827;
+      border-bottom: 1px solid #2c3445;
+    }
+
+    .tab-btn {
+      border: 0;
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      background: #374151;
+      color: white;
+    }
+
+    .tab-btn.active {
+      background: #7c3aed;
+    }
+
+    .lesson-panel {
+      display: none;
+    }
+
+    .lesson-panel.active {
+      display: block;
+    }
+
+    .editor-wrap {
+      background: #111827;
+      border-bottom: 1px solid #2c3445;
+    }
+
+    .editor-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: #2b3242;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .editor {
+      width: 100%;
+      min-height: 320px;
+      resize: vertical;
+      border: 0;
+      outline: none;
+      padding: 18px;
+      background: #000;
+      color: #f9fafb;
+      font-size: 19px;
+      line-height: 1.7;
+      font-family: Consolas, Monaco, monospace;
+      tab-size: 4;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 16px;
+      background: #111827;
+      border-top: 1px solid #2c3445;
+    }
+
+    button {
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .run-btn { background: #ffffff; color: #111827; }
+    .check-btn { background: #7c3aed; color: white; }
+    .reset-btn { background: #374151; color: white; }
+    .submit-btn { background: #10b981; color: white; }
+
+    .panel {
+      border: 1px solid #2c3445;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #111827;
+      margin: 0 16px 16px 16px;
+    }
+
+    .panel-title {
+      padding: 14px 18px;
+      background: #171e2d;
+      border-bottom: 1px solid #2c3445;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .status {
+      padding: 16px 18px 0;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .status.pass { color: #34d399; }
+    .status.fail { color: #f87171; }
+    .status.info { color: #93c5fd; }
+
+    .log {
+      white-space: pre-wrap;
+      padding: 14px 18px 20px;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #e5e7eb;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 900px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar { border-right: 0; border-bottom: 1px solid #d1d5db; }
+      .header-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .top-submit-area {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <h1 id="guideTitle"></h1>
+      <h2 id="sidebarLessonTitle"></h2>
+      <p id="sidebarInstruction"></p>
+      <p id="sidebarInstructionSub"></p>
+
+      <div id="sidebarBlankSection">
+        <h3 id="sidebarBlankTitle"></h3>
+        <div class="box" id="sidebarBlankBox"></div>
+      </div>
+
+      <div id="sidebarInputExampleSection">
+        <h3 id="sidebarInputExampleTitle"></h3>
+        <div class="box" id="sidebarInputExampleBox"></div>
+      </div>
+
+      <div id="sidebarOutputExampleSection">
+        <h3 id="sidebarOutputExampleTitle"></h3>
+        <div class="box" id="sidebarOutputExampleBox"></div>
+      </div>
+
+      <div id="sidebarHintSection">
+        <h3 id="sidebarHintTitle"></h3>
+        <div class="box" id="sidebarHintBox"></div>
+      </div>
+
+      <div class="hint" id="sidebarTipBox"></div>
+      <div class="mini">2026년 신도고 1학년 정보수업</div>
+    </aside>
+
+    <main class="main">
+      <div class="header-area">
+        <div class="header-row">
+          <div class="topbar" id="pageTitle"></div>
+
+          <div id="topSubmitArea" class="top-submit-area hidden">
+            <div class="top-submit-title">최종 제출하기</div>
+
+            <div class="top-submit-row">
+              <label for="topClassroom">반</label>
+              <select id="topClassroom"></select>
+            </div>
+
+            <div class="top-submit-row">
+              <label for="topStudentNumber">번호</label>
+              <select id="topStudentNumber"></select>
+            </div>
+
+            <button class="submit-btn" type="button" id="topSubmitBtn">구글폼 제출</button>
+          </div>
+        </div>
+
+        <div id="topSubmitHelp" class="top-submit-help hidden">제출 버튼을 눌러 작성한 과제를 제출하세요</div>
+      </div>
+
+      <div class="tabs" id="tabsContainer"></div>
+      <div id="panelsContainer"></div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
+
+  <script>
+    const CONFIG = {
+      guideTitle: "Python",
+      pageTitle: "개념3 - 변수와 리스트",
+
+      lessons: [
+        {
+          tabName: "실습1",
+          title: "변수 값 다시 저장하기",
+          instructionText: "변수는 값을 기억하는 공간입니다.",
+          instructionSubText: "변수에는 한 시점에 하나의 값이 저장되며, 새 값을 넣으면 이전 값은 바뀝니다.",
+
+          useInputPrompt: false,
+
+          showBlankPrompt: true,
+          blankTitle: "작성해야 할 문제",
+          blankPrompt: `1) joke 변수에 "왕이 넘어지면?" 저장하기
+2) print(joke) 작성하기
+3) joke 변수에 "킹콩" 다시 저장하기
+4) print(joke) 작성하기`,
+
+          showInputExample: false,
+          inputExampleTitle: "",
+          inputExampleOutput: "",
+
+          showOutputExample: true,
+          outputExampleTitle: "출력 결과",
+          outputExampleOutput: `왕이 넘어지면?
+킹콩`,
+
+          showHintBox: true,
+          hintTitle: "힌트",
+          hintText: `같은 변수 joke에 다른 값을 다시 넣어보세요.`,
+
+          tipText: "같은 변수 이름을 다시 사용하면 값이 바뀝니다.",
+          starterCode: ``,
+          promptInputs: [],
+          expectedOutput: `왕이 넘어지면?
+킹콩`,
+          showSubmit: false
+        },
+
+        {
+          tabName: "실습2",
+          title: "변수 이름 바르게 쓰기",
+          instructionText: "변수 이름은 규칙에 맞고 의미가 잘 드러나게 쓰는 것이 좋습니다.",
+          instructionSubText: "문자, 숫자, 밑줄(_)은 사용할 수 있지만 숫자로 시작하거나 띄어쓰기를 쓰면 안 됩니다.",
+
+          useInputPrompt: false,
+
+          showBlankPrompt: true,
+          blankTitle: "작성해야 할 문제",
+          blankPrompt: `1) joke_q 변수에 "자동차가 웃으면?" 저장하기
+2) joke_a 변수에 "카톡" 저장하기
+3) print(f"{joke_q}: {joke_a}") 작성하기`,
+
+          showInputExample: false,
+          inputExampleTitle: "",
+          inputExampleOutput: "",
+
+          showOutputExample: true,
+          outputExampleTitle: "출력 결과",
+          outputExampleOutput: `자동차가 웃으면?: 카톡`,
+
+          showHintBox: true,
+          hintTitle: "힌트",
+          hintText: `joke_q와 joke_a를 f-string으로 함께 출력해보세요.`,
+
+          tipText: "의미 있는 변수 이름을 사용하면 코드를 읽기 쉬워집니다.",
+          starterCode: ``,
+          promptInputs: [],
+          expectedOutput: `자동차가 웃으면?: 카톡`,
+          showSubmit: false
+        },
+
+        {
+          tabName: "실습3",
+          title: "리스트로 여러 값 저장하기",
+          instructionText: "리스트는 여러 값을 한 번에 저장하는 자료형입니다.",
+          instructionSubText: "대괄호 [ ]를 사용하고, 값은 쉼표로 구분합니다.",
+
+          useInputPrompt: false,
+
+          showBlankPrompt: true,
+          blankTitle: "작성해야 할 문제",
+          blankPrompt: `1) mbti 리스트에 "ENFP", "INFP", "ENTP", "INTP" 저장하기
+2) print(mbti) 작성하기`,
+
+          showInputExample: false,
+          inputExampleTitle: "",
+          inputExampleOutput: "",
+
+          showOutputExample: true,
+          outputExampleTitle: "출력 결과",
+          outputExampleOutput: `['ENFP', 'INFP', 'ENTP', 'INTP']`,
+
+          showHintBox: true,
+          hintTitle: "힌트",
+          hintText: `문자열 4개를 리스트에 넣으세요.`,
+
+          tipText: "리스트는 여러 값을 순서대로 저장할 수 있습니다.",
+          starterCode: ``,
+          promptInputs: [],
+          expectedOutput: `['ENFP', 'INFP', 'ENTP', 'INTP']`,
+          showSubmit: false
+        },
+
+        {
+          tabName: "실습4",
+          title: "리스트 인덱싱",
+          instructionText: "리스트의 각 값은 0부터 시작하는 인덱스를 가집니다.",
+          instructionSubText: "인덱스를 이용하면 원하는 위치의 값을 하나 꺼낼 수 있습니다.",
+
+          useInputPrompt: false,
+
+          showBlankPrompt: true,
+          blankTitle: "작성해야 할 문제",
+          blankPrompt: `1) mbti 리스트에 "ENFP", "INFP", "ENTP", "INTP" 저장하기
+2) print(f"선생님 mbti가 {mbti[3]} 맞으시죠?") 작성하기`,
+
+          showInputExample: false,
+          inputExampleTitle: "",
+          inputExampleOutput: "",
+
+          showOutputExample: true,
+          outputExampleTitle: "출력 결과",
+          outputExampleOutput: `선생님 mbti가 INTP 맞으시죠?`,
+
+          showHintBox: true,
+          hintTitle: "힌트",
+          hintText: `INTP는 mbti 리스트의 4번째 값이므로 인덱스는 3입니다.`,
+
+          tipText: "리스트는 0번부터 시작합니다.",
+          starterCode: ``,
+          promptInputs: [],
+          expectedOutput: `선생님 mbti가 INTP 맞으시죠?`,
+          showSubmit: false
+        },
+
+        {
+          tabName: "실습5",
+          title: "리스트 슬라이싱",
+          instructionText: "슬라이싱은 리스트에서 원하는 구간의 값을 한 번에 가져오는 방법입니다.",
+          instructionSubText: "리스트이름[시작:끝] 형태로 쓰며, 끝 번호는 포함되지 않습니다.",
+
+          useInputPrompt: false,
+
+          showBlankPrompt: true,
+          blankTitle: "작성해야 할 문제",
+          blankPrompt: `1) bag 리스트에 "피카츄", "가", "방에", "있어" 저장하기
+2) print(bag[0:2], bag[2:4]) 작성하기
+3) print(bag[0], bag[1:4]) 작성하기`,
+
+          showInputExample: false,
+          inputExampleTitle: "",
+          inputExampleOutput: "",
+
+          showOutputExample: true,
+          outputExampleTitle: "출력 결과",
+          outputExampleOutput: `['피카츄', '가'] ['방에', '있어']
+피카츄 ['가', '방에', '있어']`,
+
+          showHintBox: true,
+          hintTitle: "힌트",
+          hintText: `0:2는 앞의 두 요소, 2:4는 뒤의 두 요소입니다.`,
+
+          tipText: "인덱싱은 하나, 슬라이싱은 여러 개를 가져옵니다.",
+          starterCode: ``,
+          promptInputs: [],
+          expectedOutput: `['피카츄', '가'] ['방에', '있어']
+피카츄 ['가', '방에', '있어']`,
+          showSubmit: false
+        },
+
+        {
+          tabName: "실습6",
+          title: "리스트 길이 구하기",
+          instructionText: "리스트에 값이 몇 개 들어 있는지 알고 싶을 때는 len()을 사용합니다.",
+          instructionSubText: "len(리스트이름)을 쓰면 리스트의 길이를 알 수 있습니다.",
+
+          useInputPrompt: false,
+
+          showBlankPrompt: true,
+          blankTitle: "작성해야 할 문제",
+          blankPrompt: `1) fromis 리스트에 "하영", "지원", "채영", "나경", "지헌" 저장하기
+2) print(f"프나는 {len(fromis)}인조 걸그룹") 작성하기`,
+
+          showInputExample: false,
+          inputExampleTitle: "",
+          inputExampleOutput: "",
+
+          showOutputExample: true,
+          outputExampleTitle: "출력 결과",
+          outputExampleOutput: `프나는 5인조 걸그룹`,
+
+          showHintBox: true,
+          hintTitle: "힌트",
+          hintText: `len(fromis)의 결과는 5입니다.`,
+
+          tipText: "len()은 리스트 안 요소 개수를 세어줍니다.",
+          starterCode: ``,
+          promptInputs: [],
+          expectedOutput: `프나는 5인조 걸그룹`,
+          showSubmit: false
+        },
+
+        {
+          tabName: "실습7",
+          title: "리스트 값 수정하기",
+          instructionText: "리스트는 인덱스를 이용해 원하는 위치의 값을 바꿀 수 있습니다.",
+          instructionSubText: "리스트의 각 요소는 인덱스를 이용해 수정합니다.",
+
+          useInputPrompt: false,
+
+          showBlankPrompt: true,
+          blankTitle: "작성해야 할 문제",
+          blankPrompt: `1) member 리스트에 "원희", 17, "고양이상", "보컬" 저장하기
+2) print(member) 작성하기
+3) member[2]를 "강아지상"으로 수정하기
+4) print(member) 작성하기`,
+
+          showInputExample: false,
+          inputExampleTitle: "",
+          inputExampleOutput: "",
+
+          showOutputExample: true,
+          outputExampleTitle: "출력 결과",
+          outputExampleOutput: `['원희', 17, '고양이상', '보컬']
+['원희', 17, '강아지상', '보컬']`,
+
+          showHintBox: true,
+          hintTitle: "힌트",
+          hintText: `세 번째 값의 인덱스는 2입니다.`,
+
+          tipText: "리스트는 값을 나중에 수정할 수 있습니다.",
+          starterCode: ``,
+          promptInputs: [],
+          expectedOutput: `['원희', 17, '고양이상', '보컬']
+['원희', 17, '강아지상', '보컬']`,
+          showSubmit: false
+        },
+
+        {
+          tabName: "실습8",
+          title: "리스트에 값 추가하기",
+          instructionText: "append()를 사용하면 리스트 뒤에 새로운 값을 추가할 수 있습니다.",
+          instructionSubText: "리스트는 길이를 늘려가며 사용할 수 있습니다.",
+
+          useInputPrompt: false,
+
+          showBlankPrompt: true,
+          blankTitle: "작성해야 할 문제",
+          blankPrompt: `1) games 리스트에 "축구", "농구" 저장하기
+2) games.append("배드민턴") 작성하기
+3) print(games) 작성하기`,
+
+          showInputExample: false,
+          inputExampleTitle: "",
+          inputExampleOutput: "",
+
+          showOutputExample: true,
+          outputExampleTitle: "출력 결과",
+          outputExampleOutput: `['축구', '농구', '배드민턴']`,
+
+          showHintBox: true,
+          hintTitle: "힌트",
+          hintText: `append("배드민턴")으로 마지막에 추가하세요.`,
+
+          tipText: "append()는 리스트의 맨 뒤에 값을 붙입니다.",
+          starterCode: ``,
+          promptInputs: [],
+          expectedOutput: `['축구', '농구', '배드민턴']`,
+          showSubmit: false
+        },
+
+        {
+          tabName: "실습9",
+          title: "리스트 연산하기",
+          instructionText: "리스트는 + 연산을 사용해 서로 이어 붙일 수 있습니다.",
+          instructionSubText: "리스트 + 리스트 결과는 하나의 새 리스트입니다.",
+
+          useInputPrompt: false,
+
+          showBlankPrompt: true,
+          blankTitle: "작성해야 할 문제",
+          blankPrompt: `1) song1 리스트에 "너와", "내 사이", "우리", "둘 사이" 저장하기
+2) song2 리스트에 "사랑할래" 저장하기
+3) print(song1 + song1 + song2) 작성하기`,
+
+          showInputExample: false,
+          inputExampleTitle: "",
+          inputExampleOutput: "",
+
+          showOutputExample: true,
+          outputExampleTitle: "출력 결과",
+          outputExampleOutput: `['너와', '내 사이', '우리', '둘 사이', '너와', '내 사이', '우리', '둘 사이', '사랑할래']`,
+
+          showHintBox: true,
+          hintTitle: "힌트",
+          hintText: `song1을 두 번 더한 뒤 song2를 더하세요.`,
+
+          tipText: "리스트 + 리스트는 요소를 이어 붙입니다.",
+          starterCode: ``,
+          promptInputs: [],
+          expectedOutput: `['너와', '내 사이', '우리', '둘 사이', '너와', '내 사이', '우리', '둘 사이', '사랑할래']`,
+          showSubmit: false
+        },
+
+        {
+          tabName: "오늘의과제",
+          title: "오늘의 과제",
+          instructionText: "변수와 리스트 개념을 모두 활용하여 같은 출력 결과가 나오도록 프로그램을 작성해 보세요.",
+          instructionSubText: "출력 결과가 모두 같아야 자동 채점이 가능합니다.",
+
+          useInputPrompt: false,
+
+          showBlankPrompt: true,
+          blankTitle: "작성해야 할 문제",
+          blankPrompt: `1) 변수 age에 17을 저장하고 출력한 뒤, 18을 다시 저장하여 출력하기
+2) 리스트 foods에 "떡볶이", "피자", "치킨" 저장하고 전체 출력하기
+3) 리스트의 첫 번째 값과 마지막 값 출력하기
+4) 리스트의 앞의 2개 값을 슬라이싱하여 출력하고 len()으로 길이 출력하기
+5) 리스트의 두 번째 값을 "라면"으로 수정하고 "초밥"을 추가한 뒤 ["햄버거", "파스타"]와 합친 결과 출력하기`,
+
+          showInputExample: false,
+          inputExampleTitle: "",
+          inputExampleOutput: "",
+
+          showOutputExample: true,
+          outputExampleTitle: "출력 결과",
+          outputExampleOutput: `17
+18
+['떡볶이', '피자', '치킨']
+떡볶이
+치킨
+['떡볶이', '피자']
+3
+['떡볶이', '라면', '치킨', '초밥', '햄버거', '파스타']`,
+
+          showHintBox: true,
+          hintTitle: "힌트",
+          hintText: `변수, 인덱싱, 슬라이싱, len(), 수정, append(), 리스트 연산을 모두 사용하세요.`,
+
+          tipText: "정답 확인 후 상단 제출 버튼으로 제출하세요.",
+          starterCode: ``,
+          promptInputs: [],
+          expectedOutput: `17
+18
+['떡볶이', '피자', '치킨']
+떡볶이
+치킨
+['떡볶이', '피자']
+3
+['떡볶이', '라면', '치킨', '초밥', '햄버거', '파스타']`,
+          showSubmit: true
+        }
+      ],
+
+      classOptions: ["1","2","3","4","5","6","7","8","9","10"],
+      numberOptions: ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27"],
+
+      formBaseUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSdylJ-XFRgBLSF8SvM7Hn_6w-NpzJhDnhSBu0vPdOqBhkymIw/formResponse',
+      entryClassroom: 'entry.1342927365',
+      entryStudentNumber: 'entry.194717561',
+      entryCode: 'entry.668448153',
+      entryResult: 'entry.1180100706'
+    };
+
+    let activeLessonIndex = 0;
+    let latestCheckResults = [];
+
+    function initState() {
+      latestCheckResults = CONFIG.lessons.map(() => '미확인');
+    }
+
+    function createSelectOptions(values) {
+      return `<option value="">선택</option>` + values.map(v => `<option value="${v}">${v}</option>`).join('');
+    }
+
+    function buildTabs() {
+      const container = document.getElementById('tabsContainer');
+      container.innerHTML = '';
+
+      CONFIG.lessons.forEach((lesson, index) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'tab-btn' + (index === 0 ? ' active' : '');
+        button.textContent = lesson.tabName;
+        button.addEventListener('click', () => switchTab(index));
+        container.appendChild(button);
+      });
+    }
+
+    function buildPanels() {
+      const container = document.getElementById('panelsContainer');
+      container.innerHTML = '';
+
+      CONFIG.lessons.forEach((lesson, index) => {
+        const panel = document.createElement('section');
+        panel.className = 'lesson-panel' + (index === 0 ? ' active' : '');
+        panel.id = `panel-${index}`;
+
+        panel.innerHTML = `
+          <div class="editor-wrap">
+            <div class="editor-header">
+              <span>main.py</span>
+              <span>${lesson.tabName} 코드 입력</span>
+            </div>
+
+            <textarea id="code-${index}" class="editor"></textarea>
+
+            <div class="controls">
+              <button class="run-btn" type="button" onclick="runCode(${index})">실행</button>
+              <button class="check-btn" type="button" onclick="checkAnswer(${index})">정답 확인</button>
+              <button class="reset-btn" type="button" onclick="resetCode(${index})">초기화</button>
+            </div>
+
+            <div class="panel">
+              <div class="panel-title">결과</div>
+              <div id="status-${index}" class="status info">아직 실행하지 않았습니다.</div>
+              <div id="output-${index}" class="log">여기에 실행 결과와 채점 결과가 표시됩니다.</div>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(panel);
+      });
+
+      CONFIG.lessons.forEach((lesson, index) => {
+        document.getElementById(`code-${index}`).value = lesson.starterCode || '';
+      });
+    }
+
+    function updateSidebar(index) {
+      const lesson = CONFIG.lessons[index];
+
+      document.getElementById('guideTitle').textContent = CONFIG.guideTitle;
+      document.getElementById('pageTitle').textContent = CONFIG.pageTitle;
+      document.getElementById('sidebarLessonTitle').textContent = lesson.title;
+      document.getElementById('sidebarInstruction').textContent = lesson.instructionText;
+      document.getElementById('sidebarInstructionSub').textContent = lesson.instructionSubText;
+
+      const blankSection = document.getElementById('sidebarBlankSection');
+      if (lesson.showBlankPrompt) {
+        blankSection.classList.remove('hidden');
+        document.getElementById('sidebarBlankTitle').textContent = lesson.blankTitle;
+        document.getElementById('sidebarBlankBox').textContent = lesson.blankPrompt;
+      } else {
+        blankSection.classList.add('hidden');
+      }
+
+      const inputExampleSection = document.getElementById('sidebarInputExampleSection');
+      if (lesson.useInputPrompt && lesson.showInputExample) {
+        inputExampleSection.classList.remove('hidden');
+        document.getElementById('sidebarInputExampleTitle').textContent = lesson.inputExampleTitle;
+        document.getElementById('sidebarInputExampleBox').textContent = lesson.inputExampleOutput;
+      } else {
+        inputExampleSection.classList.add('hidden');
+      }
+
+      const outputExampleSection = document.getElementById('sidebarOutputExampleSection');
+      if (lesson.showOutputExample) {
+        outputExampleSection.classList.remove('hidden');
+        document.getElementById('sidebarOutputExampleTitle').textContent = lesson.outputExampleTitle;
+        document.getElementById('sidebarOutputExampleBox').textContent = lesson.outputExampleOutput;
+      } else {
+        outputExampleSection.classList.add('hidden');
+      }
+
+      const hintSection = document.getElementById('sidebarHintSection');
+      if (lesson.showHintBox) {
+        hintSection.classList.remove('hidden');
+        document.getElementById('sidebarHintTitle').textContent = lesson.hintTitle;
+        document.getElementById('sidebarHintBox').textContent = lesson.hintText;
+      } else {
+        hintSection.classList.add('hidden');
+      }
+
+      document.getElementById('sidebarTipBox').textContent = lesson.tipText || '';
+
+      const submitArea = document.getElementById('topSubmitArea');
+      const submitHelp = document.getElementById('topSubmitHelp');
+      submitArea.classList.toggle('hidden', !lesson.showSubmit);
+      submitHelp.classList.toggle('hidden', !lesson.showSubmit);
+    }
+
+    function switchTab(index) {
+      activeLessonIndex = index;
+
+      document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', i === index);
+      });
+
+      document.querySelectorAll('.lesson-panel').forEach((panel, i) => {
+        panel.classList.toggle('active', i === index);
+      });
+
+      updateSidebar(index);
+      setStatus(index, `${CONFIG.lessons[index].tabName} 창으로 이동했습니다.`, 'info');
+      setOutput(index, '코드를 작성하여 실행 결과와 채점 결과를 확인하세요');
+    }
+
+    function setStatus(index, message, type) {
+      const status = document.getElementById(`status-${index}`);
+      status.textContent = message;
+      status.className = `status ${type}`;
+    }
+
+    function setOutput(index, text) {
+      document.getElementById(`output-${index}`).textContent = text;
+    }
+
+    function builtinRead(x) {
+      if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined) {
+        throw "File not found: " + x;
+      }
+      return Sk.builtinFiles["files"][x];
+    }
+
+    async function executePython(code) {
+      let output = '';
+      Sk.configure({
+        output: function(text) {
+          output += text;
+        },
+        read: builtinRead,
+        __future__: Sk.python3
+      });
+
+      try {
+        await Sk.misceval.asyncToPromise(function() {
+          return Sk.importMainWithBody("<stdin>", false, code, true);
+        });
+        return { success: true, output: output.replace(/\n$/, '') };
+      } catch (err) {
+        return { success: false, output: String(err) };
+      }
+    }
+
+    function normalizeOutput(text) {
+      return (text || '').replace(/\r\n/g, '\n').replace(/\r/g, '\n').trim();
+    }
+
+    async function runCode(index) {
+      const code = document.getElementById(`code-${index}`).value;
+      setStatus(index, `${CONFIG.lessons[index].tabName} 코드를 실행했습니다.`, 'info');
+      setOutput(index, '실행 중...');
+
+      const result = await executePython(code);
+
+      if (result.success) {
+        setOutput(index, result.output || '(출력 없음)');
+      } else {
+        setStatus(index, '실행 중 오류가 발생했습니다.', 'fail');
+        setOutput(index, result.output);
+      }
+    }
+
+    async function checkAnswer(index) {
+      const code = document.getElementById(`code-${index}`).value;
+      const lesson = CONFIG.lessons[index];
+
+      setStatus(index, `${lesson.tabName} 정답을 확인하는 중입니다...`, 'info');
+      setOutput(index, '채점 중...');
+
+      const result = await executePython(code);
+
+      if (!result.success) {
+        latestCheckResults[index] = '오답';
+        setStatus(index, '오답입니다. 먼저 오류를 해결하세요.', 'fail');
+        setOutput(index, `실행 오류\n\n${result.output}`);
+        return;
+      }
+
+      const actual = normalizeOutput(result.output);
+      const expected = normalizeOutput(lesson.expectedOutput);
+
+      if (actual === expected) {
+        latestCheckResults[index] = '정답';
+        setStatus(index, '정답입니다! 출력이 채점 기준과 일치합니다.', 'pass');
+        setOutput(index, `실행 결과\n\n${result.output}\n\n채점 결과\n정답`);
+      } else {
+        latestCheckResults[index] = '오답';
+        const expectedLines = expected.split('\n');
+        const actualLines = actual.split('\n');
+
+        let feedback = '실행 결과\n\n' + (result.output || '(출력 없음)') + '\n\n채점 결과\n오답\n\n';
+        feedback += '비교 안내\n';
+
+        const maxLen = Math.max(expectedLines.length, actualLines.length);
+        for (let i = 0; i < maxLen; i++) {
+          const e = expectedLines[i] ?? '(없음)';
+          const a = actualLines[i] ?? '(없음)';
+          if (e === a) {
+            feedback += `${i + 1}번째 줄: 일치\n`;
+          } else {
+            feedback += `${i + 1}번째 줄: 다름\n- 정답: ${e}\n- 작성: ${a}\n`;
+          }
+        }
+
+        setStatus(index, '오답입니다. 출력 내용을 다시 확인하세요.', 'fail');
+        setOutput(index, feedback);
+      }
+    }
+
+    function resetCode(index) {
+      const lesson = CONFIG.lessons[index];
+      document.getElementById(`code-${index}`).value = lesson.starterCode || '';
+      latestCheckResults[index] = '미확인';
+      setStatus(index, `${lesson.tabName} 코드를 초기 상태로 되돌렸습니다.`, 'info');
+      setOutput(index, '여기에 실행 결과와 채점 결과가 표시됩니다.');
+    }
+
+    function submitFinalTask(index) {
+      const classroom = document.getElementById('topClassroom').value.trim();
+      const studentNumber = document.getElementById('topStudentNumber').value.trim();
+      const code = document.getElementById(`code-${index}`).value;
+      const result = latestCheckResults[index];
+
+      if (!classroom || !studentNumber) {
+        alert('반과 번호를 모두 선택하세요.');
+        return;
+      }
+
+      if (result === '미확인') {
+        alert('먼저 정답 확인을 눌러 채점 결과를 만든 뒤 제출하세요.');
+        return;
+      }
+
+      const params = new URLSearchParams();
+      params.append(CONFIG.entryClassroom, classroom);
+      params.append(CONFIG.entryStudentNumber, studentNumber);
+      params.append(CONFIG.entryCode, code);
+      params.append(CONFIG.entryResult, result);
+
+      const hiddenFrame = document.createElement('iframe');
+      hiddenFrame.style.display = 'none';
+      document.body.appendChild(hiddenFrame);
+
+      hiddenFrame.src = CONFIG.formBaseUrl + '?' + params.toString();
+      alert('제출되었습니다.');
+    }
+
+    function initPage() {
+      initState();
+      buildTabs();
+      buildPanels();
+
+      document.getElementById('topClassroom').innerHTML = createSelectOptions(CONFIG.classOptions);
+      document.getElementById('topStudentNumber').innerHTML = createSelectOptions(CONFIG.numberOptions);
+
+      document.getElementById('topSubmitBtn').addEventListener('click', () => {
+        submitFinalTask(activeLessonIndex);
+      });
+
+      updateSidebar(0);
+      setStatus(0, '실습 페이지가 준비되었습니다.', 'info');
+      setOutput(0, '여기에 실행 결과와 채점 결과가 표시됩니다.');
+    }
+
+    initPage();
+  </script>
+</body>
+</html>
