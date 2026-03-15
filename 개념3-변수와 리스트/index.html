@@ -409,7 +409,7 @@
           blankTitle: "작성해야 할 문제",
           blankPrompt: `1) joke_q 변수에 "자동차가 웃으면?" 저장하기
 2) joke_a 변수에 "카톡" 저장하기
-3) print(f"{joke_q}: {joke_a}") 작성하기`,
+3) "자동차가 웃으면?: 카톡" 출력하기,
 
           showInputExample: false,
           inputExampleTitle: "",
@@ -441,7 +441,7 @@
           showBlankPrompt: true,
           blankTitle: "작성해야 할 문제",
           blankPrompt: `1) mbti 리스트에 "ENFP", "INFP", "ENTP", "INTP" 저장하기
-2) print(mbti) 작성하기`,
+2) 리스트 mbti 출력하기`,
 
           showInputExample: false,
           inputExampleTitle: "",
@@ -473,7 +473,7 @@
           showBlankPrompt: true,
           blankTitle: "작성해야 할 문제",
           blankPrompt: `1) mbti 리스트에 "ENFP", "INFP", "ENTP", "INTP" 저장하기
-2) print(f"선생님 mbti가 {mbti[3]} 맞으시죠?") 작성하기`,
+2) 선생님 mbti가 INTP 맞으시죠? 출력하기`,
 
           showInputExample: false,
           inputExampleTitle: "",
@@ -505,8 +505,8 @@
           showBlankPrompt: true,
           blankTitle: "작성해야 할 문제",
           blankPrompt: `1) bag 리스트에 "피카츄", "가", "방에", "있어" 저장하기
-2) print(bag[0:2], bag[2:4]) 작성하기
-3) print(bag[0], bag[1:4]) 작성하기`,
+2) 슬라이싱하여 ['피카츄', '가'] ['방에', '있어'] 출력하기
+3) 슬라이싱하여 피카츄 ['가', '방에', '있어'] 출력하기,
 
           showInputExample: false,
           inputExampleTitle: "",
@@ -540,7 +540,7 @@
           showBlankPrompt: true,
           blankTitle: "작성해야 할 문제",
           blankPrompt: `1) fromis 리스트에 "하영", "지원", "채영", "나경", "지헌" 저장하기
-2) print(f"프나는 {len(fromis)}인조 걸그룹") 작성하기`,
+2) "프나는 5인조 걸그룹" 출력하기`,
 
           showInputExample: false,
           inputExampleTitle: "",
@@ -572,9 +572,9 @@
           showBlankPrompt: true,
           blankTitle: "작성해야 할 문제",
           blankPrompt: `1) member 리스트에 "원희", 17, "고양이상", "보컬" 저장하기
-2) print(member) 작성하기
-3) member[2]를 "강아지상"으로 수정하기
-4) print(member) 작성하기`,
+2) member 리스트 출력하기
+3) member 리스트 요소 "고양이상"을 "강아지상"으로 수정하기
+4) member 리스트 출력하기`,
 
           showInputExample: false,
           inputExampleTitle: "",
@@ -587,7 +587,7 @@
 
           showHintBox: true,
           hintTitle: "힌트",
-          hintText: `세 번째 값의 인덱스는 2입니다.`,
+          hintText: `첫 번째 값의 인덱스는 0입니다.`,
 
           tipText: "리스트는 값을 나중에 수정할 수 있습니다.",
           starterCode: ``,
@@ -608,8 +608,8 @@
           showBlankPrompt: true,
           blankTitle: "작성해야 할 문제",
           blankPrompt: `1) games 리스트에 "축구", "농구" 저장하기
-2) games.append("배드민턴") 작성하기
-3) print(games) 작성하기`,
+2) games 리스트에 "배드민턴" 추가하기
+3) games 리스트 출력하기`,
 
           showInputExample: false,
           inputExampleTitle: "",
@@ -621,9 +621,9 @@
 
           showHintBox: true,
           hintTitle: "힌트",
-          hintText: `append("배드민턴")으로 마지막에 추가하세요.`,
+          hintText: `append()를 사용하여 추가해보세요`,
 
-          tipText: "append()는 리스트의 맨 뒤에 값을 붙입니다.",
+          tipText: "append()는 리스트의 맨 뒤에 값을 추가합니다.",
           starterCode: ``,
           promptInputs: [],
           expectedOutput: `['축구', '농구', '배드민턴']`,
@@ -642,7 +642,7 @@
           blankTitle: "작성해야 할 문제",
           blankPrompt: `1) song1 리스트에 "너와", "내 사이", "우리", "둘 사이" 저장하기
 2) song2 리스트에 "사랑할래" 저장하기
-3) print(song1 + song1 + song2) 작성하기`,
+3) ['너와', '내 사이', '우리', '둘 사이', '너와', '내 사이', '우리', '둘 사이', '사랑할래'] 출력하기`,
 
           showInputExample: false,
           inputExampleTitle: "",
@@ -654,7 +654,7 @@
 
           showHintBox: true,
           hintTitle: "힌트",
-          hintText: `song1을 두 번 더한 뒤 song2를 더하세요.`,
+          hintText: `song1 리스트 두 번 song2 리스트 한 번 사용하세요.`,
 
           tipText: "리스트 + 리스트는 요소를 이어 붙입니다.",
           starterCode: ``,
