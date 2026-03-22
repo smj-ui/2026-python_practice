@@ -382,16 +382,44 @@
         return;
       }
 
-      const params = new URLSearchParams();
-      params.append(CONFIG.entryClassroom, classroom);
-      params.append(CONFIG.entryStudentNumber, studentNumber);
-      params.append(CONFIG.entryCode, code);
-      params.append(CONFIG.entryResult, result);
+      const iframeName = 'hiddenSubmitFrame';
+      let hiddenFrame = document.querySelector(`iframe[name="${iframeName}"]`);
+      if (!hiddenFrame) {
+        hiddenFrame = document.createElement('iframe');
+        hiddenFrame.name = iframeName;
+        hiddenFrame.title = 'hidden-submit-frame';
+        hiddenFrame.style.display = 'none';
+        document.body.appendChild(hiddenFrame);
+      }
 
-      const hiddenFrame = document.createElement('iframe');
-      hiddenFrame.style.display = 'none';
-      document.body.appendChild(hiddenFrame);
-      hiddenFrame.src = CONFIG.formBaseUrl + '?' + params.toString();
+      let hiddenForm = document.getElementById('hiddenGoogleForm');
+      if (!hiddenForm) {
+        hiddenForm = document.createElement('form');
+        hiddenForm.id = 'hiddenGoogleForm';
+        hiddenForm.method = 'POST';
+        hiddenForm.action = CONFIG.formBaseUrl;
+        hiddenForm.target = iframeName;
+        hiddenForm.style.display = 'none';
+        document.body.appendChild(hiddenForm);
+      }
+
+      hiddenForm.innerHTML = '';
+
+      const fields = [
+        [CONFIG.entryClassroom, classroom],
+        [CONFIG.entryStudentNumber, studentNumber],
+        [CONFIG.entryCode, code],
+        [CONFIG.entryResult, result]
+      ];
+
+      fields.forEach(([name, value]) => {
+        const input = document.createElement('textarea');
+        input.name = name;
+        input.value = value;
+        hiddenForm.appendChild(input);
+      });
+
+      hiddenForm.submit();
       alert('제출되었습니다.');
     }
 
