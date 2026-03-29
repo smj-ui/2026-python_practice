@@ -98,334 +98,212 @@
   <script>
     const CONFIG = {
       guideTitle: "Python",
-      pageTitle: "개념8 - 반복문 확장",
+      pageTitle: "개념8 - 중첩 반복문",
       lessons: [
         {
           tabName: "예시1", row: "example",
-          title: "while 문이란? 예시",
-          instructionText: "while 문은 어떤 조건이 참인 동안 계속 반복하는 문장입니다.",
-          instructionSubText: "조건에 따라 반복을 이어 가고 싶을 때 사용합니다.",
+          title: "1️⃣ 반복문으로 한 학년의 반 만들기 (예시)",
+          instructionText: "반복문은 같은 작업을 여러 번 실행할 때 사용합니다.",
+          instructionSubText: "우리 학교는 학년마다 10반씩 있다고 가정하고, 반복문 하나로 1학년의 반 목록을 만들어 봅시다.",
           showBlankPrompt: true,
-          blankTitle: "형식",
-          blankPrompt: `while 조건식:
-    실행할 코드(tab으로 들여쓰기 하기)
-    조건을 바꾸는 코드`,
+          blankTitle: "형식 설명",
+          blankPrompt: `for classroom in range(1, 11):\n    print(f"1학년 {classroom}반")`,
           showOutputExample: true,
           outputExampleTitle: "출력 결과",
-          outputExampleOutput: `1
-2
-3`,
+          outputExampleOutput: `1학년 1반\n1학년 2반\n1학년 3반\n...\n1학년 10반`,
           showHintBox: true,
-          hintTitle: "예시 코드",
-          hintText: `i = 1
-while i <= 3:
-    print(i)
-    i = i + 1`,
-          tipText: "while 문에서는 조건이 언젠가 거짓이 되도록 값을 바꾸어야 합니다.",
-          starterCode: "",
-          expectedOutput: `1
-2
-3`,
+          hintTitle: "📖 설명",
+          hintText: `classroom은 1부터 10까지 바뀝니다.\nprint(f"1학년 {classroom}반")는 현재 반 번호를 넣어서 반복 출력합니다.`,
+          tipText: "f-string을 사용하면 문자열 안에 바뀌는 값을 쉽게 넣을 수 있습니다.",
+          starterCode: `# 왼쪽의 예시 코드를 에디터에 직접 작성해보고 실행해 보세요.\n`,
+          expectedOutput: "1학년 1반\n1학년 2반\n1학년 3반\n1학년 4반\n1학년 5반\n1학년 6반\n1학년 7반\n1학년 8반\n1학년 9반\n1학년 10반",
           showSubmit: false
         },
         {
           tabName: "실습1", row: "practice",
-          title: "while 문이란? 실습",
-          instructionText: "while 문을 사용하여 같은 문장을 여러 번 출력해 보세요.",
-          instructionSubText: "count 값이 4 이하인 동안 반복되도록 작성합니다.",
+          title: "1️⃣ 반복문으로 여러 학년 반 만들기 (실습)",
+          instructionText: "앞서 배운 반복문을 이용해 1학년부터 3학년까지 모든 반(각 10반)을 출력해 보세요.",
+          instructionSubText: "중첩 반복문을 아직 사용하지 말고, 각 학년마다 반복문을 따로 작성해야 합니다.",
           showBlankPrompt: true,
           blankTitle: "작성해야 할 문제",
-          blankPrompt: `1. 변수 count를 1로 저장하기
-2. while 문을 사용하여 count가 4 이하인 동안 반복하기
-3. 반복할 때마다 "공부해" 출력하기
-4. 반복할 때마다 count를 1씩 증가시키기`,
+          blankPrompt: `1) 반복문을 사용하여 1학년 1반부터 10반까지 차례대로 출력하기\n2) 같은 방식으로 2학년 1반부터 10반까지 출력하는 반복문 작성하기\n3) 3학년 1반부터 10반까지 출력하는 반복문 작성하기`,
           showOutputExample: true,
           outputExampleTitle: "출력 결과",
-          outputExampleOutput: `공부해
-공부해
-공부해
-공부해`,
+          outputExampleOutput: `1학년 1반\n...\n2학년 1반\n...\n3학년 1반\n...\n3학년 10반`,
           showHintBox: true,
           hintTitle: "힌트",
-          hintText: `count = count + 1 코드가 빠지면 반복이 끝나지 않을 수 있습니다.`,
-          tipText: "while 문은 조건이 참인 동안 계속 반복됩니다.",
-          starterCode: "",
-          expectedOutput: `공부해
-공부해
-공부해
-공부해`,
-          showSubmit: false
-        },
-
-        {
-          tabName: "예시2", row: "example",
-          title: "왜 값을 바꾸어야 할까? 예시",
-          instructionText: "while 문은 조건이 참이면 계속 반복합니다.",
-          instructionSubText: "반복이 끝나도록 변수 값을 바꾸는 코드가 꼭 필요합니다.",
-          showBlankPrompt: false,
-          blankTitle: "",
-          blankPrompt: "",
-          showOutputExample: true,
-          outputExampleTitle: "출력 결과",
-          outputExampleOutput: `5
-4
-3
-2
-1`,
-          showHintBox: true,
-          hintTitle: "예시 코드",
-          hintText: `num = 5
-while num > 0:
-    print(num)
-    num = num - 1`,
-          tipText: "조건만 쓰고 값을 바꾸지 않으면 무한 반복이 될 수 있습니다.",
-          starterCode: "",
-          expectedOutput: `5
-4
-3
-2
-1`,
+          hintText: `range(1, 11)을 똑같이 3번 써야 합니다.`,
+          tipText: "이렇게 반복문을 3번씩 쓰면 코드가 길어집니다. 이를 짧게 줄이는 방법이 다음 탭에 나옵니다!",
+          starterCode: `# 1, 2, 3학년 반을 차례대로 출력해 보세요.\n`,
+          expectedOutput: "1학년 1반\n1학년 2반\n1학년 3반\n1학년 4반\n1학년 5반\n1학년 6반\n1학년 7반\n1학년 8반\n1학년 9반\n1학년 10반\n2학년 1반\n2학년 2반\n2학년 3반\n2학년 4반\n2학년 5반\n2학년 6반\n2학년 7반\n2학년 8반\n2학년 9반\n2학년 10반\n3학년 1반\n3학년 2반\n3학년 3반\n3학년 4반\n3학년 5반\n3학년 6반\n3학년 7반\n3학년 8반\n3학년 9반\n3학년 10반",
           showSubmit: false
         },
         {
           tabName: "실습2", row: "practice",
-          title: "왜 값을 바꾸어야 할까? 실습",
-          instructionText: "남은 목숨이 줄어드는 상황을 while 문으로 표현해 보세요.",
-          instructionSubText: "반복이 끝난 뒤에는 게임종료를 출력합니다.",
+          title: "2️⃣ 중첩반복문으로 바꾸기 (실습)",
+          instructionText: "학년이 바뀌는 반복과 반이 바뀌는 반복, 2가지가 겹쳐 있을 때 '중첩 반복문'을 사용합니다.",
+          instructionSubText: "반복문 안에 또 다른 반복문을 넣으면 코드가 훨씬 간결해집니다.",
           showBlankPrompt: true,
           blankTitle: "작성해야 할 문제",
-          blankPrompt: `1. 변수 life를 3으로 저장하기
-2. while 문을 사용하여 life가 0보다 큰 동안 반복하기
-3. 반복할 때마다 "남은 목숨: 숫자" 형식으로 출력하기
-4. 반복할 때마다 life를 1씩 줄이기
-5. 반복이 끝난 뒤 "게임종료" 출력하기`,
+          blankPrompt: `1) 1학년부터 3학년까지 '학년'을 바꾸는 바깥쪽 반복문 만들기\n2) 1반부터 10반까지 '반'을 바꾸는 안쪽 반복문 만들기\n3) 두 반복문을 겹쳐서 학년과 반이 차례대로 모두 출력되게 하기`,
           showOutputExample: true,
           outputExampleTitle: "출력 결과",
-          outputExampleOutput: `남은 목숨: 3
-남은 목숨: 2
-남은 목숨: 1
-게임종료`,
+          outputExampleOutput: `1학년 1반\n1학년 2반\n...\n1학년 10반\n2학년 1반\n...\n3학년 10반`,
           showHintBox: true,
           hintTitle: "힌트",
-          hintText: `print("남은 목숨:", life)처럼 출력할 수 있습니다.`,
-          tipText: "반복문 밖의 print()는 반복이 모두 끝난 뒤 실행됩니다.",
-          starterCode: "",
-          expectedOutput: `남은 목숨: 3
-남은 목숨: 2
-남은 목숨: 1
-게임종료`,
+          hintText: `바깥 반복문 안에 안쪽 반복문이 들어가도록 들여쓰기(Tab)를 정확히 맞추세요.`,
+          tipText: "안쪽 반복문은 바깥 반복문이 1번 돌 때마다 처음부터 끝까지 새로 실행됩니다.",
+          starterCode: `# 아래에 중첩반복문을 직접 완성해 보세요.\n`,
+          expectedOutput: "1학년 1반\n1학년 2반\n1학년 3반\n1학년 4반\n1학년 5반\n1학년 6반\n1학년 7반\n1학년 8반\n1학년 9반\n1학년 10반\n2학년 1반\n2학년 2반\n2학년 3반\n2학년 4반\n2학년 5반\n2학년 6반\n2학년 7반\n2학년 8반\n2학년 9반\n2학년 10반\n3학년 1반\n3학년 2반\n3학년 3반\n3학년 4반\n3학년 5반\n3학년 6반\n3학년 7반\n3학년 8반\n3학년 9반\n3학년 10반",
           showSubmit: false
         },
-
         {
           tabName: "예시3", row: "example",
-          title: "for 문과 while 문 비교하기 예시",
-          instructionText: "for 문과 while 문은 모두 반복문이지만 사용하는 상황이 조금 다릅니다.",
-          instructionSubText: "for 문은 횟수가 정해진 반복, while 문은 조건에 따른 반복에 어울립니다.",
+          title: "3️⃣ 줄 단위로 반복해서 출력하기 (예시)",
+          instructionText: "중첩반복문은 표나 격자 같은 여러 줄의 모양을 출력할 때 매우 유용합니다.",
+          instructionSubText: "바깥 반복문은 '줄 넘김'을, 안쪽 반복문은 '가로로 찍기'를 담당합니다.",
           showBlankPrompt: true,
-          blankTitle: "비교",
-          blankPrompt: `for 문 : 반복 횟수가 정해져 있을 때
-while 문 : 조건이 참인 동안 반복할 때`,
+          blankTitle: "형식 설명",
+          blankPrompt: `for i in range(줄 수):\n    for j in range(가로 칸 수):\n        print("*", end="") # 옆으로 찍기\n    print() # 한 줄이 끝나면 엔터 치기`,
           showOutputExample: true,
           outputExampleTitle: "출력 결과",
-          outputExampleOutput: `하이!
-하이!
-하이!
-바이!
-바이!
-바이!`,
+          outputExampleOutput: `****\n****\n****`,
           showHintBox: true,
           hintTitle: "예시 코드",
-          hintText: `for i in range(3):
-    print("하이!")
-
-i = 0
-while i < 3:
-    print("바이!")
-    i = i + 1`,
-          tipText: "상황에 따라 더 알맞은 반복문을 선택하면 됩니다.",
-          starterCode: "",
-          expectedOutput: `하이!
-하이!
-하이!
-바이!
-바이!
-바이!`,
+          hintText: `for i in range(3):\n    for j in range(4):\n        print("*", end="")\n    print()`,
+          tipText: "end=\"\"는 출력을 마친 후 줄을 바꾸지 않고 바로 옆에 붙이도록 합니다.",
+          starterCode: `# 왼쪽의 예시 코드를 에디터에 직접 작성해보고 실행해 보세요.\n`,
+          expectedOutput: `****\n****\n****`,
           showSubmit: false
         },
         {
           tabName: "실습3", row: "practice",
-          title: "for 문과 while 문 비교하기 실습",
-          instructionText: "while 문을 사용하여 숫자 1부터 5까지 같은 줄에 출력해 보세요.",
-          instructionSubText: "print()의 end 옵션을 활용하면 한 줄에 이어서 출력할 수 있습니다.",
+          title: "3️⃣ 줄 단위로 반복해서 출력하기 (실습)",
+          instructionText: "예시 코드를 응용하여 다른 기호와 다른 크기의 격자를 만들어 보세요.",
+          instructionSubText: "원하는 모양을 만들기 위해 어디를 반복해야 하는지 논리적으로 고민해 봅시다.",
           showBlankPrompt: true,
           blankTitle: "작성해야 할 문제",
-          blankPrompt: `1. 변수 i를 1로 저장하기
-2. while 문을 사용하여 i가 5 이하인 동안 반복하기
-3. 반복할 때마다 숫자를 같은 줄에 출력하기
-4. 숫자 뒤에는 공백이 나오도록 end=" " 사용하기
-5. 반복할 때마다 i를 1씩 증가시키기`,
+          blankPrompt: `1) '#' 기호를 2번 반복하여 한 줄에 '##' 모양으로 출력하기\n2) 앞서 만든 한 줄 출력을 4번 반복하여 총 4줄 만들기`,
           showOutputExample: true,
           outputExampleTitle: "출력 결과",
-          outputExampleOutput: `1 2 3 4 5`,
+          outputExampleOutput: `##\n##\n##\n##`,
           showHintBox: true,
           hintTitle: "힌트",
-          hintText: `print(i, end=" ")를 사용하면 줄바꿈 대신 공백으로 이어서 출력할 수 있습니다.`,
-          tipText: "출력 형식까지 같아야 자동 채점에서 정답으로 처리됩니다.",
-          starterCode: "",
-          expectedOutput: `1 2 3 4 5`,
+          hintText: `바깥 반복문은 전체 줄 수를 통제하고, 안쪽 반복문은 한 줄 안의 글자 수를 통제합니다.`,
+          tipText: "print()가 어느 반복문 안에 포함되어 있는지 들여쓰기를 꼼꼼히 확인하세요.",
+          starterCode: `# 중첩 반복문을 사용하여 코드를 직접 작성해 보세요.\n`,
+          expectedOutput: `##\n##\n##\n##`,
           showSubmit: false
         },
-
         {
           tabName: "예시4", row: "example",
-          title: "반복문 안에서 조건문 사용하기 예시",
-          instructionText: "반복문 안에 조건문을 넣으면 반복하면서 특정한 경우에만 다른 동작을 하게 만들 수 있습니다.",
-          instructionSubText: "여기서는 1부터 5까지 숫자를 보며 짝수와 홀수를 구분합니다.",
-          showBlankPrompt: false,
-          blankTitle: "",
-          blankPrompt: "",
+          title: "4️⃣ 반복문 안에 조건문 넣기 (예시)",
+          instructionText: "반복하면서 값이 바뀔 때, 특정 조건(if)에 해당하는 값만 다르게 처리할 수 있습니다.",
+          instructionSubText: "아래 예시는 1~5 중 짝수만 글자 '짝수'로 바꿔 출력합니다.",
+          showBlankPrompt: true,
+          blankTitle: "예시 코드",
+          blankPrompt: `for num in range(1, 6):\n    if num % 2 == 0:\n        print("짝수")\n    else:\n        print(num)`,
           showOutputExample: true,
           outputExampleTitle: "출력 결과",
-          outputExampleOutput: `1은 홀수
-2는 짝수
-3은 홀수
-4는 짝수
-5은 홀수`,
+          outputExampleOutput: `1\n짝수\n3\n짝수\n5`,
           showHintBox: true,
-          hintTitle: "예시 코드",
-          hintText: `for i in range(1, 6):
-    if i % 2 == 0:
-        print(f"{i}는 짝수")
-    else:
-        print(f"{i}은 홀수")`,
-          tipText: "반복할 때마다 i값이 달라지므로 조건문의 결과도 달라집니다.",
-          starterCode: "",
-          expectedOutput: `1은 홀수
-2는 짝수
-3은 홀수
-4는 짝수
-5은 홀수`,
+          hintTitle: "📖 설명",
+          hintText: `num은 1부터 5까지 차례대로 바뀐다.\n숫자가 짝수이면 "짝수"를 출력하고, 홀수이면 원래 숫자를 출력한다.`,
+          tipText: "num % 2 == 0 은 2로 나눈 나머지가 0, 즉 '짝수'를 의미합니다.",
+          starterCode: `# 왼쪽의 예시 코드를 에디터에 직접 작성해보고 실행해 보세요.\n`,
+          expectedOutput: `1\n짝수\n3\n짝수\n5`,
           showSubmit: false
         },
         {
           tabName: "실습4", row: "practice",
-          title: "반복문 안에서 조건문 사용하기 실습",
-          instructionText: "1부터 10까지 반복하면서 홀수만 출력해 보세요.",
-          instructionSubText: "for 문과 if 문을 함께 사용합니다.",
+          title: "4️⃣ 반복문 안에 조건문 넣기 (실습)",
+          instructionText: "직접 반복문 안에 조건문을 넣어 응용해 보세요.",
+          instructionSubText: "숫자가 특정 조건을 만족할 때만 다른 문자를 출력하도록 만들어 봅시다.",
           showBlankPrompt: true,
           blankTitle: "작성해야 할 문제",
-          blankPrompt: `1. for 문을 사용하여 1부터 10까지 반복하기
-2. if 문으로 홀수인지 확인하기
-3. 홀수일 때만 숫자를 같은 줄에 출력하기`,
+          blankPrompt: `1) 1부터 5까지 차례대로 바뀌는 반복문 만들기\n2) 현재 숫자가 '3 이상이면서 홀수'인지 확인하는 조건문 넣기\n3) 조건에 맞으면 '★'을 출력하고, 아니면 원래 숫자를 출력하기`,
           showOutputExample: true,
           outputExampleTitle: "출력 결과",
-          outputExampleOutput: `1 3 5 7 9`,
+          outputExampleOutput: `1\n2\n★\n4\n★`,
           showHintBox: true,
           hintTitle: "힌트",
-          hintText: `i % 2 == 1 이면 홀수입니다.`,
-          tipText: "print(i, end=\" \")를 사용하면 한 줄에 이어서 출력할 수 있습니다.",
-          starterCode: "",
-          expectedOutput: `1 3 5 7 9`,
+          hintText: `and 연산자를 사용하여 '3 이상' 조건과 '홀수' 조건을 하나로 묶어보세요.`,
+          tipText: "if 조건문과 else의 짝(들여쓰기 위치)을 잘 맞춰서 작성해야 합니다.",
+          starterCode: `# 반복문과 조건문을 사용하여 코드를 완성해 보세요.\n`,
+          expectedOutput: `1\n2\n★\n4\n★`,
           showSubmit: false
         },
-
         {
           tabName: "예시5", row: "example",
-          title: "반복문과 조건문을 함께 사용하면? 예시",
-          instructionText: "반복문과 조건문을 함께 사용하면 같은 반복 안에서도 상황에 따라 다른 결과를 만들 수 있습니다.",
-          instructionSubText: "여기서는 특정 숫자일 때만 다른 문장을 출력합니다.",
-          showBlankPrompt: false,
-          blankTitle: "",
-          blankPrompt: "",
+          title: "5️⃣ 중첩반복문과 조건문 함께 사용 (예시)",
+          instructionText: "격자 모양 출력 중에 특정 행(가로줄), 특정 열(세로칸)의 출력만 바꾸고 싶을 때 사용합니다.",
+          instructionSubText: "가운데 정중앙만 '●' 모양으로 바꿔 출력해 봅시다.",
+          showBlankPrompt: true,
+          blankTitle: "예시 코드",
+          blankPrompt: `for i in range(1, 4):\n    for j in range(1, 4):\n        if i == 2 and j == 2:\n            print("●", end=" ")\n        else:\n            print(j, end=" ")\n    print()`,
           showOutputExample: true,
           outputExampleTitle: "출력 결과",
-          outputExampleOutput: `1 시 수업시작합니다.
-점심시간! 1시간 뒤에 뵙겠습니다.
-3 시 수업시작합니다.
-4 시 수업시작합니다.
-5 시 수업시작합니다.`,
+          outputExampleOutput: `1 2 3 \n1 ● 3 \n1 2 3 `,
           showHintBox: true,
-          hintTitle: "예시 코드",
-          hintText: `for i in range(1, 6):
-    if i == 2:
-        print("점심시간! 1시간 뒤에 뵙겠습니다.")
-    else:
-        print(i, "시 수업시작합니다.")`,
-          tipText: "조건에 따라 숫자 대신 다른 문장을 출력할 수 있습니다.",
-          starterCode: "",
-          expectedOutput: `1 시 수업시작합니다.
-점심시간! 1시간 뒤에 뵙겠습니다.
-3 시 수업시작합니다.
-4 시 수업시작합니다.
-5 시 수업시작합니다.`,
+          hintTitle: "📖 설명",
+          hintText: `바깥 반복문은 i가 1, 2, 3으로 바뀌며 3줄을 반복한다.\n안쪽 반복문은 각 줄에서 j가 1, 2, 3으로 바뀌며 한 줄의 값을 확인한다.\nif i == 2 and j == 2: 는 가운데 줄이면서 가운데 칸일 때만 참이 된다.`,
+          tipText: "i는 줄의 번호, j는 각 칸의 번호입니다. 가운데 정중앙은 i가 2이고 j가 2일 때입니다.",
+          starterCode: `# 왼쪽의 예시 코드를 에디터에 직접 작성해보고 실행해 보세요.\n`,
+          expectedOutput: `1 2 3 \n1 ● 3 \n1 2 3 `,
           showSubmit: false
         },
         {
           tabName: "실습5", row: "practice",
-          title: "반복문과 조건문을 함께 사용하면? 실습",
-          instructionText: "1부터 5까지 반복하면서 4일 때만 다른 문장을 출력해 보세요.",
-          instructionSubText: "그 외에는 '레벨 통과' 문장을 출력합니다.",
+          title: "5️⃣ 중첩반복문과 조건문 함께 사용 (실습)",
+          instructionText: "예시를 바탕으로 내가 원하는 위치의 문자만 바꾸어 출력해 봅시다.",
+          instructionSubText: "조건문을 적절히 조작하여 별(★)의 위치를 조정해 보세요.",
           showBlankPrompt: true,
           blankTitle: "작성해야 할 문제",
-          blankPrompt: `1. for 문을 사용하여 1부터 5까지 반복하기
-2. if 문을 사용하여 i가 4인지 확인하기
-3. i가 4이면 "4 레벨 보너스 타임!" 출력하기
-4. 그렇지 않으면 i와 "레벨 통과"를 함께 출력하기`,
+          blankPrompt: `1) 가로 3칸, 세로 3줄을 만드는 중첩 반복문 작성하기\n2) 현재 위치가 '가운데 줄'의 '첫 번째 칸'인지 확인하는 조건문 만들기\n3) 해당 위치면 '★'을 출력하고, 아니면 원래의 칸 번호(j)를 출력하기`,
           showOutputExample: true,
           outputExampleTitle: "출력 결과",
-          outputExampleOutput: `1 레벨 통과
-2 레벨 통과
-3 레벨 통과
-4 레벨 보너스 타임!
-5 레벨 통과`,
+          outputExampleOutput: `1 2 3 \n★ 2 3 \n1 2 3 `,
           showHintBox: true,
           hintTitle: "힌트",
-          hintText: `if i == 4: 와 else: 를 함께 사용해 보세요.`,
-          tipText: "반복문 안의 조건문은 규칙이 있는 출력을 만들 때 유용합니다.",
-          starterCode: "",
-          expectedOutput: `1 레벨 통과
-2 레벨 통과
-3 레벨 통과
-4 레벨 보너스 타임!
-5 레벨 통과`,
+          hintText: `줄을 의미하는 i와 칸을 의미하는 j의 값이 무엇일 때 별을 출력해야 할지 생각해 보세요.`,
+          tipText: "if 조건 부분의 숫자를 조작하면 원하는 위치의 그림을 바꿀 수 있습니다.",
+          starterCode: `# 백지 상태에서 중첩 반복문과 조건문을 직접 구성해 보세요.\n`,
+          expectedOutput: `1 2 3 \n★ 2 3 \n1 2 3 `,
           showSubmit: false
         },
-
         {
           tabName: "오늘의과제", row: "practice",
-          title: "오늘의 과제",
-          instructionText: "while 문, for 문, if 문을 함께 활용하여 반복되는 문제를 해결해 보세요.",
-          instructionSubText: "출력 결과가 예시와 정확히 같아야 자동 채점이 가능합니다.",
+          title: "🏁 오늘의 과제",
+          instructionText: "오늘 배운 내용을 활용하여 아래 3가지 문제를 하나의 코드창에 모두 작성해 보세요.",
+          instructionSubText: "3문제의 모양이 연달아 똑같이 나오면 '정답' 처리됩니다.",
           showBlankPrompt: true,
-          blankTitle: "작성해야 할 문제",
-          blankPrompt: `1. 변수 i를 1로 저장하고, while 문을 사용하여 숫자 1부터 5까지 출력하기
-2. 변수 count를 5로 저장하고, while 문을 사용하여 5부터 1까지 출력하기
-3. for 문과 if 문을 함께 사용하여 1부터 10까지의 숫자 중 3의 배수만 출력하기
-4. for 문을 사용하여 1부터 5까지 반복하면서, 숫자가 3일 때는 "중간 지점!", 나머지는 몇 번째 반복인지 출력하기`,
+          blankTitle: "문제 작성 정보",
+          blankPrompt: `[문제 1. 문자 표 만들기]
+1) 'A' 기호를 한 줄에 4번 반복하여 출력하세요. (출력 후 줄을 바꾸지 않도록 띄어쓰기)
+2) 안쪽 반복문이 끝나면 줄바꿈을 하고, 전체 과정을 총 3번 반복하는 바깥 반복문을 완성하세요.
+
+[문제 2. 특정 칸(열) 바꾸기]
+원래는 1, 2, 3이 차례대로 반복되어 3줄로 나오는 3x3 표입니다. 중첩 반복문 안에 조건문을 사용하여 가운데 열만 다르게 출력해 보세요.
+1) 바깥 반복문(3줄)과 안쪽 반복문(3칸)을 만듭니다.
+2) 안쪽 반복문이 도는 도중에 현재 칸 번호(j)가 2라면 '*'을 출력합니다.
+3) 2가 아니라면 원래 숫자(j)를 출력합니다. (출력 후 띄어쓰기 유지)
+4) 안쪽 반복문이 끝나면 줄바꿈을 합니다.
+
+[문제 3. 특정 줄(행) 바꾸기]
+마찬가지로 1, 2, 3이 반복되는 3x3 표입니다. 이번에는 조건문을 사용하여 가운데 줄만 다르게 출력해 보세요.
+1) 바깥 반복문(3줄)과 안쪽 반복문(3칸)을 만듭니다.
+2) 안쪽 반복문을 실행할 때, 현재 줄 번호(i)가 2라면 '-'를 출력합니다.
+3) 2가 아니라면 원래 숫자(j)를 출력합니다. (출력 후 띄어쓰기 유지)
+4) 안쪽 반복문이 끝나면 줄바꿈을 합니다.`,
           showOutputExample: true,
-          outputExampleTitle: "출력 결과",
-          outputExampleOutput: `1 2 3 4 5
-5 4 3 2 1
-3 6 9
-1번째 반복
-2번째 반복
-중간 지점!
-4번째 반복
-5번째 반복`,
+          outputExampleTitle: "출력 결과 (3문제 연속)",
+          outputExampleOutput: `A A A A \nA A A A \nA A A A \n1 * 3 \n1 * 3 \n1 * 3 \n1 2 3 \n- - - \n1 2 3 `,
           showHintBox: true,
           hintTitle: "힌트",
-          hintText: `while 문에서는 값을 바꾸는 코드가 필요하고, 짝수 확인은 i % 2 == 0으로 할 수 있습니다.`,
-          tipText: "정답 확인 후 상단 제출 버튼으로 제출하세요.",
-          starterCode: "",
-          expectedOutput: `1 2 3 4 5
-5 4 3 2 1
-3 6 9
-1번째 반복
-2번째 반복
-중간 지점!
-4번째 반복
-5번째 반복`,
+          hintText: `특정 칸인지 확인하려면 j의 값을 비교하고, 특정 줄인지 확인하려면 i의 값을 비교하면 됩니다.`,
+          tipText: "정답 확인 후 상단 제출 버튼으로 폼을 전송하세요.",
+          starterCode: `# 문제 1 (A로 된 표 만들기)\n\n\n\n\n# 문제 2 (가운데 세로칸만 *로 만들기)\n\n\n\n\n\n\n\n# 문제 3 (가운데 가로줄만 -로 만들기)\n\n\n\n\n\n\n`,
+          expectedOutput: `A A A A \nA A A A \nA A A A \n1 * 3 \n1 * 3 \n1 * 3 \n1 2 3 \n- - - \n1 2 3 `,
           showSubmit: true
         }
       ],
@@ -629,14 +507,17 @@ while i < 3:
       const actual = normalizeOutput(result.stdout);
       const expected = normalizeOutput(lesson.expectedOutput);
 
-      if (actual === expected) {
+      const actualCleaned = actual.replace(/ \n/g, '\n'); 
+      const expectedCleaned = expected.replace(/ \n/g, '\n');
+
+      if (actualCleaned === expectedCleaned) {
         latestCheckResults[index] = '정답';
         setStatus(index, '정답입니다! 출력이 채점 기준과 일치합니다.', 'pass');
         setOutput(index, `실행 결과\n\n${result.stdout}\n\n채점 결과\n정답`);
       } else {
         latestCheckResults[index] = '오답';
-        const expectedLines = expected.split('\n');
-        const actualLines = actual.split('\n');
+        const expectedLines = expectedCleaned.split('\n');
+        const actualLines = actualCleaned.split('\n');
         let feedback = '실행 결과\n\n' + (result.stdout || '(출력 없음)') + '\n\n채점 결과\n오답\n\n비교 안내\n';
         const maxLen = Math.max(expectedLines.length, actualLines.length);
         for (let i = 0; i < maxLen; i++) {
@@ -672,44 +553,16 @@ while i < 3:
         return;
       }
 
-      const iframeName = 'hiddenSubmitFrame';
-      let hiddenFrame = document.querySelector(`iframe[name="${iframeName}"]`);
-      if (!hiddenFrame) {
-        hiddenFrame = document.createElement('iframe');
-        hiddenFrame.name = iframeName;
-        hiddenFrame.title = 'hidden-submit-frame';
-        hiddenFrame.style.display = 'none';
-        document.body.appendChild(hiddenFrame);
-      }
+      const params = new URLSearchParams();
+      params.append(CONFIG.entryClassroom, classroom);
+      params.append(CONFIG.entryStudentNumber, studentNumber);
+      params.append(CONFIG.entryCode, code);
+      params.append(CONFIG.entryResult, result);
 
-      let hiddenForm = document.getElementById('hiddenGoogleForm');
-      if (!hiddenForm) {
-        hiddenForm = document.createElement('form');
-        hiddenForm.id = 'hiddenGoogleForm';
-        hiddenForm.method = 'POST';
-        hiddenForm.action = CONFIG.formBaseUrl;
-        hiddenForm.target = iframeName;
-        hiddenForm.style.display = 'none';
-        document.body.appendChild(hiddenForm);
-      }
-
-      hiddenForm.innerHTML = '';
-
-      const fields = [
-        [CONFIG.entryClassroom, classroom],
-        [CONFIG.entryStudentNumber, studentNumber],
-        [CONFIG.entryCode, code],
-        [CONFIG.entryResult, result]
-      ];
-
-      fields.forEach(([name, value]) => {
-        const input = document.createElement('textarea');
-        input.name = name;
-        input.value = value;
-        hiddenForm.appendChild(input);
-      });
-
-      hiddenForm.submit();
+      const hiddenFrame = document.createElement('iframe');
+      hiddenFrame.style.display = 'none';
+      document.body.appendChild(hiddenFrame);
+      hiddenFrame.src = CONFIG.formBaseUrl + '?' + params.toString();
       alert('제출되었습니다.');
     }
 
