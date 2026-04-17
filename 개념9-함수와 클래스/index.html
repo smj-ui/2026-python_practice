@@ -844,9 +844,7 @@ function buildPanels(){
     ctrl.innerHTML =
       `<button class="btn btn-run"   data-act="run"   data-i="${i}">▶ 실행</button>` +
       `<button class="btn btn-check" data-act="check" data-i="${i}">✓ 정답 확인</button>` +
-      `<button class="btn btn-reset" data-act="reset" data-i="${i}">↺ 초기화</button>` +
-      (l.showSubmit ? `<button class="btn btn-submit" data-act="submit" data-i="${i}">📤 구글폼 제출</button>` : '');
-
+      `<button class="btn btn-reset" data-act="reset" data-i="${i}">↺ 초기화</button>`
     ctrl.addEventListener('click', e => {
       const btn = e.target.closest('button'); if(!btn) return;
       const ii = parseInt(btn.dataset.i), act = btn.dataset.act;
