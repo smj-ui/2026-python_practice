@@ -417,10 +417,6 @@ async function runPython(code){
         const userInput = window.prompt(msg);
         const finalInput = userInput !== null ? userInput : "";
         
-        // 입력받은 값을 결과창(콘솔)에도 자연스럽게 보여주기 위해 추가합니다.
-        out += finalInput + "\n";
-        promptBuffer = ''; // 다음 입력을 위해 버퍼 초기화
-        
         // 팝업창에서 고민하는 동안 타이머가 흘러가 타임아웃 에러가 나는 것을 방지합니다.
         if (Sk.execStart) {
           Sk.execStart += (Date.now() - t0);
