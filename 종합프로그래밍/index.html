@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>파이썬 프로그래밍 종합 수행평가</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&family=Gmarket+Sans:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#1e1e2e;--surface:#181825;--surface2:#313244;--border:#45475a;
+  --accent:#89b4fa;--green:#a6e3a1;--red:#f38ba8;--yellow:#f9e2af;
+  --purple:#cba6f7;--cyan:#89dceb;--orange:#fab387;
+  --text:#cdd6f4;--subtext:#a6adc8;--muted:#6c7086;
+  --sidebar:#11111b;--codebg:#11111b;
+  --kw:#cba6f7;--fn-c:#89b4fa;--str-c:#a6e3a1;--num-c:#fab387;
+  --cm-c:#6c7086;--op-c:#89dceb;--cls-c:#f9e2af;--self-c:#f38ba8;--bi-c:#89dceb;
+  --info-c:#89b4fa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Gmarket Sans','Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px}
+.app{display:grid;grid-template-columns:370px 1fr;min-height:100vh}
+
+/* ── Sidebar (부정행위 방지 적용) ── */
+.sidebar{
+  background:var(--sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;
+  /* 텍스트 선택(드래그) 방지 */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.sb-head{padding:18px 20px 14px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,#1a1a2e 0%,#11111b 100%)}
+.sb-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(137,180,250,.12);border:1px solid rgba(137,180,250,.3);border-radius:20px;padding:3px 11px;font-size:11px;color:var(--accent);font-weight:700;letter-spacing:.08em;margin-bottom:8px}
+.sb-title{font-size:19px;font-weight:700;line-height:1.3}
+.sb-credit{font-size:11px;color:var(--muted);margin-top:3px}
+.sb-body{flex:1;overflow-y:auto;padding:16px 18px}
+.sb-body::-webkit-scrollbar{width:4px}
+.sb-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+.lm-title{font-size:15px;font-weight:700;margin-bottom:8px;line-height:1.4}
+.lm-desc{font-size:13px;color:var(--subtext);line-height:1.75;margin-bottom:4px}
+.sec-label{font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--accent);text-transform:uppercase;margin:14px 0 6px}
+.prob-block{background:#11111b;border:1px solid var(--border);border-left:3px solid var(--green);border-radius:8px;padding:12px 14px;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.8;color:var(--subtext);white-space:pre-wrap; word-break:keep-all;}
+.tip-block{background:rgba(249,226,175,.07);border:1px solid rgba(249,226,175,.22);border-radius:8px;padding:11px 14px;font-size:13px;line-height:1.7;color:var(--yellow);margin-top:12px; word-break:keep-all;}
+.tip-block::before{content:"💡 [주의/출력제한] "}
+
+/* syntax tokens */
+.kw{color:var(--kw);font-weight:700}.fn{color:var(--fn-c)}.str{color:var(--str-c)}
+.num{color:var(--num-c)}.cm{color:var(--cm-c);font-style:italic}.op{color:var(--op-c)}
+.cls-n{color:var(--cls-c);font-weight:700}.self-k{color:var(--self-c)}.bi{color:var(--bi-c)}
+
+/* ── Main ── */
+.main{display:flex;flex-direction:column;min-width:0}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:11px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.topbar-title{font-size:15px;font-weight:700}
+
+/* 제출 영역 UI */
+.submit-wrap{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--surface2);padding:5px 12px;border-radius:8px;}
+.submit-wrap label{font-size:12.5px;color:var(--text);font-weight:500}
+.submit-wrap select, .submit-wrap input{background:#11111b;border:1px solid var(--border);color:var(--text);padding:6px 10px;border-radius:6px;font-size:12.5px;outline:none;font-family:inherit}
+.submit-wrap input{width:70px;}
+
+.tabs-area{background:var(--surface);border-bottom:1px solid var(--border);padding:10px 16px;}
+.tabs-grid{display:flex;flex-wrap:wrap;gap:8px;}
+.tab-btn{border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;background:var(--surface2);color:var(--muted);transition:all .2s;font-family:inherit}
+.tab-btn:hover{color:var(--text);border-color:var(--subtext)}
+.tab-btn.active{background:rgba(137,180,250,.15);color:var(--accent);border-color:var(--accent)}
+
+.panels{flex:1;overflow:auto}
+.lesson-panel{display:none;flex-direction:column}
+.lesson-panel.active{display:flex}
+
+/* ── Custom Code Editor ── */
+.editor-topbar{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;background:var(--surface2);border-bottom:1px solid var(--border)}
+.editor-filename{color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:12px}
+.editor-tag{color:var(--muted);font-size:11.5px}
+
+.ce-container{display:flex;background:var(--codebg);border-bottom:1px solid var(--border)}
+.ce-gutter{
+  background:#181825;border-right:1px solid var(--border);
+  color:var(--muted);font-family:'JetBrains Mono',monospace;
+  font-size:14px; line-height:1.6; padding:14px 8px 14px 6px;
+  text-align:right;user-select:none;min-width:40px;
+  white-space:pre;overflow:hidden;flex-shrink:0;
+}
+.ce-inner{
+  flex:1;position:relative;overflow:auto;
+}
+.ce-inner::-webkit-scrollbar{height:5px;width:5px}
+.ce-inner::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.ce-hl{
+  position:relative;padding:14px 16px;
+  font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.6;
+  white-space:pre;pointer-events:none;color:var(--text);
+  word-break:normal;
+}
+.ce-ta{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  padding:14px 16px;
+  background:transparent;color:transparent;caret-color:var(--text);
+  border:none;outline:none;resize:none;
+  font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.6;
+  tab-size:4;white-space:pre;overflow:hidden;z-index:2;
+}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;padding:11px 15px;background:var(--surface);border-top:1px solid var(--border)}
+.btn{border:none;border-radius:9px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .15s,transform .1s}
+.btn:active{transform:scale(.97)}
+.btn-run{background:#1a4a28;color:var(--green);border:1px solid #2a6b3a}
+.btn-reset{background:var(--surface2);color:var(--subtext);border:1px solid var(--border)}
+.btn-submit{background:var(--red);color:#fff}
+
+.result-panel{margin:11px 15px 13px;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--surface)}
+.result-head{padding:8px 14px;background:var(--surface2);border-bottom:1px solid var(--border);font-size:12.5px;font-weight:700;color:var(--muted)}
+.result-status{padding:10px 15px 0;font-size:13.5px;font-weight:700}
+.result-status.info{color:var(--info-c)}
+.result-status.fail{color:var(--red)}
+.result-log{padding:9px 15px 15px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.75;color:#cdd6f4;white-space:pre-wrap;word-break:break-all;}
+
+.hidden{display:none!important}
+@media(max-width:800px){.app{grid-template-columns:1fr}.sidebar{border-right:none;border-bottom:1px solid var(--border);max-height:320px}}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ═══════ SIDEBAR ═══════ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sb-head">
+    <div class="sb-badge">🐍 Python</div>
+    <div class="sb-title" id="sbTitle">파이썬 종합 평가</div>
+    <div class="sb-credit">수행평가 15문항 마스터하기</div>
+  </div>
+  <div class="sb-body">
+    <div class="lm-title"  id="sbLessonTitle"></div>
+    <div class="lm-desc"   id="sbDesc"></div>
+    
+    <div id="sbProbSec" class="hidden">
+      <div class="sec-label">📝 문제 조건 및 출력 예시</div>
+      <div class="prob-block" id="sbProbBox"></div>
+    </div>
+    
+    <div class="tip-block hidden" id="sbTip"></div>
+  </div>
+</aside>
+
+<!-- ═══════ MAIN ═══════ -->
+<main class="main">
+  <div class="topbar">
+    <div class="topbar-title" id="pageTitle">수행평가 실습 공간</div>
+    
+    <!-- 과제 제출 영역 -->
+    <div class="submit-wrap">
+      <label for="selClass">반</label>
+      <select id="selClass">
+        <option value="">선택</option>
+        <option value="1">1반</option><option value="2">2반</option>
+        <option value="3">3반</option><option value="4">4반</option>
+        <option value="5">5반</option><option value="6">6반</option>
+        <option value="7">7반</option><option value="8">8반</option>
+        <option value="9">9반</option><option value="10">10반</option>
+      </select>
+      
+      <label for="selNum">번호</label>
+      <select id="selNum">
+        <option value="">선택</option>
+        <!-- 번호 1~27 자동생성 -->
+      </select>
+
+      <label for="inpName">이름</label>
+      <input type="text" id="inpName" placeholder="홍길동">
+
+      <button class="btn btn-submit" id="btnSubmit">📝 최종 과제 제출하기</button>
+    </div>
+
+  </div>
+  
+  <div class="tabs-area">
+    <div class="tabs-grid" id="tabsRow">
+      <!-- 탭들이 동적으로 생성됩니다 -->
+    </div>
+  </div>
+  <div class="panels" id="panelsContainer"></div>
+</main>
+</div>
+
+<!-- 구글 폼 백그라운드 제출을 위한 숨겨진 iframe -->
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(this.submitted) { alert('과제가 성공적으로 제출되었습니다! 수고하셨습니다.'); }"></iframe>
+
+<!-- ═══════ Skulpt ═══════ -->
+<script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
+<script>
+(function ensureBuiltinFiles(){
+  function patch(){
+    if(typeof Sk !== 'undefined'){
+      if(!Sk.builtinFiles) Sk.builtinFiles = { files:{} };
+      if(!Sk.builtinFiles.files) Sk.builtinFiles.files = {};
+    }
+  }
+  patch();
+  document.addEventListener('DOMContentLoaded', patch);
+})();
+</script>
+
+<script>
+/* ════════════════════════════════════
+   부정행위 (복사/붙여넣기/우클릭) 차단
+════════════════════════════════════ */
+const sidebar = document.getElementById('sidebar');
+sidebar.addEventListener('copy', (e) => e.preventDefault());
+sidebar.addEventListener('cut', (e) => e.preventDefault());
+sidebar.addEventListener('contextmenu', (e) => e.preventDefault());
+
+/* ════════════════════════════════════
+   CONFIG (루브릭 1개 + 15문항 데이터 셋업)
+════════════════════════════════════ */
+const CONFIG = {
+  // 폼 전송을 위한 기본 URL
+  formSubmitUrl: 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSe7PggmdR0kdm7skr0rS_HIARG6GRP7GcAy9iTonGJJ1A6h4A/formResponse',
+  
+  lessons: [
+    {
+      isInfo: true, // 에디터가 없는 정보 탭
+      tabName: "채점 루브릭",
+      title: "📋 채점 루브릭 및 유의사항 (50점 만점)",
+      desc: "수행평가를 시작하기 전, 채점 기준을 반드시 확인하세요.",
+      probText: "[1. 점수 산출 방식]\n- 기본 점수: 20점\n- 문항 배점: 15개 문항 × 각 2점 = 총 30점\n- 총점: 기본점수(20점) + 획득점수 = 최대 50점\n\n[2. 중요 감점 및 0점 처리 기준]\n- 필수 키워드 미포함: 각 문항에 지정된 필수 키워드가 코드에 포함되지 않은 경우, 해당 문항은 0점(FAIL) 처리됩니다.\n- 부정행위(복사-붙여넣기): 학생이 외부 코드를 복사하여 사용한 기록이 남을 경우 해당 문항은 0점 처리됩니다.\n- 오타 및 출력 형식: 출력 예시와 공백, 줄바꿈 등이 다를 경우 부분 감점이 있을 수 있습니다.",
+      tip: "위 사항을 꼼꼼히 확인한 후, 상단의 '문제1' 탭부터 차례대로 풀이를 시작하세요."
+    },
+    {
+      tabName: "문제1",
+      title: "[문제 1] 나의 진로 설정 (순차 구조)",
+      desc: "장래희망, 좋아하는 과목, 다짐을 각각 줄을 바꿔 입력받아 아래 출력 결과에 맞게 출력하세요.",
+      probText: "[입력 내용 예시]\n인공지능 개발자\n정보\n세상을 바꾸자\n\n[출력 결과]\n진로 목표가 설정되었습니다!\n인공지능 개발자 정보 세상을 바꾸자\n\n> ★ 필수 키워드: input, print",
+      tip: "출력 결과와 띄어쓰기, 줄바꿈, 문장 형식이 동일하게 출력되어야 합니다.",
+      starter: "# 1번 문제 코드를 작성하세요.\n\n"
+    },
+    {
+      tabName: "문제2",
+      title: "[문제 2] 더치페이 계산기 (산술 연산)",
+      desc: "00네 모둠 4명이 과자를 사려고 한다. 과자 한 봉지의 가격은 16000원이며, 모둠원이 동일하게 금액을 나누어 내기로 했다.",
+      probText: "변수 `price`, `people`을 직접 선언하고, 1인당 내야 할 금액을 몫 연산자('//')로 계산하여 아래 출력 결과에 맞게 출력하세요.\n\n[출력 결과]\n1인당 내야 할 금액은 4000원입니다.\n\n> ★ 필수 키워드: //, 변수: price, people",
+      tip: "출력 결과와 문장 형식 및 단위(원)가 동일하게 출력되어야 합니다.",
+      starter: "# 2번 문제 코드를 작성하세요.\n\n"
+    },
+    {
+      tabName: "문제3",
+      title: "[문제 3] 조건문 기초 종합 (if-else)",
+      desc: "00은 올해 25살이며, 오늘 낮 기온은 32도이다. 성인 여부를 판별하고 상황에 맞는 가전제품을 선택하려고 한다.",
+      probText: "변수 `age`, `temp`를 직접 선언하고, 아래 조건에 맞는 조건문을 작성하여 출력하세요.\n- `age`가 20 이상이면 '성인', 아니면 '미성년자'를 출력하세요.\n- `temp`가 28 이상이면 '에어컨 켬', 아니면 '선풍기 켬'을 출력하세요.\n\n[출력 결과]\n성인\n에어컨 켬\n\n> ★ 필수 키워드: if-else, 변수: age, temp",
+      tip: "출력 결과와 줄바꿈 및 문자열이 동일하게 출력되어야 합니다.",
+      starter: "# 3번 문제 코드를 작성하세요.\n\n"
+    },
+    {
+      tabName: "문제4",
+      title: "[문제 4] 미세먼지 판별 (다중 조건문)",
+      desc: "오늘 오전 측정된 미세먼지 농도는 50이다. 이를 바탕으로 대기 상태 등급을 안내하려고 한다.",
+      probText: "변수 `dust`를 직접 선언하고, 다중 조건문으로 미세먼지 등급을 판별하여 출력하세요.\n- 30 이하: '좋음'\n- 31 이상 80 이하: '보통'\n- 81 이상 150 이하: '나쁨'\n- 151 이상: '매우 나쁨'\n\n[출력 결과]\n보통\n\n> ★ 필수 키워드: if-elif-else, 변수: dust",
+      tip: "출력 결과와 문자열이 동일하게 출력되어야 합니다.",
+      starter: "# 4번 문제 코드를 작성하세요.\n\n"
+    },
+    {
+      tabName: "문제5",
+      title: "[문제 5] 놀이공원 입장 (논리 연산자)",
+      desc: "00은 키가 145cm이고 나이는 12살이다. 현재 일반 이용권은 없지만 vip 회원권을 보유하고 있다.",
+      probText: "놀이기구 탑승 가능 여부와 입장 가능 여부를 확인하려고 한다. 변수 `height`, `age`, `ticket`, `vip`를 직접 선언하고, 아래 조건에 맞는 조건문을 작성하여 출력하세요.\n- height 130 이상, age 10 이상 조건을 모두 만족할 때 '탑승 가능'을 출력하세요.\n- ticket, vip 중 하나라도 'True'이면 '입장'을 출력하세요.\n\n[출력 결과]\n탑승 가능\n입장\n\n> ★ 필수 키워드: and, or, 변수: height, age, ticket, vip",
+      tip: "출력 결과와 줄바꿈 및 문자열이 동일하게 출력되어야 합니다.",
+      starter: "# 5번 문제 코드를 작성하세요.\n\n"
+    },
+    {
+      tabName: "문제6",
+      title: "[문제 6] 쇼핑몰 배송비 (중첩 조건문)",
+      desc: "현재 00은 온라인 쇼핑몰에서 35000원을 소비하고자 한다. 이 쇼핑몰은 다음과 같은 배송비 기준을 가지고 있다.",
+      probText: "- 20000원 미만 구매 시 주문 불가\n- 20000원 이상 구매 시 주문 가능\n  - 50000원 이상이면: 무료 배송\n  - 50000원 미만이면: 배송비 3000원 추가\n\n[출력 결과]\n주문 가능\n배송비 3000원 추가\n\n> ★ 필수 키워드: if-else, 변수: price",
+      tip: "출력 결과와 줄바꿈 및 문장 형식이 동일하게 출력되어야 합니다.",
+      starter: "# 6번 문제 코드를 작성하세요.\n\n"
+    },
+    {
+      tabName: "문제7",
+      title: "[문제 7] 반복문 기초 (데이터 백업)",
+      desc: "컴퓨터가 데이터를 백업하는 상황을 프로그램으로 표현하려고 한다.",
+      probText: "`for` 문을 사용하여 '데이터 백업 중...' 문구를 총 3번 줄바꿈하여 출력하세요.\n\n[출력 결과]\n데이터 백업 중...\n데이터 백업 중...\n데이터 백업 중...\n\n> ★ 필수 키워드: for-range",
+      tip: "출력 결과와 문자열 및 반복 횟수(3번)가 동일하게 출력되어야 합니다.",
+      starter: "# 7번 문제 코드를 작성하세요.\n\n"
+    },
+    {
+      tabName: "문제8",
+      title: "[문제 8] 반복문 기초 (카운트다운)",
+      desc: "로켓 발사 전 카운트다운처럼, 숫자가 일정한 간격으로 줄어드는 상황을 표현하려고 한다.",
+      probText: "`for` 문과 `range()`를 사용하여 20부터 5까지 5씩 감소하며 한 줄에 공백을 두고 출력하세요.\n\n[출력 결과]\n20 15 10 5 \n\n> ★ 필수 키워드: for-range, end",
+      tip: "출력 결과와 숫자 순서, 숫자 사이 공백, 마지막 공백 포함 여부가 동일하게 출력되어야 합니다.",
+      starter: "# 8번 문제 코드를 작성하세요.\n\n"
+    },
+    {
+      tabName: "문제9",
+      title: "[문제 9] 반복문 기초 3 (반복 변수)",
+      desc: "게임에서 스테이지를 하나씩 클리어해 나가는 상황을 프로그램으로 표현하려고 한다.",
+      probText: "`for` 문을 사용하여 1단계부터 3단계까지 'Level n 클리어' 형식으로 출력하세요.\n\n[출력 결과]\nLevel 1 클리어\nLevel 2 클리어\nLevel 3 클리어\n\n> ★ 필수 키워드: for-range",
+      tip: "출력 결과와 문장 형식, 숫자, 줄바꿈이 동일하게 출력되어야 합니다.",
+      starter: "# 9번 문제 코드를 작성하세요.\n\n"
+    },
+    {
+      tabName: "문제10",
+      title: "[문제 10] 리스트와 반복문",
+      desc: "과일 가게의 재고 목록을 관리하는 프로그램을 만들려고 한다.",
+      probText: "'사과', '포도', '망고'를 요소로 가지는 리스트 `fruits`를 만들고, `for` 문을 사용하여 요소를 하나씩 출력하세요.\n\n[출력 결과]\n사과\n포도\n망고\n\n> ★ 필수 키워드: for-in, 리스트: fruits",
+      tip: "출력 결과와 요소 순서 및 줄바꿈이 동일하게 출력되어야 합니다.",
+      starter: "# 10번 문제 코드를 작성하세요.\n\n"
+    },
+    {
+      tabName: "문제11",
+      title: "[문제 11] 반복문 기초 4 (while문)",
+      desc: "운동 기록 앱에서 목표 횟수까지 카운트를 올리는 상황을 프로그램으로 표현하려고 한다.",
+      probText: "`while` 문을 사용하여 숫자가 10부터 14까지 1씩 커지며 출력되게 하세요.\n\n[출력 결과]\n10\n11\n12\n13\n14\n\n> ★ 필수 키워드: while",
+      tip: "출력 결과와 숫자 범위 및 줄바꿈이 동일하게 출력되어야 합니다.",
+      starter: "# 11번 문제 코드를 작성하세요.\n\n"
+    },
+    {
+      tabName: "문제12",
+      title: "[문제 12] 반복문 제어 (while + input)",
+      desc: "컴퓨터 시스템에 로그인하는 상황을 프로그램으로 표현하려고 한다.",
+      probText: "`while` 문과 `input()`을 사용하여 '비밀번호를 입력하세요: ' 메시지를 제공하여 비밀번호를 입력받으세요. '1234'가 입력될 때까지 반복하다가, '1234'가 입력되면 반복을 탈출하고 '로그인 성공!'을 출력하세요.\n\n[출력 결과]\n로그인 성공!\n\n> ★ 필수 키워드: while, input",
+      tip: "출력 결과와 프롬프트 문구, 줄바꿈 없이 이어지는 형식, 마지막 메시지가 동일하게 출력되어야 합니다.",
+      starter: "# 12번 문제 코드를 작성하세요.\n\n"
+    },
+    {
+      tabName: "문제13",
+      title: "[문제 13] 자료구조 종합 (리스트, 튜플, 딕셔너리)",
+      desc: "표와 데이터를 참고하여 자료구조를 직접 선언하고, 순서에 따라 출력하세요.",
+      probText: "① 2차원 리스트 `matrix`: [[10, 20], [30, 40]]\n1. `matrix` 전체를 출력하세요.\n2. `matrix`의 첫째 줄, 둘째 줄을 각각 출력하세요.\n3. `matrix` 첫째 줄의 둘째 값, 둘째 줄의 첫째 값을 각각 출력하세요.\n\n② 튜플 `seasons`: ('봄', '여름', '가을', '겨울')\n4. `seasons`의 세 번째 값을 출력하세요.\n\n③ 딕셔너리 `info`: {'과목': '정보', '점수': '100'}\n5. `info`에서 '과목', '점수' 키에 해당하는 값을 각각 출력하세요.\n\n[출력 결과]\n[[10, 20], [30, 40]]\n[10, 20]\n[30, 40]\n20\n30\n가을\n정보\n100\n\n> ★ 필수 키워드: 이차원 리스트, 리스트: matrix, 튜플: seasons, 딕셔너리: info",
+      tip: "출력 결과 산출 시, matrix 이차원 리스트를 활용하여 1~5번째 줄을 출력, seasons 튜플을 활용하여 6번째 줄, info 딕셔너리를 활용하여 7~8번째를 출력해야 합니다. 또한 숫자 범위 및 줄바꿈이 동일하게 출력되어야 합니다.",
+      starter: "# 13번 문제 코드를 작성하세요.\n\n"
+    },
+    {
+      tabName: "문제14",
+      title: "[문제 14] 중첩 반복문",
+      desc: "공사 현장의 안전 표시판을 프로그램으로 표현하려고 한다.",
+      probText: "중첩 반복문(`for` 문 2개)을 사용하여 '#' 기호를 한 줄에 5번 반복 출력하고, 이 과정을 총 2번 반복하여 출력하세요. ('#' 사이에 띄어쓰기 유지)\n\n[출력 결과]\n# # # # # \n# # # # # \n\n> ★ 필수 키워드: for (중첩), print",
+      tip: "출력 결과와 기호 사이 공백, 줄 수(2줄), 각 줄 끝 공백 포함 여부가 동일하게 출력되어야 합니다.",
+      starter: "# 14번 문제 코드를 작성하세요.\n\n"
+    },
+    {
+      tabName: "문제15",
+      title: "[문제 15] 중첩 반복문",
+      desc: "아래 4×4 표를 중첩 반복문을 사용하여 출력 결과에 맞게 출력하세요.",
+      probText: "단, 3번째 줄은 숫자 대신 '*'로 채워집니다. (값 사이 띄어쓰기 및 줄바꿈 유지)\n\n[출력 결과]\n1 2 3 4 \n1 2 3 4 \n* * * * \n1 2 3 4 \n\n> ★ 필수 키워드: for (중첩), if-else",
+      tip: "출력 결과와 숫자/기호, 값 사이 공백, 3번째 줄의 `*`처리, 전체 줄 수가 동일하게 출력되어야 합니다.",
+      starter: "# 15번 문제 코드를 작성하세요.\n\n"
+    }
+  ]
+};
+
+/* ════════════════════════════════════
+   SYNTAX HIGHLIGHTER
+════════════════════════════════════ */
+const KW = new Set(['def','class','return','if','else','elif','for','while','in',
+  'not','and','or','is','pass','import','from','as','try','except','finally',
+  'with','lambda','yield','True','False','None','break','continue','global',
+  'nonlocal','raise','del','assert']);
+const BI = new Set(['print','len','range','int','str','float','list','dict','tuple',
+  'set','bool','type','input','abs','max','min','sum','sorted','reversed',
+  'enumerate','zip','map','filter','open','super','isinstance','hasattr',
+  'getattr','setattr','repr','format','round','hex','oct','bin','chr','ord']);
+
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function hlPython(code){
+  return code.split('\n').map(hlLine).join('\n');
+}
+
+function hlLine(line){
+  let r='', i=0, n=line.length;
+  while(i<n){
+    if(line[i]==='#'){ r+=`<span class="cm">${esc(line.slice(i))}</span>`; break; }
+    if((line[i]==='"'||line[i]==="'") && line.slice(i,i+3)===line[i].repeat(3)){
+      const q=line[i].repeat(3); let k=i+3;
+      while(k<n && line.slice(k,k+3)!==q) k++;
+      k = k<n ? k+3 : n;
+      r+=`<span class="str">${esc(line.slice(i,k))}</span>`; i=k; continue;
+    }
+    if((line[i]==='f'||line[i]==='F') && i+1<n && (line[i+1]==='"'||line[i+1]==="'")){
+      const q=line[i+1]; let j=i+2;
+      while(j<n && line[j]!==q){ if(line[j]==='\\') j++; j++; }
+      j=j<n?j+1:n;
+      r+=`<span class="str">${esc(line.slice(i,j))}</span>`; i=j; continue;
+    }
+    if(line[i]==='"'||line[i]==="'"){
+      const q=line[i]; let j=i+1;
+      while(j<n && line[j]!==q){ if(line[j]==='\\') j++; j++; }
+      j=j<n?j+1:n;
+      r+=`<span class="str">${esc(line.slice(i,j))}</span>`; i=j; continue;
+    }
+    if(/[0-9]/.test(line[i])||(line[i]==='.'&&i+1<n&&/[0-9]/.test(line[i+1]))){
+      let j=i; while(j<n&&/[0-9._eExXbBoO]/.test(line[j]))j++;
+      r+=`<span class="num">${esc(line.slice(i,j))}</span>`; i=j; continue;
+    }
+    if(/[a-zA-Z_]/.test(line[i])){
+      let j=i; while(j<n&&/[a-zA-Z0-9_]/.test(line[j]))j++;
+      const w=line.slice(i,j);
+      const plain=r.replace(/<[^>]+>/g,'');
+      const after=line.slice(j).trimStart();
+      if(w==='self')                           r+=`<span class="self-k">${esc(w)}</span>`;
+      else if(KW.has(w))                       r+=`<span class="kw">${esc(w)}</span>`;
+      else if(BI.has(w))                       r+=`<span class="bi">${esc(w)}</span>`;
+      else if(/\bclass\s*$/.test(plain))       r+=`<span class="cls-n">${esc(w)}</span>`;
+      else if(/\bdef\s*$/.test(plain))         r+=`<span class="fn">${esc(w)}</span>`;
+      else if(after.startsWith('('))           r+=`<span class="fn">${esc(w)}</span>`;
+      else                                     r+=esc(w);
+      i=j; continue;
+    }
+    if(/[+\-*/%=<>!&|^~@:,.()\[\]{}]/.test(line[i])){
+      r+=`<span class="op">${esc(line[i])}</span>`; i++; continue;
+    }
+    r+=esc(line[i]); i++;
+  }
+  return r;
+}
+
+/* ════════════════════════════════════
+   CUSTOM EDITOR
+════════════════════════════════════ */
+function makeEditor(lesson, idx){
+  const gutter = document.createElement('div');
+  gutter.className = 'ce-gutter';
+  gutter.id = `gutter-${idx}`;
+
+  const hl = document.createElement('div');
+  hl.className = 'ce-hl';
+  hl.id = `hl-${idx}`;
+
+  const ta = document.createElement('textarea');
+  ta.id = `code-${idx}`;
+  ta.className = 'ce-ta';
+  ta.value = lesson.starter || '';
+  ta.spellcheck = false;
+  ta.autocomplete = 'off';
+  ta.autocorrect  = 'off';
+  ta.autocapitalize = 'off';
+
+  const inner = document.createElement('div');
+  inner.className = 'ce-inner';
+  inner.appendChild(hl);
+  inner.appendChild(ta);
+
+  const wrap = document.createElement('div');
+  wrap.className = 'ce-container';
+  wrap.appendChild(gutter);
+  wrap.appendChild(inner);
+
+  function sync(){
+    const code = ta.value;
+    hl.innerHTML = hlPython(code) + '\n';
+    const lines = code.split('\n').length;
+    let g = '';
+    for(let i=1;i<=lines;i++) g += i + '\n';
+    gutter.textContent = g;
+    ta.style.height = '1px';
+    const h = Math.max(300, ta.scrollHeight);
+    ta.style.height = h + 'px';
+    hl.style.minHeight = h + 'px';
+    inner.style.minHeight = h + 'px';
+    wrap.style.minHeight = h + 'px';
+  }
+  sync();
+
+  ta.addEventListener('input', sync);
+  ta.addEventListener('scroll', () => {
+    hl.style.transform = `translateY(-${ta.scrollTop}px) translateX(-${ta.scrollLeft}px)`;
+    gutter.style.transform = `translateY(-${ta.scrollTop}px)`;
+  });
+
+  ta.addEventListener('keydown', e => {
+    const val   = ta.value;
+    const start = ta.selectionStart;
+    const end   = ta.selectionEnd;
+
+    if(e.key === 'Tab'){
+      e.preventDefault();
+      if(start !== end){
+        const lineStart = val.lastIndexOf('\n', start-1) + 1;
+        const lastNL    = val.indexOf('\n', end-1);
+        const lineEnd   = lastNL === -1 ? val.length : lastNL;
+        const block     = val.slice(lineStart, lineEnd);
+        const lines     = block.split('\n');
+        let newLines;
+        if(e.shiftKey) newLines = lines.map(l => l.replace(/^    /, ''));
+        else newLines = lines.map(l => '    ' + l);
+        const newBlock = newLines.join('\n');
+        ta.value = val.slice(0, lineStart) + newBlock + val.slice(lineEnd);
+        const firstDelta = newLines[0].length - lines[0].length;
+        const totalDelta = newLines.reduce((s,l,i) => s + (l.length - lines[i].length), 0);
+        ta.selectionStart = Math.max(lineStart, start + firstDelta);
+        ta.selectionEnd   = end + totalDelta;
+        sync(); return;
+      }
+      ta.value = val.slice(0, start) + '    ' + val.slice(end);
+      ta.selectionStart = ta.selectionEnd = start + 4;
+      sync(); return;
+    }
+
+    if(e.key === 'Enter'){
+      e.preventDefault();
+      const lineStart  = val.lastIndexOf('\n', start-1) + 1;
+      const curLine    = val.slice(lineStart, start);
+      const m          = curLine.match(/^(\s*)/);
+      let indent       = m ? m[1] : '';
+      if(curLine.trimEnd().endsWith(':')) indent += '    ';
+      ta.value = val.slice(0, start) + '\n' + indent + val.slice(end);
+      ta.selectionStart = ta.selectionEnd = start + 1 + indent.length;
+      sync(); return;
+    }
+
+    if(e.key === 'Backspace' && start === end && start > 0){
+      const lineStart = val.lastIndexOf('\n', start-1) + 1;
+      const col = start - lineStart;
+      if(col > 0 && col % 4 === 0 && val.slice(start-4, start) === '    '){
+        e.preventDefault();
+        ta.value = val.slice(0, start-4) + val.slice(start);
+        ta.selectionStart = ta.selectionEnd = start - 4;
+        sync(); return;
+      }
+    }
+  });
+
+  return { wrap, ta, sync };
+}
+
+/* ════════════════════════════════════
+   SKULPT runner
+════════════════════════════════════ */
+function skulptRead(x){
+  if(typeof Sk !== 'undefined' && Sk.builtinFiles && Sk.builtinFiles.files && Sk.builtinFiles.files[x] !== undefined){
+    return Sk.builtinFiles.files[x];
+  }
+  const unsupported = ['sys','os','io','_io','time','datetime','json','re',
+                       'collections','itertools','functools','pathlib',
+                       'subprocess','threading','socket','http','urllib',
+                       'csv','pickle','struct','ctypes','multiprocessing'];
+  const modName = x.replace(/^.*\//, '').replace(/\.js$/, '');
+  if(unsupported.includes(modName)){
+    throw `이 환경에서는 '${modName}' 모듈을 사용할 수 없습니다.`;
+  }
+  return '';
+}
+
+function preCheck(code){
+  const lines = code.split('\n');
+  const unsupported = ['sys','os','io','time','datetime','json','re',
+                       'collections','itertools','functools','pathlib',
+                       'subprocess','threading','socket','http','urllib'];
+  for(let i=0; i<lines.length; i++){
+    const m = lines[i].match(/^\s*import\s+(\w+)/);
+    if(m && unsupported.includes(m[1])) return `이 환경에서는 '${m[1]}' 모듈을 사용할 수 없습니다. (${i+1}번 줄)`;
+    const m2 = lines[i].match(/^\s*from\s+(\w+)\s+import/);
+    if(m2 && unsupported.includes(m2[1])) return `이 환경에서는 '${m2[1]}' 모듈을 사용할 수 없습니다. (${i+1}번 줄)`;
+  }
+  return null;
+}
+
+/* 입력(input) 출력 제거 및 타임아웃 방지 */
+async function runPython(code){
+  if(typeof Sk === 'undefined')
+    return { ok:false, out:'', err:'Skulpt 라이브러리를 불러오지 못했습니다. 새로고침 후 다시 시도하세요.' };
+
+  const preErr = preCheck(code);
+  if(preErr) return { ok:false, out:'', err: preErr };
+
+  let out = '';
+
+  Sk.configure({
+    output     : t => { 
+      out += t; 
+    },
+    read       : skulptRead,
+    inputfun   : function(promptArgs) {
+      return new Promise((resolve) => {
+        const t0 = Date.now();
+        
+        // input("안녕")을 실행했을 때, 파이썬 내부적으로 "안녕"이 결과창(out)에 출력됩니다.
+        // 이를 완벽히 제거하기 위해 out의 끝부분이 promptArgs와 같으면 그 부분을 잘라냅니다.
+        if (promptArgs && out.endsWith(promptArgs)) {
+          out = out.slice(0, -promptArgs.length);
+        }
+        
+        // 안내 문구만 팝업에 표시
+        const msg = promptArgs || "값을 입력하세요:";
+        const userInput = window.prompt(msg);
+        const finalInput = userInput !== null ? userInput : "";
+        
+        if (Sk.execStart) {
+          Sk.execStart += (Date.now() - t0);
+        }
+        
+        resolve(finalInput);
+      });
+    },
+    __future__ : Sk.python3,
+    execLimit  : 300000 
+  });
+
+  try {
+    await Sk.misceval.asyncToPromise(() =>
+      Sk.importMainWithBody('<stdin>', false, code, true)
+    );
+    return { ok:true, out: out.replace(/\n$/, ''), err:'' };
+  } catch(e) {
+    const msg = String(e);
+    let friendly = msg;
+    if(msg.toLowerCase().includes('exec') && msg.toLowerCase().includes('limit'))
+      friendly = '⏱ 실행 시간 초과 – 무한 루프가 있는지 확인하세요.';
+    else if(msg.includes('No module named'))
+      friendly = msg.replace('ImportError:','') + '\n이 환경(브라우저)에서 지원되지 않는 모듈입니다.';
+    return { ok:false, out: out.replace(/\n$/, ''), err: friendly };
+  }
+}
+
+/* ════════════════════════════════════
+   STATE
+════════════════════════════════════ */
+let activeIdx = 0;
+const editors = [];
+
+/* ════════════════════════════════════
+   BUILD UI & LOGIC
+════════════════════════════════════ */
+function init(){
+  // 번호 select 옵션 생성 (1번~27번)
+  const selNum = document.getElementById('selNum');
+  for(let i=1; i<=27; i++) {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = i + "번";
+    selNum.appendChild(opt);
+  }
+
+  // 💥 마법이 일어나는 제출 버튼 이벤트 (백그라운드 다이렉트 전송)
+  document.getElementById('btnSubmit').addEventListener('click', () => {
+    const cls = document.getElementById('selClass').value;
+    const num = document.getElementById('selNum').value;
+    const name = document.getElementById('inpName').value.trim();
+
+    if(!cls || !num || !name) {
+      alert('과제를 제출하기 전에 [반, 번호, 이름]을 모두 입력해주세요!');
+      return;
+    }
+
+    if(!confirm('모든 문항의 답안을 선생님께 제출하시겠습니까?')) return;
+    
+    // 선생님이 올려주신 소스코드에서 추출한 고유 entry ID 목록
+    const formEntryIds = [
+      'entry.668448153',  // 1번
+      'entry.561414392',  // 2번
+      'entry.1078801857', // 3번
+      'entry.1821938050', // 4번
+      'entry.246165845',  // 5번
+      'entry.538902350',  // 6번
+      'entry.776350272',  // 7번
+      'entry.1823378349', // 8번
+      'entry.1812412455', // 9번
+      'entry.1321105799', // 10번
+      'entry.2096001823', // 11번
+      'entry.1200532845', // 12번
+      'entry.870384112',  // 13번
+      'entry.1686148894', // 14번
+      'entry.557594702'   // 15번
+    ];
+
+    // 가상의 폼(form)을 만들어 데이터를 숨긴 채로 전송합니다.
+    const form = document.createElement('form');
+    form.action = CONFIG.formSubmitUrl;
+    form.method = 'POST';
+    form.target = 'hidden_iframe'; // 페이지 이동 없이 숨겨진 iframe으로 전송
+    
+    // input 태그 생성 도우미 함수
+    const addInput = (name, value) => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = name;
+      input.value = value;
+      form.appendChild(input);
+    };
+
+    // 반, 번호, 이름 (추출한 고유 ID 적용)
+    addInput('entry.1342927365', cls);
+    addInput('entry.194717561', num);
+    addInput('entry.207819357', name);
+
+    // 인덱스 1번(문제1) 부터 15번(문제15)까지 작성된 코드를 폼에 담습니다. (인덱스 0은 루브릭 정보 탭)
+    for(let i=1; i <= 15; i++) {
+        addInput(formEntryIds[i-1], editors[i].ta.value.trim());
+    }
+
+    // 바디에 붙여서 전송 후 바로 제거
+    document.body.appendChild(form);
+    document.getElementById('hidden_iframe').submitted = true; 
+    form.submit();
+    document.body.removeChild(form);
+    
+  });
+
+  buildTabs();
+  buildPanels();
+  switchTab(0);
+}
+
+function buildTabs(){
+  const tr = document.getElementById('tabsRow');
+  CONFIG.lessons.forEach((l, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'tab-btn';
+    b.textContent = l.tabName;
+    b.dataset.i = i;
+    b.addEventListener('click', () => switchTab(i));
+    tr.appendChild(b);
+  });
+}
+
+function buildPanels(){
+  const cont = document.getElementById('panelsContainer');
+  CONFIG.lessons.forEach((l, i) => {
+    const panel = document.createElement('section');
+    panel.className = 'lesson-panel';
+    panel.id = `panel-${i}`;
+
+    if(l.isInfo) {
+      // 정보(루브릭) 탭인 경우 에디터 대신 텍스트만 표시
+      panel.innerHTML = `
+        <div style="padding: 30px; line-height: 1.8; color: var(--text); font-size: 15px; overflow-y: auto; height: 100%;">
+          <h2 style="color: var(--accent); margin-bottom: 20px;">${l.title}</h2>
+          <div style="white-space: pre-wrap; background: var(--surface2); padding: 25px; border-radius: 10px; border: 1px solid var(--border);">${l.probText}</div>
+          <div style="margin-top: 20px; background: rgba(249,226,175,.07); border: 1px solid rgba(249,226,175,.22); border-radius: 8px; padding: 15px; color: var(--yellow);">
+            💡 <strong>유의사항:</strong> ${l.tip}
+          </div>
+        </div>
+      `;
+      editors[i] = null; // 에디터 객체 없음
+    } else {
+      // 일반 문제 탭인 경우 에디터 생성
+      const { wrap:edWrap, ta, sync } = makeEditor(l, i);
+      editors[i] = { ta, sync };
+
+      const etop = document.createElement('div');
+      etop.className = 'editor-topbar';
+      etop.innerHTML = `<span class="editor-filename">main.py</span><span class="editor-tag">${l.tabName}</span>`;
+
+      const ctrl = document.createElement('div');
+      ctrl.className = 'controls';
+      ctrl.innerHTML =
+        `<button class="btn btn-run"   data-act="run"   data-i="${i}">▶ 실행</button>` +
+        `<button class="btn btn-reset" data-act="reset" data-i="${i}">↺ 코드 초기화</button>`
+      ctrl.addEventListener('click', e => {
+        const btn = e.target.closest('button'); if(!btn) return;
+        const ii = parseInt(btn.dataset.i), act = btn.dataset.act;
+        if(act==='run')    runCode(ii);
+        else if(act==='reset') resetCode(ii);
+      });
+
+      const res = document.createElement('div');
+      res.className = 'result-panel';
+      res.innerHTML = `<div class="result-head">출력 결과</div>
+        <div id="status-${i}" class="result-status info">아직 실행하지 않았습니다.</div>
+        <div id="output-${i}" class="result-log">코드를 작성하고 실행 버튼을 눌러보세요.</div>`;
+
+      const edSec = document.createElement('div');
+      edSec.appendChild(etop);
+      edSec.appendChild(edWrap);
+      edSec.appendChild(ctrl);
+
+      panel.appendChild(edSec);
+      panel.appendChild(res);
+    }
+    cont.appendChild(panel);
+  });
+}
+
+function updateSidebar(i){
+  const l = CONFIG.lessons[i];
+  document.getElementById('sbLessonTitle').textContent = l.title;
+  document.getElementById('sbDesc').textContent    = l.desc;
+
+  const psec = document.getElementById('sbProbSec');
+  const tipSec = document.getElementById('sbTip');
+
+  if(l.isInfo) {
+    psec.classList.add('hidden');
+    tipSec.classList.add('hidden');
+  } else {
+    psec.classList.remove('hidden');
+    document.getElementById('sbProbBox').textContent = l.probText;
+    if(l.tip) {
+      tipSec.classList.remove('hidden');
+      tipSec.innerHTML = l.tip; // HTML 포함 가능하도록 수정
+    } else {
+      tipSec.classList.add('hidden');
+    }
+  }
+}
+
+function switchTab(i){
+  activeIdx = i;
+  document.querySelectorAll('.tab-btn').forEach(b =>
+    b.classList.toggle('active', parseInt(b.dataset.i) === i));
+  document.querySelectorAll('.lesson-panel').forEach((p, j) =>
+    p.classList.toggle('active', j === i));
+  updateSidebar(i);
+  
+  if(!CONFIG.lessons[i].isInfo) {
+    setStatus(i, `${CONFIG.lessons[i].tabName} 공간입니다.`, 'info');
+    setOut(i, '코드를 작성하고 실행 버튼을 눌러보세요.');
+  }
+}
+
+function setStatus(i, msg, cls){
+  const el = document.getElementById(`status-${i}`);
+  if(el){ el.textContent = msg; el.className = `result-status ${cls}`; }
+}
+function setOut(i, txt){
+  const el = document.getElementById(`output-${i}`);
+  if(el) el.textContent = txt;
+}
+
+async function runCode(i){
+  setStatus(i,'실행 중...','info'); setOut(i,'...');
+  const r = await runPython(editors[i].ta.value);
+  if(r.ok){
+    setStatus(i,'✅ 실행 완료','info');
+    setOut(i, r.out || '(출력 내용이 없습니다)');
+  } else {
+    setStatus(i,'❌ 오류 발생','fail');
+    setOut(i, (r.out ? r.out+'\n\n' : '') + '오류:\n' + r.err);
+  }
+}
+
+function resetCode(i){
+  editors[i].ta.value = CONFIG.lessons[i].starter || '';
+  editors[i].sync();
+  setStatus(i,'↺ 초기 상태로 되돌렸습니다.','info');
+  setOut(i,'코드를 작성하고 실행 버튼을 눌러보세요.');
+}
+
+window.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
