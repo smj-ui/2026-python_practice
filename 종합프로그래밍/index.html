@@ -123,7 +123,6 @@ body{font-family:'Gmarket Sans','Noto Sans KR',sans-serif;background:var(--bg);c
 <body>
 <div class="app">
 
-<!-- ═══════ SIDEBAR ═══════ -->
 <aside class="sidebar" id="sidebar">
   <div class="sb-head">
     <div class="sb-badge">🐍 Python</div>
@@ -143,12 +142,10 @@ body{font-family:'Gmarket Sans','Noto Sans KR',sans-serif;background:var(--bg);c
   </div>
 </aside>
 
-<!-- ═══════ MAIN ═══════ -->
 <main class="main">
   <div class="topbar">
     <div class="topbar-title" id="pageTitle">수행평가 실습 공간</div>
     
-    <!-- 과제 제출 영역 -->
     <div class="submit-wrap">
       <label for="selClass">반</label>
       <select id="selClass">
@@ -163,8 +160,7 @@ body{font-family:'Gmarket Sans','Noto Sans KR',sans-serif;background:var(--bg);c
       <label for="selNum">번호</label>
       <select id="selNum">
         <option value="">선택</option>
-        <!-- 번호 1~27 자동생성 -->
-      </select>
+        </select>
 
       <label for="inpName">이름</label>
       <input type="text" id="inpName" placeholder="홍길동">
@@ -176,17 +172,14 @@ body{font-family:'Gmarket Sans','Noto Sans KR',sans-serif;background:var(--bg);c
   
   <div class="tabs-area">
     <div class="tabs-grid" id="tabsRow">
-      <!-- 탭들이 동적으로 생성됩니다 -->
-    </div>
+      </div>
   </div>
   <div class="panels" id="panelsContainer"></div>
 </main>
 </div>
 
-<!-- 구글 폼 백그라운드 제출을 위한 숨겨진 iframe -->
 <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(this.submitted) { alert('과제가 성공적으로 제출되었습니다! 수고하셨습니다.'); }"></iframe>
 
-<!-- ═══════ Skulpt ═══════ -->
 <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
 <script>
@@ -557,7 +550,7 @@ function preCheck(code){
   return null;
 }
 
-/* 입력(input) 출력 제거 및 타임아웃 방지 */
+/* 🟢 요기가 "완벽"하게 수정된 메인 파트입니다! 입력(input) 출력 완전 차단 */
 async function runPython(code){
   if(typeof Sk === 'undefined')
     return { ok:false, out:'', err:'Skulpt 라이브러리를 불러오지 못했습니다. 새로고침 후 다시 시도하세요.' };
@@ -572,30 +565,26 @@ async function runPython(code){
       out += t; 
     },
     read       : skulptRead,
-    inputfun   : function(promptArgs) {
-      return new Promise((resolve) => {
-        const t0 = Date.now();
-        
-        // input("안녕")을 실행했을 때, 파이썬 내부적으로 "안녕"이 결과창(out)에 출력됩니다.
-        // 이를 완벽히 제거하기 위해 out의 끝부분이 promptArgs와 같으면 그 부분을 잘라냅니다.
-        if (promptArgs && out.endsWith(promptArgs)) {
-          out = out.slice(0, -promptArgs.length);
-        }
-        
-        // 안내 문구만 팝업에 표시
-        const msg = promptArgs || "값을 입력하세요:";
-        const userInput = window.prompt(msg);
-        const finalInput = userInput !== null ? userInput : "";
-        
-        if (Sk.execStart) {
-          Sk.execStart += (Date.now() - t0);
-        }
-        
-        resolve(finalInput);
-      });
-    },
     __future__ : Sk.python3,
     execLimit  : 300000 
+  });
+
+  // 🔥 마법의 철벽 방어 코드 🔥
+  // Skulpt가 내부적으로 콘솔에 텍스트를 뿌리기 전에, 우리가 파이썬의 input() 함수를 자바스크립트 버젼으로 덮어씁니다. 
+  // 이렇게 하면 "안녕"이라는 문구가 결과창에 도달하는 것 자체를 원천 봉쇄할 수 있습니다.
+  Sk.builtins.input = new Sk.builtin.func(function(prompt) {
+      return new Sk.misceval.promiseToSuspension(new Promise(function(resolve) {
+          let msg = "값을 입력하세요:";
+          // 파이썬 코드에서 입력한 prompt(예: "안녕")가 있는지 확인하고 가져옵니다.
+          if (prompt !== undefined) {
+              msg = prompt.v !== undefined ? String(prompt.v) : String(prompt);
+          }
+          // 브라우저 팝업창(window.prompt)만 순수하게 띄웁니다. 
+          const userInput = window.prompt(msg);
+          const finalInput = userInput !== null ? userInput : "";
+          // 입력받은 값을 파이썬 환경으로 다시 돌려줍니다.
+          resolve(new Sk.builtin.str(finalInput));
+      }));
   });
 
   try {
