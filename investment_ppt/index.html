@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주식 투자 시뮬레이션 - 수업용 PPT</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <style>
+        /* === 기본 PPT 테마 (학습 슬라이드용) === */
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f8fafc; /* 눈이 편안한 아주 밝은 회색/흰색 톤 */
+            color: #020617; /* 가장 진한 검정 */
+            font-weight: 700;
+            overflow: hidden; 
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+        }
+
+        .slide-container { position: relative; width: 100vw; height: 100vh; }
+
+        .slide {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            /* 여백 최적화: 코드가 최대한 많이 들어가도록 위아래 공간 확보 */
+            padding: 1.2rem 1.5rem 4rem 1.5rem; 
+            display: flex; flex-direction: column;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: translateY(10px); box-sizing: border-box;
+        }
+
+        .slide.active { opacity: 1; pointer-events: auto; transform: translateY(0); }
+
+        /* 학습 슬라이드 상단 설명 영역 (가로 100% 사용) */
+        .top-section {
+            flex: 0 0 auto; margin-bottom: 0.8rem; width: 100%;
+        }
+        
+        .exp-content {
+            background-color: #ffffff; border: 3px solid #e2e8f0; border-radius: 1rem;
+            padding: 0.6rem 1.2rem; width: 100%; box-shadow: 0 4px 6px rgba(0,0,0, 0.02);
+        }
+        .exp-content h3 { color: #1d4ed8; font-weight: 900; margin-bottom: 0.2rem; font-size: clamp(1.1rem, 2.5vh, 1.35rem); }
+        .exp-content p, .exp-content li { color: #020617; font-size: clamp(1rem, 1.8vh, 1.1rem); margin-bottom: 0.2rem; line-height: 1.35; font-weight: 700;}
+        .exp-content .highlight-word { color: #b91c1c; font-weight: 900; }
+        .exp-content ul { list-style-type: none; padding-left: 0; margin-bottom: 0; }
+        .exp-content li { position: relative; padding-left: 1.4rem; }
+        .exp-content li::before { content: '✔️'; position: absolute; left: 0; top: 2px; }
+        .exp-content .tip { background: #eff6ff; border-left: 5px solid #3b82f6; padding: 0.5rem; border-radius: 0.5rem; margin-top: 0.3rem;}
+
+        /* 학습 슬라이드 하단 코드 영역 (나머지 공간 전체 활용) */
+        .bottom-code-section {
+            flex: 1 1 0; width: 100%; min-height: 0; display: flex; flex-direction: column;
+        }
+        .code-container {
+            background-color: #ffffff; border: 3px solid #cbd5e1; border-radius: 1rem;
+            padding: 1.2rem; position: relative; box-shadow: 0 4px 10px rgba(0,0,0, 0.03);
+            height: 100%; display: flex; flex-direction: column; justify-content: flex-start; 
+            /* 코드가 짤리지 않고 스크롤되도록 설정 */
+            overflow-y: auto; overflow-x: hidden;
+        }
+
+        /* 코드 폰트 크기 최대로 확보 & 줄바꿈 처리 */
+        pre { 
+            font-family: 'Pretendard', sans-serif !important; 
+            /* 폰트 크기를 허용하는 한 최대로! */
+            font-size: clamp(1.1rem, 2.8vh, 1.65rem) !important; 
+            font-weight: 900 !important; 
+            white-space: pre-wrap !important; /* 자동 줄바꿈으로 가로 오버플로우 방지 */
+            word-wrap: break-word !important; 
+            word-break: keep-all !important; 
+            line-height: 1.45 !important; 
+            color: #000000 !important; 
+            margin: 0; width: 100%;
+        }
+        
+        /* 주석 색상: 진한 자주색(Magenta)으로 눈에 확 띄게! */
+        .comment { color: #c026d3 !important; font-weight: 900 !important; } 
+        
+        /* 빈칸(인터랙티브) 스타일 */
+        .blank-box {
+            display: inline-block; vertical-align: bottom;
+            background-color: #fef08a; color: #854d0e;
+            padding: 0 0.4rem; border-radius: 0.5rem; border: 2px dashed #ca8a04;
+            font-weight: 900; margin: 0 0.2rem; font-size: 1em;
+            cursor: pointer; transition: transform 0.1s ease, filter 0.1s ease;
+        }
+        .blank-box:hover { transform: scale(1.05); filter: brightness(0.95); }
+        
+        /* 정답 오픈 후 스타일 */
+        .answer-box {
+            display: inline-block; vertical-align: bottom;
+            background-color: #bbf7d0; color: #166534;
+            padding: 0 0.4rem; border-radius: 0.5rem; border: 2px solid #16a34a;
+            font-weight: 900; margin: 0 0.2rem; font-size: 1em; box-shadow: 0 2px 4px rgba(22, 163, 74, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        /* === 오리지널 시뮬레이션 UI 테마 (미리보기 전용) === */
+        .sim-terminal {
+            font-family: 'Share Tech Mono', monospace;
+            background-color: #050505;
+            color: #39ff14; /* Neon Green */
+            border: 1px solid #1a8f0b;
+            border-radius: 0.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 0 10px rgba(57, 255, 20, 0.2), inset 0 0 10px rgba(57, 255, 20, 0.1);
+            flex: 1; display: flex; flex-direction: column; justify-content: center;
+            font-size: 1.3rem;
+            line-height: 1.6;
+        }
+        .sim-terminal .neon-text { text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14; font-weight: bold; font-size: 1.8rem; margin-bottom: 1rem;}
+        .sim-terminal .box-panel { border: 1px solid #1a8f0b; background-color: rgba(26, 143, 11, 0.1); padding: 1.5rem; border-radius: 0.5rem; margin: 1rem 0; }
+        .sim-terminal .box-panel-blue { border: 1px solid #3b82f6; background-color: rgba(59, 130, 246, 0.1); padding: 1.5rem; border-radius: 0.5rem; margin: 1rem 0; text-align: center;}
+        
+        .sim-terminal .text-white { color: #ffffff; }
+        .sim-terminal .text-yellow { color: #facc15; }
+        .sim-terminal .text-blue { color: #60a5fa; }
+        .sim-terminal .text-gray { color: #9ca3af; }
+        .sim-terminal .text-red { color: #ef4444; }
+        .sim-terminal .font-bold { font-weight: bold; }
+
+        .terminal-input-style {
+            background-color: transparent; border: none; border-bottom: 2px solid #39ff14;
+            color: #ffffff; font-family: 'Share Tech Mono', monospace; text-align: center; width: 100px;
+        }
+
+        /* 애니메이션 효과용 CSS */
+        .anim-line { opacity: 0; transition: opacity 0.2s ease-in; margin-bottom: 0.5rem; }
+        .cursor {
+            display: inline-block; width: 12px; height: 1.2em; background-color: #39ff14;
+            vertical-align: bottom; margin-left: 4px; animation: blink 1s step-end infinite;
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* 하단 컨트롤바 */
+        .controls {
+            position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+            display: flex; align-items: center; gap: 24px;
+            background: #ffffff; padding: 12px 32px; border-radius: 9999px;
+            border: 3px solid #e2e8f0; z-index: 50; box-shadow: 0 6px 16px rgba(0,0,0, 0.1);
+        }
+        .btn-nav { background: none; border: none; color: #0f172a; cursor: pointer; transition: color 0.2s; display: flex; }
+        .btn-nav:hover:not(:disabled) { color: #2563eb; }
+        .btn-nav:disabled { color: #94a3b8; cursor: not-allowed; }
+        
+        #progress-bar { position: fixed; top: 0; left: 0; height: 8px; background-color: #3b82f6; transition: width 0.3s ease; z-index: 100; }
+        #slide-counter { color: #020617; font-size: 1.2rem; font-weight: 900; display:flex; flex-direction:column; align-items:center; line-height:1.2;}
+        .helper-text { font-size: 0.75rem; color: #64748b; font-weight: 700; margin-top:2px;}
+    </style>
+</head>
+<body>
+
+    <!-- 상단 진행률 바 -->
+    <div id="progress-bar" style="width: 0%;"></div>
+
+    <!-- 전체 슬라이드 컨테이너 -->
+    <div class="slide-container" id="slides">
+
+        <!-- Slide 1: 타이틀 -->
+        <div class="slide active items-center justify-center text-center">
+            <h1 class="text-6xl md:text-7xl font-black mb-6 text-blue-700 leading-tight">
+                📈 AI 가상 주식 투자<br>시뮬레이션 구현하기
+            </h1>
+            <p class="text-3xl text-slate-800 mt-6 font-bold">내가 만든 파이썬 코드로 주식 시장을 움직여보자!</p>
+        </div>
+
+        <!-- Slide 2: [NEW] 1단계 시뮬레이션 미리보기 (오리지널 UI 적용) -->
+        <div class="slide flex flex-col anim-container bg-slate-900">
+            <h2 class="text-4xl font-black mb-4 text-white">💻 [시뮬레이션 미리보기] - 1단계</h2>
+            <div class="sim-terminal">
+                <div class="anim-line neon-text">> INIT_ACCOUNT</div>
+                <div class="anim-line text-white">> 나의 현재 현금: <span class="text-yellow font-bold">1,000,000원</span></div>
+                <div class="anim-line text-gray">> 시스템 메시지: <span style="color:#39ff14;">초기 자본금 저장 완료!</span></div>
+                
+                <div class="anim-line box-panel">
+                    <div style="color:#39ff14; font-weight:bold; margin-bottom:0.5rem;">■ 상장 종목 리스트</div>
+                    <ul style="list-style:none; padding:0; margin:0;">
+                        <li style="margin-bottom:0.5rem;"><span class="font-bold text-white">[A]</span> 대형 우량주 - <span class="text-blue">100,000원</span> <span class="text-gray">(변동성 낮음)</span></li>
+                        <li style="margin-bottom:0.5rem;"><span class="font-bold text-white">[B]</span> 급등락 테마주 - <span class="text-blue">10,000원</span> <span class="text-gray">(변동성 매우 높음)</span></li>
+                        <li><span class="font-bold text-white">[C]</span> 일반 항공주 - <span class="text-blue">50,000원</span> <span class="text-gray">(변동성 보통)</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: 1단계 미션 1 실습 -->
+        <div class="slide">
+            <h2 class="text-2xl lg:text-3xl font-black mb-2 text-slate-900">[1단계 : 시뮬레이션 환경 세팅하기! 🛠️] - <span class="text-blue-600">미션 1</span></h2>
+            <div class="top-section">
+                <div class="exp-content">
+                    <h3>🎯 미션 1: 나의 초기 자본금 세팅하기 💰</h3>
+                    <ul>
+                        <li><span class="highlight-word">내_현금:</span> 주식 구입 금액은 1,000,000원(백만 원)으로 설정합니다.</li>
+                        <li><span class="highlight-word">초기_자본금:</span> 투자 전 처음 시작 금액(시드머니)을 담아둡니다.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bottom-code-section">
+                <div class="code-container">
+                    <div class="absolute top-0 right-0 bg-blue-600 text-white px-4 py-1 font-bold rounded-bl-2xl text-lg">📝 실습</div>
+                    <pre>
+<span class="comment"># 📝 1단계: 시뮬레이션 환경 세팅하기</span>
+
+<span class="comment"># 🎯 미션 1: 나의 초기 자본금 세팅</span>
+<span class="comment"># 1-1. 내가 쓸 수 있는 현금 100만 원 장전!</span>
+<span class="blank-box" data-answer="내_현금" onclick="revealAnswer(this)">[ 빈칸 1 ]</span> = 1000000
+
+<span class="comment"># 1-2. 나중에 수익률 계산을 위해 처음 시작 금액을 기억해두기!</span>
+초기_자본금 = <span class="blank-box" data-answer="내_현금" onclick="revealAnswer(this)">[ 빈칸 2 ]</span></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: 1단계 미션 2 실습 -->
+        <div class="slide">
+            <h2 class="text-2xl lg:text-3xl font-black mb-2 text-slate-900">[1단계 : 시뮬레이션 환경 세팅하기! 🛠️] - <span class="text-blue-600">미션 2</span></h2>
+            <div class="top-section">
+                <div class="exp-content">
+                    <h3>🎯 미션 2: 투자할 3개의 가상 기업(종목) 만들기 🏢</h3>
+                    <p>각 주식의 속성(이름, 가격, 민감도)을 딕셔너리에 담아줍니다.</p>
+                    <ul>
+                        <li><span class="highlight-word">종목_가격:</span> A(100,000원), B(10,000원), C(50,000원)</li>
+                        <li><span class="highlight-word">종목_민감도:</span> A(0.01), B(0.08), C(0.04)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bottom-code-section">
+                <div class="code-container">
+                    <div class="absolute top-0 right-0 bg-blue-600 text-white px-4 py-1 font-bold rounded-bl-2xl text-lg">📝 실습</div>
+                    <pre>
+<span class="comment"># 🎯 미션 2: 특징이 다른 3개의 가상 주식 종목 만들기 (딕셔너리 활용)</span>
+종목_이름 = {'A': "대형 우량주", 'B': "급등락 테마주", 'C': "일반 항공주"}
+종목_가격 = <span class="blank-box" data-answer="{'A': 100000, 'B': 10000, 'C': 50000}" onclick="revealAnswer(this)">[ 빈칸 1 ]</span>
+종목_민감도 = <span class="blank-box" data-answer="{'A': 0.01, 'B': 0.08, 'C': 0.04}" onclick="revealAnswer(this)">[ 빈칸 2 ]</span></pre>
+                    
+                    <div class="mt-4 bg-blue-50 border border-blue-200 p-3 rounded-lg shadow-sm">
+                        <span class="font-bold text-blue-800 text-lg">💡 딕셔너리(Dictionary)란?</span><br>
+                        <span class="text-blue-900 font-bold mt-1 inline-block">영한사전처럼 <b>'단어(키)'</b>와 <b>'뜻(값)'</b>을 짝지어 저장하는 공간이에요!</span><br>
+                        <code class="bg-white px-3 py-1 rounded border border-blue-300 mt-2 inline-block font-black text-black">형태 👉 { '키1': 값1, '키2': 값2 }</code>
+                        <code class="bg-white px-3 py-1 rounded border border-blue-300 mt-2 ml-2 inline-block font-black text-black">사용 👉 딕셔너리['키1'] (결과: 값1)</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: 1단계 미션 3 실습 -->
+        <div class="slide">
+            <h2 class="text-2xl lg:text-3xl font-black mb-2 text-slate-900">[1단계 : 시뮬레이션 환경 세팅하기! 🛠️] - <span class="text-blue-600">미션 3</span></h2>
+            <div class="top-section">
+                <div class="exp-content">
+                    <h3>🎯 미션 3: 투자할 종목의 이름표만 리스트로 묶어두기 📦</h3>
+                    <ul>
+                        <li><span class="highlight-word">리스트 생성:</span> 3개 종목의 이름표를 <code>전체_종목</code> 리스트로 묶어줍니다. </li>
+                        <li><span class="highlight-word">출력 포맷:</span> 자본금을 출력할 때 <code>:,</code> 를 쓰면 천 단위 쉼표가 찍혀요!</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bottom-code-section">
+                <div class="code-container">
+                    <div class="absolute top-0 right-0 bg-blue-600 text-white px-4 py-1 font-bold rounded-bl-2xl text-lg">📝 실습</div>
+                    <pre>
+<span class="comment"># 🎯 미션 3: 3개 종목의 데이터만 쏙 뽑아서 반복문에 쓰기 좋게 리스트로 묶어두기!</span>
+전체_종목 = <span class="blank-box" data-answer="['A', 'B', 'C']" onclick="revealAnswer(this)">[ 빈칸 1 ]</span>
+
+print("🚀 1단계: 주식 시장 환경 세팅이 완료되었습니다!")
+print(f"💰 나의 초기 자본금: { <span class="blank-box" data-answer="내_현금" onclick="revealAnswer(this)">[ 빈칸 2 ]</span> :,}원") <span class="comment"># 변수 출력 형식 변경: ':, (천단위 구분기호)'</span></pre>
+
+                    <div class="mt-4 bg-slate-100 border-2 border-slate-300 p-3 rounded-lg">
+                        <span class="font-bold text-slate-800">💡 힌트 (사용 가능한 데이터):</span>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="bg-white border border-slate-400 px-2 py-1 rounded text-sm font-bold text-slate-800">내_현금 (1000000)</span>
+                            <span class="bg-white border border-slate-400 px-2 py-1 rounded text-sm font-bold text-slate-800">초기_자본금 (1000000)</span>
+                            <span class="bg-white border border-slate-400 px-2 py-1 rounded text-sm font-bold text-slate-800">종목_이름 ({'A':'대형 우량주', ...})</span>
+                            <span class="bg-white border border-slate-400 px-2 py-1 rounded text-sm font-bold text-slate-800">종목_가격 ({'A':100000, ...})</span>
+                            <span class="bg-white border border-slate-400 px-2 py-1 rounded text-sm font-bold text-slate-800">종목_민감도 ({'A':0.01, ...})</span>
+                            <span class="bg-white border border-slate-400 px-2 py-1 rounded text-sm font-bold text-slate-800">['A', 'B', 'C']</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: [NEW] 2단계-1 시뮬레이션 미리보기 (오리지널 UI 적용) -->
+        <div class="slide flex flex-col anim-container bg-slate-900">
+            <h2 class="text-4xl font-black mb-4 text-white">💻 [시뮬레이션 미리보기] - 2단계-(1)</h2>
+            <div class="sim-terminal">
+                <div class="anim-line neon-text">> SELECT_STOCK</div>
+                <div class="anim-line text-white">> "오늘의 주가를 확인해 보자!"</div>
+                
+                <div class="anim-line flex justify-around bg-green-900/20 p-4 rounded mb-6 text-center" style="border: 1px solid rgba(57, 255, 20, 0.3);">
+                    <div><p class="text-gray text-sm">종목 A</p><p class="text-lg font-bold">100,000원</p></div>
+                    <div><p class="text-gray text-sm">종목 B</p><p class="text-lg font-bold">10,000원</p></div>
+                    <div><p class="text-gray text-sm">종목 C</p><p class="text-lg font-bold">50,000원</p></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: 2단계 (1) 미션 1 실습 -->
+        <div class="slide">
+            <h2 class="text-2xl lg:text-3xl font-black mb-2 text-slate-900">[2단계-(1) : 오늘의 주가 확인하기! 📊] - <span class="text-blue-600">미션 1</span></h2>
+            <div class="top-section">
+                <div class="exp-content">
+                    <h3>🎯 미션 1: 오늘의 주가 미리 확인하기 📊</h3>
+                    <ul>
+                        <li><span class="highlight-word">딕셔너리 접근:</span> <code>종목_가격</code> 딕셔너리에서 대괄호를 사용해 A, B, C의 가격을 꺼내옵니다.</li>
+                        <li><span class="highlight-word">출력 포맷:</span> 천 단위 쉼표도 잊지 마세요!</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bottom-code-section">
+                <div class="code-container">
+                    <div class="absolute top-0 right-0 bg-blue-600 text-white px-4 py-1 font-bold rounded-bl-2xl text-lg">📝 실습</div>
+                    <pre>
+<span class="comment"># 📝 2단계-(1): 오늘의 주가 확인하기</span>
+<span class="comment"># 🎯 미션 1: 오늘의 주가 미리 확인하기 (천 단위 쉼표도 적용!)</span>
+
+print(f"\n[오늘의 주가] A: { <span class="blank-box" data-answer="종목_가격['A']" onclick="revealAnswer(this)">[ 빈칸 1 ]</span> :,}원 / B: { <span class="blank-box" data-answer="종목_가격['B']" onclick="revealAnswer(this)">[ 빈칸 2 ]</span> :,}원 / C: { <span class="blank-box" data-answer="종목_가격['C']" onclick="revealAnswer(this)">[ 빈칸 3 ]</span> :,}원")</pre>
+                    
+                    <div class="mt-4 bg-slate-100 border-2 border-slate-300 p-3 rounded-lg">
+                        <span class="font-bold text-slate-800">💡 힌트 (사용 가능한 데이터):</span>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="bg-white border border-slate-400 px-2 py-1 rounded text-sm font-bold text-slate-800">전체_종목 (['A', 'B', 'C'])</span>
+                            <span class="bg-white border border-slate-400 px-2 py-1 rounded text-sm font-bold text-slate-800">종목_이름 ({'A':'대형 우량주', ...})</span>
+                            <span class="bg-white border border-slate-400 px-2 py-1 rounded text-sm font-bold text-slate-800">종목_가격 ({'A':100000, ...})</span>
+                            <span class="bg-white border border-slate-400 px-2 py-1 rounded text-sm font-bold text-slate-800">종목_민감도 ({'A':0.01, ...})</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: [NEW] 2단계-2 시뮬레이션 미리보기 (오리지널 UI 타이핑) -->
+        <div class="slide flex flex-col anim-container bg-slate-900">
+            <h2 class="text-4xl font-black mb-4 text-white">💻 [시뮬레이션 미리보기] - 2단계-(2)</h2>
+            <div class="sim-terminal">
+                <div class="anim-line neon-text">> SELECT_STOCK</div>
+                
+                <div class="anim-line text-white">> 투자할 종목을 선택하세요 (A, B, C): <span class="type-target text-white terminal-input-style" data-text="D"></span><span class="cursor" style="display:none;"></span></div>
+                
+                <div class="anim-line box-panel text-center" style="border-color:#ef4444; background-color: rgba(239, 68, 68, 0.1);">
+                    <div class="text-red font-bold text-xl">[ SYSTEM ERROR ]</div>
+                    <div class="text-white mt-2">올바른 종목 코드를 입력해 주세요.</div>
+                </div>
+                
+                <div class="anim-line text-white mt-4">> 투자할 종목을 선택하세요 (A, B, C): <span class="type-target text-white terminal-input-style" data-text="A"></span><span class="cursor" style="display:none;"></span></div>
+                
+                <div class="anim-line text-yellow font-bold mt-4">👉 선택 완료! 종목 A (100,000원)</div>
+            </div>
+        </div>
+
+        <!-- Slide 9: 2단계 (2) 미션 2 실습 -->
+        <div class="slide">
+            <h2 class="text-2xl lg:text-3xl font-black mb-2 text-slate-900">[2단계-(2) : 투자할 종목 선택하기! 🅰️🅱️🅲] - <span class="text-blue-600">미션 2</span></h2>
+            <div class="top-section">
+                <div class="exp-content">
+                    <h3>🎯 미션 2: 투자 종목 안전하게 입력받기 ⌨️</h3>
+                    <ul>
+                        <li><span class="highlight-word">계속 반복하기:</span> 정상적인 값을 <code>input</code>으로 입력할 때까지 <code>while True</code> 무한 반복!</li>
+                        <li><span class="highlight-word">올바른 주식인지 확인 (if / in):</span> 입력받은 종목이 <code>전체_종목</code> 리스트 안에 있는지 확인합니다.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bottom-code-section">
+                <div class="code-container">
+                    <div class="absolute top-0 right-0 bg-blue-600 text-white px-4 py-1 font-bold rounded-bl-2xl text-lg">📝 실습</div>
+                    <pre>
+<span class="comment"># 📝 2단계-(2): 투자 종목 선택 및 계산</span>
+<span class="comment"># 🎯 미션 2: 투자 종목 안전하게 입력받기</span>
+while <span class="blank-box" data-answer="True" onclick="revealAnswer(this)">[ 빈칸 1 ]</span>: <span class="comment"># (빈칸 1: 무한 반복을 위한 True)</span>
+    <span class="comment"># .upper()를 붙이면 소문자 'a'를 입력해도 대문자 'A'로 자동 변환돼요!</span>
+    선택_종목 = <span class="blank-box" data-answer="input" onclick="revealAnswer(this)">[ 빈칸 2 ]</span>("투자할 종목을 선택하세요 (A, B, C): ").upper()
+    
+    if 선택_종목 <span class="blank-box" data-answer="in" onclick="revealAnswer(this)">[ 빈칸 3 ]</span> 전체_종목: <span class="comment"># (빈칸 3: 리스트 안에 포함되는지 검사)</span>
+        <span class="blank-box" data-answer="break" onclick="revealAnswer(this)">[ 빈칸 4 ]</span> <span class="comment"># A, B, C 중에 제대로 입력했다면 반복문 탈출!</span>
+        
+    print("잘못된 입력입니다. A, B, C 중에서 골라주세요.")</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: 2단계 (2) 미션 3 실습 -->
+        <div class="slide">
+            <h2 class="text-2xl lg:text-3xl font-black mb-2 text-slate-900">[2단계-(2) : 내 예산으로 살 수 있는 최대 수량 파악하기 🧮]</h2>
+            <div class="top-section">
+                <div class="exp-content">
+                    <h3>🎯 미션 3: 내 예산으로 살 수 있는 최대 수량 파악하기 🧮</h3>
+                    <ul>
+                        <li><span class="highlight-word">최대 수량 계산 (//):</span> 주식은 소수점 단위로 쪼개서 살 수 없죠? 나누기의 '몫'만 구하는 <code>//</code> 기호를 사용해 최대 수량을 구해봅시다!</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bottom-code-section">
+                <div class="code-container">
+                    <div class="absolute top-0 right-0 bg-blue-600 text-white px-4 py-1 font-bold rounded-bl-2xl text-lg">📝 실습</div>
+                    <pre>
+<span class="comment"># 🎯 미션 3: 내 예산으로 살 수 있는 최대 수량 파악하기</span>
+최대_수량 = <span class="blank-box" data-answer="내_현금 // 종목_가격[선택_종목]" onclick="revealAnswer(this)">[ 빈칸 1 ]</span> <span class="comment"># 내 현금을 선택한 종목의 가격으로 나눈 몫(//)을 구하세요!</span>
+
+print(f"👉 선택 완료! 내 현금으로 '{종목_이름[선택_종목]}' 주식을 최대 {최대_수량:,}주까지 살 수 있습니다.")</pre>
+
+                    <div class="mt-4 bg-slate-100 border-2 border-slate-300 p-3 rounded-lg">
+                        <span class="font-bold text-slate-800">💡 힌트 (사용 가능한 데이터):</span>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="bg-white border border-slate-400 px-2 py-1 rounded text-sm font-bold text-slate-800">내_현금 (남은 예산값)</span>
+                            <span class="bg-white border border-slate-400 px-2 py-1 rounded text-sm font-bold text-slate-800">종목_가격 ({'A':100000, ...})</span>
+                            <span class="bg-white border border-slate-400 px-2 py-1 rounded text-sm font-bold text-slate-800">선택_종목 (입력된 'A','B','C')</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: [NEW] 3단계-1 시뮬레이션 미리보기 (오리지널 UI 타이핑) -->
+        <div class="slide flex flex-col anim-container bg-slate-900">
+            <h2 class="text-4xl font-black mb-4 text-white">💻 [시뮬레이션 미리보기] - 3단계-(1)</h2>
+            <div class="sim-terminal">
+                <div class="anim-line neon-text">> ORDER_QUANTITY</div>
+                <div class="anim-line text-white">> 선택 종목: <span class="font-bold">종목 A (100,000원)</span></div>
+                <div class="anim-line text-white mb-4">> 선택하신 종목으로 살 수 있는 최대 수량은 <span class="text-yellow font-bold underline">10</span>주입니다.</div>
+                
+                <div class="anim-line text-white">> 몇 주를 구매하시겠습니까? <span class="type-target text-white terminal-input-style" data-text="100"></span><span class="cursor" style="display:none;"></span></div>
+                
+                <div class="anim-line box-panel text-center" style="border-color:#ef4444; background-color: rgba(239, 68, 68, 0.1); padding:1rem;">
+                    <div class="text-red font-bold text-xl">[ SYSTEM ERROR ]</div>
+                    <div class="text-white mt-1">올바른 숫자를 입력해 주세요. (1 ~ 10주 가능)</div>
+                </div>
+                
+                <div class="anim-line text-white mt-4">> 몇 주를 구매하시겠습니까? <span class="type-target text-white terminal-input-style" data-text="10"></span><span class="cursor" style="display:none;"></span></div>
+            </div>
+        </div>
+
+        <!-- Slide 12: 3단계 미션 1 실습 -->
+        <div class="slide">
+            <h2 class="text-2xl lg:text-3xl font-black mb-2 text-slate-900">[3단계-(1) : 내 예산으로 몇 주나 살 수 있을까? 🧮] - <span class="text-blue-600">미션 1</span></h2>
+            <div class="top-section">
+                <div class="exp-content">
+                    <h3>🎯 미션 1: 구매 수량 안전하게 입력받고 매수하기 🛒</h3>
+                    <ul>
+                        <li><span class="highlight-word">숫자 변환 (int):</span> 컴퓨터가 계산할 수 있도록 입력된 문자를 진짜 '숫자'로 바꿔줍니다.</li>
+                        <li><span class="highlight-word">안전 범위 검사 (if):</span> 0부터 최대 수량 사이의 값을 입력했는지 확인합니다.</li>
+                        <li><span class="highlight-word">에러 방어 (try-except):</span> 문자를 입력했을 때 생기는 에러를 안전하게 잡아냅니다.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bottom-code-section">
+                <div class="code-container">
+                    <div class="absolute top-0 right-0 bg-blue-600 text-white px-4 py-1 font-bold rounded-bl-2xl text-lg">📝 실습</div>
+                    <pre>
+<span class="comment"># 📝 3단계: 구매 수량 결정 및 매수하기</span>
+while <span class="blank-box" data-answer="True" onclick="revealAnswer(this)">[ 빈칸 1 ]</span>: <span class="comment"># 항상 무한 반복되게 하려면?</span>
+    try:
+        구매_수량 = <span class="blank-box" data-answer="int" onclick="revealAnswer(this)">[ 빈칸 2 ]</span>(<span class="blank-box" data-answer="input" onclick="revealAnswer(this)">[ 빈칸 3 ]</span>(f"몇 주를 구매하시겠습니까? (최대 {최대_수량}주): "))
+        
+        <span class="comment"># (빈칸 4,5: 0부터 최대 수량 사이의 값인지 검사)</span>
+        if <span class="blank-box" data-answer="0" onclick="revealAnswer(this)">[ 빈칸 4 ]</span> <= 구매_수량 <= <span class="blank-box" data-answer="최대_수량" onclick="revealAnswer(this)">[ 빈칸 5 ]</span>: 
+            break
+        else:
+            print(f"구매 가능 수량을 초과했습니다. (0 ~ {최대_수량}주 사이로 입력)")
+            
+    except ValueError: <span class="comment"># 문자를 숫자로 변환할 때 발생하는 에러 방지</span>
+        print("숫자만 입력해주세요.")</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: [NEW] 3단계-2 시뮬레이션 미리보기 (오리지널 UI 박스) -->
+        <div class="slide flex flex-col anim-container bg-slate-900">
+            <h2 class="text-4xl font-black mb-4 text-white">💻 [시뮬레이션 미리보기] - 3단계-(2)</h2>
+            <div class="sim-terminal">
+                <div class="anim-line neon-text">> ORDER_COMPLETED</div>
+                
+                <div class="anim-line box-panel-blue">
+                    <div class="text-blue font-bold text-2xl mb-4">매수가 완료되었습니다!</div>
+                    <div class="text-white text-xl mb-2">보유 종목: <span class="font-bold" style="color:#39ff14;">종목 A (대형 우량주)</span></div>
+                    <div class="text-white text-xl mb-2">보유 수량: <span class="font-bold" style="color:#39ff14;">10주</span></div>
+                    <div class="text-gray mt-4 text-lg">남은 현금: <span class="text-yellow">0</span>원</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: 3단계 미션 2, 3 실습 -->
+        <div class="slide">
+            <h2 class="text-2xl lg:text-3xl font-black mb-2 text-slate-900">[3단계-(2) : 내 예산으로 몇 주나 살 수 있을까? 💸] - <span class="text-blue-600">미션 2&3</span></h2>
+            <div class="top-section">
+                <div class="exp-content">
+                    <h3>🎯 미션 2 & 3: 결제 및 기록 📉</h3>
+                    <ul>
+                        <li><span class="highlight-word">현금 차감:</span> '주식 가격 * 구매 수량'을 구해서 내 현금에서 빼줍니다. (<code>-=</code> 연산자 사용)</li>
+                        <li><span class="highlight-word">추이 기록:</span> 나중에 꺾은선 그래프를 그리기 위해 첫날 주식 가격을 리스트(바구니)에 미리 담아둡니다.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bottom-code-section">
+                <div class="code-container">
+                    <div class="absolute top-0 right-0 bg-blue-600 text-white px-4 py-1 font-bold rounded-bl-2xl text-lg">📝 실습</div>
+                    <pre>
+<span class="comment"># 📝 3단계-(2): 구매 수량 결정 및 매수하기</span>
+
+<span class="comment"># 주식을 산 금액(공식 사용)을 내 현금에서 빼기!</span>
+내_현금 -= <span class="blank-box" data-answer="종목_가격[선택_종목] * 구매_수량" onclick="revealAnswer(this)">[ 빈칸 1 ]</span>
+
+<span class="comment"># 나중에 그래프를 그리기 위해 주식을 구매한 당시의 가격을 리스트에 담아두기</span>
+가격_추이 = [<span class="blank-box" data-answer="종목_가격[선택_종목]" onclick="revealAnswer(this)">[ 빈칸 2 ]</span>]
+
+print(f"✅ {종목_이름[선택_종목]} {구매_수량}주 매수 완료! (남은 현금: {내_현금:,}원)")</pre>
+                    
+                    <div class="mt-4 bg-slate-100 border-2 border-slate-300 p-3 rounded-lg">
+                        <span class="font-bold text-slate-800">💡 힌트 (사용 가능한 데이터):</span>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="bg-white border border-slate-400 px-2 py-1 rounded text-sm font-bold text-slate-800">내_현금 (남은 예산)</span>
+                            <span class="bg-white border border-slate-400 px-2 py-1 rounded text-sm font-bold text-slate-800">종목_가격 ({'A':100000, ...})</span>
+                            <span class="bg-white border border-slate-400 px-2 py-1 rounded text-sm font-bold text-slate-800">선택_종목 (입력된 'A','B','C')</span>
+                            <span class="bg-white border border-slate-400 px-2 py-1 rounded text-sm font-bold text-slate-800">구매_수량 (숫자)</span>
+                            <span class="bg-white border border-slate-400 px-2 py-1 rounded text-sm font-bold text-slate-800">가격_추이 ([])</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: [NEW] 4단계 시뮬레이션 미리보기 (시스템 엔진) -->
+        <div class="slide flex flex-col anim-container bg-slate-900">
+            <h2 class="text-4xl font-black mb-4 text-white">💻 [시뮬레이션 미리보기] - 4단계</h2>
+            <div class="sim-terminal">
+                <div class="anim-line neon-text">> COMPILE_PRICE_ALGORITHM</div>
+                <div class="anim-line text-gray">> [SYSTEM] 주가 변동 엔진을 설정하는 중입니다...</div>
+                <div class="anim-line text-gray">> [SYSTEM] random, time 모듈 로드 완료.</div>
+                <div class="anim-line text-white mt-2">> 🛡️ 상한가(+30%) / 하한가(-30%) 방어막 가동!</div>
+                <div class="anim-line text-white">> ⏱️ 9시~15시 시간당 체결강도 난수 생성기 가동!</div>
+                <div class="anim-line text-white">> 🚧 Min / Max 안전 범위 제한 로직 적용!</div>
+                <div class="anim-line text-yellow font-bold mt-4">> ✅ 주가 변동 계산기(함수) 세팅 완료!</div>
+            </div>
+        </div>
+
+        <!-- Slide 16: 4단계 실습 -->
+        <div class="slide">
+            <h2 class="text-2xl lg:text-3xl font-black mb-2 text-slate-900">[4단계: 하루 동안 주가는 어떻게 변할까? ⚖️]</h2>
+            <div class="top-section">
+                <div class="exp-content">
+                    <h3>🎯 주가 변동 원리 이해하기 (함수)</h3>
+                    <ul>
+                        <li><span class="highlight-word">방어막 (±30%):</span> 폭등/폭락을 막기 위해 <code>1.3</code>과 <code>0.7</code>을 곱해 상/하한가를 만듭니다.</li>
+                        <li><span class="highlight-word">랜덤 체결강도:</span> <code>random.randint(-100, 100)</code> 사이의 난수를 공평하게 뽑습니다.</li>
+                        <li><span class="highlight-word">안전망 (min/max):</span> 주가가 하한가로 떨어지면 <code>max</code>가, 상한가를 뚫으면 <code>min</code>이 방어합니다!</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bottom-code-section">
+                <div class="code-container">
+                    <div class="absolute top-0 right-0 bg-blue-600 text-white px-4 py-1 font-bold rounded-bl-2xl text-lg">📝 실습</div>
+                    <pre>
+<span class="comment"># 📝 4단계: 주가 변동 계산기(함수) 만들기</span>
+import random, time  
+
+def 하루_주가_변동(종목코드): <span class="comment"># 종목코드는 'A', 'B', 'C' 중 하나를 전달받는 매개변수입니다.</span>
+    <span class="comment"># 미션 1: 상한가/하한가 방어막 치기 🛡️ (현재 가격의 ±30%)</span>
+    상한가 = int(종목_가격[종목코드] * <span class="blank-box" data-answer="1.3" onclick="revealAnswer(this)">[ 빈칸 1 ]</span>)
+    하한가 = int(종목_가격[종목코드] * <span class="blank-box" data-answer="0.7" onclick="revealAnswer(this)">[ 빈칸 2 ]</span>)
+    
+    <span class="comment"># 미션 2: 장 중 주가 변동시키기 ⏱️ (9시~15시 매 시간 거래 발생)</span>
+    for 시간 in range(9, 16):
+        <span class="comment"># -100부터 100까지 공평하게 뽑은 뒤 100으로 나눠 -1.0 ~ 1.0 사이를 만듭니다.</span>
+        체결강도 = <span class="blank-box" data-answer="random.randint(-100, 100)" onclick="revealAnswer(this)">[ 빈칸 3 ]</span> / 100.0  <span class="comment"># random 사용</span>
+        
+        <span class="comment"># (빈칸 4: 체결강도와 해당 종목의 민감도를 곱해서 변동률을 구하세요)</span>
+        변동률 = <span class="blank-box" data-answer="체결강도 * 종목_민감도[종목코드]" onclick="revealAnswer(this)">[ 빈칸 4 ]</span>
+        새_가격 = int(종목_가격[종목코드] + (종목_가격[종목코드] * <span class="blank-box" data-answer="변동률" onclick="revealAnswer(this)">[ 빈칸 5 ]</span>))
+        
+        <span class="comment"># 미션 3: 안전한 범위 내에 저장하기 🚧 (상/하한가 제한)</span>
+        종목_가격[종목코드] = <span class="blank-box" data-answer="min" onclick="revealAnswer(this)">[ 빈칸 6 ]</span>(상한가, <span class="blank-box" data-answer="max" onclick="revealAnswer(this)">[ 빈칸 7 ]</span>(하한가, 새_가격))
+        
+print("✅ 주가 변동 계산기(함수) 세팅 완료!")</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: [NEW] 5단계 시뮬레이션 미리보기 (오리지널 UI 차트&로그) -->
+        <div class="slide flex flex-col anim-container bg-slate-900">
+            <h2 class="text-4xl font-black mb-4 text-white">💻 [시뮬레이션 미리보기] - 5단계</h2>
+            <div class="sim-terminal justify-start">
+                <div class="anim-line flex justify-between items-center w-full mb-4">
+                    <span class="neon-text m-0">> MARKET_SIMULATION</span>
+                    <span class="text-white bg-green-900/50 px-3 py-1 rounded text-sm">DAY 5 / 5</span>
+                </div>
+                <div class="anim-line text-gray mb-2">> 시스템 로깅이 시작되었습니다...</div>
+                
+                <div class="anim-line"><br>[<span class="text-white">1일 차 마감</span>] A: 100,136원 | B: 9,168원 | C: 49,457원</div>
+                <div class="anim-line">&nbsp;💼 내 계좌: 종목 A <span class="text-white">10주</span> | 총 자산: <span class="text-yellow">1,001,360원</span> | 수익률: <span class="text-red font-bold">+0.1%</span></div>
+                
+                <div class="anim-line"><br>[<span class="text-white">2일 차 마감</span>] A: 100,549원 | B: 9,756원 | C: 48,584원</div>
+                <div class="anim-line">&nbsp;💼 내 계좌: 종목 A <span class="text-white">10주</span> | 총 자산: <span class="text-yellow">1,005,490원</span> | 수익률: <span class="text-red font-bold">+0.5%</span></div>
+                
+                <div class="anim-line"><br><span class="text-gray">... (시뮬레이션 진행 중) ...</span></div>
+                
+                <div class="anim-line"><br><span style="color:#39ff14; font-weight:bold;">> [SYSTEM] 5일 차 시뮬레이션이 모두 종료되었습니다. 최종 수익률을 확인하세요!</span></div>
+            </div>
+        </div>
+
+        <!-- Slide 18: 5단계 시연용 -->
+        <div class="slide">
+            <h2 class="text-2xl lg:text-3xl font-black mb-2 text-slate-900">[5단계: 5일간의 주식 시장 시뮬레이션 본격 시작! ⏳]</h2>
+            <div class="top-section">
+                <div class="exp-content">
+                    <p class="font-bold text-blue-700 m-0">코드가 어떻게 흘러가는지 3가지 흐름만 가볍게 읽고 바로 실행(▶️)해 보세요!</p>
+                    <ul class="mt-2">
+                        <li><span class="highlight-word">흐름 1:</span> for 반복문으로 5일 동안 3개 종목의 주가를 변동시킵니다.</li>
+                        <li><span class="highlight-word">흐름 2:</span> 내 자산(평가금액)과 수익률을 자동으로 계산하여 출력합니다.</li>
+                        <li><span class="highlight-word">흐름 3:</span> 그래프를 그리기 위해 매일의 최종 가격을 <code>가격_추이.append()</code>로 모읍니다.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bottom-code-section">
+                <div class="code-container border-blue-600 bg-blue-50">
+                    <div class="absolute top-0 right-0 bg-blue-600 text-white px-4 py-1 font-bold rounded-bl-2xl text-lg">👀 코드 훑어보기</div>
+                    <pre>
+<span class="comment"># 📝 5단계: 5일간의 시뮬레이션 루프</span>
+print("\n🚀 [시뮬레이션 시작] 5일 동안 주식 시장이 열립니다!")
+
+<span class="comment"># 🔄 흐름 1: 5일간 주식장 열기</span>
+for 일차 in range(1, 6):
+    for 종목코드 in 전체_종목:
+        하루_주가_변동(종목코드)  
+        
+    <span class="comment"># 🧮 흐름 2: 내 계좌 상태 확인 (평가금액, 총 자산, 수익률 계산)</span>
+    평가금액 = 종목_가격[선택_종목] * 구매_수량
+    총_자산 = 내_현금 + 평가금액
+    수익률 = ((총_자산 - 초기_자본금) / 초기_자본금) * 100
+    
+    print(f"\n[{일차}일 차 마감] A: {종목_가격['A']:,}원 | B: {종목_가격['B']:,}원 | C: {종목_가격['C']:,}원")
+    print(f"💼 내 계좌: {종목_이름[선택_종목]} {구매_수량}주 | 총 자산: {총_자산:,}원 | 수익률: {수익률:.1f}%")
+    
+    <span class="comment"># 📈 흐름 3: 데이터 모으기 (오늘의 최종 가격을 바구니에 담기)</span>
+    가격_추이.append(종목_가격[선택_종목])
+    time.sleep(0.5)
+
+print("\n🏁 5일간의 주식 시뮬레이션이 모두 끝났습니다!")</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 19: [NEW] 6단계 시뮬레이션 미리보기 (그래프 플로팅) -->
+        <div class="slide flex flex-col anim-container bg-slate-900">
+            <h2 class="text-4xl font-black mb-4 text-white">💻 [시뮬레이션 미리보기] - 6단계</h2>
+            <div class="sim-terminal items-center text-center">
+                <div class="anim-line text-6xl mb-6 neon-text">📈📉</div>
+                <div class="anim-line neon-text">> PLOT_GRAPH</div>
+                <div class="anim-line text-gray mt-2 text-2xl">> Matplotlib 엔진 로딩 중...</div>
+                <div class="anim-line text-white mt-2 text-2xl">> 가격_추이 바구니 데이터 매핑 중...</div>
+                <div class="anim-line mt-6 text-2xl font-bold" style="color:#39ff14;">> 6단계: 데이터 플롯 준비 완료!</div>
+            </div>
+        </div>
+
+        <!-- Slide 20: 6단계 실습 -->
+        <div class="slide">
+            <h2 class="text-2xl lg:text-3xl font-black mb-2 text-slate-900">[6단계: 시뮬레이션 결과 한눈에 확인하기! 📊👀]</h2>
+            <div class="top-section">
+                <div class="exp-content">
+                    <h3>🎯 미션 1 & 2: 그래프 데이터 짝짓기 📈</h3>
+                    <ul>
+                        <li><span class="highlight-word">미션 1 (plot):</span> 6일 치(시작일+5일) 데이터를 선으로 이어줍니다. Y축에 모아둔 <code>가격_추이</code> 바구니를 넣으세요!</li>
+                        <li><span class="highlight-word">미션 2 (xticks):</span> X축 눈금(0~5) 자리에 날짜 이름표('Start', 'Day 1'...)를 짝지어 달아줍니다.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bottom-code-section">
+                <div class="code-container">
+                    <div class="absolute top-0 right-0 bg-blue-600 text-white px-4 py-1 font-bold rounded-bl-2xl text-lg">📝 실습</div>
+                    <pre>
+<span class="comment"># 📊 6단계: 한눈에 보는 주가 변동 추이 그래프 그리기!</span>
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(8, 4))
+
+<span class="comment"># ✨ 미션 1: 꺾은선 그래프 그리기 (plt.plot)</span>
+<span class="blank-box" data-answer="plt.plot" onclick="revealAnswer(this)">[ 빈칸 1 ]</span>(range(6), 가격_추이, marker='o', color='red')
+
+<span class="comment"># 🏷️ 그래프 예쁘게 꾸미기 (이 부분은 이미 완성되어 있어요!)</span>
+plt.title(f"[Type {선택_종목}] 5 Days Stock Price Trend", fontweight='bold')
+
+<span class="comment"># ✨ 미션 2: X축 눈금 이름표 달기 (plt.xticks)</span>
+<span class="blank-box" data-answer="plt.xticks" onclick="revealAnswer(this)">[ 빈칸 2 ]</span>(range(6), ['Start', 'Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5'])
+
+plt.ylabel('Price')
+plt.grid(True, linestyle='--')
+
+plt.show()
+
+print("6단계: 그래프 출력이 완료되었습니다. 나의 투자는 성공적이었나요? 🎉")</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 21: 6단계 최종 결과 (SVG 그래프) -->
+        <div class="slide bg-white">
+            <div class="w-full h-full flex flex-col items-center justify-center relative p-8">
+                
+                <h3 class="text-3xl font-black mb-6 text-black text-center">[Type A] 5 Days Stock Price Trend</h3>
+                
+                <svg viewBox="0 0 800 350" class="w-full max-w-5xl h-auto" style="max-height: 65vh; display: block; overflow: visible;">
+                    <!-- Y축 눈금 및 점선 -->
+                    <g fill="#000000" font-size="16" font-family="Pretendard, sans-serif" text-anchor="end" font-weight="700">
+                        <text x="70" y="55">101000</text>
+                        <line x1="80" y1="50" x2="750" y2="50" stroke="#94a3b8" stroke-dasharray="4,4" />
+                        
+                        <text x="70" y="105">100500</text>
+                        <line x1="80" y1="100" x2="750" y2="100" stroke="#94a3b8" stroke-dasharray="4,4" />
+                        
+                        <text x="70" y="155">100000</text>
+                        <line x1="80" y1="150" x2="750" y2="150" stroke="#94a3b8" stroke-dasharray="4,4" />
+                        
+                        <text x="70" y="205">99500</text>
+                        <line x1="80" y1="200" x2="750" y2="200" stroke="#94a3b8" stroke-dasharray="4,4" />
+                        
+                        <text x="70" y="255">99000</text>
+                        <line x1="80" y1="250" x2="750" y2="250" stroke="#94a3b8" stroke-dasharray="4,4" />
+                        
+                        <text x="70" y="305">98500</text>
+                        <line x1="80" y1="300" x2="750" y2="300" stroke="#94a3b8" stroke-dasharray="4,4" />
+                        
+                        <text x="70" y="355">98000</text>
+                        <line x1="80" y1="350" x2="750" y2="350" stroke="#94a3b8" stroke-dasharray="4,4" />
+                    </g>
+                    
+                    <!-- Y축 라벨 -->
+                    <text x="-200" y="15" font-size="18" font-family="Pretendard, sans-serif" font-weight="700" transform="rotate(-90)" text-anchor="middle">Price</text>
+
+                    <!-- X축 눈금 및 점선 -->
+                    <g fill="#000000" font-size="16" font-family="Pretendard, sans-serif" text-anchor="middle" font-weight="700">
+                        <text x="110" y="380">Start</text>
+                        <line x1="110" y1="20" x2="110" y2="360" stroke="#94a3b8" stroke-dasharray="4,4" />
+                        
+                        <text x="235" y="380">Day 1</text>
+                        <line x1="235" y1="20" x2="235" y2="360" stroke="#94a3b8" stroke-dasharray="4,4" />
+                        
+                        <text x="360" y="380">Day 2</text>
+                        <line x1="360" y1="20" x2="360" y2="360" stroke="#94a3b8" stroke-dasharray="4,4" />
+                        
+                        <text x="485" y="380">Day 3</text>
+                        <line x1="485" y1="20" x2="485" y2="360" stroke="#94a3b8" stroke-dasharray="4,4" />
+                        
+                        <text x="610" y="380">Day 4</text>
+                        <line x1="610" y1="20" x2="610" y2="360" stroke="#94a3b8" stroke-dasharray="4,4" />
+                        
+                        <text x="735" y="380">Day 5</text>
+                        <line x1="735" y1="20" x2="735" y2="360" stroke="#94a3b8" stroke-dasharray="4,4" />
+                    </g>
+
+                    <!-- 그래프 외곽선 -->
+                    <rect x="80" y="20" width="670" height="340" fill="none" stroke="#000" stroke-width="2" />
+
+                    <!-- 데이터 연결 선 -->
+                    <polyline points="110,150 235,136 360,95 485,250 610,300 735,30" fill="none" stroke="red" stroke-width="3" />
+                    
+                    <!-- 데이터 마커 -->
+                    <circle cx="110" cy="150" r="7" fill="red" />
+                    <circle cx="235" cy="136" r="7" fill="red" />
+                    <circle cx="360" cy="95" r="7" fill="red" />
+                    <circle cx="485" cy="250" r="7" fill="red" />
+                    <circle cx="610" cy="300" r="7" fill="red" />
+                    <circle cx="735" cy="30" r="7" fill="red" />
+                </svg>
+
+                <p class="text-2xl font-bold mt-16 text-black self-start w-full text-left" style="padding-left: 5%;">6단계 : 그래프 출력이 완료되었습니다. 나의 투자는 성공적이었나요? 🎉</p>
+            </div>
+        </div>
+
+        <!-- Slide 22: 마무리 -->
+        <div class="slide items-center justify-center text-center">
+            <h1 class="text-6xl md:text-7xl font-black mb-8 text-blue-700">
+                🎉 수고하셨습니다! 🎉
+            </h1>
+            <p class="text-3xl text-slate-800 mt-6 leading-relaxed font-bold">
+                스스로 코딩하여 완성한 주식 시뮬레이터!<br>투자 전략도, 파이썬 실력도 우상향 📈 하길 바랍니다!
+            </p>
+        </div>
+
+    </div>
+    
+    <!-- 하단 컨트롤 버튼 -->
+    <div class="controls">
+        <button id="prevBtn" class="btn-nav p-2" onclick="prevSlide()" disabled>
+            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+        <div id="slide-counter-box" class="flex flex-col items-center justify-center min-w-[120px]">
+            <span id="slide-counter">1 / 22</span>
+            <span class="helper-text">💡 [Enter] 빈칸 공개</span>
+        </div>
+        <button id="nextBtn" class="btn-nav p-2" onclick="nextSlide()">
+            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path></svg>
+        </button>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const counter = document.getElementById('slide-counter');
+        const progressBar = document.getElementById('progress-bar');
+        
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+        
+        // 애니메이션 상태 관리
+        let animContext = { active: false };
+        const delay = ms => new Promise(res => setTimeout(res, ms));
+
+        // 빈칸 공개 기능 (클릭 시 동작)
+        function revealAnswer(element) {
+            if (!element || element.classList.contains('revealed')) return;
+            const answer = element.getAttribute('data-answer');
+            if (answer) {
+                element.innerHTML = answer;
+                // 스타일 변경
+                element.className = 'answer-box revealed';
+            }
+        }
+
+        async function playTerminalAnimation(slide) {
+            animContext.active = false; 
+            await delay(50); 
+            
+            let context = { active: true };
+            animContext = context;
+
+            const lines = slide.querySelectorAll('.anim-line');
+            
+            // 리셋
+            lines.forEach(l => {
+                l.style.opacity = 0;
+                const typeTarget = l.querySelector('.type-target');
+                if (typeTarget) typeTarget.textContent = '';
+                const cursor = l.querySelector('.cursor');
+                if (cursor) cursor.style.display = 'none';
+            });
+
+            await delay(400);
+
+            // 순차 애니메이션
+            for (let line of lines) {
+                if (!context.active) return;
+
+                line.style.opacity = 1;
+                
+                const typeTarget = line.querySelector('.type-target');
+                if (typeTarget) {
+                    const textToType = typeTarget.getAttribute('data-text');
+                    const cursor = line.querySelector('.cursor');
+                    
+                    if (cursor) cursor.style.display = 'inline-block';
+                    await delay(500);
+                    
+                    for (let i = 0; i < textToType.length; i++) {
+                        if (!context.active) return;
+                        typeTarget.textContent += textToType[i];
+                        await delay(100 + Math.random() * 80);
+                    }
+                    
+                    await delay(300);
+                    if (cursor) cursor.style.display = 'none';
+                } else {
+                    await delay(400); 
+                }
+            }
+        }
+
+        function updateUI() {
+            slides.forEach((slide, index) => {
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                    if(slide.classList.contains('anim-container')) {
+                        playTerminalAnimation(slide);
+                    } else {
+                        animContext.active = false;
+                    }
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+
+            counter.innerText = `${currentSlide + 1} / ${totalSlides}`;
+            progressBar.style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateUI();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateUI();
+            }
+        }
+
+        // 키보드 네비게이션 및 엔터(빈칸공개) 처리
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                // 기존 스페이스/오른쪽 방향키는 슬라이드 넘김
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === 'Enter') {
+                // 엔터키를 누르면 현재 화면에 있는 '열리지 않은 빈칸' 중 첫 번째를 오픈!
+                const activeSlide = document.querySelector('.slide.active');
+                if (activeSlide) {
+                    const nextBlank = activeSlide.querySelector('.blank-box:not(.revealed)');
+                    if (nextBlank) {
+                        revealAnswer(nextBlank);
+                    }
+                }
+            }
+        });
+
+        // 초기화
+        updateUI();
+    </script>
+</body>
+</html>
