@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>터미널 기반 주식 시뮬레이션</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 터미널 테마 기본 설정 */
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background-color: #050505;
+            color: #39ff14; /* Neon Green */
+            overflow-x: hidden;
+        }
+
+        /* 네온 텍스트 효과 */
+        .neon-text {
+            text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14;
+        }
+
+        /* 네온 테두리 효과 */
+        .neon-border {
+            border: 1px solid #39ff14;
+            box-shadow: 0 0 5px #39ff14, inset 0 0 5px #39ff14;
+        }
+        
+        .neon-border-subtle {
+            border: 1px solid #1a8f0b;
+        }
+
+        /* 입력 폼 스타일링 */
+        .terminal-input {
+            background-color: transparent;
+            border: none;
+            border-bottom: 2px solid #39ff14;
+            color: #ffffff;
+            outline: none;
+            font-family: 'Share Tech Mono', monospace;
+            text-align: center;
+            width: 100px;
+            transition: all 0.3s;
+        }
+        .terminal-input:focus {
+            box-shadow: 0 5px 5px -5px #39ff14;
+        }
+        .terminal-input::placeholder {
+            color: #1a8f0b;
+        }
+
+        /* 버튼 호버 효과 */
+        .hacker-btn {
+            background-color: transparent;
+            color: #39ff14;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        .hacker-btn:hover {
+            background-color: #39ff14;
+            color: #000;
+            box-shadow: 0 0 15px #39ff14;
+        }
+        .hacker-btn:disabled {
+            border-color: #555;
+            color: #555;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        /* 스크롤바 커스텀 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050505; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #39ff14; 
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-4 md:p-8">
+
+    <!-- 커스텀 알림 모달창 (alert 대체) -->
+    <div id="system-modal" class="fixed inset-0 bg-black/90 flex items-center justify-center z-50 hidden opacity-0 transition-opacity duration-300">
+        <div class="neon-border bg-black p-6 rounded-lg max-w-sm w-full text-center shadow-2xl shadow-green-900/50">
+            <h3 class="text-red-500 font-bold text-xl mb-4" style="text-shadow: 0 0 5px red;">[ SYSTEM ERROR ]</h3>
+            <p id="modal-message" class="text-white mb-6 text-sm"></p>
+            <button onclick="closeModal()" class="hacker-btn neon-border px-6 py-2 rounded font-bold">확인</button>
+        </div>
+    </div>
+
+    <!-- 메인 컨테이너 -->
+    <div class="w-full max-w-4xl flex flex-col gap-6 relative z-10">
+        
+        <!-- 헤더 -->
+        <header class="text-center mb-4">
+            <h1 class="text-3xl md:text-4xl font-bold neon-text uppercase mb-2">> STOCK_SIMULATION_V1.0</h1>
+        </header>
+
+        <!-- [1단계] 초기 화면 -->
+        <div id="step-1" class="neon-border-subtle p-6 rounded bg-black/50 backdrop-blur transition-all duration-500">
+            <h2 class="text-xl font-bold mb-4 neon-text">> INIT_ACCOUNT</h2>
+            <p class="mb-2 text-white">> 나의 현재 현금: <span class="text-yellow-400 font-bold">1,000,000원</span></p>
+            <p class="mb-4 text-gray-400">> 시스템 메시지: <span class="text-green-400 blink">초기 자본금 저장 완료!</span></p>
+            
+            <div class="mb-6 p-4 border border-green-900 rounded bg-green-900/10">
+                <h3 class="text-lg font-bold mb-3 text-green-400"><span class="mr-2">■</span>상장 종목 리스트</h3>
+                <ul class="space-y-2 text-sm md:text-base">
+                    <li><span class="font-bold text-white">[A]</span> 대형 우량주 - <span class="text-blue-400">100,000원</span> <span class="text-gray-500">(변동성 낮음)</span></li>
+                    <li><span class="font-bold text-white">[B]</span> 급등락 테마주 - <span class="text-blue-400">10,000원</span> <span class="text-gray-500">(변동성 매우 높음)</span></li>
+                    <li><span class="font-bold text-white">[C]</span> 일반 항공주 - <span class="text-blue-400">50,000원</span> <span class="text-gray-500">(변동성 보통)</span></li>
+                </ul>
+            </div>
+            
+            <button id="btn-step1" class="hacker-btn neon-border w-full py-3 text-lg font-bold">오늘의 주가 확인하기</button>
+        </div>
+
+        <!-- [2단계] 종목 선택 -->
+        <div id="step-2" class="neon-border-subtle p-6 rounded bg-black/50 backdrop-blur transition-all duration-500 hidden opacity-0">
+            <h2 class="text-xl font-bold mb-4 neon-text">> SELECT_STOCK</h2>
+            <p class="mb-4 text-white">> "오늘의 주가를 확인해 보자!"</p>
+            
+            <div class="flex justify-around bg-green-900/20 p-4 rounded mb-6 text-center">
+                <div><p class="text-gray-400 text-sm">종목 A</p><p class="text-lg font-bold">100,000원</p></div>
+                <div><p class="text-gray-400 text-sm">종목 B</p><p class="text-lg font-bold">10,000원</p></div>
+                <div><p class="text-gray-400 text-sm">종목 C</p><p class="text-lg font-bold">50,000원</p></div>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center gap-4 justify-center mb-6">
+                <label for="stock-input">> 투자할 종목을 선택하세요 (A, B, C): </label>
+                <input type="text" id="stock-input" class="terminal-input text-xl uppercase" maxlength="1" autocomplete="off">
+            </div>
+            
+            <button id="btn-step2" class="hacker-btn neon-border w-full py-3 text-lg font-bold">선택 완료</button>
+        </div>
+
+        <!-- [3단계] 수량 입력 -->
+        <div id="step-3" class="neon-border-subtle p-6 rounded bg-black/50 backdrop-blur transition-all duration-500 hidden opacity-0">
+            <h2 class="text-xl font-bold mb-4 neon-text">> ORDER_QUANTITY</h2>
+            <p class="mb-4">> 선택 종목: <span id="display-selected-stock" class="text-white font-bold text-xl"></span></p>
+            <p class="mb-6">> 선택하신 종목으로 살 수 있는 최대 수량은 <span id="display-max-qty" class="text-yellow-400 font-bold text-xl underline">0</span>주입니다.</p>
+            
+            <div class="flex flex-col md:flex-row items-center gap-4 justify-center mb-6">
+                <label for="qty-input">> 몇 주를 구매하시겠습니까?</label>
+                <input type="number" id="qty-input" class="terminal-input text-xl" min="1" autocomplete="off">
+                <span class="text-gray-400 text-sm">/ 최대 <span id="max-qty-hint">0</span>주</span>
+            </div>
+            
+            <button id="btn-step3" class="hacker-btn neon-border w-full py-3 text-lg font-bold text-yellow-400 hover:text-black hover:bg-yellow-400">매수하기 (BUY)</button>
+        </div>
+
+        <!-- [4단계] 매수 완료 -->
+        <div id="step-4" class="neon-border-subtle p-6 rounded bg-black/50 backdrop-blur transition-all duration-500 hidden opacity-0">
+            <h2 class="text-xl font-bold mb-4 neon-text">> ORDER_COMPLETED</h2>
+            <div class="bg-blue-900/20 border border-blue-500 p-4 rounded mb-6 text-center">
+                <p class="text-blue-400 font-bold text-xl mb-2">매수가 완료되었습니다!</p>
+                <p class="text-white text-lg">보유 종목: <span id="confirm-stock" class="font-bold text-green-400"></span></p>
+                <p class="text-white text-lg">보유 수량: <span id="confirm-qty" class="font-bold text-green-400"></span>주</p>
+                <p class="text-gray-400 mt-2">남은 현금: <span id="confirm-cash" class="text-yellow-400"></span>원</p>
+            </div>
+            
+            <button id="btn-step4" class="hacker-btn neon-border w-full py-3 text-lg font-bold">1일 차 장 마감 보기 시작</button>
+        </div>
+
+        <!-- [5단계] 시뮬레이션 진행 및 차트 -->
+        <div id="step-5" class="neon-border-subtle p-6 rounded bg-black/50 backdrop-blur transition-all duration-500 hidden opacity-0 flex-col gap-6">
+            <h2 class="text-xl font-bold neon-text flex justify-between items-center">
+                <span>> MARKET_SIMULATION</span>
+                <span id="day-counter" class="text-white bg-green-900/50 px-3 py-1 rounded text-sm">DAY 0 / 5</span>
+            </h2>
+            
+            <!-- 차트 영역 -->
+            <div class="w-full bg-black/80 rounded neon-border-subtle p-2">
+                <canvas id="simulationChart" height="100"></canvas>
+            </div>
+
+            <!-- 터미널 로그 영역 -->
+            <div id="terminal-log" class="w-full h-48 bg-black border border-green-900 rounded p-4 overflow-y-auto text-sm space-y-2 font-mono">
+                <p class="text-gray-500">> 시스템 로깅이 시작되었습니다...</p>
+            </div>
+
+            <button id="btn-next-day" class="hacker-btn neon-border w-full py-3 text-lg font-bold">다음 날 장 마감 보기</button>
+            <button id="btn-restart" class="hacker-btn neon-border w-full py-3 text-lg font-bold text-red-500 border-red-500 hover:bg-red-500 hover:text-black hidden">시뮬레이션 종료 (다시 시작하기)</button>
+        </div>
+
+    </div>
+
+    <script>
+        // --- 상태 관리 변수 ---
+        const INITIAL_CASH = 1000000;
+        let currentCash = INITIAL_CASH;
+        let maxBuyableQty = 0;
+        let currentDay = 0;
+        const MAX_DAYS = 5;
+        let chartInstance = null;
+        
+        // 종목 데이터베이스
+        const marketData = {
+            'A': { id: 'A', name: '대형 우량주', price: 100000, sens: 0.01 },
+            'B': { id: 'B', name: '급등락 테마주', price: 10000, sens: 0.08 },
+            'C': { id: 'C', name: '일반 항공주', price: 50000, sens: 0.04 }
+        };
+
+        // 내 포트폴리오
+        let portfolio = {
+            stockId: null,
+            quantity: 0,
+            avgPrice: 0
+        };
+
+        // --- 유틸리티 함수 ---
+        // 숫자 콤마 포맷팅
+        const formatKRW = (num) => new Intl.NumberFormat('ko-KR').format(num);
+
+        // 커스텀 모달(Alert 대체) 제어
+        const modal = document.getElementById('system-modal');
+        const modalMsg = document.getElementById('modal-message');
+        
+        function showAlert(msg) {
+            modalMsg.innerText = msg;
+            modal.classList.remove('hidden');
+            // 부드러운 트랜지션을 위해 약간의 딜레이 후 opacity 변경
+            setTimeout(() => { modal.classList.remove('opacity-0'); }, 10);
+        }
+        function closeModal() {
+            modal.classList.add('opacity-0');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+        }
+
+        // 스크롤 맨 아래로 유지 (터미널 로그용)
+        function scrollToBottom(elementId) {
+            const el = document.getElementById(elementId);
+            el.scrollTop = el.scrollHeight;
+        }
+
+        // 요소 숨기기/보이기 (트랜지션 포함)
+        function hideStep(stepId) {
+            const el = document.getElementById(stepId);
+            el.classList.add('opacity-0');
+            setTimeout(() => {
+                el.classList.add('hidden');
+            }, 300);
+        }
+        function showStep(stepId) {
+            const el = document.getElementById(stepId);
+            el.classList.remove('hidden');
+            setTimeout(() => {
+                el.classList.remove('opacity-0');
+            }, 10);
+        }
+
+        // --- 단계별 이벤트 리스너 ---
+
+        // Step 1 -> Step 2
+        document.getElementById('btn-step1').addEventListener('click', () => {
+            hideStep('step-1');
+            setTimeout(() => { showStep('step-2'); }, 300);
+            document.getElementById('stock-input').focus();
+        });
+
+        // Step 2 -> Step 3
+        document.getElementById('btn-step2').addEventListener('click', () => {
+            const inputVal = document.getElementById('stock-input').value.trim().toUpperCase();
+            
+            if (!['A', 'B', 'C'].includes(inputVal)) {
+                showAlert("올바른 종목 코드를 입력해 주세요 (A, B, C 중 택 1).");
+                return;
+            }
+
+            // 선택 처리
+            portfolio.stockId = inputVal;
+            const stockPrice = marketData[inputVal].price;
+            maxBuyableQty = Math.floor(currentCash / stockPrice);
+
+            // Step 3 UI 업데이트
+            document.getElementById('display-selected-stock').innerText = `종목 ${inputVal} (${formatKRW(stockPrice)}원)`;
+            document.getElementById('display-max-qty').innerText = formatKRW(maxBuyableQty);
+            document.getElementById('max-qty-hint').innerText = formatKRW(maxBuyableQty);
+            document.getElementById('qty-input').max = maxBuyableQty;
+
+            hideStep('step-2');
+            setTimeout(() => { showStep('step-3'); }, 300);
+            document.getElementById('qty-input').focus();
+        });
+
+        // Step 3 -> Step 4
+        document.getElementById('btn-step3').addEventListener('click', () => {
+            const qtyInput = parseInt(document.getElementById('qty-input').value, 10);
+
+            if (isNaN(qtyInput) || qtyInput <= 0 || qtyInput > maxBuyableQty) {
+                showAlert(`올바른 숫자를 입력해 주세요. (1 ~ ${maxBuyableQty}주 가능)`);
+                return;
+            }
+
+            // 매수 체결
+            portfolio.quantity = qtyInput;
+            portfolio.avgPrice = marketData[portfolio.stockId].price;
+            const totalCost = portfolio.quantity * portfolio.avgPrice;
+            currentCash -= totalCost;
+
+            // Step 4 UI 업데이트
+            document.getElementById('confirm-stock').innerText = `종목 ${portfolio.stockId} (${marketData[portfolio.stockId].name})`;
+            document.getElementById('confirm-qty').innerText = formatKRW(portfolio.quantity);
+            document.getElementById('confirm-cash').innerText = formatKRW(currentCash);
+
+            hideStep('step-3');
+            setTimeout(() => { showStep('step-4'); }, 300);
+        });
+
+        // Step 4 -> Step 5 (시뮬레이션 시작)
+        document.getElementById('btn-step4').addEventListener('click', () => {
+            hideStep('step-4');
+            setTimeout(() => { 
+                showStep('step-5');
+                initChart();
+                logToTerminal(`[SYSTEM] 초기 포트폴리오 세팅 완료. 총 자산: ${formatKRW(INITIAL_CASH)}원`);
+            }, 300);
+        });
+
+        // --- 주가 변동 핵심 로직 ---
+        function simulateMarketDay() {
+            const stocks = ['A', 'B', 'C'];
+            
+            stocks.forEach(id => {
+                const stock = marketData[id];
+                const startPrice = stock.price;
+                const maxLimit = Math.floor(startPrice * 1.3); // 상한가 +30%
+                const minLimit = Math.floor(startPrice * 0.7); // 하한가 -30%
+                let currentPrice = startPrice;
+
+                // 하루 9시~15시 (총 7번 변동)
+                for(let i = 0; i < 7; i++) {
+                    // 체결강도: -100 ~ 100 랜덤 정수 / 100.0
+                    const intensity = (Math.floor(Math.random() * 201) - 100) / 100.0;
+                    const variationRate = intensity * stock.sens;
+                    
+                    currentPrice = Math.floor(currentPrice + (currentPrice * variationRate));
+                    
+                    // 상하한가 제한
+                    if (currentPrice > maxLimit) currentPrice = maxLimit;
+                    if (currentPrice < minLimit) currentPrice = minLimit;
+                }
+                
+                // 최종 마감가 업데이트
+                stock.price = currentPrice;
+            });
+        }
+
+        // 내 총 자산 계산
+        function calculateTotalAsset() {
+            const stockValue = portfolio.quantity * marketData[portfolio.stockId].price;
+            return currentCash + stockValue;
+        }
+
+        // 터미널에 텍스트 한 줄씩 추가하는 함수
+        function logToTerminal(message) {
+            const logContainer = document.getElementById('terminal-log');
+            const p = document.createElement('p');
+            p.innerHTML = message;
+            
+            // 단순 페이드인 애니메이션 클래스 추가
+            p.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+            logContainer.appendChild(p);
+            
+            // 렌더링 틱 후 투명도 복구
+            setTimeout(() => {
+                p.classList.remove('opacity-0');
+                scrollToBottom('terminal-log');
+            }, 50);
+        }
+
+        // --- 차트 초기화 및 업데이트 ---
+        function initChart() {
+            const ctx = document.getElementById('simulationChart').getContext('2d');
+            
+            Chart.defaults.color = '#a0aec0'; // 회색조 텍스트
+            Chart.defaults.font.family = "'Share Tech Mono', monospace";
+
+            chartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Start'],
+                    datasets: [{
+                        label: '내 총 자산 (KRW)',
+                        data: [INITIAL_CASH],
+                        borderColor: '#39ff14', // 형광 초록
+                        backgroundColor: 'rgba(57, 255, 20, 0.1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#39ff14',
+                        pointRadius: 4,
+                        pointHoverRadius: 6,
+                        fill: true,
+                        tension: 0.1 // 직선에 가까운 꺾은선
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            grid: { color: '#1f2937' }
+                        },
+                        x: {
+                            grid: { color: '#1f2937' }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#000',
+                            titleColor: '#39ff14',
+                            bodyColor: '#fff',
+                            borderColor: '#39ff14',
+                            borderWidth: 1
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateChart(day, totalAsset) {
+            chartInstance.data.labels.push(`Day ${day}`);
+            chartInstance.data.datasets[0].data.push(totalAsset);
+            chartInstance.update(); // 애니메이션과 함께 업데이트됨
+        }
+
+        // --- 날짜 진행 버튼 이벤트 ---
+        document.getElementById('btn-next-day').addEventListener('click', () => {
+            currentDay++;
+            
+            // 1. 주가 변동 로직 계산
+            simulateMarketDay();
+
+            // 2. 자산 및 수익률 계산
+            const currentTotalAsset = calculateTotalAsset();
+            const returnRate = (((currentTotalAsset - INITIAL_CASH) / INITIAL_CASH) * 100).toFixed(2);
+            
+            // 수익률 색상 판별
+            const returnColorClass = returnRate > 0 ? 'text-red-400' : (returnRate < 0 ? 'text-blue-400' : 'text-gray-400');
+            const sign = returnRate > 0 ? '+' : '';
+
+            // 3. 터미널 로깅 출력
+            const marketBrief = `[<span class="text-white">${currentDay}일 차 마감</span>] A: ${formatKRW(marketData['A'].price)}원 | B: ${formatKRW(marketData['B'].price)}원 | C: ${formatKRW(marketData['C'].price)}원`;
+            const accBrief = `&nbsp;💼 내 계좌: 종목 ${portfolio.stockId} <span class="text-white">${formatKRW(portfolio.quantity)}주</span> | 총 자산: <span class="text-yellow-400">${formatKRW(currentTotalAsset)}원</span> | 수익률: <span class="${returnColorClass} font-bold">${sign}${returnRate}%</span>`;
+            
+            logToTerminal("<br/>" + marketBrief);
+            logToTerminal(accBrief);
+
+            // 4. 차트 업데이트
+            updateChart(currentDay, currentTotalAsset);
+            
+            // 상단 카운터 업데이트
+            document.getElementById('day-counter').innerText = `DAY ${currentDay} / 5`;
+
+            // 5일차 종료 시 버튼 변경
+            if (currentDay >= MAX_DAYS) {
+                const nextBtn = document.getElementById('btn-next-day');
+                const restartBtn = document.getElementById('btn-restart');
+                
+                nextBtn.classList.add('hidden');
+                restartBtn.classList.remove('hidden');
+                
+                logToTerminal(`<br/><span class="text-green-400 font-bold">> [SYSTEM] 5일 차 시뮬레이션이 모두 종료되었습니다. 최종 수익률을 확인하세요!</span>`);
+            }
+        });
+
+        // 다시 시작하기 버튼
+        document.getElementById('btn-restart').addEventListener('click', () => {
+            location.reload(); // 가장 깔끔한 초기화 방법
+        });
+
+    </script>
+</body>
+</html>
