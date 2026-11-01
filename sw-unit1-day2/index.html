@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>단원 정리 2차시</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<style>
+/* 16:9 슬라이드를 화면에 맞춰 확대. 빔프로젝터용: 회색 글씨 없이 진한 글씨, 큰 글자. 빈칸·카드를 눌러 정답을 하나씩 공개. */
+:root{
+  --bg:#D9DEE8; --paper:#FFFFFF; --ink:#1B2230; --sub:#2B3242; --line:#C9D1DF;
+  --blue:#2350C8; --teal:#0A7F72; --orange:#B85E00; --pen:#D0261E; --green:#137A3A;
+  --f-blue:#E6EDFC; --f-teal:#DFF3EF; --f-orange:#FFF0DC; --f-grey:#EEF1F5; --f-red:#FDEBEA; --f-green:#E3F5E8;
+  --font:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  color-scheme:light;
+}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);overflow:hidden;word-break:keep-all}
+.stage{position:absolute;left:50%;top:50%;width:1280px;height:720px;transform-origin:center;background:var(--paper);border-radius:10px;overflow:hidden;box-shadow:0 18px 50px rgba(27,34,48,.25)}
+.slide{position:absolute;inset:0 0 56px;padding:28px 44px 0;box-sizing:border-box}
+.slide[hidden]{display:none!important}
+.hd{display:flex;align-items:center;gap:12px;min-height:34px}
+.tag{display:inline-block;font-size:17px;font-weight:700;color:#fff;padding:5px 14px;border-radius:4px;background:var(--blue)}
+.s2 .tag{background:var(--teal)} .s3 .tag{background:var(--orange)} .s0 .tag{background:var(--ink)}
+.ws{margin-left:auto;font-size:18px;font-weight:900;color:var(--pen);border:2.5px solid var(--pen);border-radius:6px;padding:4px 12px;background:var(--f-red);display:flex;align-items:center;gap:6px}
+.pref{font-size:20px;font-weight:900;color:var(--ink);border:2.5px solid var(--ink);border-radius:6px;padding:3px 12px;background:#FFF3C4}
+.pp{font-size:18px;font-weight:900;color:var(--ink);background:#FFF3C4;border-radius:4px;padding:1px 8px;margin-left:8px;white-space:nowrap}
+.vid{font:inherit;font-size:17px;font-weight:900;color:#fff;background:#C4302B;border-radius:999px;padding:5px 14px;text-decoration:none;white-space:nowrap}
+.vid:focus-visible,.tool:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.tool{font:inherit;font-size:16px;font-weight:900;color:var(--ink);background:#FFF3C4;border:2px solid #E0B400;border-radius:999px;padding:6px 14px;cursor:pointer}
+.ov{position:absolute;inset:0;background:rgba(15,20,32,.72);display:grid;place-items:center;z-index:50}
+.ov[hidden]{display:none}
+.panel{background:#fff;border-radius:16px;padding:26px 32px;min-width:620px;max-width:1100px;box-shadow:0 20px 60px rgba(0,0,0,.4);position:relative}
+.panel h3{margin:0 0 14px;font-size:30px}
+.panel .x{position:absolute;right:18px;top:14px;font:inherit;font-size:22px;font-weight:900;border:2px solid var(--line);background:#fff;border-radius:999px;width:42px;height:42px;cursor:pointer}
+.pk-num{font-size:200px;font-weight:900;line-height:1;text-align:center;color:var(--blue);margin:10px 0 6px;font-variant-numeric:tabular-nums}
+.pk-num.done{color:var(--pen);animation:pop .5s ease}
+@keyframes pop{0%{transform:scale(.6)}60%{transform:scale(1.15)}100%{transform:scale(1)}}
+.pk-row{display:flex;align-items:center;gap:12px;font-size:20px;flex-wrap:wrap;justify-content:center}
+.pk-row input[type=number]{font:inherit;font-size:22px;width:80px;padding:4px 8px;border:2px solid var(--line);border-radius:8px}
+.big-btn{font:inherit;font-size:26px;font-weight:900;color:#fff;background:var(--pen);border:0;border-radius:999px;padding:12px 40px;cursor:pointer}
+.sm-btn{font:inherit;font-size:17px;font-weight:700;border:2px solid var(--ink);background:#fff;color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer}
+.pk-used{margin-top:12px;font-size:18px;text-align:center;min-height:26px}
+.teams{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.team{border-radius:14px;padding:14px;text-align:center;border:3px solid var(--line)}
+.team h4{margin:0;font-size:24px}
+.team .sc{font-size:72px;font-weight:900;line-height:1.1;font-variant-numeric:tabular-nums}
+.team .bt{display:flex;gap:10px;justify-content:center}
+.team .bt button{font:inherit;font-size:24px;font-weight:900;width:64px;height:48px;border-radius:12px;border:2px solid var(--ink);background:#fff;cursor:pointer}
+.team.lead{border-color:#E0B400;box-shadow:0 0 0 4px #FFE58A}
+.confetti{position:absolute;inset:0;pointer-events:none;z-index:60}
+.chip{font:inherit;display:inline-flex;align-items:center;justify-content:center;min-height:62px;padding:8px 14px;border-radius:12px;border:2.5px solid var(--line);background:#fff;font-size:22px;font-weight:700;cursor:pointer;color:var(--ink)}
+.chip.on{border-color:var(--teal);background:var(--f-teal)}
+.chip.on::before{content:'✔ ';color:var(--teal)}
+.counter{font-size:30px;font-weight:900;color:var(--teal)}
+.pred{display:grid;align-content:center;justify-items:center;gap:6px;min-height:118px}
+.pred .k{font-size:18px}
+.card.on.yes{border-color:var(--green);background:var(--f-green)} .card .k.yes{background:var(--green)}
+.card.on.part{border-color:var(--orange);background:var(--f-orange)} .card .k.part{background:var(--orange)}
+.card.on.not{border-color:#56607A;background:var(--f-grey)} .card .k.not{background:#3A4256}
+.card .xtra{position:absolute;top:-11px;right:10px;border:1.5px solid #E0B400;font-size:13px;font-weight:900;background:#FFF3C4;color:#1B2230;border-radius:4px;padding:1px 6px}
+.sm-wrap{display:grid;grid-template-columns:330px 830px;gap:18px;margin-top:10px;align-items:start}
+.sm-phone{position:relative;width:310px;height:482px;border-radius:40px;background:#111827;padding:12px;box-sizing:border-box;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.sm-phone.buzz{animation:buzz .1s 8}
+@keyframes buzz{25%{transform:translateX(-4px) rotate(-1deg)}75%{transform:translateX(4px) rotate(1deg)}}
+.sm-notch{position:absolute;left:50%;top:12px;transform:translateX(-50%);width:90px;height:22px;background:#111827;border-radius:0 0 14px 14px;z-index:3;display:grid;place-items:center}
+.sm-notch i{width:9px;height:9px;border-radius:50%;background:#3B4766;display:block}
+.sm-notch i.on{background:#3CFF6B;box-shadow:0 0 12px #3CFF6B}
+.sm-status{position:absolute;left:22px;right:22px;top:14px;display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:#fff;z-index:4}
+.sm-status span{background:rgba(17,24,39,.85);border-radius:8px;padding:1px 7px}
+.sm-screen{position:relative;width:100%;height:100%;border-radius:30px;overflow:hidden;background:linear-gradient(160deg,#3B5BDB,#8E5BD6);color:#1B2230}
+.sm-lock{color:#fff;text-align:center;padding-top:64px}
+.sm-big{font-size:64px;font-weight:900;line-height:1}
+.sm-date{font-size:17px;margin-top:6px}
+.sm-noti{position:absolute;left:10px;right:10px;top:160px;background:rgba(255,255,255,.96);border-radius:16px;padding:10px 12px;font-size:15px;line-height:1.45;animation:notiIn .4s both}
+@keyframes notiIn{from{transform:translateY(-40px);opacity:0}to{transform:none;opacity:1}}
+.sm-app{position:absolute;inset:0;background:#F2F4F8;display:flex;flex-direction:column}
+.sm-hd{padding:42px 14px 10px;background:#fff;font-weight:900;font-size:17px;border-bottom:1px solid #DDE2EA}
+.sm-msgs{padding:14px 12px}
+.sm-bub{background:#E6E9EF;border-radius:4px 16px 16px 16px;padding:10px 12px;font-size:15px;line-height:1.5;max-width:240px}
+.sm-link{color:#2350C8;font-weight:700;word-break:break-all;border-radius:4px}
+.sm-tm{font-size:12px;margin-top:4px;color:#3A4256}
+.sm-url{padding:42px 14px 8px;background:#fff;font-size:14px;border-bottom:1px solid #DDE2EA}
+.sm-web{display:grid;justify-items:center;gap:12px;padding:30px 16px;text-align:center}
+.sm-logo{font-size:22px;font-weight:900;color:#B85E00}
+.sm-web p{margin:0;font-size:17px;line-height:1.5}
+.sm-inst{font:inherit;font-size:17px;font-weight:900;color:#fff;background:#2350C8;border:0;border-radius:10px;padding:10px 30px}
+.sm-link.pressed,.sm-allow.pressed{background:#FFE58A}
+.sm-inst.pressed{background:#1A3C99}
+.sm-bar{width:200px;height:10px;border-radius:5px;background:#DDE2EA;overflow:hidden}
+.sm-bar i{display:block;height:100%;width:0;background:#2350C8;transition:width 1.5s}
+.sm-bar.go i{width:100%}
+.sm-dim{position:absolute;inset:0;background:rgba(0,0,0,.45);display:grid;place-items:center;animation:notiIn .25s both}
+.sm-dlg{width:240px;background:#fff;border-radius:18px;padding:16px;text-align:center;display:grid;gap:10px;font-size:16px;line-height:1.45}
+.sm-dic{font-size:34px}
+.sm-dbt{display:flex;justify-content:space-around;font-weight:900;font-size:16px}
+.sm-dbt span{padding:6px 12px;border-radius:8px}
+.sm-allow{color:#2350C8}
+.sm-busy{display:grid;justify-items:center;gap:10px;margin-top:120px;font-size:18px}
+.sm-spin{width:50px;height:50px;border-radius:50%;border:6px solid #DDE2EA;border-top-color:#2350C8;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.sm-finger{position:absolute;left:140px;top:300px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.6);border:3px solid rgba(27,34,48,.7);opacity:0;transition:left .5s,top .5s,opacity .2s,transform .15s;z-index:5;pointer-events:none}
+.sm-finger.show{opacity:1}
+.sm-finger.tap{transform:scale(.7);background:rgba(255,229,138,.9)}
+.sm-nar{display:flex;align-items:center;gap:12px;margin-top:10px;background:#1B2230;color:#fff;border-radius:12px;padding:10px 16px;min-height:54px}
+.sm-nar b{font-size:18px;color:#FFE58A;white-space:nowrap}
+.sm-nar span{flex:1;font-size:24px;font-weight:700;line-height:1.35}
+.xr{background:#F4F6FA;border-radius:12px;padding:8px;display:grid;justify-items:center;align-content:start}
+.xr .hw rect{fill:#2B3656;stroke:#56607A;stroke-width:2;transition:fill .2s}
+.xr .hw text{fill:#E3E7F1;font-size:15px;font-weight:700;text-anchor:middle;font-family:"Noto Sans KR","Malgun Gothic",sans-serif}
+.xr .hw.on rect{fill:#D0261E;stroke:#FFE58A;stroke-width:3}
+.xr-cap{font-size:18px;margin-top:4px;text-align:center}
+.code{background:#0F1730;border-radius:12px;padding:12px 14px;font-family:Consolas,"D2Coding","Malgun Gothic",monospace;color:#E3E7F1;display:grid;gap:6px}
+.code .cm{color:#7CE07C;font-size:17px}
+.code .ln{font-size:20px;padding:5px 8px;border-radius:6px;display:flex;gap:12px;transition:background .2s}
+.code .ln i{font-style:normal;color:#8C97B5;width:18px}
+.code .ln.done{color:#FFB3B3}
+.code .ln.on{background:#D0261E;color:#fff}
+.mw-out{margin-top:8px;background:var(--f-red);border-radius:10px;padding:10px 14px;font-size:20px;line-height:1.5;min-height:64px}
+.cmp{background:var(--f-grey);border-radius:12px;padding:12px 14px;display:grid;gap:8px;align-content:start}
+.cmp-t{font-size:20px;line-height:1.4}
+.cmp table{border-collapse:collapse;width:100%;font-size:18px}
+.cmp th{font-size:16px;padding:5px 4px;background:#fff}
+.cmp td{padding:3px 4px;border-top:1px solid var(--line);text-align:center}
+.cmp td:first-child{text-align:left}
+.cmp td small{display:block;font-size:14px}
+.cmp p{margin:0;font-size:17px;line-height:1.45}
+.cmp .bl.ox{font-size:22px}
+.phone{position:relative;width:300px;height:460px;margin:0 auto;border-radius:36px;background:#1B2230;padding:14px;box-sizing:border-box;transition:box-shadow .3s}
+.phone.hack{box-shadow:0 0 0 5px #D0261E,0 0 28px rgba(208,38,30,.6);animation:shake .4s 2}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.phone .cam{position:absolute;left:50%;top:6px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:#56607A}
+.phone .cam.on{background:#3CFF6B;box-shadow:0 0 10px #3CFF6B}
+.phone .scr{width:100%;height:100%;border-radius:24px;background:#EEF3FB;overflow:hidden;font-size:16px;line-height:1.45;color:#1B2230;display:flex;flex-direction:column}
+.mz-time{font-size:46px;font-weight:900;text-align:center;margin-top:26px}
+.mz-noti{margin:16px 12px;background:#fff;border-radius:12px;padding:10px 12px;font-size:15px;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.mz-apps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:10px 16px;font-size:30px;text-align:center}
+.mz-head{background:#2350C8;color:#fff;font-weight:900;padding:10px 14px;font-size:17px}
+.mz-head.hk{background:#D0261E}
+.mz-sms{margin:14px 12px;background:#fff;border-radius:14px;padding:12px;font-size:16px}
+.mz-link{color:#2350C8;font-weight:700;word-break:break-all}
+.mz-link.tap{background:#FFE58A}
+.mz-inst{display:grid;justify-items:center;gap:8px;margin-top:40px;padding:0 16px;text-align:center}
+.mz-ic{font-size:54px}
+.mz-bar{width:200px;height:12px;border-radius:6px;background:#C9D1DF;overflow:hidden}
+.mz-bar i{display:block;height:100%;width:0;background:#2350C8;transition:width 1.6s linear}
+.mz-cmd{margin:8px 10px;padding:0;list-style:none;display:grid;gap:5px}
+.mz-cmd li{background:#FDEBEA;border:2px solid #D0261E;border-radius:10px;padding:4px 10px;font-weight:700;font-size:16px;display:flex;gap:8px;align-items:center;animation:jobIn .3s both}
+.mz-end{position:absolute;left:24px;right:24px;bottom:24px;background:#1B2230;box-shadow:0 4px 14px rgba(0,0,0,.4);animation:jobIn .4s both;color:#fff;border-radius:12px;padding:10px;font-size:15px;text-align:center}
+.mz-end b{color:#FFE58A}
+.mzrow{display:grid;grid-template-columns:150px 1fr 190px;gap:12px;align-items:center;background:var(--f-grey);border-radius:10px;padding:9px 14px;font-size:19px;line-height:1.45}
+.mzk{color:#fff;font-size:18px;text-align:center;border-radius:6px;padding:4px 6px}
+.mzrow .bl{font-size:20px;font-weight:900}
+.prog{font:inherit;text-align:left;border:2.5px solid var(--line);background:#fff;border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--ink);font-size:19px}
+.prog b{font-size:20px}
+.prog ol{margin:4px 0 0;padding-left:24px;display:grid;grid-template-columns:1fr 1fr;column-gap:16px;font-size:17px}
+.prog li.on{color:var(--pen);font-weight:900}
+.prog.run{border-color:var(--blue);background:var(--f-blue)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tabs button{font:inherit;font-size:19px;font-weight:700;padding:7px 16px;border-radius:999px;border:2.5px solid var(--line);background:#fff;color:var(--ink);cursor:pointer}
+.tabs button[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.cook{display:grid;gap:4px;justify-items:center;text-align:center}
+.cook h4{margin:0;font-size:24px}.cook p{margin:0;font-size:19px}
+.ck-ic{font-size:42px;line-height:1}
+.ck-eq{font-size:20px;margin-top:4px}
+.flips{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.flip{font:inherit;position:relative;height:190px;border:0;padding:0;background:none;cursor:pointer;perspective:900px;color:var(--ink)}
+.flip>div{position:absolute;inset:0;border-radius:12px;padding:12px 16px;box-sizing:border-box;display:grid;align-content:start;gap:6px;text-align:left;backface-visibility:hidden;transition:transform .5s;border:2.5px solid var(--line)}
+.flip .fr{background:#F4F6FA}
+.flip .bk{background:#FFFFFF;border-color:var(--green);transform:rotateY(180deg)}
+.flip.on .fr{transform:rotateY(-180deg)} .flip.on .bk{transform:rotateY(0)}
+.flip p{margin:0;font-size:20px;line-height:1.45}
+.flip .fld{justify-self:start;color:#fff;font-size:18px;padding:2px 12px;border-radius:6px}
+.flip .q{font-size:17px;font-weight:900;color:var(--blue)}
+.flip .sw{font-size:18px;font-weight:900;color:var(--green)}
+.factors{display:grid;gap:8px;align-content:start}
+.factors button{font:inherit;font-size:21px;font-weight:700;text-align:left;padding:12px 16px;border-radius:10px;border:2.5px solid var(--line);background:#fff;color:var(--ink);cursor:pointer}
+.factors button[aria-pressed=true]{border-color:var(--blue);background:var(--f-blue)}
+.step{display:grid;grid-template-columns:36px 1fr;gap:10px;align-items:center;background:var(--f-teal);border-radius:10px;padding:9px 14px;font-size:21px;line-height:1.45}
+.step>b{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--teal);color:#fff;font-size:18px}
+.sdg{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;align-content:start}
+.sdg button{font:inherit;color:#fff;border:0;border-radius:8px;min-height:106px;padding:8px;text-align:left;display:grid;align-content:start;gap:4px;cursor:pointer}
+.sdg button b{font-size:30px;line-height:1}.sdg button span{font-size:16px;font-weight:700;line-height:1.3}
+.sdg button.sel{outline:5px solid var(--ink);outline-offset:2px}
+.probs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.probs button{font:inherit;font-size:23px;font-weight:700;border-radius:12px;border:2.5px solid var(--line);background:#fff;color:var(--ink);padding:12px;cursor:pointer;line-height:1.35}
+.probs button[aria-pressed=true]{border-color:var(--teal);background:var(--f-teal)}
+.probs .pi{display:block;font-size:40px}
+.flow3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:14px}
+.flow3>div{position:relative;border-radius:12px;background:#F4F6FA;border:2.5px dashed var(--line);padding:12px 16px;min-height:140px;transition:all .3s}
+.flow3>div.on{background:#fff;border:2.5px solid var(--teal)}
+.flow3>div+div::before{content:'→';position:absolute;left:-26px;top:50%;transform:translateY(-50%);font-size:26px;font-weight:900;color:var(--teal)}
+.flow3 small{font-size:18px;font-weight:900;color:var(--teal)}
+.flow3 p{margin:6px 0 0;font-size:21px;line-height:1.5}
+.towns{display:grid;gap:8px;align-content:start}
+.towns button{font:inherit;text-align:left;border:2.5px solid var(--line);background:#fff;border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--ink);display:grid;gap:4px}
+.towns button b{font-size:19px}.towns button .bl{justify-self:start;font-size:19px;font-weight:900}
+.towns button[aria-pressed=true]{border-color:var(--teal);background:var(--f-teal)}
+.job{border:3px solid;border-radius:10px;padding:8px 12px;background:#fff;display:grid;gap:3px;font-size:18px;line-height:1.4;animation:jobIn .5s both}
+.job b{font-size:20px}
+@keyframes jobIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.ws.listen{color:var(--ink);border-color:var(--line);background:var(--f-grey)}
+.all{font:inherit;font-size:16px;font-weight:700;padding:6px 14px;border-radius:999px;border:2px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer}
+.all[aria-pressed=true]{background:var(--ink);color:#fff}
+h2.tt{margin:12px 0 0;font-size:40px;font-weight:900;letter-spacing:-.5px}
+.lead{margin:8px 0 0;font-size:22px;font-weight:500;color:var(--sub)}
+/* 빈칸 */
+.bl{display:inline-block;min-width:3.2em;padding:0 10px;margin:0 3px;border-bottom:3px solid var(--pen);color:transparent;cursor:pointer;border-radius:4px 4px 0 0;background:var(--f-red);text-align:center;line-height:1.35;transition:background .15s}
+.bl.on{color:var(--pen);background:transparent}
+.bl:focus-visible,.card:focus-visible,.opt:focus-visible,.all:focus-visible,.nav button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+/* 카드 */
+.cards{display:grid;gap:14px}
+.card{font:inherit;position:relative;display:grid;align-content:center;justify-items:center;gap:8px;min-height:132px;padding:12px;border:2.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font-size:28px;font-weight:700;cursor:pointer;text-align:center;line-height:1.35}
+.card .k{font-size:18px;font-weight:900;padding:3px 12px;border-radius:999px;color:#fff;visibility:hidden}
+.card.on .k{visibility:visible}
+.card.on.hw,.card.on.pos{border-color:var(--blue);background:var(--f-blue)} .card .k.hw,.card .k.pos{background:var(--blue)}
+.card.on.sw{border-color:var(--teal);background:var(--f-teal)} .card .k.sw{background:var(--teal)}
+.card.on.neg{border-color:var(--pen);background:var(--f-red)} .card .k.neg{background:var(--pen)}
+.card.on.gen{border-color:#56607A;background:var(--f-grey)} .card .k.gen{background:#3A4256}
+.card.on.fus{border-color:var(--orange);background:var(--f-orange)} .card .k.fus{background:var(--orange)}
+.bl.ox{min-width:2.2em;font-weight:900}
+.bl.ox.on.o{color:var(--green)} .bl.ox.on.x{color:var(--pen)}
+.timer{font:inherit;font-size:22px;font-weight:900;padding:6px 18px;border-radius:999px;border:2.5px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer;font-variant-numeric:tabular-nums}
+.timer.run{background:var(--ink);color:#fff} .timer.end{background:var(--pen);border-color:var(--pen);color:#fff}
+.day{position:absolute;right:80px;top:70px;font-size:26px;font-weight:900;color:#fff;border:3px solid #fff;border-radius:8px;padding:6px 18px}
+/* 공통 상자 */
+.box{border-radius:10px;padding:18px 22px;background:var(--f-grey);font-size:24px;line-height:1.7}
+.s1 .box.c{background:var(--f-blue)} .s2 .box.c{background:var(--f-teal)} .s3 .box.c{background:var(--f-orange)}
+.row{display:grid;align-items:center;gap:16px;padding:13px 20px;border-radius:10px;background:var(--f-grey);font-size:24px;line-height:1.45}
+.row b.n{font-size:20px;font-weight:900;color:#fff;background:var(--ink);border-radius:6px;padding:2px 10px;justify-self:start}
+.grid{display:grid;gap:12px}
+.tile{border-radius:10px;background:var(--f-grey);padding:16px 20px;font-size:23px;line-height:1.5}
+.tile h4{margin:0 0 6px;font-size:24px}
+.ex{font-size:19px;color:var(--sub);font-weight:500}
+/* 표지 */
+.cover{background:var(--ink);color:#fff;padding:70px 80px}
+.cover .kicker{margin-top:100px;font-size:24px;color:#E3E7F1;font-weight:500}
+.cover h1{margin:16px 0 0;font-size:68px;font-weight:900;line-height:1.2;letter-spacing:-1px}
+.cover .sub{margin-top:40px;font-size:22px;color:#E3E7F1}
+.cover .chips{display:flex;gap:10px}
+.cover .chips span{font-size:17px;font-weight:700;padding:6px 14px;border-radius:4px}
+.cover .tb{position:absolute;left:80px;bottom:60px;font-size:18px;color:#C9CFDD}
+/* 문제 화면 스타일(미사용) */
+.qn{font-size:30px;font-weight:900;line-height:1.4;margin:14px 0 0}
+.qn em{font-style:normal;color:var(--pen)}
+.qbox{margin:12px 0 0;border:2px solid var(--ink);border-radius:8px;padding:10px 18px;font-size:21px;line-height:1.6}
+.opts{display:grid;gap:8px;margin-top:14px}
+.opts.row5{grid-template-columns:repeat(5,1fr);gap:12px}
+.opts.row5 .opt{grid-template-columns:auto auto 26px;justify-content:center;gap:6px;font-size:24px;padding:12px 6px;white-space:nowrap}
+.opt{font:inherit;display:grid;grid-template-columns:40px 1fr 40px;align-items:center;text-align:left;gap:8px;padding:9px 16px;border:2.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font-size:22px;font-weight:500;line-height:1.4;cursor:pointer}
+.opt .no{font-size:26px;font-weight:900}
+.opt .mk{font-size:26px;font-weight:900;text-align:center}
+.opt.ok{border-color:var(--green);background:var(--f-green)} .opt.ok .mk{color:var(--green)}
+.opt.no-{border-color:var(--pen);background:var(--f-red)} .opt.no- .mk{color:var(--pen)} .opt.no- .tx{text-decoration:line-through;text-decoration-thickness:2px}
+.exp{margin-top:12px;border-radius:10px;background:var(--f-green);border:2.5px solid var(--green);padding:10px 18px;font-size:20px;line-height:1.55}
+.exp b{color:var(--green)}
+.exp[hidden]{display:none}
+.qtools{display:flex;gap:10px;margin-left:12px}
+/* 네비 */
+.nav{position:absolute;left:0;right:0;bottom:0;height:56px;display:flex;align-items:center;gap:12px;padding:0 44px;border-top:1px solid var(--line);background:#F5F7FA}
+.nav button{font:inherit;font-size:16px;font-weight:700;color:var(--ink);background:#fff;border:2px solid var(--line);border-radius:999px;padding:6px 16px;cursor:pointer}
+.nav button:disabled{opacity:.35;cursor:default}
+.dots{flex:1;display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
+.dots i{width:11px;height:11px;border-radius:50%;background:var(--line);cursor:pointer}
+.dots i.q{box-shadow:inset 0 0 0 2px var(--pen)}
+.dots i.on{background:var(--ink)}
+.pg{font-size:16px;font-weight:700;min-width:64px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+<!-- 2차시 표지 -->
+<section class="slide cover" data-t="표지" data-day="2">
+  <div class="chips"><span style="background:#B85E00">소프트웨어와 생활</span><span style="background:#3A4256">Ⅰ단원 정리</span></div>
+  <div class="day">2 / 2차시</div>
+  <div class="kicker">한눈에 정리하는</div>
+  <h1>세상을 변화시키는<br>소프트웨어</h1>
+  <div class="sub">2차시 · 소프트웨어 융합을 통한 문제 해결, 단원 총정리</div>
+  <div class="tb">교과서 p.22~37</div>
+</section>
+
+<section class="slide s0" data-t="지난 시간 떠올리기" data-day="2">
+  <div class="hd"><span class="tag">2차시</span><span class="pref">교과서 p.9~20</span><button class="all">모두 보기</button><span class="ws">학습지 ② 0 쓰기</span></div>
+  <h2 class="tt">지난 시간 떠올리기</h2>
+  <div class="grid" style="margin-top:18px;gap:10px">
+    <div class="row" style="grid-template-columns:auto 1fr"><b class="n">1</b><span>소프트웨어 = 프로그램 + 이를 개발·사용하기 위한 <b class="bl" tabindex="0">절차</b>, 규칙, <b class="bl" tabindex="0">문서</b><span class="pp">p.9</span></span></div>
+    <div class="row" style="grid-template-columns:auto 1fr"><b class="n">2</b><span>디지털 정보 격차 심화, 가짜 정보로 인한 혼란은 소프트웨어의 <b class="bl" tabindex="0">부정적</b> 영향<span class="pp">p.13</span></span></div>
+    <div class="row" style="grid-template-columns:auto 1fr"><b class="n">3</b><span>지속 가능 발전 목표: <b class="bl" tabindex="0">2030</b>년까지, 17개 목표와 169개 세부 목표<span class="pp">p.17</span></span></div>
+    <div class="row" style="grid-template-columns:auto 1fr"><b class="n">4</b><span>소프트웨어 발전으로 사라진 직업: <b class="bl" tabindex="0">버스 안내원</b><span class="pp">p.20</span></span></div>
+  </div>
+  <h3 style="margin:24px 0 10px;font-size:26px">오늘의 학습 목표</h3>
+  <div class="row" style="grid-template-columns:auto 1fr;background:var(--f-orange)"><b class="n" style="background:var(--orange)">3</b><span><b>소프트웨어 융합</b>의 특징을 알고, 분야별 융합 사례를 구분할 수 있다.<span class="pp">p.23</span></span></div>
+</section>
+
+
+<!-- 2차시: 눈 감고 길 찾기 -->
+<section class="slide s3" data-t="눈 감고 길 찾기" data-day="2">
+  <div class="hd"><span class="tag">생각 열기</span><span class="pref">교과서 p.22</span><button class="timer" data-s="60">⏱ 1:00</button><button class="all">모두 보기</button><span class="ws listen">체험하기</span></div>
+  <h2 class="tt">눈 감고 교탁까지 갈 수 있을까?</h2>
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:16px;margin-top:18px">
+    <div class="tile" style="background:var(--f-orange)"><h4 style="color:var(--orange)">체험 방법</h4>
+      <p style="margin:6px 0"><b>①</b> 🎲 발표자 뽑기로 두 명을 뽑아요.</p>
+      <p style="margin:6px 0"><b>②</b> 한 명은 눈을 감고, 한 명은 <b>말로만</b> 길을 안내해요.</p>
+      <p style="margin:6px 0"><b>③</b> 1분 안에 교탁에 도착하면 성공!</p></div>
+    <div class="tile"><h4>시각 장애인용 내비게이션 앱은?</h4>
+      <p style="margin:6px 0">주변 지리 정보를 <b>음성</b>으로 알려 주고, 주문부터 결제까지 도와줘요.</p>
+      <p style="margin:6px 0">한 가지 기술이 아니라 <b class="bl" tabindex="0">위치 기반</b> 시스템 + <b class="bl" tabindex="0">음성 인식</b> + <b class="bl" tabindex="0">모바일 결제</b> 기술이 합쳐진 결과!</p></div>
+  </div>
+  <div class="box c" style="margin-top:16px;font-size:24px">여러 분야의 기술과 지식을 소프트웨어로 합치는 것 = <b class="bl" tabindex="0">소프트웨어 융합</b></div>
+</section>
+
+<!-- 18 융합 개념 -->
+<section class="slide s3" data-t="소프트웨어 융합" data-day="2">
+  <div class="hd"><span class="tag">3. 소프트웨어 융합</span><span class="pref">교과서 p.23</span><button class="all">모두 보기</button><span class="ws">학습지 3-1 쓰기</span></div>
+  <h2 class="tt">소프트웨어 융합이란?</h2>
+  <div class="box c" style="margin-top:16px;font-size:25px;line-height:1.85">
+    다양한 학문과 기술, 산업 분야가 <b class="bl" tabindex="0">소프트웨어</b> 중심으로 통합되어<br>하나의 <b class="bl" tabindex="0">복합적인 시스템</b>을 구축하는 것
+  </div>
+  <div class="grid" style="grid-template-columns:1fr 1fr;margin-top:14px">
+    <div class="tile" style="background:var(--f-blue)"><h4 style="color:var(--blue)">장점</h4>기존에 <b class="bl" tabindex="0">해결하기 어려웠던</b> 문제나<br><b class="bl" tabindex="0">장기적인</b> 문제의 해결에 적합</div>
+    <div class="tile" style="background:var(--f-red)"><h4 style="color:var(--pen)">단점</h4><b class="bl" tabindex="0">보안 취약점</b> 증가, 관리가 어려움,<br>지속적인 <b class="bl" tabindex="0">유지 보수</b> → 비용 증가</div>
+  </div>
+  <div class="tile" style="margin-top:12px;font-size:21px"><b>지능 정보 기술</b> = 인공지능 + 데이터 활용 기술(<b class="bl" tabindex="0">사물 인터넷</b>, 빅데이터, 클라우드, 모바일)</div>
+</section>
+
+<!-- 2차시 활동: 두 가지 해결 방법 -->
+<section class="slide s3" data-t="활동: 두 가지 해결 방법" data-day="2">
+  <div class="hd"><span class="tag">3. 소프트웨어 융합</span><span class="pref">교과서 p.24</span><button class="all">모두 보기</button><span class="ws">학습지 3-2 쓰기</span></div>
+  <h2 class="tt">어느 쪽 해결 방법일까?</h2>
+  <div class="qbox" style="font-size:22px;margin-top:12px"><b>문제</b> 퇴근 시간 교통량이 많아 교통 체증으로 사람들이 불편함을 겪음. <span style="white-space:nowrap">(교과서 p.24 탐구 활동 5)</span></div>
+  <div class="cards" style="grid-template-columns:repeat(4,1fr);margin-top:14px;gap:12px">
+    <button class="card gen" style="font-size:22px;min-height:112px">도로 확장 공사<span class="k gen">일반적 해결</span></button>
+    <button class="card fus" style="font-size:22px;min-height:112px">센서·카메라·GPS로<br>교통 상황 실시간 수집<span class="k fus">소프트웨어 융합</span></button>
+    <button class="card gen" style="font-size:22px;min-height:112px">교통경찰 투입<span class="k gen">일반적 해결</span></button>
+    <button class="card fus" style="font-size:22px;min-height:112px">데이터 분석으로<br>교통 패턴 예측<span class="k fus">소프트웨어 융합</span></button>
+    <button class="card fus" style="font-size:22px;min-height:112px">교통 신호를<br>자동으로 조절<span class="k fus">소프트웨어 융합</span></button>
+    <button class="card gen" style="font-size:22px;min-height:112px">대중교통 배차와<br>수 확대<span class="k gen">일반적 해결</span></button>
+    <button class="card fus" style="font-size:22px;min-height:112px">실시간 교통 정보<br>앱 제공<span class="k fus">소프트웨어 융합</span></button>
+    <button class="card gen" style="font-size:22px;min-height:112px">야간 공사에<br>많은 인력 투입<span class="k gen">일반적 해결</span></button>
+  </div>
+  <div class="grid" style="grid-template-columns:1fr 1fr;margin-top:12px;gap:12px">
+    <div class="row" style="grid-template-columns:auto 1fr;background:var(--f-blue);font-size:21px"><b style="color:var(--blue)">장점</b><span>교통 상황을 <b class="bl" tabindex="0">실시간</b>으로 파악하고 대응</span></div>
+    <div class="row" style="grid-template-columns:auto 1fr;background:var(--f-red);font-size:21px"><b style="color:var(--pen)">단점</b><span><b class="bl" tabindex="0">보안</b> 취약점, 지속적인 유지 보수</span></div>
+  </div>
+</section>
+
+<!-- 19 융합 사례 -->
+<section class="slide s3" data-t="융합 문제 해결 사례" data-day="2">
+  <div class="hd"><span class="tag">3. 소프트웨어 융합</span><span class="pref">교과서 p.25~26</span><button class="all">모두 보기</button><span class="ws">학습지 3-3 쓰기</span></div>
+  <h2 class="tt">소프트웨어 융합 문제 해결 사례</h2>
+  <div class="grid" style="margin-top:14px;gap:8px">
+    <div class="row" style="grid-template-columns:90px 1fr 330px;font-size:22px"><b>교통</b>교통 혼잡을 조정하고 사고 발생률을 감소<b class="bl" tabindex="0">ITS (지능형 교통 시스템)</b></div>
+    <div class="row" style="grid-template-columns:90px 1fr 330px;font-size:22px"><b>건축</b>3차원 정보 모델로 건물의 생애 주기 정보를 통합<b class="bl" tabindex="0">BIM (건축 정보 모델)</b></div>
+    <div class="row" style="grid-template-columns:90px 1fr 330px;font-size:22px"><b>환경</b>물의 생산·소비 정보를 실시간 모니터링 (홍수·가뭄 대비)<b class="bl" tabindex="0">스마트 워터 그리드</b></div>
+    <div class="row" style="grid-template-columns:90px 1fr 330px;font-size:22px"><b>물류</b>창고의 재고 관리, 상품 입출고, 주문 처리<b class="bl" tabindex="0">WMS (창고 관리 시스템)</b></div>
+    <div class="row" style="grid-template-columns:90px 1fr 330px;font-size:22px"><b>의료</b>물리적 거리의 제약 없이 진료·상담 제공<b class="bl" tabindex="0">원격 의료</b></div>
+    <div class="row" style="grid-template-columns:90px 1fr 330px;font-size:22px"><b>스포츠</b>카메라 영상으로 경기 과정을 분석해 판정<b class="bl" tabindex="0">VAR (비디오 보조 심판)</b></div>
+  </div>
+  <p class="lead" style="margin-top:12px"><b>WMS는 창고, VAR은 경기 영상</b></p>
+</section>
+
+<!-- 20 학문 분야 -->
+<section class="slide s3" data-t="학문 분야의 융합" data-day="2">
+  <div class="hd"><span class="tag">3. 소프트웨어 융합</span><span class="pref">교과서 p.28~29</span><button class="all">모두 보기</button><a class="vid" href="http://a.to/25CjbqA" target="_blank" rel="noopener" title="AI 음성 듣고 자막까지 (교과서 QR 영상)">▶ 영상 1</a><a class="vid" href="http://a.to/2525WfB" target="_blank" rel="noopener" title="문화재 디지털 복원 (교과서 QR 영상)">▶ 영상 2</a><a class="vid" href="http://a.to/25WMA6t" target="_blank" rel="noopener" title="AI 예보관 (교과서 QR 영상)">▶ 영상 3</a><a class="vid" href="http://a.to/25YCBUp" target="_blank" rel="noopener" title="예술 분야의 인공지능 (교과서 QR 영상)">▶ 영상 4</a><span class="ws">학습지 3-4 쓰기</span></div>
+  <h2 class="tt">학문 분야의 소프트웨어 융합</h2>
+  <div class="grid" style="grid-template-columns:1fr 1fr;margin-top:20px;gap:14px">
+    <div class="tile" style="font-size:23px"><h4><b class="bl" tabindex="0">인문</b> 분야</h4>언어 번역 프로그램, 수어를 3D 영상으로 실시간 번역하는 소프트웨어</div>
+    <div class="tile" style="font-size:23px"><h4><b class="bl" tabindex="0">사회</b> 분야</h4>디지털 유산, 3D 스캔 데이터를 활용한 문화재 복원</div>
+    <div class="tile" style="font-size:23px"><h4><b class="bl" tabindex="0">과학</b> 분야</h4>시뮬레이션을 활용한 기후 변화 예측</div>
+    <div class="tile" style="font-size:23px"><h4><b class="bl" tabindex="0">예술</b> 분야</h4>컴퓨터 그래픽을 활용한 영상 특수 효과</div>
+  </div>
+  <p class="lead" style="margin-top:12px">▶ 영상 1 AI 음성 듣고 자막까지 · 2 문화재 디지털 복원 (p.28) · 3 AI 예보관 · 4 예술 분야의 인공지능 (p.29)<br><b>시뮬레이션은 과학, 컴퓨터 그래픽은 예술</b></p>
+</section>
+
+<section class="slide oxq s3" data-t="OX 퀴즈 ③ 소프트웨어 융합" data-day="2">
+  <div class="hd"><span class="tag">3. 소프트웨어 융합</span><span class="pref">교과서 p.23~29</span><button class="all">모두 보기</button><button class="tool qp">🎲 누가 답할까?</button><span class="ws">학습지 3-5 쓰기</span></div>
+  <h2 class="tt" style="font-size:36px">OX 퀴즈 ③ 소프트웨어 융합</h2>
+  <p class="lead" style="margin-top:4px">맞으면 O, 틀리면 X! 손으로 표시한 뒤 하나씩 확인해요.</p>
+  <div class="grid" style="margin-top:12px;gap:10px"><div class="row" style="grid-template-columns:40px 1fr 110px 260px;padding:12px 18px;font-size:24px;line-height:1.35"><b>1</b><span>지능 정보 기술은 인공지능과 데이터 활용 기술을 융합한 것이다.</span><span class="pp" style="justify-self:center">p.23</span><b class="bl ox o" tabindex="0">O</b></div><div class="row" style="grid-template-columns:40px 1fr 110px 260px;padding:12px 18px;font-size:24px;line-height:1.35"><b>2</b><span>소프트웨어 융합 시스템에는 보안 취약점이 생기지 않는다.</span><span class="pp" style="justify-self:center">p.23</span><b class="bl ox x" tabindex="0">X → 늘어날 수 있음</b></div><div class="row" style="grid-template-columns:40px 1fr 110px 260px;padding:12px 18px;font-size:24px;line-height:1.35"><b>3</b><span>지능형 교통 시스템(ITS)은 교통 분야의 소프트웨어 융합 사례이다.</span><span class="pp" style="justify-self:center">p.25</span><b class="bl ox o" tabindex="0">O</b></div><div class="row" style="grid-template-columns:40px 1fr 110px 260px;padding:12px 18px;font-size:24px;line-height:1.35"><b>4</b><span>원격 의료는 환자가 병원에 직접 가야만 받을 수 있다.</span><span class="pp" style="justify-self:center">p.26</span><b class="bl ox x" tabindex="0">X → 거리 제약 없음</b></div><div class="row" style="grid-template-columns:40px 1fr 110px 260px;padding:12px 18px;font-size:24px;line-height:1.35"><b>5</b><span>언어 번역 프로그램은 인문 분야의 소프트웨어 융합 사례이다.</span><span class="pp" style="justify-self:center">p.28</span><b class="bl ox o" tabindex="0">O</b></div></div>
+</section>
+
+
+<!-- 2차시 단원 총정리 OX -->
+<section class="slide oxq s0" data-t="단원 총정리 · 스피드 OX 퀴즈" data-day="2">
+  <div class="hd"><span class="tag">단원 총정리</span><span class="pref">교과서 p.9~29</span><button class="all">모두 보기</button><button class="tool qp">🎲 누가 답할까?</button><button class="tool qs">🏆 점수판</button><span class="ws">학습지 ② 4 쓰기</span></div>
+  <h2 class="tt" style="font-size:36px">단원 총정리 · 스피드 OX 퀴즈</h2>
+  
+  <div class="grid" style="margin-top:12px;gap:6px"><div class="row" style="grid-template-columns:36px 1fr 80px 310px;padding:3px 14px;font-size:20px;line-height:1.35"><b>1</b><span>CPU와 메모리는 소프트웨어이다.</span><span class="pp" style="justify-self:center">p.9</span><b class="bl ox x" tabindex="0">X → 하드웨어</b></div><div class="row" style="grid-template-columns:36px 1fr 80px 310px;padding:3px 14px;font-size:20px;line-height:1.35"><b>2</b><span>사물 인터넷은 센서와 통신 기능을 내장한 사물을 인터넷으로 연결하는 기술이다.</span><span class="pp" style="justify-self:center">p.9</span><b class="bl ox o" tabindex="0">O</b></div><div class="row" style="grid-template-columns:36px 1fr 80px 310px;padding:3px 14px;font-size:20px;line-height:1.35"><b>3</b><span>온라인 쇼핑몰과 모바일 결제는 상업 분야의 변화이다.</span><span class="pp" style="justify-self:center">p.10</span><b class="bl ox o" tabindex="0">O</b></div><div class="row" style="grid-template-columns:36px 1fr 80px 310px;padding:3px 14px;font-size:20px;line-height:1.35"><b>4</b><span>디지털 중독은 소프트웨어의 긍정적 영향이다.</span><span class="pp" style="justify-self:center">p.13</span><b class="bl ox x" tabindex="0">X → 부정적 영향</b></div><div class="row" style="grid-template-columns:36px 1fr 80px 310px;padding:3px 14px;font-size:20px;line-height:1.35"><b>5</b><span>지속 가능 발전 목표는 17개 목표로 이루어져 있다.</span><span class="pp" style="justify-self:center">p.17</span><b class="bl ox o" tabindex="0">O</b></div><div class="row" style="grid-template-columns:36px 1fr 80px 310px;padding:3px 14px;font-size:20px;line-height:1.35"><b>6</b><span>클라우드, 빅데이터로 정보를 빠르고 쉽게 얻는 것은 정보의 접근성 강화이다.</span><span class="pp" style="justify-self:center">p.19</span><b class="bl ox o" tabindex="0">O</b></div><div class="row" style="grid-template-columns:36px 1fr 80px 310px;padding:3px 14px;font-size:20px;line-height:1.35"><b>7</b><span>메타버스 크리에이터는 화상 상담으로 환자 정보를 의사에게 전달한다.</span><span class="pp" style="justify-self:center">p.20</span><b class="bl ox x" tabindex="0">X → 원격 진료 코디네이터</b></div><div class="row" style="grid-template-columns:36px 1fr 80px 310px;padding:3px 14px;font-size:20px;line-height:1.35"><b>8</b><span>건축 정보 모델(BIM)은 물류 분야의 소프트웨어 융합 사례이다.</span><span class="pp" style="justify-self:center">p.25</span><b class="bl ox x" tabindex="0">X → 건축 분야</b></div><div class="row" style="grid-template-columns:36px 1fr 80px 310px;padding:3px 14px;font-size:20px;line-height:1.35"><b>9</b><span>스마트 워터 그리드는 물의 생산과 소비 정보를 실시간으로 모니터링한다.</span><span class="pp" style="justify-self:center">p.25</span><b class="bl ox o" tabindex="0">O</b></div><div class="row" style="grid-template-columns:36px 1fr 80px 310px;padding:3px 14px;font-size:20px;line-height:1.35"><b>10</b><span>3D 스캔 데이터를 활용한 문화재 복원은 사회 분야의 사례이다.</span><span class="pp" style="justify-self:center">p.28</span><b class="bl ox o" tabindex="0">O</b></div></div>
+</section>
+
+
+<!-- 24 헷갈리기 쉬운 짝 -->
+<section class="slide s0" data-t="헷갈리기 쉬운 짝" data-day="2">
+  <div class="hd"><span class="tag">정리</span><span class="pref">교과서 p.9~29</span><button class="all">모두 보기</button><span class="ws">학습지 정리 쓰기</span></div>
+  <h2 class="tt">헷갈리기 쉬운 짝, 다시 확인!</h2>
+  <div class="grid" style="margin-top:18px;gap:10px">
+    <div class="row" style="grid-template-columns:auto 1fr"><b class="n">1</b><span>GPS 내비게이션은 <b class="bl" tabindex="0">교통</b> 분야, 스마트팜은 <b class="bl" tabindex="0">농업</b> 분야<span class="pp">p.11</span></span></div>
+    <div class="row" style="grid-template-columns:auto 1fr"><b class="n">2</b><span>실제 환경 + 가상 이미지는 <b class="bl" tabindex="0">증강 현실</b>, 모두 가상은 <b class="bl" tabindex="0">가상 현실</b><span class="pp">p.9</span></span></div>
+    <div class="row" style="grid-template-columns:auto 1fr"><b class="n">3</b><span>스마트 그리드는 <b class="bl" tabindex="0">지속 가능한 사회 구축</b>, 가상·증강 현실은 <b class="bl" tabindex="0">사회적 연결망 확장</b><span class="pp">p.19</span></span></div>
+    <div class="row" style="grid-template-columns:auto 1fr"><b class="n">4</b><span>소프트웨어 융합도 <b class="bl" tabindex="0">유지 보수</b>가 필요하고 비용이 늘 수 있다<span class="pp">p.23</span></span></div>
+    <div class="row" style="grid-template-columns:auto 1fr"><b class="n">5</b><span>경기 영상 판정은 <b class="bl" tabindex="0">VAR</b>, 창고 관리는 <b class="bl" tabindex="0">WMS</b><span class="pp">p.26</span></span></div>
+    <div class="row" style="grid-template-columns:auto 1fr"><b class="n">6</b><span>기후 변화 예측은 <b class="bl" tabindex="0">과학</b> 분야, 영상 특수 효과는 <b class="bl" tabindex="0">예술</b> 분야<span class="pp">p.29</span></span></div>
+  </div>
+</section>
+
+<!-- 25 마무리 -->
+<section class="slide s0" data-t="마무리" data-day="2">
+  <div class="hd"><span class="tag">마무리</span><span class="pref">교과서 p.6~37</span><span class="ws">학습지 정리 쓰기</span></div>
+  <h2 class="tt">스피드 OX, 나는 몇 개 맞혔을까?</h2>
+  <div class="grid" style="grid-template-columns:repeat(3,1fr);margin-top:22px;gap:14px">
+    <div class="tile" style="background:var(--f-green);font-size:22px"><h4 style="color:var(--green)">9~10개</h4>단원을 잘 이해했어요.<br>헷갈린 문항만 교과서 쪽을 다시 읽어 봐요.</div>
+    <div class="tile" style="background:var(--f-blue);font-size:22px"><h4 style="color:var(--blue)">6~8개</h4>틀린 문항의 <b>교과서 쪽</b>을 찾아<br>그림과 함께 다시 정리해요.</div>
+    <div class="tile" style="background:var(--f-orange);font-size:22px"><h4 style="color:var(--orange)">5개 이하</h4>학습지 ①·② 빈칸부터<br>교과서와 함께 다시 채워 봐요.</div>
+  </div>
+  <div class="box" style="margin-top:22px;font-size:24px;line-height:1.8">
+    <b>오늘의 세 문장</b><br>
+    ① 소프트웨어는 프로그램 + 절차·규칙·문서이며, 사회에 긍정적·부정적 영향을 함께 준다.<br>
+    ② 소프트웨어 발전으로 미래 사회의 모습과 직업이 바뀐다.<br>
+    ③ 소프트웨어 융합은 어려운 문제를 해결하지만, 보안과 유지 보수가 필요하다.
+  </div>
+</section>
+
+<nav class="nav" aria-label="슬라이드 이동">
+  <button id="prev">← 이전</button>
+  <div class="dots" id="dots"></div>
+  <span class="pg" id="pg"></span>
+  <button id="next">다음 →</button>
+  <button class="tool" id="pickBtn">🎲 발표자 뽑기</button>
+  <button class="tool" id="scoreBtn">🏆 모둠 점수판</button>
+</nav>
+<div class="ov" id="pickOv" hidden><div class="panel" style="min-width:680px">
+  <button class="x" data-close>✕</button>
+  <h3>🎲 오늘의 발표자는?</h3>
+  <div class="pk-num" id="pkNum">?</div>
+  <div class="pk-row"><label>우리 반 인원 <input type="number" id="pkN" min="2" max="40" value="30"> 명</label>
+    <label><input type="checkbox" id="pkNoRe" checked> 뽑힌 번호 다시 안 나오기</label></div>
+  <div class="pk-row" style="margin-top:16px"><button class="big-btn" id="pkGo">뽑기!</button><button class="sm-btn" id="pkReset">처음부터</button></div>
+  <div class="pk-used" id="pkUsed"></div>
+</div></div>
+<div class="ov" id="scoreOv" hidden><div class="panel" style="min-width:960px">
+  <button class="x" data-close>✕</button>
+  <h3>🏆 모둠 점수판</h3>
+  <div class="pk-row" style="justify-content:flex-start;margin-bottom:14px"><label>모둠 수 <input type="number" id="tmN" min="2" max="9" value="6"></label><button class="sm-btn" id="tmReset">점수 초기화</button><button class="sm-btn" id="tmWin">🎉 1등 발표</button></div>
+  <div class="teams" id="teams"></div>
+</div></div>
+<canvas class="confetti" id="confetti" width="1280" height="720"></canvas>
+</div>
+
+<script>
+(() => {
+const N = ['①', '②', '③', '④', '⑤'];
+const $ = id => document.getElementById(id);
+const stage = $('stage');
+const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const PEN = '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21l3.8-1 11-11-2.8-2.8-11 11L3 21zM16.5 4.5l2.8 2.8 1.4-1.4a1 1 0 000-1.4l-1.4-1.4a1 1 0 00-1.4 0l-1.4 1.4z" fill="currentColor"/></svg>';
+
+stage.querySelectorAll('.ws').forEach(w => { if (!w.classList.contains('listen')) w.insertAdjacentHTML('afterbegin', PEN); });
+
+// 빈칸: 누르면 하나씩 공개
+stage.querySelectorAll('.bl').forEach(b => {
+  b.setAttribute('role', 'button');
+  const tog = () => { const on = b.classList.toggle('on'); if (on) { if (b.classList.contains('ox')) (b.classList.contains('o') ? SND.ok : SND.no)(); else SND.pop(); } };
+  b.addEventListener('click', tog);
+  b.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); tog(); } });
+});
+stage.querySelectorAll('.card').forEach(c => c.addEventListener('click', () => { if (c.classList.toggle('on')) SND.pop(); }));
+stage.querySelectorAll('.slide').forEach(sl => {
+  const a = sl.querySelector('.all:not(.ans):not(.reset)'); if (!a) return;
+  a.setAttribute('aria-pressed', 'false');
+  a.addEventListener('click', () => {
+    const on = a.getAttribute('aria-pressed') !== 'true';
+    sl.querySelectorAll('.bl,.card').forEach(x => x.classList.toggle('on', on));
+    a.setAttribute('aria-pressed', on); a.textContent = on ? '모두 가리기' : '모두 보기';
+  });
+});
+
+
+// ---------- 효과음 ----------
+let AC = null;
+const tone = (f, d = 0.12, type = 'sine', v = 0.18, at = 0) => { try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); const t = AC.currentTime + at, o = AC.createOscillator(), g = AC.createGain(); o.type = type; o.frequency.setValueAtTime(f, t); g.gain.setValueAtTime(v, t); g.gain.exponentialRampToValueAtTime(0.001, t + d); o.connect(g).connect(AC.destination); o.start(t); o.stop(t + d + 0.02); } catch (e) {} };
+const SND = { pop: () => tone(660, 0.08, 'triangle', 0.12), ok: () => { tone(784, 0.12, 'triangle'); tone(1047, 0.22, 'triangle', 0.18, 0.1); }, no: () => { tone(220, 0.25, 'sawtooth', 0.12); }, tick: () => tone(1200, 0.03, 'square', 0.05), fan: () => [523, 659, 784, 1047].forEach((f, i) => tone(f, 0.25, 'triangle', 0.16, i * 0.11)) };
+// ---------- 색종이 ----------
+const cf = $('confetti'), cx = cf.getContext('2d'); let parts = [], cfOn = false;
+function confetti(){ const C = ['#2350C8', '#D0261E', '#0A7F72', '#E0B400', '#B85E00']; for (let i = 0; i < 160; i++) parts.push({ x: 640 + (Math.random() - .5) * 300, y: 300, vx: (Math.random() - .5) * 16, vy: -Math.random() * 14 - 4, s: 6 + Math.random() * 8, c: C[i % 5], r: Math.random() * 6, life: 120 + Math.random() * 60 }); if (!cfOn) { cfOn = true; requestAnimationFrame(cfLoop); } }
+function cfLoop(){ cx.clearRect(0, 0, 1280, 720); parts.forEach(p => { p.x += p.vx; p.y += p.vy; p.vy += 0.35; p.vx *= 0.99; p.r += 0.1; p.life--; cx.save(); cx.translate(p.x, p.y); cx.rotate(p.r); cx.fillStyle = p.c; cx.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); cx.restore(); }); parts = parts.filter(p => p.life > 0 && p.y < 760); if (parts.length) requestAnimationFrame(cfLoop); else { cfOn = false; cx.clearRect(0, 0, 1280, 720); } }
+// ---------- 저장(이 브라우저에서만) ----------
+const LS = { get(k, d) { try { const v = localStorage.getItem('sw1-' + k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem('sw1-' + k, JSON.stringify(v)); } catch (e) {} } };
+// ---------- 오버레이 ----------
+const openOv = id => { $(id).hidden = false; }, closeOv = el => { el.closest('.ov').hidden = true; };
+stage.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => closeOv(b)));
+stage.querySelectorAll('.ov').forEach(o => o.addEventListener('click', e => { if (e.target === o) o.hidden = true; }));
+// ---------- 발표자 뽑기 ----------
+let used = LS.get('used', []), spinning = false;
+$('pkN').value = LS.get('n', 30);
+const showUsed = () => { $('pkUsed').textContent = used.length ? '뽑힌 번호: ' + used.join(', ') : ''; };
+showUsed();
+$('pickBtn').addEventListener('click', () => openOv('pickOv'));
+$('pkN').addEventListener('change', () => LS.set('n', +$('pkN').value));
+$('pkReset').addEventListener('click', () => { used = []; LS.set('used', used); showUsed(); $('pkNum').textContent = '?'; $('pkNum').classList.remove('done'); });
+$('pkGo').addEventListener('click', () => {
+  if (spinning) return;
+  const n = Math.max(2, Math.min(40, +$('pkN').value || 30));
+  let pool = []; for (let i = 1; i <= n; i++) if (!$('pkNoRe').checked || !used.includes(i)) pool.push(i);
+  if (!pool.length) { $('pkNum').textContent = '끝!'; return; }
+  const pick = pool[Math.floor(Math.random() * pool.length)];
+  spinning = true; $('pkNum').classList.remove('done');
+  let k = 0, delay = 40;
+  const step = () => {
+    $('pkNum').textContent = pool[Math.floor(Math.random() * pool.length)]; SND.tick();
+    k++; delay *= 1.09;
+    if (delay < 380) setTimeout(step, delay);
+    else { $('pkNum').textContent = pick + '번'; $('pkNum').classList.add('done'); SND.fan(); confetti(); used.push(pick); LS.set('used', used); showUsed(); spinning = false; }
+  };
+  step();
+});
+// ---------- 모둠 점수판 ----------
+const TC = ['#E6EDFC', '#DFF3EF', '#FFF0DC', '#FDEBEA', '#F1E8FB', '#FFF8D6', '#E3F5E8', '#EEF1F5', '#FCE7F3'];
+let scores = LS.get('scores', [0, 0, 0, 0, 0, 0]);
+$('tmN').value = scores.length;
+function drawTeams(){
+  const mx = Math.max(...scores);
+  $('teams').innerHTML = scores.map((v, i) => `<div class="team${v === mx && v > 0 ? ' lead' : ''}" style="background:${TC[i]}"><h4>${i + 1}모둠</h4><div class="sc">${v}</div><div class="bt"><button data-t="${i}" data-d="-1" aria-label="${i + 1}모둠 1점 빼기">−</button><button data-t="${i}" data-d="1" aria-label="${i + 1}모둠 1점 더하기">+</button></div></div>`).join('');
+  $('teams').querySelectorAll('button').forEach(b => b.addEventListener('click', () => { const i = +b.dataset.t, d = +b.dataset.d; scores[i] = Math.max(0, scores[i] + d); d > 0 ? SND.ok() : SND.no(); LS.set('scores', scores); drawTeams(); }));
+}
+drawTeams();
+$('scoreBtn').addEventListener('click', () => openOv('scoreOv'));
+$('tmN').addEventListener('change', () => { const n = Math.max(2, Math.min(9, +$('tmN').value || 6)); scores = Array.from({ length: n }, (_, i) => scores[i] || 0); LS.set('scores', scores); drawTeams(); });
+$('tmReset').addEventListener('click', () => { scores = scores.map(() => 0); LS.set('scores', scores); drawTeams(); });
+$('tmWin').addEventListener('click', () => { const mx = Math.max(...scores); if (mx <= 0) return; SND.fan(); confetti(); });
+// ---------- 생각 열기: 소프트웨어 찾기 ----------
+const chipsEl = [...stage.querySelectorAll('.chip')];
+chipsEl.forEach(c => c.addEventListener('click', () => { c.classList.toggle('on'); SND.pop(); const n = chipsEl.filter(x => x.classList.contains('on')).length; $('swCount').textContent = `발견한 소프트웨어 ${n}개` + (n === chipsEl.length ? ' 🎉' : ''); if (n === chipsEl.length) confetti(); }));
+stage.querySelectorAll('.qp').forEach(b => b.addEventListener('click', () => openOv('pickOv'))); stage.querySelectorAll('.qs').forEach(b => b.addEventListener('click', () => openOv('scoreOv')));
+addEventListener('keydown', e => { if (e.key === 'Escape') stage.querySelectorAll('.ov').forEach(o => o.hidden = true); });
+
+// ================= 1차시 시뮬레이션 =================
+const FNT = (w, s) => `${w} ${s}px "Noto Sans KR","Malgun Gothic",sans-serif`;
+const RR = (c, x, y, w, h, r) => { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); };
+const BOX = (c, x, y, w, h, col) => { c.fillStyle = col; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); };
+const TXT = (c, s, x, y, o = {}) => { c.font = FNT(o.w || 700, o.s || 20); c.fillStyle = o.c || '#1B2230'; c.textAlign = o.a || 'center'; c.textBaseline = o.b || 'middle'; c.fillText(s, x, y); };
+function runLoop(cv, draw){ const sl = cv.closest('.slide'); let on = false, raf = 0; const tick = t => { if (!on) return; draw(t); raf = requestAnimationFrame(tick); }; sl.addEventListener('show', () => { if (!on) { on = true; raf = requestAnimationFrame(tick); } }); sl.addEventListener('hide', () => { on = false; cancelAnimationFrame(raf); }); }
+function bubble(c, x, y, w, h, fill, stroke){ RR(c, x - w / 2, y - h, w, h, 14); c.fillStyle = fill; c.fill(); c.lineWidth = 3; c.strokeStyle = stroke; c.stroke(); c.beginPath(); c.moveTo(x - 12, y - 1); c.lineTo(x, y + 16); c.lineTo(x + 12, y - 1); c.closePath(); c.fillStyle = fill; c.fill(); c.beginPath(); c.moveTo(x - 12, y); c.lineTo(x, y + 16); c.lineTo(x + 12, y); c.stroke(); }
+// 블록 캐릭터(직접 만든 학생 캐릭터)
+function blockKid(c, x, gy, ph, opt = {}){
+  const sw = Math.sin(ph) * (opt.walk ? 9 : 0), s = opt.s || 1;
+  c.save(); c.translate(x, gy); c.scale(s, s);
+  BOX(c, -15 + sw * .4, -46, 13, 46, '#3F4552'); BOX(c, 2 - sw * .4, -46, 13, 46, '#3F4552');
+  BOX(c, -16 + sw * .4, -8, 15, 8, '#1A1A1A'); BOX(c, 1 - sw * .4, -8, 15, 8, '#1A1A1A');
+  BOX(c, -24, -96, 10, 34, '#C0392B');
+  BOX(c, -18, -98, 36, 54, '#23356B'); BOX(c, -5, -98, 10, 20, '#FFFFFF'); BOX(c, -2, -92, 4, 14, '#D0261E');
+  c.save(); c.translate(-18, -94); c.rotate(-sw * .045 + (opt.armUp ? -2.4 : 0)); BOX(c, -11, 0, 11, 42, '#23356B'); BOX(c, -11, 40, 11, 9, '#F0C29A'); c.restore();
+  c.save(); c.translate(18, -94); c.rotate(sw * .045); BOX(c, 0, 0, 11, 42, '#23356B'); BOX(c, 0, 40, 11, 9, '#F0C29A'); c.restore();
+  BOX(c, -20, -140, 40, 42, '#F0C29A'); BOX(c, -20, -140, 40, 12, '#2B2118'); BOX(c, -20, -140, 7, 24, '#2B2118'); BOX(c, 13, -140, 7, 20, '#2B2118');
+  BOX(c, -10, -120, 6, 7, '#1B2230'); BOX(c, 5, -120, 6, 7, '#1B2230'); BOX(c, -5, -108, 10, 3, '#B5523B');
+  c.restore();
+}
+
+// ---------- D1-3 블록 친구의 하루 ----------
+(() => {
+  const cv = $('dayCv'); if (!cv) return; const c = cv.getContext('2d'), W = 1192, H = 430, GY = 352;
+  const ST = [
+    { x: 300, t: '07:00', n: '스마트폰 알람', k: 'alarm' }, { x: 640, t: '07:15', n: '날씨 앱', k: 'weather' },
+    { x: 1000, t: '07:35', n: '엘리베이터', k: 'elev' }, { x: 1360, t: '07:45', n: '버스 도착 알림', k: 'stop' },
+    { x: 1720, t: '07:50', n: '교통카드 결제', k: 'bus' }, { x: 2080, t: '08:10', n: '신호등', k: 'light' },
+    { x: 2440, t: '09:00', n: '전자 칠판', k: 'board' }, { x: 2800, t: '12:30', n: '급식 메뉴 앱', k: 'lunch' },
+    { x: 3160, t: '16:30', n: '편의점 계산대', k: 'store' }, { x: 3520, t: '18:30', n: '음악 스트리밍', k: 'music' },
+    { x: 3880, t: '21:00', n: '메신저', k: 'chat' }];
+  const END = 4060;
+  let px = 80, si = 0, st = 'idle', found = 0, tShow = 0, ph = 0, cam = 0, clock = '06:50', last = 0;
+  const quiz = () => $('dayQuiz').checked;
+  const sky = () => { const h = parseInt(clock); return h >= 20 ? ['#1E2A4F', '#33457A'] : h >= 18 ? ['#F59E62', '#FBD1A2'] : h >= 12 ? ['#6EC3F5', '#CDEBFF'] : ['#9FD6FA', '#E4F4FF']; };
+  function reveal(){ if (st !== 'ask') return; st = 'show'; tShow = performance.now(); found++; $('dayCount').textContent = `만난 소프트웨어 ${found}개`; SND.ok(); }
+  function reset(){ px = 80; si = 0; st = 'idle'; found = 0; clock = '06:50'; $('dayCount').textContent = '만난 소프트웨어 0개'; $('dayPlay').textContent = '▶ 출발'; }
+  $('dayPlay').addEventListener('click', () => { if (st === 'idle' || st === 'pause') { st = 'walk'; $('dayPlay').textContent = '⏸ 멈춤'; } else if (st === 'walk') { st = 'pause'; $('dayPlay').textContent = '▶ 계속'; } else if (st === 'done') { reset(); } });
+  $('dayReveal').addEventListener('click', reveal);
+  $('dayReset').addEventListener('click', reset);
+  cv.addEventListener('click', () => { if (st === 'ask') reveal(); else $('dayPlay').click(); });
+  addEventListener('keydown', e => { if (e.code === 'Space' && !cv.closest('.slide').hidden) { e.preventDefault(); if (st === 'ask') reveal(); else $('dayPlay').click(); } });
+  function house(x0, x1, night){
+    const top = GY - 210; BOX(c, x0, top, x1 - x0, 210, night ? '#C9B892' : '#E9D8B4');
+    for (let i = 0; i < (x1 - x0) / 40 + 2; i++) BOX(c, x0 - 20 + i * 40, top - 26 + Math.abs(i - (x1 - x0) / 80) * 0, 40, 26, i % 2 ? '#B5523B' : '#A3452F');
+    BOX(c, x0 + 10, top + 14, x1 - x0 - 20, 186, night ? '#5A5070' : '#F7EEDB');
+  }
+  function phone(x, y, scr, lines){ RR(c, x - 34, y - 60, 68, 120, 12); c.fillStyle = '#1B2230'; c.fill(); BOX(c, x - 28, y - 50, 56, 96, scr); lines.forEach((l, i) => TXT(c, l, x, y - 28 + i * 24, { s: l.length > 3 ? 12 : 18, c: '#1B2230' })); }
+  function drawStation(s, x){
+    const k = s.k;
+    if (k === 'alarm') { BOX(c, x - 130, GY - 46, 150, 46, '#7FA7D9'); BOX(c, x - 130, GY - 62, 46, 18, '#FFFFFF'); BOX(c, x + 30, GY - 60, 46, 60, '#8A5A33'); phone(x + 53, GY - 120, '#FFE58A', ['⏰', '07:00']); }
+    if (k === 'weather') { BOX(c, x - 120, GY - 250, 120, 100, '#9FD6FA'); BOX(c, x - 124, GY - 254, 128, 8, '#8A5A33'); BOX(c, x - 64, GY - 250, 6, 100, '#8A5A33'); BOX(c, x + 20, GY - 70, 110, 70, '#8A5A33'); phone(x + 75, GY - 130, '#CDEBFF', ['☀️', '맑음 18℃']); }
+    if (k === 'elev') { BOX(c, x - 150, GY - 290, 260, 290, '#B9C0CC'); BOX(c, x - 100, GY - 190, 160, 190, '#8E97A8'); BOX(c, x - 98, GY - 188, 77, 188, '#D5DBE6'); BOX(c, x - 19, GY - 188, 77, 188, '#D5DBE6'); BOX(c, x - 60, GY - 240, 80, 36, '#1B2230'); TXT(c, '▲ 7', x - 20, GY - 222, { c: '#FFB23E', s: 22 }); BOX(c, x + 70, GY - 120, 24, 50, '#1B2230'); c.fillStyle = '#7CE07C'; c.beginPath(); c.arc(x + 82, GY - 104, 6, 0, 7); c.fill(); }
+    if (k === 'stop') { BOX(c, x + 20, GY - 220, 10, 220, '#56607A'); BOX(c, x - 60, GY - 230, 190, 18, '#2350C8'); BOX(c, x - 40, GY - 200, 150, 54, '#1B2230'); TXT(c, '🚌 3분 후 도착', x + 35, GY - 173, { c: '#FFB23E', s: 19 }); }
+    if (k === 'bus') { RR(c, x - 170, GY - 190, 330, 160, 18); c.fillStyle = '#4FB06A'; c.fill(); for (let i = 0; i < 4; i++) BOX(c, x - 150 + i * 70, GY - 170, 56, 52, '#CDEBFF'); BOX(c, x + 120, GY - 170, 30, 130, '#2E7D46'); c.fillStyle = '#1B2230'; [x - 110, x + 90].forEach(wx => { c.beginPath(); c.arc(wx, GY - 30, 26, 0, 7); c.fill(); }); BOX(c, x + 92, GY - 120, 24, 32, '#1B2230'); BOX(c, x + 96, GY - 114, 16, 10, '#7CE07C'); }
+    if (k === 'light') { for (let i = 0; i < 6; i++) BOX(c, x - 160 + i * 50, GY - 4, 30, 4, '#FFFFFF'); BOX(c, x + 40, GY - 250, 10, 250, '#56607A'); RR(c, x + 20, GY - 300, 50, 120, 10); c.fillStyle = '#1B2230'; c.fill(); const g = Math.floor(performance.now() / 1500) % 2; c.fillStyle = g ? '#3A3F4A' : '#FF4D4D'; c.beginPath(); c.arc(x + 45, GY - 270, 15, 0, 7); c.fill(); c.fillStyle = g ? '#4CE07A' : '#3A3F4A'; c.beginPath(); c.arc(x + 45, GY - 222, 15, 0, 7); c.fill(); BOX(c, x + 56, GY - 196, 34, 22, '#1B2230'); TXT(c, g ? '12' : '30', x + 73, GY - 185, { c: '#FFB23E', s: 14 }); }
+    if (k === 'board') { BOX(c, x - 190, GY - 300, 380, 300, '#D9C7A3'); BOX(c, x - 190, GY - 300, 380, 24, '#9A6B3F'); TXT(c, '학교', x, GY - 288, { c: '#fff', s: 16 }); BOX(c, x - 160, GY - 250, 230, 130, '#173B2A'); BOX(c, x - 150, GY - 240, 210, 110, '#2A7B5A'); TXT(c, '소프트웨어란?', x - 45, GY - 200, { c: '#fff', s: 20 }); TXT(c, '▶ 영상 재생', x - 45, GY - 166, { c: '#FFE58A', s: 15 }); }
+    if (k === 'lunch') { BOX(c, x - 180, GY - 90, 260, 90, '#C9D1DF'); BOX(c, x - 180, GY - 100, 260, 12, '#8E97A8'); RR(c, x + 40, GY - 230, 90, 150, 10); c.fillStyle = '#1B2230'; c.fill(); BOX(c, x + 48, GY - 220, 74, 110, '#FFF3C4'); TXT(c, '오늘 메뉴', x + 85, GY - 198, { s: 13 }); TXT(c, '카레', x + 85, GY - 172, { s: 14 }); TXT(c, '★ 4.8', x + 85, GY - 148, { s: 13, c: '#B85E00' }); }
+    if (k === 'store') { BOX(c, x - 190, GY - 280, 380, 280, '#EEF1F5'); for (let i = 0; i < 8; i++) BOX(c, x - 190 + i * 47.5, GY - 300, 47.5, 30, i % 2 ? '#FFFFFF' : '#2350C8'); BOX(c, x - 40, GY - 110, 180, 110, '#8E97A8'); BOX(c, x + 60, GY - 150, 60, 40, '#1B2230'); const b = Math.sin(performance.now() / 120) > 0; if (b) { c.fillStyle = '#FF3B3B'; c.fillRect(x + 20, GY - 116, 120, 3); } TXT(c, '삑!', x + 90, GY - 130, { c: '#7CE07C', s: 16 }); }
+    if (k === 'music') { BOX(c, x - 60, GY - 120, 140, 120, '#6A3DB8'); TXT(c, '♪', x - 10, GY - 160 - Math.sin(performance.now() / 300) * 10, { s: 40, c: '#FFE58A' }); TXT(c, '♫', x + 40, GY - 190 - Math.cos(performance.now() / 300) * 10, { s: 34, c: '#FFE58A' }); }
+    if (k === 'chat') { BOX(c, x - 140, GY - 46, 150, 46, '#7FA7D9'); phone(x + 60, GY - 130, '#E3F5E8', ['💬', '내일 봐!']); }
+  }
+  function draw(now){
+    const dt = Math.min(50, now - (last || now)); last = now;
+    if (st === 'walk') { const tgt = si < ST.length ? ST[si].x - 110 : END; px += dt * 0.22; ph += dt * 0.012; if (si < ST.length && px >= tgt) { px = tgt; clock = ST[si].t; if (quiz()) st = 'ask'; else { st = 'ask'; reveal(); } } else if (si >= ST.length && px >= END) { px = END; st = 'done'; $('dayPlay').textContent = '⟲ 다시 보기'; SND.fan(); confetti(); } }
+    if (st === 'show' && now - tShow > 1600) { si++; st = 'walk'; }
+    cam += ((Math.max(0, Math.min(END + 200 - W, px - 380))) - cam) * 0.12;
+    const [s1, s2] = sky(); const g = c.createLinearGradient(0, 0, 0, GY); g.addColorStop(0, s1); g.addColorStop(1, s2); c.fillStyle = g; c.fillRect(0, 0, W, H);
+    c.fillStyle = 'rgba(255,255,255,.75)'; for (let i = 0; i < 9; i++) { const cx0 = ((i * 520 - cam * 0.3) % 4700 + 4700) % 4700 - 200; BOX(c, cx0, 40 + (i % 3) * 30, 120, 26, 'rgba(255,255,255,.8)'); BOX(c, cx0 + 24, 22 + (i % 3) * 30, 70, 22, 'rgba(255,255,255,.8)'); }
+    c.save(); c.translate(-cam, 0);
+    house(140, 760, false); house(3380, 4000, parseInt(clock) >= 20);
+    for (const s of ST) if (s.x > cam - 300 && s.x < cam + W + 300) drawStation(s, s.x);
+    for (let bx = Math.floor(cam / 40) * 40; bx < cam + W + 40; bx += 40) { BOX(c, bx, GY, 40, 14, '#6BBF3F'); BOX(c, bx, GY + 14, 40, H - GY, '#8A5A33'); BOX(c, bx + 8, GY + 30, 8, 8, '#744A28'); BOX(c, bx + 24, GY + 52, 8, 8, '#744A28'); BOX(c, bx, GY, 40, 2, '#7FD04F'); }
+    blockKid(c, px, GY, ph, { walk: st === 'walk', armUp: st === 'show' });
+    if (si < ST.length && (st === 'ask' || st === 'show')) {
+      const s = ST[si], bx = s.x + 10, by = GY - 330 < 30 ? 120 : GY - 250;
+      if (st === 'ask') { bubble(c, bx, 150, 330, 96, '#FFFFFF', '#1B2230'); TXT(c, '?', bx - 120, 102, { s: 54, c: '#D0261E', w: 900 }); TXT(c, '어디에 소프트웨어가?', bx + 30, 102, { s: 24 }); }
+      else { bubble(c, bx, 150, 360, 96, '#E3F5E8', '#137A3A'); TXT(c, '✔ ' + s.n, bx, 88, { s: 28, c: '#137A3A', w: 900 }); TXT(c, '소프트웨어 발견! +1', bx, 122, { s: 19, c: '#137A3A' }); }
+    }
+    c.restore();
+    RR(c, 16, 14, 150, 50, 10); c.fillStyle = 'rgba(27,34,48,.85)'; c.fill(); TXT(c, '🕒 ' + clock, 91, 40, { s: 26, c: '#fff' });
+    if (st === 'idle') { RR(c, W / 2 - 230, 160, 460, 90, 16); c.fillStyle = 'rgba(27,34,48,.85)'; c.fill(); TXT(c, '▶ 출발을 누르면 하루가 시작돼요', W / 2, 205, { s: 26, c: '#fff' }); }
+    if (st === 'done') { RR(c, W / 2 - 260, 160, 520, 100, 16); c.fillStyle = 'rgba(19,122,58,.92)'; c.fill(); TXT(c, `하루 동안 소프트웨어 ${found}개를 만났어요!`, W / 2, 210, { s: 30, c: '#fff', w: 900 }); }
+  }
+  runLoop(cv, draw);
+})();
+
+// ---------- D1-4 같은 로봇, 다른 명령 ----------
+(() => {
+  const cv = $('robCv'); if (!cv) return; const c = cv.getContext('2d'), W = 600, H = 440, CS = 86, OX = 42, OY = 70;
+  let R, queue = [], cur = null, line = -1, msgDone = '', notes = [];
+  const reset = dust => { R = { gx: 0, gy: 1, face: '→', arm: 0, lamp: null, say: '', spin: 0, rainbow: false, music: false }; R.dust = dust ? [[1, 1], [2, 1], [3, 1], [4, 1], [4, 2], [4, 3]] : []; };
+  reset(false);
+  const lerp = (a, b, p) => a + (b - a) * p;
+  const P = [
+    [{ l: 0, d: 700, f: p => { R.lamp = '#3CD070'; } }, { l: 1, d: 800, f: p => { R.arm = p; } }, { l: 2, d: 1500, f: p => { R.say = '안녕하세요!'; if (p < .05) SND.ok(); } }, { l: 3, d: 800, f: p => { R.arm = 1 - p; if (p >= 1) R.say = ''; } }],
+    [{ l: 0, d: 2200, f: p => { R.gx = lerp(0, 4, p); } }, { l: 1, d: 700, f: p => { R.face = p > .5 ? '↓' : '↘'; } }, { l: 2, d: 1400, f: p => { R.gy = lerp(1, 3, p); } }, { l: 3, d: 1400, f: p => { R.say = '청소 끝!'; if (p < .05) SND.ok(); } }],
+    [{ l: 0, d: 700, f: p => { R.music = true; } }, { l: 1, d: 1300, f: p => { R.spin = p * Math.PI * 2; } }, { l: 2, d: 1500, f: p => { R.arm = Math.abs(Math.sin(p * Math.PI * 2)); } }, { l: 3, d: 1800, f: p => { R.rainbow = p < 1; R.lamp = p < 1 ? `hsl(${p * 720},90%,55%)` : '#FFB23E'; } }],
+  ];
+  const MSG = ['로봇이 <b>인사</b>를 했어요!', '로봇이 <b>청소</b>를 했어요!', '로봇이 <b>춤</b>을 췄어요!'];
+  const btns = [...cv.closest('.slide').querySelectorAll('.prog')];
+  btns.forEach(b => b.addEventListener('click', () => {
+    const k = +b.dataset.p; reset(k === 1); queue = P[k].map(a => Object.assign({}, a)); cur = null; line = -1; notes = [];
+    btns.forEach(x => { x.classList.toggle('run', x === b); x.querySelectorAll('li').forEach(li => li.classList.remove('on')); });
+    msgDone = MSG[k]; $('robMsg').innerHTML = '로봇이 명령을 차례대로 실행하는 중…';
+  }));
+  function drawRobot(x, y){
+    c.save(); c.translate(x, y); c.scale(Math.cos(R.spin) || 0.05, 1);
+    c.fillStyle = '#1B2230'; [-24, 24].forEach(wx => { c.beginPath(); c.ellipse(wx, 0, 14, 10, 0, 0, 7); c.fill(); });
+    BOX(c, -32, -66, 64, 58, '#9AA3B5'); BOX(c, -22, -52, 44, 26, '#C9D1DF'); for (let i = 0; i < 4; i++) BOX(c, -16 + i * 10, -46, 5, 16, '#56607A');
+    [[-32, -1], [32, 1]].forEach(([ax, sd]) => { c.save(); c.translate(ax, -60); c.rotate(sd * (-R.arm * 2.5)); BOX(c, sd > 0 ? 0 : -10, 0, 10, 40, '#7F889C'); BOX(c, sd > 0 ? -2 : -12, 38, 14, 10, '#56607A'); c.restore(); });
+    BOX(c, -28, -110, 56, 42, '#C9D1DF'); BOX(c, -22, -104, 44, 30, '#1B2230'); BOX(c, -14, -95, 8, 8, '#7CE0FF'); BOX(c, 6, -95, 8, 8, '#7CE0FF');
+    BOX(c, -2, -126, 4, 16, '#56607A'); c.fillStyle = R.lamp || '#7F889C'; c.beginPath(); c.arc(0, -130, 9, 0, 7); c.fill();
+    if (R.lamp) { c.fillStyle = R.lamp; c.globalAlpha = .25; c.beginPath(); c.arc(0, -130, 20, 0, 7); c.fill(); c.globalAlpha = 1; }
+    c.restore();
+    TXT(c, R.face, x + 44, y - 120, { s: 26, c: '#2350C8', w: 900 });
+    if (R.say) { bubble(c, x, y - 150, 200, 54, '#FFFFFF', '#1B2230'); TXT(c, R.say, x, y - 177, { s: 22 }); }
+  }
+  function draw(now){
+    if (!cur && queue.length) { cur = queue.shift(); cur.t0 = now; line = cur.l; btns.forEach(b => { if (b.classList.contains('run')) b.querySelectorAll('li').forEach((li, i) => li.classList.toggle('on', i === line)); }); }
+    if (cur) { const p = Math.min(1, (now - cur.t0) / cur.d); cur.f(p); if (p >= 1) { cur = null; if (!queue.length) { btns.forEach(b => b.querySelectorAll('li').forEach(li => li.classList.remove('on'))); $('robMsg').innerHTML = msgDone + '<br>로봇(하드웨어)은 그대로인데 <b>명령(소프트웨어)</b>만 바꾸니 하는 일이 달라졌어요. 이런 <b>명령의 모음 = 프로그램</b>!'; R.music = false; } } }
+    c.fillStyle = '#F4F6FA'; c.fillRect(0, 0, W, H);
+    TXT(c, '로봇 교실', W / 2, 30, { s: 20 });
+    for (let gx = 0; gx < 6; gx++) for (let gy = 0; gy < 4; gy++) { BOX(c, OX + gx * CS, OY + gy * CS, CS - 3, CS - 3, (gx + gy) % 2 ? '#E1E6EF' : '#EBEFF5'); }
+    R.dust = R.dust.filter(([dx, dy]) => !(Math.abs(R.gx - dx) < .45 && Math.abs(R.gy - dy) < .45));
+    R.dust.forEach(([dx, dy]) => { c.fillStyle = '#8A5A33'; for (let i = 0; i < 5; i++) { c.beginPath(); c.arc(OX + dx * CS + 25 + (i * 13) % 40, OY + dy * CS + 30 + (i * 17) % 30, 4, 0, 7); c.fill(); } });
+    if (R.music) { if (Math.random() < .08) notes.push({ x: 0, y: 0, t: now }); }
+    const rx = OX + R.gx * CS + CS / 2, ry = OY + R.gy * CS + CS - 14;
+    notes = notes.filter(n => now - n.t < 1500); notes.forEach(n => { const a = (now - n.t) / 1500; c.globalAlpha = 1 - a; TXT(c, '♪', rx + 50 + a * 40, ry - 80 - a * 80, { s: 28, c: '#6A3DB8' }); c.globalAlpha = 1; });
+    drawRobot(rx, ry);
+    if (!queue.length && !cur && !R.say && line === -1) { TXT(c, '바퀴', rx - 70, ry + 4, { s: 16, c: '#2350C8' }); TXT(c, '팔', rx - 66, ry - 50, { s: 16, c: '#2350C8' }); TXT(c, '램프', rx + 52, ry - 132, { s: 16, c: '#2350C8' }); TXT(c, '스피커', rx + 70, ry - 40, { s: 16, c: '#2350C8' }); }
+  }
+  runLoop(cv, draw);
+})();
+
+
+
+// ---------- D1-5a 그날 밤 9시 7분 (스미싱 이야기) ----------
+(() => {
+  const scr = $('smScreen'); if (!scr) return;
+  const cv = $('hkCv'), c = cv.getContext('2d'), W = 830, H = 482;
+  const phone = $('smPhone'), fin = $('smFinger');
+  const TXT8 = ['밤 9시 7분, 문자 한 통이 도착했다.', '택배를 시킨 것 같기도 하고… 링크를 눌렀다.', '“주소 확인을 위해 앱을 설치하세요.” 설치 버튼을 눌렀다.', '앱이 권한을 달라고 한다. 별생각 없이 ‘허용’, ‘허용’, ‘허용’…', '내 화면에는 ‘배송 조회 중…’. 그런데 바로 그 순간, 다른 누군가의 화면에서는…', '마이크가 켜지고, 연락처 312개가 빠져나간다.', '그리고 내 친구들의 폰에도 똑같은 문자가 도착한다.', '폰은 고장 난 곳이 하나도 없다. 그럼 무엇이 이 모든 일을 시켰을까?'];
+  let step = 0, timers = [], hk = { live: false, cam: false, mic: false, up: 0, spread: 0, q: false, t0: 0 };
+  const at = (ms, f) => timers.push(setTimeout(f, ms));
+  const clearT = () => { timers.forEach(clearTimeout); timers = []; };
+  const tap = (sel, ms, cb) => at(ms, () => { const el = scr.querySelector(sel); if (!el) return; const r = el.getBoundingClientRect(), pr = phone.getBoundingClientRect(), k = pr.width / phone.offsetWidth; fin.style.left = ((r.left - pr.left) / k + r.width / k / 2 - 22) + 'px'; fin.style.top = ((r.top - pr.top) / k + r.height / k / 2 - 22) + 'px'; fin.classList.add('show'); at(550, () => { fin.classList.add('tap'); el.classList.add('pressed'); SND.tick(); }); at(900, () => { fin.classList.remove('tap', 'show'); cb && cb(); }); });
+  const LOCK = () => `<div class="sm-lock"><div class="sm-big">21:07</div><div class="sm-date">11월 1일 일요일</div></div>`;
+  const SMS = `<div class="sm-app"><div class="sm-hd">‹ &nbsp;알 수 없는 번호</div><div class="sm-msgs"><div class="sm-bub">[Web발신]<br>고객님의 택배가 주소 불명으로 반송 예정입니다. 오늘 안에 주소를 확인해 주세요.<br><u class="sm-link">http://택배확인-주소.xyz</u></div><div class="sm-tm">오후 9:07</div></div></div>`;
+  const WEB = `<div class="sm-app"><div class="sm-url">🔒 택배확인-주소.xyz</div><div class="sm-web"><div class="sm-logo">📦 택배 조회 서비스</div><p>주소 확인을 위해<br><b>전용 앱</b>을 설치해 주세요.</p><button class="sm-inst">설치하기</button><div class="sm-bar"><i></i></div></div></div>`;
+  const PERM = (ic, what) => `<div class="sm-dim"><div class="sm-dlg"><div class="sm-dic">${ic}</div><b>‘택배 조회’에서 ${what}에 접근하려고 합니다.</b><div class="sm-dbt"><span>허용 안 함</span><span class="sm-allow">허용</span></div></div></div>`;
+  const BUSY = `<div class="sm-app"><div class="sm-hd">택배 조회</div><div class="sm-busy"><div class="sm-spin"></div><b>배송 조회 중…</b><small>잠시만 기다려 주세요</small></div></div>`;
+  function render(){
+    clearT(); fin.classList.remove('show', 'tap'); phone.classList.remove('buzz');
+    $('smNo').textContent = `${step + 1} / 8`; $('smText').textContent = TXT8[step];
+    $('smPrev').disabled = step === 0; $('smNext').disabled = step === 7;
+    hk = { live: step >= 4, cam: step >= 4, mic: step >= 5, up: step > 5 ? 312 : 0, spread: step > 6 ? 30 : 0, q: step >= 7, t0: performance.now() };
+    $('smCam').classList.toggle('on', step >= 4);
+    if (step === 0) { scr.innerHTML = LOCK(); at(600, () => { scr.insertAdjacentHTML('beforeend', `<div class="sm-noti"><b>💬 메시지 · 지금</b><br>[Web발신] 고객님의 택배가 주소 불명으로 반송 예정입니다…</div>`); phone.classList.add('buzz'); SND.no(); }); }
+    if (step === 1) { scr.innerHTML = SMS; tap('.sm-link', 700); }
+    if (step === 2) { scr.innerHTML = WEB; tap('.sm-inst', 700, () => { scr.querySelector('.sm-bar').classList.add('go'); }); }
+    if (step === 3) { scr.innerHTML = BUSY.replace('배송 조회 중…', '설치 완료'); const P = [['📷', '카메라'], ['📇', '연락처'], ['💬', '문자 메시지']]; P.forEach(([ic, w], i) => { at(400 + i * 1700, () => { scr.querySelector('.sm-dim') && scr.querySelector('.sm-dim').remove(); scr.insertAdjacentHTML('beforeend', PERM(ic, w)); }); tap('.sm-allow', 700 + i * 1700); }); at(400 + 3 * 1700, () => { scr.querySelector('.sm-dim') && scr.querySelector('.sm-dim').remove(); }); }
+    if (step >= 4) { scr.innerHTML = BUSY; if (step === 4) SND.no(); }
+    if (step === 5) { hk.up = 0; }
+    if (step === 6) { hk.spread = 0; }
+  }
+  $('smNext').addEventListener('click', () => { if (step < 7) { step++; render(); } });
+  $('smPrev').addEventListener('click', () => { if (step > 0) { step--; render(); } });
+  $('smReset').addEventListener('click', () => { step = 0; render(); });
+  const sl = cv.closest('.slide');
+  sl.addEventListener('show', () => { render(); });
+  sl.addEventListener('hide', clearT);
+  addEventListener('keydown', e => { if (e.code === 'Space' && !sl.hidden) { e.preventDefault(); $('smNext').click(); } });
+  const NAMES = ['엄마', '아빠', '담임 선생님', '김○○', '이○○', '박○○', '최○○', '정○○', '학원 선생님', '할머니', '강○○', '조○○', '윤○○', '장○○', '임○○', '한○○', '오○○', '서○○'];
+  function pane(x, y, w, h, title, on){ RR(c, x, y, w, h, 10); c.fillStyle = '#121A2E'; c.fill(); c.strokeStyle = on ? '#FF4D4D' : '#2B3656'; c.lineWidth = 2; c.stroke(); TXT(c, title, x + 14, y + 18, { s: 16, c: on ? '#FFB3B3' : '#8C97B5', a: 'left' }); }
+  function draw(now){
+    const t = (now - hk.t0) / 1000;
+    if (hk.mic && step === 5) hk.up = Math.min(312, Math.floor(t * 70));
+    if (step === 6) hk.spread = Math.min(30, Math.floor(t * 6));
+    c.fillStyle = '#0A0F1C'; c.fillRect(0, 0, W, H);
+    TXT(c, '원격 제어 화면', 18, 22, { s: 19, c: '#E3E7F1', a: 'left' });
+    if (hk.live) { const bl = Math.sin(now / 250) > 0; c.fillStyle = bl ? '#FF3B3B' : '#7A1D1D'; c.beginPath(); c.arc(W - 290, 22, 8, 0, 7); c.fill(); TXT(c, 'LIVE · 피해자 스마트폰 연결됨', W - 274, 22, { s: 16, c: '#FF8080', a: 'left' }); }
+    else TXT(c, '연결 대기 중…', W - 20, 22, { s: 16, c: '#8C97B5', a: 'right' });
+    // 카메라
+    pane(12, 44, 420, 262, '📷 카메라', hk.cam);
+    if (hk.cam) {
+      c.save(); RR(c, 22, 70, 400, 226, 6); c.clip();
+      c.fillStyle = '#1A2238'; c.fillRect(22, 70, 400, 226); c.fillStyle = 'rgba(255,214,120,.18)'; c.beginPath(); c.arc(360, 100, 90, 0, 7); c.fill();
+      BOX(c, 40, 230, 360, 70, '#2A2F45');
+      c.save(); c.translate(222, 300); c.scale(2.3, 2.3); BOX(c, -26, -46, 52, 46, '#23356B'); BOX(c, -5, -46, 10, 16, '#E6E6E6'); BOX(c, -20, -88, 40, 42, '#C9A07E'); BOX(c, -20, -88, 40, 12, '#1E1712'); BOX(c, -20, -88, 7, 24, '#1E1712'); BOX(c, 13, -88, 7, 20, '#1E1712'); BOX(c, -10, -68, 6, 7, '#111'); BOX(c, 5, -68, 6, 7, '#111'); BOX(c, -5, -56, 10, 3, '#8A4B3A'); c.restore();
+      for (let i = 0; i < 160; i++) { c.fillStyle = `rgba(255,255,255,${Math.random() * .08})`; c.fillRect(22 + Math.random() * 400, 70 + Math.random() * 226, 2, 2); }
+      c.restore();
+      c.fillStyle = Math.sin(now / 300) > 0 ? '#FF3B3B' : 'transparent'; c.beginPath(); c.arc(40, 86, 7, 0, 7); c.fill(); TXT(c, 'REC', 52, 87, { s: 14, c: '#FF8080', a: 'left' });
+      const s = 14 + Math.floor(t); TXT(c, `21:08:${String(s % 60).padStart(2, '0')}`, 410, 87, { s: 14, c: '#E3E7F1', a: 'right' });
+    } else { TXT(c, '꺼짐', 222, 180, { s: 24, c: '#3B4766' }); }
+    // 마이크
+    pane(444, 44, 374, 116, '🎤 마이크', hk.mic);
+    c.strokeStyle = hk.mic ? '#7CE07C' : '#3B4766'; c.lineWidth = 3; c.beginPath();
+    for (let x = 0; x <= 340; x += 4) { const a = hk.mic ? (Math.sin(x / 9 + now / 90) * Math.sin(x / 37 + now / 400) * 26 + (Math.random() - .5) * 10) : 0; c.lineTo(460 + x, 112 + a); } c.stroke();
+    if (hk.mic) TXT(c, `녹음 중 00:${String(Math.floor(t) % 60).padStart(2, '0')}`, 806, 62, { s: 14, c: '#7CE07C', a: 'right' });
+    // 연락처
+    pane(444, 170, 374, 136, '📇 연락처 전송', hk.up > 0);
+    if (hk.up > 0) {
+      const n = Math.min(4, Math.ceil(hk.up / 20)); for (let i = 0; i < n; i++) { const nm = NAMES[(Math.floor(hk.up / 3) + i) % NAMES.length]; TXT(c, `↑ ${nm}  010-****-${String((hk.up * 37 + i * 911) % 10000).padStart(4, '0')}`, 462, 204 + i * 20, { s: 14, c: '#FFB3B3', a: 'left' }); }
+      BOX(c, 462, 284, 260, 10, '#2B3656'); BOX(c, 462, 284, 260 * hk.up / 312, 10, '#FF4D4D'); TXT(c, `${hk.up} / 312`, 806, 289, { s: 15, c: '#FFFFFF', a: 'right' });
+    } else TXT(c, '대기', 631, 245, { s: 22, c: '#3B4766' });
+    // 확산
+    pane(12, 318, 806, 152, `💬 같은 문자 퍼뜨리기  ${hk.spread ? hk.spread + '명에게 전송' : ''}`, hk.spread > 0);
+    for (let i = 0; i < 30; i++) { const x = 34 + (i % 15) * 52, y = 350 + Math.floor(i / 15) * 58, on = i < hk.spread; RR(c, x, y, 30, 48, 6); c.fillStyle = on ? '#D0261E' : '#24304E'; c.fill(); if (on) TXT(c, '!', x + 15, y + 24, { s: 20, c: '#fff', w: 900 }); }
+    if (hk.q) { c.fillStyle = 'rgba(10,15,28,.78)'; c.fillRect(0, 40, W, H - 40); TXT(c, '?', W / 2, 200, { s: 120, c: '#FFE58A', w: 900 }); TXT(c, '폰은 멀쩡하다. 그럼 무엇이 시켰을까?', W / 2, 320, { s: 30, c: '#FFFFFF', w: 900 }); TXT(c, '다음 화면에서 해부해 봐요 ▶', W / 2, 370, { s: 22, c: '#FFE58A' }); }
+  }
+  runLoop(cv, draw);
+})();
+
+// ---------- D1-5b 해부: 명령 실행 ----------
+(() => {
+  const box = $('mwCode'); if (!box) return;
+  const lines = [...box.querySelectorAll('.ln')], sl = box.closest('.slide'), svg = sl.querySelector('.xr svg');
+  const OUT = ['📷 카메라가 켜졌어요', '🎤 마이크가 녹음을 시작했어요', '💾 저장 장치에서 연락처를 읽었어요', '📡 통신 칩이 사진·녹음·연락처를 보냈어요', '📡 통신 칩이 친구들에게 문자를 보냈어요'];
+  let timers = [];
+  const reset = () => { timers.forEach(clearTimeout); timers = []; lines.forEach(l => l.classList.remove('on', 'done')); svg.querySelectorAll('.hw').forEach(g => g.classList.remove('on')); $('mwOut').innerHTML = '명령을 실행하면 어떤 부품이 움직이는지 왼쪽에 표시돼요.'; sl.querySelector('.xr-cap').innerHTML = '하드웨어 · 고장 난 곳 <b>0개</b>'; };
+  $('mwReset').addEventListener('click', reset);
+  $('mwRun').addEventListener('click', () => {
+    reset();
+    lines.forEach((l, i) => timers.push(setTimeout(() => {
+      lines.forEach(x => x.classList.remove('on')); l.classList.add('on', 'done');
+      svg.querySelectorAll('.hw').forEach(g => g.classList.remove('on')); svg.querySelector('#hw-' + l.dataset.hw).classList.add('on'); svg.querySelector('#hw-cpu').classList.add('on');
+      $('mwOut').innerHTML = OUT[i]; SND.tick();
+    }, 300 + i * 1200)));
+    timers.push(setTimeout(() => { lines.forEach(x => x.classList.remove('on')); svg.querySelectorAll('.hw').forEach(g => g.classList.remove('on')); $('mwOut').innerHTML = '하드웨어는 <b>시키는 대로</b> 움직였을 뿐!<br>이 <b style="color:var(--pen)">명령의 모음 = 프로그램</b>이 폰을 지시하고 통제했어요.'; sl.querySelector('.xr-cap').innerHTML = '하드웨어는 그대로 · <b>명령이 바뀌었을 뿐</b>'; SND.ok(); }, 300 + lines.length * 1200 + 400));
+  });
+  sl.addEventListener('hide', reset);
+})();
+
+// ---------- D1-7 신기술 시뮬레이션 ----------
+(() => {
+  const cv = $('techCv'); if (!cv) return; const c = cv.getContext('2d'), W = 760, H = 400;
+  const T = {
+    ar: ['증강 현실(AR)', '실제 환경에 가상의 이미지를 겹쳐 보이는 기술', '▶ 화면 위에서 마우스를 움직여 휴대폰으로 비춰 보세요.', '생각해 보기: 우리 주변의 AR은? (카메라 얼굴 필터, 길 안내 화살표)'],
+    vr: ['가상 현실(VR)', '가상의 세계에서 실제와 같은 체험을 할 수 있는 기술', '▶ 마우스를 좌우로 움직이면 고개를 돌린 것처럼 보여요.', 'AR과 다른 점은? → VR은 눈앞이 <b>모두 가상</b>이에요.'],
+    drone: ['드론', '조종사 없이 무선 전파의 유도에 의해서 비행 및 조종이 가능한 무인 항공기', '▶ 화면을 누르면 배송을 처음부터 다시 해요.', '드론은 어디에 쓰일까? (택배, 촬영, 농약 살포, 구조)'],
+    iot: ['사물 인터넷(IoT)', '센서와 통신 기능을 내장한 사물과 사물을 인터넷으로 연결한 기술', '▶ 화분의 수분이 줄어들면 어떤 일이 일어날까요?', '우리 집의 사물 인터넷은? (스마트 플러그, 도어록, 로봇 청소기)'],
+    ai: ['인공지능(AI)', '컴퓨터가 인간처럼 스스로 생각하고 판단할 수 있도록 프로그램으로 구현한 기술', '▶ 분리배출 로봇이 물건을 보고 스스로 판단해요.', 'AI가 패턴을 찾으려면 무엇이 필요할까? → <b>많은 데이터</b>'],
+  };
+  let mode = 'ar', mx = 380, my = 200, mIn = false, t0 = performance.now();
+  const set = k => { mode = k; t0 = performance.now(); const [n, d, tr, q] = T[k]; $('techName').textContent = n; $('techDef').textContent = d; $('techTry').textContent = tr; $('techQ').innerHTML = q; cv.closest('.slide').querySelectorAll('#techTabs button').forEach(b => b.setAttribute('aria-pressed', b.dataset.k === k)); };
+  cv.closest('.slide').querySelectorAll('#techTabs button').forEach(b => b.addEventListener('click', () => { set(b.dataset.k); SND.pop(); }));
+  cv.addEventListener('mousemove', e => { const r = cv.getBoundingClientRect(); mx = (e.clientX - r.left) / r.width * W; my = (e.clientY - r.top) / r.height * H; mIn = true; });
+  cv.addEventListener('mouseleave', () => mIn = false);
+  cv.addEventListener('click', () => { t0 = performance.now(); });
+  set('ar');
+  const room = () => { BOX(c, 0, 0, W, 290, '#EDE3D1'); BOX(c, 0, 290, W, 110, '#C8A27A'); BOX(c, 60, 50, 170, 130, '#9FD6FA'); BOX(c, 56, 46, 178, 8, '#8A5A33'); BOX(c, 142, 50, 6, 130, '#8A5A33'); BOX(c, 300, 220, 300, 20, '#8A5A33'); BOX(c, 315, 240, 14, 70, '#744A28'); BOX(c, 571, 240, 14, 70, '#744A28'); BOX(c, 640, 110, 80, 130, '#8A5A33'); for (let i = 0; i < 3; i++) BOX(c, 646, 122 + i * 40, 68, 28, ['#D0261E', '#2350C8', '#137A3A'][i]); };
+  const cat = (x, y) => { BOX(c, x - 40, y - 50, 80, 50, '#F28C28'); BOX(c, x - 30, y - 88, 60, 42, '#F28C28'); BOX(c, x - 30, y - 100, 14, 14, '#F28C28'); BOX(c, x + 16, y - 100, 14, 14, '#F28C28'); BOX(c, x - 18, y - 74, 8, 8, '#1B2230'); BOX(c, x + 10, y - 74, 8, 8, '#1B2230'); BOX(c, x + 40, y - 40, 30, 10, '#F28C28'); c.setLineDash([6, 5]); c.strokeStyle = '#2350C8'; c.lineWidth = 2; c.strokeRect(x - 46, y - 106, 120, 110); c.setLineDash([]); TXT(c, '가상', x + 14, y - 118, { s: 16, c: '#2350C8', w: 900 }); };
+  function draw(now){
+    const t = (now - t0) / 1000;
+    c.clearRect(0, 0, W, H);
+    if (mode === 'ar') {
+      room();
+      const px = mIn ? mx : 450 + Math.sin(t * .7) * 110, py = mIn ? my : 200;
+      c.save(); RR(c, px - 95, py - 140, 190, 280, 22); c.clip(); room(); cat(450, 220); c.fillStyle = 'rgba(35,80,200,.08)'; c.fillRect(0, 0, W, H); c.restore();
+      RR(c, px - 95, py - 140, 190, 280, 22); c.lineWidth = 12; c.strokeStyle = '#1B2230'; c.stroke(); TXT(c, 'AR 화면', px, py - 120, { s: 15, c: '#fff' });
+      RR(c, 12, 12, 250, 40, 8); c.fillStyle = 'rgba(27,34,48,.8)'; c.fill(); TXT(c, '실제 환경 + 가상 이미지', 137, 32, { s: 18, c: '#fff' });
+    }
+    if (mode === 'vr') {
+      const off = mIn ? (mx / W) * 1200 : (Math.sin(t * .3) + 1) * 600;
+      const g = c.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#1C6EA4'); g.addColorStop(1, '#0B2E4F'); c.fillStyle = g; c.fillRect(0, 0, W, H);
+      c.fillStyle = 'rgba(255,255,255,.08)'; for (let i = 0; i < 6; i++) { c.beginPath(); c.moveTo(i * 220 - off * .5 % 220, 0); c.lineTo(i * 220 + 80 - off * .5 % 220, 0); c.lineTo(i * 220 + 200 - off * .5 % 220, H); c.lineTo(i * 220 + 120 - off * .5 % 220, H); c.fill(); }
+      for (let i = 0; i < 14; i++) { const fx = ((i * 170 + t * (30 + i * 4) - off) % 2000 + 2000) % 2000 - 300, fy = 80 + (i * 53) % 220; c.fillStyle = ['#FFB23E', '#FF6B6B', '#FFE58A', '#7CE0FF'][i % 4]; c.beginPath(); c.ellipse(fx, fy, 26, 13, 0, 0, 7); c.fill(); c.beginPath(); c.moveTo(fx - 22, fy); c.lineTo(fx - 40, fy - 12); c.lineTo(fx - 40, fy + 12); c.fill(); BOX(c, fx + 12, fy - 4, 5, 5, '#1B2230'); }
+      for (let i = 0; i < 10; i++) { const cx0 = ((i * 260 - off) % 2600 + 2600) % 2600 - 300; c.fillStyle = ['#E0507A', '#F28C28', '#B8336F'][i % 3]; for (let j = 0; j < 5; j++) BOX(c, cx0 + j * 12, H - 40 - (j % 3) * 22, 10, 40 + (j % 3) * 22, c.fillStyle); }
+      const rp = (x, y, w, h, r) => { c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); };
+      c.fillStyle = '#0D0F14'; c.beginPath(); c.rect(0, 0, W, H); rp(60, 50, 310, 280, 100); rp(390, 50, 310, 280, 100); c.fill('evenodd');
+      TXT(c, 'VR 고글 속 세상 — 모두 가상!', W / 2, 365, { s: 22, c: '#fff' });
+    }
+    if (mode === 'drone') {
+      const g = c.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#8FD0FF'); g.addColorStop(1, '#E4F4FF'); c.fillStyle = g; c.fillRect(0, 0, W, H); BOX(c, 0, 330, W, 70, '#6BBF3F');
+      BOX(c, 30, 220, 150, 110, '#B9C0CC'); BOX(c, 30, 205, 150, 20, '#8E97A8'); TXT(c, '물류 창고', 105, 280, { s: 18 });
+      BOX(c, 590, 230, 130, 100, '#E9D8B4'); for (let i = 0; i < 4; i++) BOX(c, 575 + i * 40, 210, 40, 22, i % 2 ? '#B5523B' : '#A3452F'); BOX(c, 640, 280, 30, 50, '#8A5A33'); TXT(c, '우리 집', 655, 255, { s: 16 });
+      BOX(c, 250, 200, 12, 130, '#56607A'); BOX(c, 240, 190, 32, 14, '#56607A'); TXT(c, '관제 센터', 256, 352, { s: 16, c: '#1B2230' });
+      const cyc = (t % 9) / 9; let dx, dy, box = true;
+      if (cyc < .45) { const p = cyc / .45; dx = 120 + p * 520; dy = 180 - Math.sin(p * Math.PI) * 90; }
+      else if (cyc < .58) { const p = (cyc - .45) / .13; dx = 640; dy = 180 + Math.sin(p * Math.PI) * 30; box = p < .5; }
+      else { const p = (cyc - .58) / .42; dx = 640 - p * 520; dy = 180 - Math.sin(p * Math.PI) * 90; box = false; }
+      for (let k = 0; k < 3; k++) { const r = ((t * 120 + k * 60) % 180); c.strokeStyle = `rgba(35,80,200,${1 - r / 180})`; c.lineWidth = 3; c.beginPath(); c.arc(256, 190, r, -1.4, -0.1); c.stroke(); }
+      TXT(c, '무선 전파로 유도', 340, 232, { s: 17, c: '#2350C8' });
+      if (cyc >= .52) BOX(c, 676, 312, 26, 18, '#B85E00');
+      c.save(); c.translate(dx, dy); BOX(c, -36, -6, 72, 12, '#1B2230'); BOX(c, -14, -14, 28, 16, '#2350C8'); [-34, 34].forEach(rx0 => { BOX(c, rx0 - 2, -16, 4, 10, '#1B2230'); const w = 18 + Math.sin(t * 60 + rx0) * 12; c.fillStyle = 'rgba(27,34,48,.55)'; c.beginPath(); c.ellipse(rx0, -18, Math.abs(w), 4, 0, 0, 7); c.fill(); }); if (box) { c.strokeStyle = '#1B2230'; c.lineWidth = 2; c.beginPath(); c.moveTo(0, 6); c.lineTo(0, 22); c.stroke(); BOX(c, -13, 22, 26, 18, '#B85E00'); } c.restore();
+      RR(c, 12, 12, 220, 40, 8); c.fillStyle = 'rgba(27,34,48,.8)'; c.fill(); TXT(c, '조종사: 없음! ✈', 122, 32, { s: 18, c: '#fff' });
+    }
+    if (mode === 'iot') {
+      c.fillStyle = '#F4F6FA'; c.fillRect(0, 0, W, H);
+      BOX(c, 30, 140, 260, 220, '#E9D8B4'); for (let i = 0; i < 7; i++) BOX(c, 20 + i * 40, 118, 40, 24, i % 2 ? '#B5523B' : '#A3452F'); BOX(c, 42, 152, 236, 196, '#F7EEDB'); TXT(c, '우리 집', 160, 170, { s: 16 });
+      const cyc = (t % 10) / 10, m = cyc < .4 ? 1 - cyc / .4 * .8 : cyc < .7 ? .2 : .2 + (cyc - .7) / .3 * .8;
+      BOX(c, 120, 300, 80, 46, '#B5523B'); BOX(c, 114, 294, 92, 10, '#8A3E2C'); c.strokeStyle = '#2E7D46'; c.lineWidth = 6; c.beginPath(); c.moveTo(160, 294); c.lineTo(160, 220); c.stroke(); c.fillStyle = m > .35 ? '#3CB15A' : '#B8B05A'; [[140, 240], [180, 230], [150, 215], [172, 255]].forEach(([lx, ly]) => { c.beginPath(); c.ellipse(lx, ly, 18, 9, (lx - 160) / 30, 0, 7); c.fill(); });
+      BOX(c, 196, 268, 6, 34, '#56607A'); c.fillStyle = Math.sin(t * 8) > 0 ? '#FF4D4D' : '#7F1D1D'; c.beginPath(); c.arc(199, 264, 6, 0, 7); c.fill(); TXT(c, '수분 센서', 236, 262, { s: 14, c: '#2350C8' });
+      BOX(c, 60, 200, 22, 90, '#FFFFFF'); BOX(c, 60, 200 + 90 * (1 - m), 22, 90 * m, m > .35 ? '#2E9BF0' : '#FF6B6B'); c.strokeStyle = '#1B2230'; c.lineWidth = 2; c.strokeRect(60, 200, 22, 90); TXT(c, '수분', 71, 188, { s: 14 });
+      c.fillStyle = '#FFFFFF'; c.strokeStyle = '#7F889C'; c.lineWidth = 3; [[370, 80, 40], [410, 64, 50], [455, 82, 40]].forEach(([x, y, r]) => { c.beginPath(); c.arc(x, y, r, 0, 7); c.fill(); c.stroke(); }); BOX(c, 340, 80, 150, 40, '#FFFFFF'); TXT(c, '인터넷', 410, 92, { s: 18 });
+      RR(c, 600, 120, 120, 220, 18); c.fillStyle = '#1B2230'; c.fill(); BOX(c, 610, 140, 100, 180, cyc > .62 && cyc < .9 ? '#FFF3C4' : '#DCE4F5');
+      if (cyc > .62 && cyc < .9) { TXT(c, '🌱 알림', 660, 175, { s: 16 }); TXT(c, '화분이', 660, 205, { s: 16 }); TXT(c, '목말라요!', 660, 228, { s: 16 }); TXT(c, '물 주기 시작', 660, 266, { s: 14, c: '#137A3A' }); }
+      c.setLineDash([6, 6]); c.strokeStyle = '#7F889C'; c.lineWidth = 2; c.beginPath(); c.moveTo(210, 200); c.lineTo(360, 110); c.moveTo(470, 110); c.lineTo(610, 170); c.stroke(); c.setLineDash([]);
+      const pk = (a, b, p) => { c.fillStyle = '#D0261E'; c.beginPath(); c.arc(a[0] + (b[0] - a[0]) * p, a[1] + (b[1] - a[1]) * p, 9, 0, 7); c.fill(); };
+      if (cyc > .4 && cyc < .52) pk([210, 200], [360, 110], (cyc - .4) / .12);
+      if (cyc > .52 && cyc < .62) pk([470, 110], [610, 170], (cyc - .52) / .1);
+      if (cyc > .72 && cyc < .95) { c.fillStyle = '#2E9BF0'; for (let i = 0; i < 6; i++) { const yy = 150 + ((t * 200 + i * 30) % 120); c.beginPath(); c.arc(130 + i * 12, yy, 4, 0, 7); c.fill(); } BOX(c, 110, 140, 100, 10, '#7F889C'); }
+      TXT(c, '센서 → 인터넷 → 스마트폰 → 자동 물주기', W / 2, 382, { s: 18, c: '#1B2230' });
+    }
+    if (mode === 'ai') {
+      c.fillStyle = '#F4F6FA'; c.fillRect(0, 0, W, H);
+      TXT(c, '학습한 데이터: 캔·플라스틱·종이 사진 수천 장 → 패턴을 찾아 스스로 판단!', W / 2, 26, { s: 17, c: '#2350C8' });
+      BOX(c, 0, 290, 560, 18, '#56607A'); for (let i = 0; i < 20; i++) BOX(c, ((i * 30 + t * 60) % 600) - 20, 293, 12, 12, '#7F889C');
+      BOX(c, 300, 170, 120, 60, '#1B2230'); TXT(c, 'AI 카메라', 360, 200, { s: 16, c: '#fff' }); c.fillStyle = 'rgba(124,224,255,.25)'; c.beginPath(); c.moveTo(320, 230); c.lineTo(400, 230); c.lineTo(430, 290); c.lineTo(290, 290); c.fill();
+      const BINS = [['캔', '#9AA3B5', 590], ['플라스틱', '#2E9BF0', 660], ['종이', '#E9D8B4', 730]]; BINS.forEach(([n, col, bx]) => { BOX(c, bx - 30, 300, 60, 80, col); TXT(c, n, bx, 340, { s: n.length > 2 ? 13 : 16 }); });
+      const types = [0, 1, 2, 1, 0, 2]; const period = 3;
+      for (let k = 0; k < 3; k++) {
+        const tt = t - k * period; if (tt < 0) continue; const idx = Math.floor(tt / (period * 3)) * 3 + k, ty = types[idx % 6], p = (tt % (period * 3)) / period;
+        let ix, iy; if (p < 1.8) { ix = -40 + p / 1.8 * 600; iy = 290; } else if (p < 2.3) { const q = (p - 1.8) / .5; ix = 560 + (BINS[ty][2] - 560) * q; iy = 290 + q * 30; } else continue;
+        if (ty === 0) { BOX(c, ix - 16, iy - 50, 32, 50, '#B9C0CC'); BOX(c, ix - 16, iy - 50, 32, 6, '#7F889C'); }
+        if (ty === 1) { BOX(c, ix - 14, iy - 60, 28, 60, 'rgba(46,155,240,.6)'); BOX(c, ix - 6, iy - 70, 12, 10, '#1B5E9E'); }
+        if (ty === 2) { BOX(c, ix - 22, iy - 34, 44, 34, '#FFFFFF'); c.strokeStyle = '#7F889C'; c.strokeRect(ix - 22, iy - 34, 44, 34); for (let j = 0; j < 3; j++) BOX(c, ix - 16, iy - 28 + j * 9, 32, 2, '#9AA3B5'); }
+        if (ix > 320 && ix < 600 && p < 1.8) { const conf = [97, 94, 99][ty]; bubble(c, ix, 150, 190, 50, '#E3F5E8', '#137A3A'); TXT(c, `${BINS[ty][0]}! ${conf}%`, ix, 125, { s: 20, c: '#137A3A', w: 900 }); }
+      }
+    }
+  }
+  runLoop(cv, draw);
+})();
+
+// ---------- D1-8 예전 vs 지금 ----------
+(() => {
+  const sl = [...stage.querySelectorAll('.slide')].find(s => s.dataset.t === '예전 vs 지금'); if (!sl) return;
+  const fs = [...sl.querySelectorAll('.flip')];
+  fs.forEach(f => f.addEventListener('click', () => { f.classList.toggle('on'); SND.pop(); }));
+  const tg = sl.querySelector('.fliptoggle'); tg.addEventListener('click', () => { const on = !fs.every(f => f.classList.contains('on')); fs.forEach(f => f.classList.toggle('on', on)); tg.textContent = on ? '모두 앞면' : '모두 뒤집기'; });
+})();
+
+// ---------- D1-9 영향을 만드는 요소 ----------
+(() => {
+  if (!$('factors')) return;
+  const F = [
+    ['🌐 언제 어디서나 연결', '인터넷과 모바일로 누구나, 언제든 서로 연결돼요.', [['스마트 기기로 일상생활이 편리해졌다', 'pos'], ['해킹, 랜섬웨어 같은 사이버 공격이 늘었다', 'neg'], ['스마트폰을 손에서 놓지 못하는 디지털 중독', 'neg']]],
+    ['📊 데이터 수집·분석', '소프트웨어가 엄청난 양의 데이터를 모으고 분석해요.', [['나에게 맞춘 맞춤형 학습이 가능해졌다', 'pos'], ['범죄·의료·재난 같은 사회 문제를 해결한다', 'pos'], ['환경·에너지를 관리해 지속 가능한 사회를 만든다', 'pos'], ['무분별한 서비스 가입으로 개인 정보가 유출된다', 'neg']]],
+    ['🤖 자동화·인공지능', '사람이 하던 일을 소프트웨어가 대신해요.', [['오피스·협업·자동화 도구로 일이 빨라졌다', 'pos'], ['소프트웨어 산업에서 다양한 직업이 생겼다', 'pos'], ['자동화와 인공지능 발전으로 일부 직종이 줄어든다', 'neg']]],
+    ['📣 빠른 정보 확산', '정보가 순식간에 많은 사람에게 퍼져요.', [['온라인 교육으로 누구나 배울 수 있다', 'pos'], ['가짜 정보로 사회적 혼란이 생긴다', 'neg'], ['다른 사람과 비교하며 스트레스를 받는다', 'neg']]],
+    ['📱 기기 활용 능력의 차이', '소프트웨어를 잘 쓰는 사람과 그렇지 못한 사람이 생겨요.', [['정보 취약 계층의 디지털 정보 격차가 심해진다', 'neg'], ['누구나 쉽게 쓰도록 만들면 격차를 줄일 수 있다', 'pos']]],
+  ];
+  const show = i => {
+    $('factors').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', +b.dataset.f === i));
+    const [n, d, cs] = F[i]; $('facHead').innerHTML = `<b>원인 요소: ${n.slice(2)}</b> — ${d}`;
+    $('facCards').innerHTML = cs.map(([t, k]) => `<button class="card ${k}" style="font-size:21px;min-height:92px">${t}<span class="k ${k}">${k === 'pos' ? '긍정적 영향' : '부정적 영향'}</span></button>`).join('');
+    $('facCards').querySelectorAll('.card').forEach(cd => cd.addEventListener('click', () => { if (cd.classList.toggle('on')) (cd.classList.contains('pos') ? SND.ok : SND.no)(); }));
+  };
+  $('factors').querySelectorAll('button').forEach(b => b.addEventListener('click', () => { show(+b.dataset.f); SND.pop(); }));
+  show(0);
+})();
+
+// ---------- D1-13 세계의 문제 연결망 ----------
+(() => {
+  const sv = $('netSvg'); if (!sv) return;
+  const N = [['기후 변화', 265, 40], ['가뭄·홍수', 90, 110], ['식량 부족', 440, 110], ['빈곤', 265, 175], ['질병', 80, 260], ['교육 기회 부족', 265, 290], ['불평등', 450, 260]];
+  const E = [[0, 1], [0, 2], [1, 2], [1, 3], [2, 3], [3, 4], [3, 5], [3, 6], [5, 6], [4, 5], [2, 4]];
+  sv.innerHTML = E.map(([a, b], i) => `<line class="ne" data-i="${i}" x1="${N[a][1]}" y1="${N[a][2]}" x2="${N[b][1]}" y2="${N[b][2]}" stroke="#C9D1DF" stroke-width="4"/>`).join('') +
+    N.map(([n, x, y]) => `<g><rect x="${x - n.length * 10 - 14}" y="${y - 20}" width="${n.length * 20 + 28}" height="40" rx="20" fill="#FFFFFF" stroke="#1B2230" stroke-width="2.5"/><text x="${x}" y="${y + 7}" text-anchor="middle" font-size="19" font-weight="700" fill="#1B2230" font-family="Noto Sans KR, Malgun Gothic, sans-serif">${n}</text></g>`).join('');
+  let on = false;
+  $('netBtn').addEventListener('click', () => { on = !on; sv.querySelectorAll('.ne').forEach((l, i) => { setTimeout(() => { l.setAttribute('stroke', on ? '#D0261E' : '#C9D1DF'); if (on) SND.tick(); }, on ? i * 140 : 0); }); $('netBtn').textContent = on ? '연결 숨기기' : '연결 보기'; });
+})();
+
+// ---------- D1-14 17개 목표 ----------
+(() => {
+  const g = $('sdgGrid'); if (!g) return;
+  const S = [
+    ['빈곤 퇴치', '#C8102E', '인터넷 뱅킹·모바일 금융으로 은행이 먼 곳에서도 금융 서비스를 이용해요.', 'p.10'],
+    ['기아 종식', '#C9A227', '스마트팜으로 작물 재배 환경을 자동 제어해 생산성을 높여요.', 'p.11'],
+    ['건강과 웰빙', '#3A9A44', '원격 의료로 병원에 가기 어려운 사람도 진료를 받아요.', 'p.26'],
+    ['양질의 교육', '#B5222D', '온라인 강의와 학습 관리 시스템으로 언제 어디서나 배워요.', 'p.10'],
+    ['성평등', '#E8402A', '데이터를 분석해 차별을 찾아내고 공정한 기회를 만들어요.', '일반 예시'],
+    ['깨끗한 물과 위생', '#1E9ECF', '스마트 워터 그리드로 물을 실시간 관리해 홍수·가뭄에 대비해요.', 'p.25'],
+    ['깨끗한 에너지', '#E5A800', '스마트 그리드로 전기를 효율적으로 생산·운반·소비해요.', 'p.19'],
+    ['좋은 일자리와 경제 성장', '#8F1838', '소프트웨어 산업에서 새로운 직업이 생겨요.', 'p.13, p.20'],
+    ['산업·혁신·기반 시설', '#E86A2C', '스마트 공장, 건축 정보 모델(BIM)로 산업을 혁신해요.', 'p.23, p.25'],
+    ['불평등 감소', '#D41A6A', '수어 번역, 시각 장애인용 내비게이션으로 누구나 정보를 얻어요.', 'p.22, p.28'],
+    ['지속 가능한 도시', '#F29A2E', '지능형 교통 시스템(ITS)과 스마트 시티로 살기 좋은 도시를 만들어요.', 'p.19, p.25'],
+    ['책임 있는 소비와 생산', '#B8862B', '창고 관리 시스템(WMS)으로 재고 낭비를 줄여요.', 'p.26'],
+    ['기후 변화 대응', '#3F7E44', '시뮬레이션으로 기후 변화를 예측하고 대비해요.', 'p.29'],
+    ['해양 생태계 보전', '#1A7DB6', '위성과 센서 데이터로 바다 오염을 감시해요.', '일반 예시'],
+    ['육상 생태계 보전', '#4CA146', '드론과 인공지능으로 산불과 멸종 위기 동물을 지켜봐요.', '일반 예시'],
+    ['평화·정의·제도', '#1D5B8C', '데이터 분석으로 범죄를 예방하고 사회 문제를 해결해요.', 'p.13'],
+    ['지구촌 협력', '#19486A', '인터넷으로 세계가 연결되어 함께 문제를 해결해요.', 'p.10'],
+  ];
+  g.innerHTML = S.map(([n, col], i) => `<button style="background:${col}" data-i="${i}"><b>${i + 1}</b><span>${n}</span></button>`).join('');
+  g.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+    const i = +b.dataset.i, [n, col, d, p] = S[i]; g.querySelectorAll('button').forEach(x => x.classList.toggle('sel', x === b)); SND.pop();
+    $('sdgInfo').innerHTML = `<b style="color:${col};font-size:26px">${i + 1}. ${n}</b><br>💡 ${d}<br><span class="pp" style="margin:6px 0 0">${p.startsWith('p') ? '교과서 ' + p : p}</span>`;
+  }));
+})();
+
+// ---------- D1-15 우리 학교 문제 ----------
+(() => {
+  if (!$('probs')) return;
+  const D = [
+    ['급식 잔반이 너무 많이 나와 음식이 버려지고 환경도 오염된다.', '12번 책임 있는 소비와 생산<br><small>(+ 2번 기아 종식)</small>', '메뉴 선호도 투표 앱을 만들고, 잔반 무게 데이터를 분석해 메뉴와 배식량을 조절한다.'],
+    ['우산을 빌려 가고 돌려주지 않아 비 오는 날 대여함이 비어 있다.', '12번 책임 있는 소비와 생산<br><small>(+ 11번 지속 가능한 공동체)</small>', 'QR 코드로 대여·반납을 기록하고, 반납할 날이 되면 알림을 보내는 앱을 만든다.'],
+    ['아무도 없는 교실에서 에어컨과 전등이 켜져 있어 전기가 낭비된다.', '7번 깨끗한 에너지<br><small>(+ 13번 기후 변화 대응)</small>', '사람 감지 센서로 빈 교실을 알아내 자동으로 끄고, 교실별 전기 사용량을 보여 준다.'],
+  ];
+  const boxes = [...$('flow3').children];
+  $('probs').querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+    const i = +b.dataset.p; $('probs').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
+    boxes.forEach(x => x.classList.remove('on'));
+    D[i].forEach((t, k) => { boxes[k].querySelector('p').innerHTML = ''; setTimeout(() => { boxes[k].querySelector('p').innerHTML = t; boxes[k].classList.add('on'); SND.pop(); }, 300 + k * 900); });
+  }));
+})();
+
+// ---------- D1-16 2045 우리 동네 ----------
+(() => {
+  const cv = $('townCv'); if (!cv) return; const c = cv.getContext('2d'), W = 800, H = 450, GY = 380;
+  let mode = -1, t0 = performance.now();
+  const btns = [...$('towns').querySelectorAll('button')];
+  btns.forEach(b => b.addEventListener('click', () => { mode = +b.dataset.k; t0 = performance.now(); btns.forEach(x => x.setAttribute('aria-pressed', x === b)); }));
+  const AREA = [[20, 150, 210, 240], [230, 20, 180, 370], [420, 150, 190, 240], [600, 150, 190, 240], [20, 20, 760, 130]];
+  function draw(now){
+    const t = (now - t0) / 1000, T = now / 1000;
+    const g = c.createLinearGradient(0, 0, 0, GY); g.addColorStop(0, '#8FD0FF'); g.addColorStop(1, '#E4F4FF'); c.fillStyle = g; c.fillRect(0, 0, W, H); BOX(c, 0, GY, W, H - GY, '#6BBF3F'); BOX(c, 0, GY + 20, W, 50, '#56607A'); for (let i = 0; i < 10; i++) BOX(c, i * 90 + 20, GY + 42, 50, 5, '#fff');
+    c.fillStyle = '#FFD84D'; c.beginPath(); c.arc(720, 60, 34, 0, 7); c.fill();
+    // 0 스마트 홈
+    BOX(c, 30, 220, 190, 160, '#E9D8B4'); for (let i = 0; i < 6; i++) BOX(c, 20 + i * 36, 200, 36, 22, i % 2 ? '#B5523B' : '#A3452F'); BOX(c, 42, 232, 166, 136, mode === 0 && t > 1.2 ? '#FFF6C8' : '#C9C2B0');
+    const kidX = mode === 0 ? Math.min(150, -20 + t * 120) : 150; blockKid(c, kidX, 368, T * 10, { s: .6, walk: mode === 0 && t < 1.4 });
+    if (mode === 0 && t > 1.2) { c.fillStyle = 'rgba(255,230,120,.5)'; c.beginPath(); c.moveTo(125, 236); c.lineTo(85, 330); c.lineTo(165, 330); c.fill(); BOX(c, 117, 232, 16, 10, '#FFD84D'); RR(c, 170, 250, 44, 28, 6); c.fillStyle = '#1B2230'; c.fill(); TXT(c, '24℃', 192, 264, { s: 13, c: '#7CE07C' }); BOX(c, 50, 240, 50, Math.min(60, (t - 1.2) * 60), '#7F889C'); }
+    // 1 정보 접근성
+    BOX(c, 260, 160, 120, 220, '#B9C0CC'); for (let r = 0; r < 6; r++) for (let q = 0; q < 3; q++) BOX(c, 272 + q * 36, 172 + r * 34, 24, 22, '#DCE4F5');
+    c.fillStyle = '#FFFFFF'; c.strokeStyle = '#7F889C'; c.lineWidth = 3; [[290, 70, 30], [320, 56, 38], [356, 72, 30]].forEach(([x, y, r]) => { c.beginPath(); c.arc(x, y, r, 0, 7); c.fill(); c.stroke(); }); BOX(c, 266, 70, 116, 30, '#FFFFFF'); TXT(c, '클라우드', 322, 82, { s: 15 });
+    if (mode === 1) { for (let i = 0; i < 5; i++) { const p = ((t * .8 + i * .2) % 1); BOX(c, 316 + Math.sin(i) * 20, 110 + p * 70, 10, 10, '#2350C8'); } bubble(c, 400, 150, 240, 60, '#FFFFFF', '#2350C8'); TXT(c, '“내일 비 와?”', 400, 108, { s: 16 }); TXT(c, '→ 오후 3시 비 70%', 400, 130, { s: 15, c: '#2350C8' }); }
+    // 2 스마트 그리드
+    for (let i = 0; i < 3; i++) { c.save(); c.translate(440 + i * 50, 330); c.rotate(-0.3); BOX(c, -22, -14, 44, 28, '#1D3E7A'); c.restore(); BOX(c, 436 + i * 50, 340, 6, 40, '#56607A'); }
+    BOX(c, 580, 220, 6, 160, '#DDE2EA'); c.save(); c.translate(583, 220); c.rotate((mode === 2 ? T * 4 : T * .8)); for (let k = 0; k < 3; k++) { c.rotate(Math.PI * 2 / 3); BOX(c, -3, 0, 6, 46, '#FFFFFF'); } c.restore();
+    BOX(c, 520, 270, 40, 60, '#3CB15A'); TXT(c, '배터리', 540, 260, { s: 12 });
+    c.strokeStyle = '#56607A'; c.lineWidth = 2; c.beginPath(); c.moveTo(440, 300); c.lineTo(220, 240); c.moveTo(583, 300); c.lineTo(560, 300); c.stroke();
+    if (mode === 2) { for (let i = 0; i < 6; i++) { const p = (t * .5 + i / 6) % 1; c.fillStyle = '#FFD84D'; c.beginPath(); c.arc(440 - p * 220, 300 - p * 60, 6, 0, 7); c.fill(); } c.strokeStyle = 'rgba(255,216,77,.8)'; c.lineWidth = 3; for (let i = 0; i < 3; i++) { c.beginPath(); c.moveTo(700, 90); c.lineTo(470 + i * 50, 300); c.stroke(); } TXT(c, '남는 전기 → 배터리에 저장', 520, 205, { s: 15, c: '#137A3A' }); }
+    // 3 사회적 연결망
+    BOX(c, 610, 230, 170, 150, '#6A3DB8'); BOX(c, 618, 238, 154, 134, mode === 3 ? '#2B1B5A' : '#4A2E8A');
+    if (mode === 3) { const A = [['서울', '#FFB23E'], ['부산', '#7CE0FF'], ['제주', '#FF8FB1']]; A.forEach(([n, col], i) => { const ax = 645 + i * 50, ay = 330 + Math.sin(T * 3 + i) * 4; BOX(c, ax - 12, ay - 40, 24, 30, col); BOX(c, ax - 10, ay - 62, 20, 20, '#F0C29A'); BOX(c, ax - 12, ay - 56, 24, 8, '#1B2230'); TXT(c, n, ax, ay + 4, { s: 12, c: '#fff' }); }); TXT(c, '가상 회의실', 695, 256, { s: 14, c: '#FFE58A' }); }
+    else TXT(c, 'VR', 695, 305, { s: 26, c: '#fff' });
+    // 4 맞춤 서비스
+    const ux = 730; blockKid(c, ux - 40, GY + 6, 0, { s: .5 }); RR(c, ux - 20, 120, 64, 100, 10); c.fillStyle = '#1B2230'; c.fill(); BOX(c, ux - 14, 128, 52, 84, mode === 4 ? '#FFF3C4' : '#DCE4F5');
+    if (mode === 4) { TXT(c, '추천', ux + 12, 142, { s: 12, c: '#B85E00' }); ['⚽ 축구화', '📘 과학책', '🎧 음악'].forEach((s, i) => TXT(c, s, ux + 12, 162 + i * 18, { s: 10 })); bubble(c, ux - 100, 190, 170, 48, '#FFFFFF', '#B85E00'); TXT(c, '내 취향에 딱!', ux - 100, 166, { s: 15, c: '#B85E00' }); }
+    if (mode >= 0) { const [ax, ay, aw, ah] = AREA[mode === 4 ? 4 : mode]; if (mode !== 4) { c.fillStyle = 'rgba(15,20,32,.45)'; c.beginPath(); c.rect(0, 0, W, H); c.rect(ax + aw, ay, -aw, ah); c.fill('evenodd'); c.strokeStyle = '#FFE58A'; c.lineWidth = 4; c.strokeRect(ax, ay, aw, ah); } }
+    else { RR(c, W / 2 - 200, 14, 400, 44, 10); c.fillStyle = 'rgba(27,34,48,.8)'; c.fill(); TXT(c, '오른쪽 버튼을 눌러 미래 모습을 확인해요', W / 2, 36, { s: 18, c: '#fff' }); }
+  }
+  runLoop(cv, draw);
+})();
+
+// ---------- D1-17 직업의 변화 ----------
+(() => {
+  const cv = $('jobCv'); if (!cv) return; const c = cv.getContext('2d'), W = 1192, H = 250, GY = 210;
+  let era = 0, t0 = performance.now();
+  const BOARD = [
+    [['버스 안내원', '버스 문 앞에서 요금을 받고 정류장을 알려 주었어요.', '#3A4256'], ['생각해 보기', '지금 버스에는 안내원이 있나요? 누가 그 일을 대신할까요?', '#2350C8']],
+    [['사라진 직업 · 버스 안내원', '교통카드 단말기와 자동 안내 방송(소프트웨어)이 그 일을 대신해요.', '#D0261E'], ['왜 사라졌을까?', '소프트웨어 발전으로 직업의 형태가 바뀌었기 때문이에요. (p.20)', '#3A4256']],
+    [['빅데이터 전문가', '많은 데이터를 분석해 의미 있는 정보를 찾아요.', '#2350C8'], ['3D 프린팅 모델러', '3D 프린터로 출력할 입체 모형을 설계해요.', '#0A7F72'], ['인공지능 개발자', '스스로 판단하는 인공지능 프로그램을 만들어요.', '#6A3DB8']],
+    [['메타버스 크리에이터', '메타버스에서 가상의 상품, 공간, 게임을 제작해 판매해요.', '#6A3DB8'], ['융복합 문화 기획자', '미디어 아트 같은 창작을 첨단 기술과 연계해 실감 콘텐츠를 만들어요.', '#B85E00'], ['감성 인식 기술 전문가', '인간의 감정을 컴퓨터가 인지하도록 센서·감성 신호 기술을 개발해요.', '#B8336F'], ['원격 진료 코디네이터', '화상 상담으로 환자 정보를 파악해 의사에게 전달해요.', '#0A7F72']],
+  ];
+  const setEra = e => { era = e; t0 = performance.now(); cv.closest('.slide').querySelectorAll('#eraTabs button').forEach(b => b.setAttribute('aria-pressed', +b.dataset.e === e)); $('jobBoard').style.gridTemplateColumns = `repeat(${BOARD[e].length},1fr)`; $('jobBoard').innerHTML = BOARD[e].map(([n, d, col], i) => `<div class="job" style="border-color:${col};animation-delay:${i * .25}s"><b style="color:${col}">${n}</b><span>${d}</span></div>`).join(''); SND.pop(); };
+  cv.closest('.slide').querySelectorAll('#eraTabs button').forEach(b => b.addEventListener('click', () => setEra(+b.dataset.e)));
+  setEra(0);
+  const desk = (x, label, col, T, k) => {
+    BOX(c, x - 90, GY - 60, 180, 12, '#8A5A33'); BOX(c, x - 80, GY - 48, 10, 48, '#744A28'); BOX(c, x + 70, GY - 48, 10, 48, '#744A28');
+    RR(c, x - 60, GY - 150, 120, 84, 8); c.fillStyle = '#1B2230'; c.fill(); BOX(c, x - 52, GY - 142, 104, 68, '#0F1730');
+    if (k === 'data') { for (let i = 0; i < 6; i++) { const h = 10 + Math.abs(Math.sin(T * 2 + i)) * 45; BOX(c, x - 44 + i * 16, GY - 78 - h, 10, h, col); } }
+    if (k === '3d') { const lay = Math.floor((T * 3) % 12); for (let i = 0; i < lay; i++) BOX(c, x - 20 + i, GY - 80 - i * 4, 40 - i * 2, 4, col); BOX(c, x - 40 + Math.sin(T * 6) * 30, GY - 135, 14, 8, '#FFE58A'); }
+    if (k === 'ai') { const P = [[-35, -125], [-35, -95], [0, -135], [0, -110], [0, -85], [35, -110]]; c.strokeStyle = 'rgba(124,224,255,.5)'; c.lineWidth = 1.5; P.slice(0, 2).forEach(a => P.slice(2, 5).forEach(b => { c.beginPath(); c.moveTo(x + a[0], GY + a[1]); c.lineTo(x + b[0], GY + b[1]); c.stroke(); })); P.slice(2, 5).forEach(a => { c.beginPath(); c.moveTo(x + a[0], GY + a[1]); c.lineTo(x + 35, GY - 110); c.stroke(); }); P.forEach((p, i) => { c.fillStyle = Math.floor(T * 4) % 6 === i ? '#FFE58A' : col; c.beginPath(); c.arc(x + p[0], GY + p[1], 6, 0, 7); c.fill(); }); }
+    if (k === 'meta') { BOX(c, x - 10, GY - 120, 20, 26, '#FFB23E'); BOX(c, x - 8, GY - 136, 16, 16, '#F0C29A'); const r = (T * 60) % 360; c.save(); c.translate(x + 30, GY - 115); c.rotate(r * Math.PI / 180); BOX(c, -8, -8, 16, 16, col); c.restore(); BOX(c, x - 46, GY - 100, 18, 18, '#7CE0FF'); }
+    if (k === 'art') { for (let i = 0; i < 5; i++) { c.strokeStyle = `hsl(${(T * 80 + i * 60) % 360},90%,60%)`; c.lineWidth = 3; c.beginPath(); for (let q = 0; q <= 100; q += 5) c.lineTo(x - 50 + q, GY - 108 + Math.sin(q / 12 + T * 3 + i) * (8 + i * 3)); c.stroke(); } }
+    if (k === 'emo') { c.fillStyle = '#F0C29A'; c.beginPath(); c.arc(x - 20, GY - 108, 22, 0, 7); c.fill(); const sm = Math.sin(T * 1.5) > 0; BOX(c, x - 28, GY - 114, 4, 4, '#1B2230'); BOX(c, x - 16, GY - 114, 4, 4, '#1B2230'); c.strokeStyle = '#1B2230'; c.lineWidth = 2; c.beginPath(); c.arc(x - 20, GY - (sm ? 104 : 94), 8, sm ? 0.2 : 3.4, sm ? 2.9 : 6); c.stroke(); TXT(c, sm ? '기쁨 87%' : '슬픔 72%', x + 26, GY - 108, { s: 12, c: sm ? '#7CE07C' : '#7CE0FF' }); }
+    if (k === 'doc') { BOX(c, x - 50, GY - 138, 46, 60, '#2A3A5E'); BOX(c, x + 4, GY - 138, 46, 60, '#2A3A5E'); c.fillStyle = '#F0C29A'; [x - 27, x + 27].forEach(fx => { c.beginPath(); c.arc(fx, GY - 116, 10, 0, 7); c.fill(); }); BOX(c, x + 17, GY - 104, 20, 18, '#FFFFFF'); BOX(c, x - 37, GY - 104, 20, 18, '#FFB23E'); if (Math.sin(T * 5) > 0) TXT(c, '화상 상담 중', x, GY - 154, { s: 12, c: '#7CE07C' }); }
+    TXT(c, label, x, GY + 22, { s: 17, c: col });
+  };
+  function bus(x, old, T){
+    RR(c, x - 200, GY - 140, 400, 120, 16); c.fillStyle = old ? '#3E6FB0' : '#4FB06A'; c.fill(); BOX(c, x - 200, GY - 70, 400, 10, old ? '#F2F2F2' : '#2E7D46');
+    for (let i = 0; i < 4; i++) BOX(c, x - 180 + i * 70, GY - 125, 56, 46, '#CDEBFF'); BOX(c, x + 120, GY - 125, 50, 105, old ? '#2C548A' : '#2E7D46');
+    c.fillStyle = '#1B2230'; [x - 130, x + 130].forEach(wx => { c.beginPath(); c.arc(wx, GY - 18, 22, 0, 7); c.fill(); });
+    if (old) { blockKid(c, x + 145, GY - 20, 0, { s: .62, armUp: Math.sin(T * 3) > 0 }); bubble(c, x + 145, GY - 120, 210, 46, '#FFFFFF', '#1B2230'); TXT(c, '요금 받습니다! 다음은 시장 앞~', x + 145, GY - 143, { s: 13 }); TXT(c, '1970년대', x - 120, GY - 158, { s: 18, c: '#1B2230' }); }
+    else { BOX(c, x + 128, GY - 100, 22, 30, '#1B2230'); BOX(c, x + 132, GY - 95, 14, 9, Math.sin(T * 6) > 0 ? '#7CE07C' : '#2E7D46'); TXT(c, '삑!', x + 139, GY - 112, { s: 15, c: '#137A3A' }); BOX(c, x - 60, GY - 165, 200, 28, '#1B2230'); TXT(c, '다음 정류장: 시장 앞', x + 40, GY - 151, { s: 14, c: '#FFB23E' }); c.globalAlpha = .25; blockKid(c, x + 250, GY + 4, 0, { s: .62 }); c.globalAlpha = 1; c.strokeStyle = '#D0261E'; c.lineWidth = 5; c.beginPath(); c.moveTo(x + 220, GY - 90); c.lineTo(x + 280, GY - 10); c.moveTo(x + 280, GY - 90); c.lineTo(x + 220, GY - 10); c.stroke(); TXT(c, '버스 안내원', x + 250, GY + 20, { s: 14, c: '#D0261E' }); TXT(c, '지금', x - 140, GY - 158, { s: 18 }); }
+  }
+  function draw(now){
+    const t = (now - t0) / 1000, T = now / 1000;
+    const g = c.createLinearGradient(0, 0, 0, GY); g.addColorStop(0, era < 2 ? (era === 0 ? '#F4E3C1' : '#9FD6FA') : '#E9EEF8'); g.addColorStop(1, '#FFFFFF'); c.fillStyle = g; c.fillRect(0, 0, W, H);
+    BOX(c, 0, GY, W, H - GY, era < 2 ? '#7F889C' : '#C9D1DF');
+    if (era < 2) { for (let i = 0; i < 14; i++) BOX(c, ((i * 100 - t * 80) % 1300 + 1300) % 1300 - 100, GY + 18, 50, 5, '#fff'); bus(560 + Math.sin(T) * 6, era === 0, T); }
+    if (era === 2) { desk(250, '빅데이터 전문가', '#2350C8', T, 'data'); desk(596, '3D 프린팅 모델러', '#0A7F72', T, '3d'); desk(942, '인공지능 개발자', '#6A3DB8', T, 'ai'); }
+    if (era === 3) { desk(160, '메타버스 크리에이터', '#6A3DB8', T, 'meta'); desk(450, '융복합 문화 기획자', '#B85E00', T, 'art'); desk(740, '감성 인식 기술 전문가', '#B8336F', T, 'emo'); desk(1030, '원격 진료 코디네이터', '#0A7F72', T, 'doc'); }
+  }
+  runLoop(cv, draw);
+})();
+
+// 활동 타이머
+stage.querySelectorAll('.timer').forEach(t => {
+  const total = +t.dataset.s; let left = total, id = null;
+  const show = () => { t.textContent = '⏱ ' + Math.floor(left / 60) + ':' + String(left % 60).padStart(2, '0'); };
+  t.addEventListener('click', () => {
+    if (id) { clearInterval(id); id = null; t.classList.remove('run'); return; }
+    if (left <= 0) { left = total; t.classList.remove('end'); show(); return; }
+    t.classList.add('run');
+    id = setInterval(() => { left--; show(); if (left <= 0) { clearInterval(id); id = null; t.classList.remove('run'); t.classList.add('end'); t.textContent = '⏱ 끝!'; } }, 1000);
+  });
+});
+const slides = [...stage.querySelectorAll('.slide')];
+let cur = 0;
+function go(i){
+  const prev = cur;
+  cur = Math.max(0, Math.min(slides.length - 1, i));
+  slides.forEach((s, j) => s.hidden = j !== cur);
+  if (prev !== cur || !go.ok) { if (go.ok) slides[prev].dispatchEvent(new Event('hide')); slides[cur].dispatchEvent(new Event('show')); go.ok = true; }
+  if (slides[cur]._fit) slides[cur]._fit();
+  $('dots').querySelectorAll('i').forEach((d, j) => d.classList.toggle('on', j === cur));
+  $('pg').textContent = `${cur + 1} / ${slides.length}`;
+  $('prev').disabled = cur === 0; $('next').disabled = cur === slides.length - 1;
+  try { history.replaceState(null, '', '#' + (cur + 1)); } catch (e) {}
+}
+$('dots').innerHTML = slides.map((s, j) => `<i class="${s.classList.contains('oxq') ? 'q' : ''}" title="${j + 1}. ${s.dataset.t}" data-i="${j}"></i>`).join('');
+$('dots').querySelectorAll('i').forEach(d => d.addEventListener('click', () => go(+d.dataset.i)));
+$('prev').addEventListener('click', () => go(cur - 1)); $('next').addEventListener('click', () => go(cur + 1));
+addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || [...stage.querySelectorAll('.ov')].some(o => !o.hidden)) return;
+  if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); go(cur + 1); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(cur - 1); }
+});
+function fit(){ const k = Math.min((innerWidth - 16) / 1280, (innerHeight - 16) / 720); stage.style.transform = `translate(-50%,-50%) scale(${k})`; }
+addEventListener('resize', fit); fit();
+const h = parseInt(location.hash.slice(1)); go(h > 0 ? h - 1 : 0);
+})();
+</script>
+</body>
+</html>
