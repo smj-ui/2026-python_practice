@@ -60,6 +60,8 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);over
 .card.on.yes{border-color:var(--green);background:var(--f-green)} .card .k.yes{background:var(--green)}
 .card.on.part{border-color:var(--orange);background:var(--f-orange)} .card .k.part{background:var(--orange)}
 .card.on.not{border-color:#56607A;background:var(--f-grey)} .card .k.not{background:#3A4256}
+.card .cn{color:var(--blue);font-weight:900;margin-right:2px}
+.xb{font-size:15px;font-weight:900;background:#FFF3C4;border:1.5px solid #E0B400;border-radius:4px;padding:0 6px;white-space:nowrap}
 .card .xtra{position:absolute;top:-11px;right:10px;border:1.5px solid #E0B400;font-size:13px;font-weight:900;background:#FFF3C4;color:#1B2230;border-radius:4px;padding:1px 6px}
 .sm-wrap{display:grid;grid-template-columns:330px 830px;gap:18px;margin-top:10px;align-items:start}
 .sm-phone{position:relative;width:310px;height:482px;border-radius:40px;background:#111827;padding:12px;box-sizing:border-box;box-shadow:0 10px 30px rgba(0,0,0,.35)}
@@ -332,14 +334,14 @@ h2.tt{margin:12px 0 0;font-size:40px;font-weight:900;letter-spacing:-.5px}
   <h2 class="tt">어느 쪽 해결 방법일까?</h2>
   <div class="qbox" style="font-size:22px;margin-top:12px"><b>문제</b> 퇴근 시간 교통량이 많아 교통 체증으로 사람들이 불편함을 겪음. <span style="white-space:nowrap">(교과서 p.24 탐구 활동 5)</span></div>
   <div class="cards" style="grid-template-columns:repeat(4,1fr);margin-top:14px;gap:12px">
-    <button class="card gen" style="font-size:22px;min-height:112px">도로 확장 공사<span class="k gen">일반적 해결</span></button>
-    <button class="card fus" style="font-size:22px;min-height:112px">센서·카메라·GPS로<br>교통 상황 실시간 수집<span class="k fus">소프트웨어 융합</span></button>
-    <button class="card gen" style="font-size:22px;min-height:112px">교통경찰 투입<span class="k gen">일반적 해결</span></button>
-    <button class="card fus" style="font-size:22px;min-height:112px">데이터 분석으로<br>교통 패턴 예측<span class="k fus">소프트웨어 융합</span></button>
-    <button class="card fus" style="font-size:22px;min-height:112px">교통 신호를<br>자동으로 조절<span class="k fus">소프트웨어 융합</span></button>
-    <button class="card gen" style="font-size:22px;min-height:112px">대중교통 배차와<br>수 확대<span class="k gen">일반적 해결</span></button>
-    <button class="card fus" style="font-size:22px;min-height:112px">실시간 교통 정보<br>앱 제공<span class="k fus">소프트웨어 융합</span></button>
-    <button class="card gen" style="font-size:22px;min-height:112px">야간 공사에<br>많은 인력 투입<span class="k gen">일반적 해결</span></button>
+    <button class="card gen" style="font-size:22px;min-height:112px"><span><b class="cn">㉠</b> 도로 확장 공사</span><span class="k gen">일반적 해결</span></button>
+    <button class="card fus" style="font-size:22px;min-height:112px"><span><b class="cn">㉡</b> 센서·카메라·GPS로<br>교통 상황 실시간 수집</span><span class="k fus">소프트웨어 융합</span></button>
+    <button class="card gen" style="font-size:22px;min-height:112px"><span><b class="cn">㉢</b> 교통경찰 투입</span><span class="k gen">일반적 해결</span></button>
+    <button class="card fus" style="font-size:22px;min-height:112px"><span><b class="cn">㉣</b> 데이터 분석으로<br>교통 패턴 예측</span><span class="k fus">소프트웨어 융합</span></button>
+    <button class="card fus" style="font-size:22px;min-height:112px"><span><b class="cn">㉤</b> 교통 신호를<br>자동으로 조절</span><span class="k fus">소프트웨어 융합</span></button>
+    <button class="card gen" style="font-size:22px;min-height:112px"><span><b class="cn">㉥</b> 대중교통 배차와<br>수 확대</span><span class="k gen">일반적 해결</span></button>
+    <button class="card fus" style="font-size:22px;min-height:112px"><span><b class="cn">㉦</b> 실시간 교통 정보<br>앱 제공</span><span class="k fus">소프트웨어 융합</span></button>
+    <button class="card gen" style="font-size:22px;min-height:112px"><span><b class="cn">㉧</b> 야간 공사에<br>많은 인력 투입</span><span class="k gen">일반적 해결</span></button>
   </div>
   <div class="grid" style="grid-template-columns:1fr 1fr;margin-top:12px;gap:12px">
     <div class="row" style="grid-template-columns:auto 1fr;background:var(--f-blue);font-size:21px"><b style="color:var(--blue)">장점</b><span>교통 상황을 <b class="bl" tabindex="0">실시간</b>으로 파악하고 대응</span></div>

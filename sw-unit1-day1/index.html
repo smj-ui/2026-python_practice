@@ -60,6 +60,8 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);over
 .card.on.yes{border-color:var(--green);background:var(--f-green)} .card .k.yes{background:var(--green)}
 .card.on.part{border-color:var(--orange);background:var(--f-orange)} .card .k.part{background:var(--orange)}
 .card.on.not{border-color:#56607A;background:var(--f-grey)} .card .k.not{background:#3A4256}
+.card .cn{color:var(--blue);font-weight:900;margin-right:2px}
+.xb{font-size:15px;font-weight:900;background:#FFF3C4;border:1.5px solid #E0B400;border-radius:4px;padding:0 6px;white-space:nowrap}
 .card .xtra{position:absolute;top:-11px;right:10px;border:1.5px solid #E0B400;font-size:13px;font-weight:900;background:#FFF3C4;color:#1B2230;border-radius:4px;padding:1px 6px}
 .sm-wrap{display:grid;grid-template-columns:330px 830px;gap:18px;margin-top:10px;align-items:start}
 .sm-phone{position:relative;width:310px;height:482px;border-radius:40px;background:#111827;padding:12px;box-sizing:border-box;box-shadow:0 10px 30px rgba(0,0,0,.35)}
@@ -433,12 +435,12 @@ h2.tt{margin:12px 0 0;font-size:40px;font-weight:900;letter-spacing:-.5px}
   <h2 class="tt" style="font-size:36px">예전에는? 지금은? 무엇이 바꿨을까?</h2>
   <p class="lead" style="margin-top:4px">카드를 누르면 ‘지금’ 모습이 나와요. 뒤집기 전에 “어떤 소프트웨어가 바꿨을까?” 먼저 말해 봐요.</p>
   <div class="flips" style="margin-top:12px">
-    <button class="flip"><div class="fr"><b class="fld" style="background:#2350C8">교육</b><p>교실에 가야만 수업을 듣고, 종이 교과서로만 공부했어요.</p><span class="q">지금은? ↻</span></div><div class="bk"><b class="fld" style="background:#2350C8">교육</b><p>언제 어디서나 온라인 강의, 데이터 분석으로 맞춤형 피드백</p><span class="sw">온라인 강의 · 디지털 교과서 · 학습 관리 시스템(LMS)</span></div></button>
-    <button class="flip"><div class="fr"><b class="fld" style="background:#0A7F72">금융</b><p>은행 문이 열려 있을 때 창구에서 줄 서서 돈을 보냈어요.</p><span class="q">지금은? ↻</span></div><div class="bk"><b class="fld" style="background:#0A7F72">금융</b><p>24시간 언제든 송금, 고객 맞춤형 금융 서비스</p><span class="sw">인터넷 뱅킹 · 인공지능 금융 도우미</span></div></button>
-    <button class="flip"><div class="fr"><b class="fld" style="background:#B85E00">상업</b><p>가게에 직접 가서 물건을 고르고 현금으로 계산했어요.</p><span class="q">지금은? ↻</span></div><div class="bk"><b class="fld" style="background:#B85E00">상업</b><p>원하는 시간에 주문, 내 취향에 맞는 상품 추천</p><span class="sw">온라인 쇼핑몰 · 모바일 결제 · 추천 시스템</span></div></button>
-    <button class="flip"><div class="fr"><b class="fld" style="background:#6A3DB8">교통</b><p>종이 지도를 펴 놓고 길을 찾고, 막히는 길도 몰랐어요.</p><span class="q">지금은? ↻</span></div><div class="bk"><b class="fld" style="background:#6A3DB8">교통</b><p>가장 빠른 길 안내, 도착 시간 예측, 자율주행</p><span class="sw">GPS 내비게이션 · 실시간 교통 정보</span></div></button>
+    <button class="flip"><div class="fr"><b class="fld" style="background:#2350C8">교육</b><p>교실에 가야만 수업을 듣고, 종이 교과서로만 공부했어요.</p><span class="q">지금은? ↻</span></div><div class="bk"><b class="fld" style="background:#2350C8">교육</b><p>언제 어디서나 온라인 강의, 데이터 분석으로 맞춤형 피드백</p><span class="sw">온라인 강의·학습 관리 시스템</span></div></button>
+    <button class="flip"><div class="fr"><b class="fld" style="background:#0A7F72">금융</b><p>은행 문이 열려 있을 때 창구에서 줄 서서 돈을 보냈어요.</p><span class="q">지금은? ↻</span></div><div class="bk"><b class="fld" style="background:#0A7F72">금융</b><p>24시간 언제든 송금, 고객 맞춤형 금융 서비스</p><span class="sw">인터넷 뱅킹</span></div></button>
+    <button class="flip"><div class="fr"><b class="fld" style="background:#B85E00">상업</b><p>가게에 직접 가서 물건을 고르고 현금으로 계산했어요.</p><span class="q">지금은? ↻</span></div><div class="bk"><b class="fld" style="background:#B85E00">상업</b><p>원하는 시간에 주문, 내 취향에 맞는 상품 추천</p><span class="sw">온라인 쇼핑몰·모바일 결제</span></div></button>
+    <button class="flip"><div class="fr"><b class="fld" style="background:#6A3DB8">교통</b><p>종이 지도를 펴 놓고 길을 찾고, 막히는 길도 몰랐어요.</p><span class="q">지금은? ↻</span></div><div class="bk"><b class="fld" style="background:#6A3DB8">교통</b><p>가장 빠른 길 안내, 도착 시간 예측, 자율주행</p><span class="sw">GPS 내비게이션</span></div></button>
     <button class="flip"><div class="fr"><b class="fld" style="background:#137A3A">농업</b><p>농부가 매일 밭에 나가 온도와 물을 직접 살폈어요.</p><span class="q">지금은? ↻</span></div><div class="bk"><b class="fld" style="background:#137A3A">농업</b><p>멀리서도 생육 환경을 원격·자동으로 제어, 노동력 감소</p><span class="sw">스마트팜</span></div></button>
-    <button class="flip"><div class="fr"><b class="fld" style="background:#B8336F">의료</b><p>종이 차트에 기록하고, 사진은 의사 눈으로만 판단했어요.</p><span class="q">지금은? ↻</span></div><div class="bk"><b class="fld" style="background:#B8336F">의료</b><p>환자 상태를 정확히 파악, 로봇 수술과 인공지능 진단</p><span class="sw">전자 의료 기록 · 인공지능 영상 분석</span></div></button>
+    <button class="flip"><div class="fr"><b class="fld" style="background:#B8336F">의료</b><p>종이 차트에 기록하고, 사진은 의사 눈으로만 판단했어요.</p><span class="q">지금은? ↻</span></div><div class="bk"><b class="fld" style="background:#B8336F">의료</b><p>환자 상태를 정확히 파악, 로봇 수술과 인공지능 진단</p><span class="sw">전자 의료 기록·영상 분석</span></div></button>
   </div>
 </section>
 
@@ -469,15 +471,15 @@ h2.tt{margin:12px 0 0;font-size:40px;font-weight:900;letter-spacing:-.5px}
   <h2 class="tt" style="font-size:34px">자율주행 자동차가 우리 동네에 온다면?</h2>
   <p class="lead" style="margin-top:4px">p.12 탐구 활동 1 사례 7장 + 보충 2장 · 모둠별로 카드가 <b>사회·환경·경제</b> 중 어느 측면인지, <b style="color:var(--blue)">긍정</b>인지 <b style="color:var(--pen)">부정</b>인지 정한 뒤 눌러서 확인해요.</p>
   <div class="cards" style="grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px">
-    <button class="card av pos" style="font-size:20px;min-height:88px">교통사고가 줄어 다치는 사람이 줄어든다<span class="k pos">사회 · 긍정</span></button>
-    <button class="card av pos" style="font-size:20px;min-height:88px">장애인·노인도 혼자 편하게 이동한다<span class="k pos">사회 · 긍정</span></button>
-    <button class="card av neg" style="font-size:20px;min-height:88px">해킹되면 차량이 위험하게 움직일 수 있다<span class="k neg">사회 · 부정</span><span class="xtra">교과서 밖</span></button>
-    <button class="card av pos" style="font-size:20px;min-height:88px">실시간 교통 상황 분석으로 효율적으로 주행한다<span class="k pos">환경 · 긍정</span></button>
-    <button class="card av pos" style="font-size:20px;min-height:88px">차끼리 정보를 나눠 주행 시간과 대기오염이 줄어든다<span class="k pos">환경 · 긍정</span></button>
-    <button class="card av neg" style="font-size:20px;min-height:88px">운전을 하던 직업이 줄어든다<span class="k neg">경제 · 부정</span></button>
-    <button class="card av pos" style="font-size:20px;min-height:88px">자율주행 관련 새 일자리가 생긴다<span class="k pos">경제 · 긍정</span></button>
-    <button class="card av pos" style="font-size:20px;min-height:88px">연료 비용이 절감된다<span class="k pos">경제 · 긍정</span></button>
-    <button class="card av neg" style="font-size:20px;min-height:88px">사고가 나면 누구 책임인지 애매하다<span class="k neg">사회 · 부정</span><span class="xtra">교과서 밖</span></button>
+    <button class="card av pos" style="font-size:20px;min-height:88px"><span><b class="cn">①</b> 교통사고가 줄어 다치는 사람이 줄어든다</span><span class="k pos">사회 · 긍정</span></button>
+    <button class="card av pos" style="font-size:20px;min-height:88px"><span><b class="cn">②</b> 장애인·노인도 혼자 편하게 이동한다</span><span class="k pos">사회 · 긍정</span></button>
+    <button class="card av neg" style="font-size:20px;min-height:88px"><span><b class="cn">③</b> 해킹되면 차량이 위험하게 움직일 수 있다</span><span class="k neg">사회 · 부정</span><span class="xtra">교과서 밖</span></button>
+    <button class="card av pos" style="font-size:20px;min-height:88px"><span><b class="cn">④</b> 실시간 교통 상황 분석으로 효율적으로 주행한다</span><span class="k pos">환경 · 긍정</span></button>
+    <button class="card av pos" style="font-size:20px;min-height:88px"><span><b class="cn">⑤</b> 차끼리 정보를 나눠 주행 시간과 대기오염이 줄어든다</span><span class="k pos">환경 · 긍정</span></button>
+    <button class="card av neg" style="font-size:20px;min-height:88px"><span><b class="cn">⑥</b> 운전을 하던 직업이 줄어든다</span><span class="k neg">경제 · 부정</span></button>
+    <button class="card av pos" style="font-size:20px;min-height:88px"><span><b class="cn">⑦</b> 자율주행 관련 새 일자리가 생긴다</span><span class="k pos">경제 · 긍정</span></button>
+    <button class="card av pos" style="font-size:20px;min-height:88px"><span><b class="cn">⑧</b> 연료 비용이 절감된다</span><span class="k pos">경제 · 긍정</span></button>
+    <button class="card av neg" style="font-size:20px;min-height:88px"><span><b class="cn">⑨</b> 사고가 나면 누구 책임인지 애매하다</span><span class="k neg">사회 · 부정</span><span class="xtra">교과서 밖</span></button>
   </div>
   <div class="row" style="grid-template-columns:auto 1fr;margin-top:10px;font-size:21px;background:var(--f-green)"><b style="color:var(--green)">모둠 미션</b><span>부정적 영향 하나를 골라 줄이는 방법을 정해 발표해요. 예) 해킹 → <b class="bl" tabindex="0">보안 강화</b>, 직업 감소 → <b class="bl" tabindex="0">일자리 변화에 대비하는 정책</b> (p.13)</span></div>
 </section>
@@ -509,8 +511,8 @@ h2.tt{margin:12px 0 0;font-size:40px;font-weight:900;letter-spacing:-.5px}
       <svg id="netSvg" viewBox="0 0 530 330" width="530" height="330" role="img" aria-label="기후 변화, 가뭄과 홍수, 식량 부족, 빈곤, 질병, 교육 기회 부족, 불평등이 서로 연결된 그림"></svg>
     </div>
     <div style="display:grid;gap:10px;align-content:start">
-      <div class="step"><b>1</b><span>기후 변화, 빈곤, 환경 오염은 <b>한 나라의 노력만으로는</b> 해결하기 어려워요. (p.17)</span></div>
-      <div class="step"><b>2</b><span>그래서 <b>2015년 유엔</b>에서 세계 여러 나라가 함께 지킬 목표를 정했어요.</span></div>
+      <div class="step"><b>1</b><span>기후 변화, 경제 불평등, 환경 오염 같은 문제는 광범위한 분야에 영향을 미쳐요 <span class="pp" style="margin:0">p.17</span><br>→ <b class="bl" tabindex="0">한 나라</b>의 노력만으로는 해결하기 어려워요. <span class="xb">교과서 밖 보충</span></span></div>
+      <div class="step"><b>2</b><span>그래서 <b>2015년 유엔</b>에서 세계 여러 나라가 함께 지킬 목표를 정했어요. <span class="xb">교과서 밖 보충</span></span></div>
       <div class="step"><b>3</b><span><b class="bl" tabindex="0">2030</b>년까지 달성할 공동 목표: <b class="bl" tabindex="0">17</b>개 목표, <b class="bl" tabindex="0">169</b>개 세부 목표</span></div>
       <div class="step"><b>4</b><span>슬로건: ‘단 한 사람도 <b class="bl" tabindex="0">소외되지 않는 것</b>’</span></div>
       <div class="step"><b>5</b><span>5개 영역: 인간, 지구, 번영, 평화, <b class="bl" tabindex="0">파트너십</b> · 모든 국가, 조직, <b class="bl" tabindex="0">개인</b>이 참여</span></div>
