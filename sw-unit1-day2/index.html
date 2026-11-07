@@ -203,6 +203,25 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);over
 .job{border:3px solid;border-radius:10px;padding:8px 12px;background:#fff;display:grid;gap:3px;font-size:18px;line-height:1.4;animation:jobIn .5s both}
 .job b{font-size:20px}
 @keyframes jobIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.simgrid{display:grid;grid-template-columns:780px 1fr;gap:12px;margin-top:8px}
+.simgrid canvas{width:780px;border-radius:10px;display:block;cursor:pointer}
+.simside{display:flex;flex-direction:column;gap:9px;padding:12px 14px;overflow:hidden}
+.simbtns{display:flex;flex-wrap:wrap;gap:7px}
+.simbtns button{font:inherit;font-size:16px;font-weight:900;padding:5px 10px;border-radius:10px;border:2.5px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer}
+.simbtns button.on{background:var(--ink);color:#fff}
+.simbtns button.pro{border-color:var(--blue);color:var(--blue)} .simbtns button.pro.on{background:var(--blue);color:#fff}
+.simbtns button.con{border-color:var(--pen);color:var(--pen)} .simbtns button.con.on{background:var(--pen);color:#fff}
+.simbtns button.gen{border-color:#56607A}
+.simbtns button:focus-visible,.nmbtn:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.simmsg{font-size:18px;line-height:1.45;color:var(--ink)}
+.simmsg.plain{font-size:16px;line-height:1.42;background:#fff;border-radius:8px;padding:6px 10px;border:2px solid var(--line)}
+.simmsg .pp{font-size:15px;margin-left:4px}
+.simmsg hr.sep{border:0;border-top:2px dashed var(--line);margin:7px 0}
+.trmsg{margin-top:8px;background:var(--f-orange);border-radius:10px;padding:7px 16px;font-size:19px;line-height:1.45;min-height:56px}
+.nmrow{display:flex;align-items:center;gap:10px}
+.fldb{font-size:21px;color:#fff;background:var(--orange);padding:3px 14px;border-radius:8px;white-space:nowrap}
+.nmbtn{font:inherit;font-size:18px;font-weight:900;border:2.5px dashed var(--pen);background:var(--f-red);color:var(--pen);border-radius:10px;padding:5px 12px;cursor:pointer}
+.nmbtn.on{border-style:solid;background:#fff}
 .ws.listen{color:var(--ink);border-color:var(--line);background:var(--f-grey)}
 .all{font:inherit;font-size:16px;font-weight:700;padding:6px 14px;border-radius:999px;border:2px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer}
 .all[aria-pressed=true]{background:var(--ink);color:#fff}
@@ -314,6 +333,20 @@ h2.tt{margin:12px 0 0;font-size:40px;font-weight:900;letter-spacing:-.5px}
   <div class="box c" style="margin-top:16px;font-size:24px">여러 분야의 기술과 지식을 소프트웨어로 합치는 것 = <b class="bl" tabindex="0">소프트웨어 융합</b></div>
 </section>
 
+<!-- D2 융합 크래프팅 -->
+<section class="slide s3" data-t="융합 크래프팅" data-day="2">
+  <div class="hd"><span class="tag">3. 소프트웨어 융합</span><span class="pref">교과서 p.22~23</span><div class="tabs" id="cfTabs"><button data-k="nav" aria-pressed="true">레시피 ① 길 안내 앱 (p.22)</button><button data-k="ai" aria-pressed="false">레시피 ② 지능 정보 기술 (p.23)</button></div><span class="ws listen">보고 이해하기</span></div>
+  <h2 class="tt" style="font-size:34px">기술 블록을 조합하면? 소프트웨어 융합 작업대</h2>
+  <div class="simgrid">
+    <canvas id="cfCv" width="780" height="450"></canvas>
+    <div class="tile simside">
+      <div class="simbtns"><button id="cfNext">▶ 재료 넣기</button><button class="pro" id="cfPro">👍 장점은 왜?</button><button class="con" id="cfCon">⚠ 단점은 왜?</button><button id="cfReset">↺ 처음</button></div>
+      <div class="simmsg" id="cfMsg"></div>
+    </div>
+  </div>
+</section>
+
+
 <!-- 18 융합 개념 -->
 <section class="slide s3" data-t="소프트웨어 융합" data-day="2">
   <div class="hd"><span class="tag">3. 소프트웨어 융합</span><span class="pref">교과서 p.23</span><button class="all">모두 보기</button><span class="ws">학습지 3-1 쓰기</span></div>
@@ -327,6 +360,19 @@ h2.tt{margin:12px 0 0;font-size:40px;font-weight:900;letter-spacing:-.5px}
   </div>
   <div class="tile" style="margin-top:12px;font-size:21px"><b>지능 정보 기술</b> = 인공지능 + 데이터 활용 기술(<b class="bl" tabindex="0">사물 인터넷</b>, 빅데이터, 클라우드, 모바일)</div>
 </section>
+
+<!-- D2 교통 체증 시뮬레이션 -->
+<section class="slide s3" data-t="교통 체증 시뮬레이션" data-day="2">
+  <div class="hd"><span class="tag">3. 소프트웨어 융합</span><span class="pref">교과서 p.23~24</span><span class="ws listen">보고 이해하기</span></div>
+  <h2 class="tt" style="font-size:32px;margin-top:8px">퇴근길 교통 체증, 소프트웨어 융합으로 풀어 보기</h2>
+  <div class="simbtns" id="trBtns" style="margin-top:8px">
+    <button data-m="0" class="on">🚗 퇴근 시간</button><button data-m="1">① 센서·카메라·GPS 수집</button><button data-m="2">② 데이터 분석·예측</button><button data-m="3">③ 신호 자동 조절</button><button data-m="4">④ 앱으로 안내</button>
+    <button data-m="pro" class="pro">👍 장점: 실시간 대응</button><button data-m="hack" class="con">⚠ 단점: 보안</button><button data-m="fix" class="con">⚠ 단점: 유지 보수</button><button data-m="gen" class="gen">🚧 비교: 일반적 해결</button>
+  </div>
+  <canvas id="trCv" width="1192" height="336" style="width:1192px;height:336px;border-radius:10px;display:block;margin-top:8px"></canvas>
+  <div class="simmsg trmsg" id="trMsg"></div>
+</section>
+
 
 <!-- 2차시 활동: 두 가지 해결 방법 -->
 <section class="slide s3" data-t="활동: 두 가지 해결 방법" data-day="2">
@@ -349,6 +395,23 @@ h2.tt{margin:12px 0 0;font-size:40px;font-weight:900;letter-spacing:-.5px}
   </div>
 </section>
 
+<!-- D2 융합 사례 시뮬레이션 -->
+<section class="slide s3" data-t="융합 사례 시뮬레이션" data-day="2">
+  <div class="hd"><span class="tag">3. 소프트웨어 융합</span><span class="pref">교과서 p.25~26</span><span class="ws listen">보고 이해하기</span></div>
+  <h2 class="tt" style="font-size:32px;margin-top:8px">소프트웨어 융합 사례, 직접 움직여 보기</h2>
+  <div class="tabs" id="csTabs" style="margin-top:8px"><button data-k="its" aria-pressed="true">🚦 교통</button><button data-k="bim">🏗 건축</button><button data-k="water">💧 환경</button><button data-k="wms">📦 물류</button><button data-k="med">🩺 의료</button><button data-k="var">⚽ 스포츠</button></div>
+  <div class="simgrid">
+    <canvas id="csCv" width="780" height="418"></canvas>
+    <div class="tile simside">
+      <div class="nmrow"><b class="fldb" id="csField">교통</b><button class="nmbtn" id="csName">이름은? 눌러서 확인</button></div>
+      <div class="simmsg plain" id="csPlain"></div>
+      <div class="simbtns" id="csBtns"></div>
+      <div class="simmsg" id="csMsg"></div>
+    </div>
+  </div>
+</section>
+
+
 <!-- 19 융합 사례 -->
 <section class="slide s3" data-t="융합 문제 해결 사례" data-day="2">
   <div class="hd"><span class="tag">3. 소프트웨어 융합</span><span class="pref">교과서 p.25~26</span><button class="all">모두 보기</button><span class="ws">학습지 3-3 쓰기</span></div>
@@ -362,6 +425,22 @@ h2.tt{margin:12px 0 0;font-size:40px;font-weight:900;letter-spacing:-.5px}
     <div class="row" style="grid-template-columns:90px 1fr 330px;font-size:22px"><b>스포츠</b>카메라 영상으로 경기 과정을 분석해 판정<b class="bl" tabindex="0">VAR (비디오 보조 심판)</b></div>
   </div>
   <p class="lead" style="margin-top:12px"><b>WMS는 창고, VAR은 경기 영상</b></p>
+</section>
+
+<!-- D2 학문 분야 시뮬레이션 -->
+<section class="slide s3" data-t="학문 분야 시뮬레이션" data-day="2">
+  <div class="hd"><span class="tag">3. 소프트웨어 융합</span><span class="pref">교과서 p.28~29</span><span class="ws listen">보고 이해하기</span></div>
+  <h2 class="tt" style="font-size:32px;margin-top:8px">학문 분야의 소프트웨어 융합, 시뮬레이션으로 보기</h2>
+  <div class="tabs" id="fdTabs" style="margin-top:8px"><button data-k="hum" aria-pressed="true">🗣 인문</button><button data-k="soc">🏯 사회</button><button data-k="sci">🌡 과학</button><button data-k="art">🎬 예술</button></div>
+  <div class="simgrid">
+    <canvas id="fdCv" width="780" height="418"></canvas>
+    <div class="tile simside">
+      <div class="nmrow"><b class="fldb" id="fdField">인문 분야</b><span class="pp" id="fdPage">p.28</span></div>
+      <div class="simmsg plain" id="fdPlain"></div>
+      <div class="simbtns" id="fdBtns"></div>
+      <div class="simmsg" id="fdMsg"></div>
+    </div>
+  </div>
 </section>
 
 <!-- 20 학문 분야 -->
@@ -1027,6 +1106,655 @@ function blockKid(c, x, gy, ph, opt = {}){
     if (era === 3) { desk(160, '메타버스 크리에이터', '#6A3DB8', T, 'meta'); desk(450, '융복합 문화 기획자', '#B85E00', T, 'art'); desk(740, '감성 인식 기술 전문가', '#B8336F', T, 'emo'); desk(1030, '원격 진료 코디네이터', '#0A7F72', T, 'doc'); }
   }
   runLoop(cv, draw);
+})();
+
+// ================= 2차시 시뮬레이션 (블록 세계 스타일) =================
+const H32 = (x, y) => { let h = (Math.round(x) * 374761393 + Math.round(y) * 668265263) | 0; h = Math.imul(h ^ (h >>> 13), 1274126177); return ((h ^ (h >>> 16)) >>> 0) / 4294967296; };
+const PAL = {
+  grass: ['#8B5A2B', '#7A4E24', '#9B6835'], grassTop: ['#5DA130', '#4E8C27', '#6BB33A'],
+  dirt: ['#8B5A2B', '#7A4E24', '#9B6835'], stone: ['#8E8E8E', '#7D7D7D', '#A0A0A0'], cobble: ['#7A7A7A', '#666666', '#8E8E8E'],
+  plank: ['#B8874B', '#A87A42', '#C79457'], log: ['#6B4A2B', '#5A3D22', '#7A5532'], leaf: ['#3E8E2E', '#327A25', '#4CA23A'],
+  water: ['#3F76E4', '#3568CF', '#4C86F0'], glass: ['#CFEFFF', '#B8E4FA', '#E4F7FF'], brick: ['#A4483A', '#8E3C30', '#B5574A'],
+  sand: ['#E3D49B', '#D6C68A', '#EEDFAA'], iron: ['#D8D8D8', '#C6C6C6', '#E8E8E8'], gold: ['#F5C542', '#E3B32F', '#FFD75A'],
+  road: ['#5A5A5A', '#4E4E4E', '#636363'], snow: ['#F4F8FB', '#E6EEF4', '#FFFFFF'], red: ['#B83A2E', '#A23126', '#C9473A'],
+  green: ['#2FBF4A', '#27A83F', '#38D056'], dark: ['#2B2B33', '#24242B', '#33333C'], wool: ['#EDEDED', '#DCDCDC', '#F7F7F7'],
+  lava: ['#F26B1D', '#E0531A', '#FF8A2A'], roof: ['#3C4A5C', '#334052', '#46556A'], burnt: ['#2A2422', '#1F1A18', '#352D2A']
+};
+function blk(c, x, y, s, k, o = {}){
+  const p = PAL[k] || PAL.stone, n = s >= 22 ? 4 : 2, q = s / n;
+  for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) { c.fillStyle = p[Math.floor(H32(x + i * 31, y + j * 17) * p.length)]; c.fillRect(Math.floor(x + i * q), Math.floor(y + j * q), Math.ceil(q) + 1, Math.ceil(q) + 1); }
+  if (k === 'grass') for (let i = 0; i < n; i++) { c.fillStyle = PAL.grassTop[Math.floor(H32(x + i, y) * 3)]; c.fillRect(Math.floor(x + i * q), Math.floor(y), Math.ceil(q) + 1, Math.ceil(q * (H32(x + i * 7, y + 3) > .5 ? 1.5 : 1))); }
+  if (k === 'glass') { c.fillStyle = 'rgba(255,255,255,.7)'; c.fillRect(x + s * .2, y + s * .2, s * .12, s * .4); }
+  if (o.a !== undefined) { c.fillStyle = `rgba(0,0,0,${o.a})`; c.fillRect(x, y, s, s); }
+  c.strokeStyle = 'rgba(0,0,0,.28)'; c.lineWidth = 1; c.strokeRect(Math.floor(x) + .5, Math.floor(y) + .5, s - 1, s - 1);
+}
+function ghost(c, x, y, s, col = '#4FA3FF', a = .35){ c.fillStyle = col; c.globalAlpha = a; c.fillRect(x, y, s, s); c.globalAlpha = 1; c.strokeStyle = col; c.lineWidth = 2; c.strokeRect(x + 1, y + 1, s - 2, s - 2); }
+function bake(w, h, fn){ const o = document.createElement('canvas'); o.width = w; o.height = h; fn(o.getContext('2d')); return o; }
+function skyBG(c, w, h, a = '#8FCBFF', b = '#D8EEFF'){ const g = c.createLinearGradient(0, 0, 0, h); g.addColorStop(0, a); g.addColorStop(1, b); c.fillStyle = g; c.fillRect(0, 0, w, h); }
+function cloud(c, x, y, s = 1){ c.fillStyle = '#FFFFFF'; c.fillRect(x, y, 70 * s, 16 * s); c.fillRect(x + 14 * s, y - 12 * s, 40 * s, 14 * s); c.fillStyle = 'rgba(0,0,0,.06)'; c.fillRect(x, y + 12 * s, 70 * s, 4 * s); }
+function ground(c, y, w, s = 30, k = 'grass'){ for (let x = 0; x < w; x += s) { blk(c, x, y, s, k); blk(c, x, y + s, s, 'dirt'); } }
+function tree(c, x, gy, s = 24){ blk(c, x, gy - s, s, 'log'); blk(c, x, gy - 2 * s, s, 'log'); for (let i = -1; i <= 1; i++) for (let j = 0; j < 2; j++) blk(c, x + i * s, gy - (3 + j) * s, s, 'leaf'); blk(c, x, gy - 5 * s, s, 'leaf'); }
+// 블록 사람 (원작 캐릭터 아님: 직접 만든 네모 사람)
+function dude(c, x, gy, o = {}){
+  const s = o.s || 1, sw = o.walk ? Math.sin(o.ph || 0) * 6 : 0, skin = o.skin || '#F0C29A', sh = o.shirt || '#2350C8', pa = o.pants || '#3F4552', hair = o.hair || '#2B2118';
+  c.save(); c.translate(x, gy); c.scale(o.flip ? -s : s, s);
+  BOX(c, -8 + sw * .5, -24, 7, 24, pa); BOX(c, 1 - sw * .5, -24, 7, 24, pa); BOX(c, -8 + sw * .5, -4, 8, 4, '#1A1A1A'); BOX(c, 1 - sw * .5, -4, 8, 4, '#1A1A1A');
+  BOX(c, -9, -47, 18, 24, sh); if (o.coat) { BOX(c, -9, -47, 18, 24, '#FFFFFF'); BOX(c, -2, -47, 4, 24, '#DDE3EA'); }
+  const aL = o.armL !== undefined ? o.armL : -sw * .07, aR = o.armR !== undefined ? o.armR : sw * .07, ac = o.coat ? '#FFFFFF' : sh;
+  c.save(); c.translate(-9, -46); c.rotate(aL); BOX(c, -6, 0, 6, 20, ac); BOX(c, -6, 19, 6, 5, skin); c.restore();
+  c.save(); c.translate(9, -46); c.rotate(aR); BOX(c, 0, 0, 6, 20, ac); BOX(c, 0, 19, 6, 5, skin); if (o.hold) o.hold(c); c.restore();
+  BOX(c, -9, -65, 18, 18, skin);
+  if (o.hood) { BOX(c, -10, -67, 20, 7, sh); BOX(c, -10, -67, 4, 18, sh); BOX(c, 6, -67, 4, 18, sh); BOX(c, -6, -60, 12, 4, '#14141A'); }
+  else { BOX(c, -9, -66, 18, 5, hair); BOX(c, -9, -66, 3, 10, hair); if (o.cap) { BOX(c, -10, -69, 20, 6, o.cap); BOX(c, 2, -65, 12, 3, o.cap); } }
+  BOX(c, -5, -57, 3, 3, '#1B2230'); BOX(c, 3, -57, 3, 3, '#1B2230'); if (!o.hood) BOX(c, -3, -51, 6, 2, '#B5523B');
+  if (o.earbud) BOX(c, 8, -57, 3, 4, '#FFFFFF');
+  c.restore();
+}
+function label(c, s, x, y, o = {}){ c.font = FNT(o.w || 900, o.s || 16); const w = c.measureText(s).width + 16, h = (o.s || 16) + 12; RR(c, x - w / 2, y - h / 2, w, h, 6); c.fillStyle = o.bg || '#FFFFFF'; c.fill(); c.lineWidth = 2; c.strokeStyle = o.bd || '#1B2230'; c.stroke(); TXT(c, s, x, y + 1, { s: o.s || 16, c: o.c || '#1B2230', w: o.w || 900 }); }
+function say(c, s, x, y, o = {}){ c.font = FNT(800, o.s || 17); const w = Math.max(60, c.measureText(s).width + 26), h = (o.s || 17) + 20; bubble(c, x, y, w, h, o.bg || '#FFFFFF', o.bd || '#1B2230'); TXT(c, s, x, y - h / 2, { s: o.s || 17, c: o.c || '#1B2230', w: 800 }); }
+function packet(c, x, y, col = '#FFE14D'){ BOX(c, x - 5, y - 5, 10, 10, col); c.strokeStyle = '#1B2230'; c.lineWidth = 1.5; c.strokeRect(x - 5, y - 5, 10, 10); }
+const lerp = (a, b, k) => a + (b - a) * k, clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const qbez = (p0, p1, p2, k) => [(1 - k) * (1 - k) * p0[0] + 2 * (1 - k) * k * p1[0] + k * k * p2[0], (1 - k) * (1 - k) * p0[1] + 2 * (1 - k) * k * p1[1] + k * k * p2[1]];
+function flame(c, x, y, s, t){ for (let i = 0; i < 6; i++) { const h = (Math.sin(t * 9 + i * 1.7) * .5 + .5) * s; c.fillStyle = i % 2 ? '#FF8A2A' : '#FFD23F'; c.fillRect(x + (i - 3) * s * .25, y - h, s * .25, h); } }
+function setMsg(el, h){ if (el.innerHTML !== h) el.innerHTML = h; }
+function bindTabs(id, cb){ const t = $(id); t.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { t.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b)); SND.pop(); cb(b.dataset.k); })); }
+function simBtns(box, list, cb){ box.innerHTML = list.map((b, i) => `<button data-i="${i}" class="${b[2] || ''}">${b[0]}</button>`).join(''); box.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { box.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); SND.pop(); cb(list[+b.dataset.i][1]); })); }
+const XB = '<span class="xb">교과서 밖 보충</span>';
+
+// ---------- D2-1 융합 크래프팅 ----------
+(() => {
+  const cv = $('cfCv'); if (!cv) return; const c = cv.getContext('2d'), W = 780, H = 450, msg = $('cfMsg');
+  const RC = {
+    nav: { out: { ic: '🦯', n: '시각 장애인용 길 안내 앱' }, center: 'sw',
+      items: [{ k: 'gps', ic: '📍', n: '위치 기반', g: [0, 1] }, { k: 'voice', ic: '🎤', n: '음성 인식', g: [1, 0] }, { k: 'pay', ic: '💳', n: '모바일 결제', g: [2, 1] }, { k: 'sw', ic: '💻', n: '소프트웨어', g: [1, 1], core: 1 },
+        { k: 'brick', ic: '🧱', n: '벽돌', bad: '벽돌은 집 짓는 재료! 이 앱에는 필요 없어요.' }, { k: 'wood', ic: '🪵', n: '나무', bad: '나무도 이 앱의 재료가 아니에요.' }, { k: 'tv', ic: '📺', n: '흑백 TV', bad: '흑백 TV는 길 안내와 관계없어요!' }] },
+    ai: { out: { ic: '🧠', n: '지능 정보 기술' }, center: 'ai',
+      items: [{ k: 'iot', ic: '📡', n: '사물 인터넷', g: [1, 0] }, { k: 'big', ic: '📊', n: '빅데이터', g: [0, 1] }, { k: 'cloud', ic: '☁️', n: '클라우드', g: [2, 1] }, { k: 'mob', ic: '📱', n: '모바일', g: [1, 2] }, { k: 'ai', ic: '🤖', n: '인공지능', g: [1, 1], core: 1 },
+        { k: 'brick', ic: '🧱', n: '벽돌', bad: '벽돌은 데이터 활용 기술이 아니에요!' }, { k: 'wood', ic: '🪵', n: '나무', bad: '나무는 이 레시피에 필요 없어요.' }] }
+  };
+  let R = 'nav', placed = [], fly = [], ph = 'craft', t0 = 0, done = false, warn = '', warnT = 0, walk = 0, shake = { k: '', t: 0 };
+  const G0 = [52, 40], GS = 62, INV = [470, 40], IS = 66;
+  const slotXY = g => [G0[0] + g[0] * GS, G0[1] + g[1] * GS];
+  const invXY = i => [INV[0] + (i % 4) * 74, INV[1] + Math.floor(i / 4) * 100];
+  const MS = {
+    craft0: { nav: '<b>p.22 생각 열기</b>의 시각 장애인용 길 안내 앱을 만들어 봐요.<br>오른쪽 재료 상자에서 필요한 기술 블록을 눌러 작업대에 넣어요. (▶ 재료 넣기를 눌러도 돼요)', ai: '<b>지능 정보 기술 (p.23)</b><br>= 인공지능 + 데이터 활용 기술(<b>사물 인터넷</b>, 빅데이터, 클라우드, 모바일)<br>재료를 작업대에 넣어 봐요.' },
+    nocore: { nav: '기술 블록만 옆에 놓으면 <b>따로따로</b>예요. 기술들을 이어 줄 <b>💻 소프트웨어</b>를 가운데에 넣어야 하나로 합쳐져요!<br><span class="pp">p.23</span> 소프트웨어 <b>중심으로</b> 통합', ai: '데이터 활용 기술만으로는 부족해요. 가운데에 <b>🤖 인공지능</b>을 넣어 융합해 봐요! <span class="pp">p.23</span>' },
+    done: { nav: '<b>완성! 소프트웨어 융합</b><br>위치 기반 + 음성 인식 + 모바일 결제 기술이 <b>소프트웨어 중심으로</b> 하나의 시스템이 됐어요. 아래에서 길 안내가 시작돼요. <span class="pp">p.22~23</span>', ai: '<b>완성! 지능 정보 기술</b><br>인공지능과 데이터 활용 기술이 융합되어 자율주행 자동차, 스마트 도시, 스마트 공장, 지능형 로봇 같은 융합으로 이어져요. <span class="pp">p.23 그림 Ⅰ-7</span>' },
+    pro: '<b style="color:var(--blue)">장점</b> 기존에 <b>해결하기 어려웠던 문제</b>, <b>장기적인 문제</b>의 해결에 적합 <span class="pp">p.23</span><hr class="sep"><b>왜?</b> ' + XB + '<br>기술 하나는 한 가지 일만 해요. 📍은 위치만, 🎤는 말만, 💳는 결제만! 소프트웨어로 합치면 <b>혼자서는 못 하던 일</b>을 함께 해내요.',
+    con: '<b style="color:var(--pen)">단점</b> <b>보안 취약점</b> 증가, 관리가 어려움, 지속적인 <b>유지 보수</b> → 비용 증가 <span class="pp">p.23</span><hr class="sep"><b>왜?</b> ' + XB + '<br>① 이어진 통로가 많을수록 해커가 노릴 <b>틈</b>도 많아져요.<br>② 부품이 많을수록 고치고 <b>업데이트</b>할 곳도 많아져 돈이 계속 들어요.'
+  };
+  function reset(r){ if (r) R = r; placed = []; fly = []; ph = 'craft'; done = false; warn = ''; walk = 0; t0 = performance.now(); setMsg(msg, MS.craft0[R]); ['cfPro', 'cfCon', 'cfNext'].forEach(id => $(id).classList.remove('on')); }
+  const rc = () => RC[R], need = () => rc().items.filter(i => i.g);
+  function put(it){
+    if (placed.includes(it.k) || fly.some(f => f.it.k === it.k) || done) return;
+    if (it.bad) { warn = it.bad; warnT = performance.now(); shake = { k: it.k, t: performance.now() }; SND.no(); setMsg(msg, '❌ ' + it.bad); return; }
+    const i = rc().items.indexOf(it); fly.push({ it, from: invXY(i), to: slotXY(it.g), t: performance.now() }); SND.pop();
+  }
+  function next(){ const n = need(), core = n.find(i => i.core), rest = n.filter(i => !i.core && !placed.includes(i.k) && !fly.some(f => f.it.k === i.k)); if (rest.length) put(rest[0]); else if (core) put(core); }
+  function land(f){ placed.push(f.it.k); const n = need(); const core = n.find(i => i.core);
+    if (n.every(i => placed.includes(i.k))) { done = true; ph = 'run'; t0 = performance.now(); walk = 0; SND.fan(); confetti(); setMsg(msg, MS.done[R]); }
+    else if (n.filter(i => !i.core).every(i => placed.includes(i.k)) && !placed.includes(core.k)) { setMsg(msg, '🤔 ' + MS.nocore[R]); SND.no(); } }
+  $('cfNext').addEventListener('click', () => { if (ph !== 'craft' && ph !== 'run') { ph = done ? 'run' : 'craft'; } next(); });
+  $('cfReset').addEventListener('click', () => reset());
+  $('cfPro').addEventListener('click', () => { if (!done) { while (!done) { const n = need(); n.forEach(i => { if (!placed.includes(i.k)) placed.push(i.k); }); done = true; } } ph = 'pro'; t0 = performance.now(); setMsg(msg, MS.pro); $('cfPro').classList.add('on'); $('cfCon').classList.remove('on'); SND.pop(); });
+  $('cfCon').addEventListener('click', () => { if (!done) { need().forEach(i => { if (!placed.includes(i.k)) placed.push(i.k); }); done = true; } ph = 'con'; t0 = performance.now(); setMsg(msg, MS.con); $('cfCon').classList.add('on'); $('cfPro').classList.remove('on'); SND.pop(); });
+  bindTabs('cfTabs', k => reset(k));
+  cv.addEventListener('click', e => { const r = cv.getBoundingClientRect(), x = (e.clientX - r.left) * W / r.width, y = (e.clientY - r.top) * H / r.height;
+    rc().items.forEach((it, i) => { const [ix, iy] = invXY(i); if (x > ix && x < ix + IS && y > iy && y < iy + IS + 26) { if (ph !== 'craft' && ph !== 'run') return; put(it); } }); });
+  const bg = bake(W, H, c => { skyBG(c, W, H, '#7EC4FF', '#DDF0FF'); cloud(c, 60, 300, 1.2); cloud(c, 560, 290, 1); ground(c, 410, W, 20); });
+  function slot(x, y, s, hl){ BOX(c, x, y, s, s, '#8B8B8B'); BOX(c, x, y, s, 3, '#373737'); BOX(c, x, y, 3, s, '#373737'); BOX(c, x + 3, y + s - 3, s - 3, 3, '#FFFFFF'); BOX(c, x + s - 3, y + 3, 3, s - 3, '#FFFFFF'); if (hl) { c.strokeStyle = hl; c.lineWidth = 4; c.strokeRect(x - 2, y - 2, s + 4, s + 4); } }
+  function icon(it, x, y, s, a = 1){ c.globalAlpha = a; c.font = `${Math.round(s * .58)}px "Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji",sans-serif`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(it.ic, x + s / 2, y + s / 2 + 2); c.globalAlpha = 1; if (it.core) { c.strokeStyle = '#FFD23F'; c.lineWidth = 3; c.strokeRect(x + 4, y + 4, s - 8, s - 8); } }
+  function draw(now){
+    const t = (now - t0) / 1000; c.drawImage(bg, 0, 0);
+    // 작업대 패널
+    BOX(c, 14, 10, W - 28, 262, '#C6C6C6'); BOX(c, 14, 10, W - 28, 4, '#FFFFFF'); BOX(c, 14, 10, 4, 262, '#FFFFFF'); BOX(c, 14, 268, W - 28, 4, '#555555'); BOX(c, W - 18, 10, 4, 262, '#555555');
+    TXT(c, '작업대', 145, 26, { s: 15, c: '#1B2230', w: 900 }); TXT(c, '재료 상자 (눌러서 넣기)', 610, 26, { s: 15, w: 900 });
+    const hot = ph === 'run' || ph === 'pro' ? Math.floor(t * 2) % 3 : -1;
+    for (let gx = 0; gx < 3; gx++) for (let gy = 0; gy < 3; gy++) { const [x, y] = slotXY([gx, gy]); slot(x, y, GS - 4); }
+    // 연결선(레드스톤 느낌)
+    const it = rc().items, core = it.find(i => i.core), cxy = slotXY(core.g);
+    if (done) it.filter(i => i.g && !i.core).forEach((i, n) => { const [x, y] = slotXY(i.g); c.strokeStyle = ph === 'con' ? '#FF3B3B' : '#E5352B'; c.lineWidth = 5; c.beginPath(); c.moveTo(x + 29, y + 29); c.lineTo(cxy[0] + 29, cxy[1] + 29); c.stroke(); const k = (t * 1.2 + n * .3) % 1; packet(c, lerp(x + 29, cxy[0] + 29, k), lerp(y + 29, cxy[1] + 29, k), '#FFE14D'); });
+    it.forEach(i => { if (i.g && placed.includes(i.k)) { const [x, y] = slotXY(i.g); icon(i, x, y, GS - 4); } });
+    // 화살표 + 결과
+    c.fillStyle = done ? '#1B2230' : '#8B8B8B'; c.beginPath(); c.moveTo(252, 118); c.lineTo(300, 118); c.lineTo(300, 104); c.lineTo(330, 132); c.lineTo(300, 160); c.lineTo(300, 146); c.lineTo(252, 146); c.closePath(); c.fill();
+    slot(342, 92, 82, done ? '#FFD23F' : null);
+    const allSide = it.filter(i => i.g && !i.core).every(i => placed.includes(i.k));
+    if (done) { const b = 1 + Math.sin(now / 200) * .05; c.save(); c.translate(383, 133); c.scale(b, b); icon(rc().out, -41, -41, 82); c.restore(); TXT(c, rc().out.n, 383, 196, { s: 15, w: 900 }); TXT(c, '= 소프트웨어 융합', 383, 218, { s: 15, w: 900, c: '#B85E00' }); }
+    else if (allSide) { TXT(c, '❌', 383, 133, { s: 40 }); TXT(c, '합쳐지지 않음', 383, 196, { s: 15, w: 900, c: '#D0261E' }); }
+    // 재료 상자
+    it.forEach((i, n) => { const [x, y] = invXY(n), used = placed.includes(i.k) || fly.some(f => f.it.k === i.k); let dx = 0; if (shake.k === i.k && now - shake.t < 400) dx = Math.sin((now - shake.t) / 25) * 5; slot(x + dx, y, IS); if (!used) icon(i, x + dx, y, IS); TXT(c, i.n, x + IS / 2, y + IS + 14, { s: 14, w: 800, c: '#1B2230' }); });
+    // 날아가는 블록
+    fly = fly.filter(f => { const k = Math.min(1, (now - f.t) / 380); const p = qbez(f.from, [(f.from[0] + f.to[0]) / 2, -20], f.to, k); icon(f.it, p[0], p[1], GS - 4); if (k >= 1) { land(f); return false; } return true; });
+    // 아래 장면
+    scene(now, t);
+  }
+  function scene(now, t){
+    const GY = 410;
+    if (ph === 'pro') return proScene(t);
+    if (ph === 'con') return conScene(now, t);
+    if (R === 'ai') { if (!done) { dude(c, 390, GY, { s: 1.1 }); say(c, '이 기술들을 합치면 뭐가 될까?', 390, GY - 82, { s: 16 }); return; }
+      const ex = [['🚗', '자율주행 자동차'], ['🏙️', '스마트 도시'], ['🏭', '스마트 공장'], ['🤖', '지능형 로봇'], ['⌚', '웨어러블']];
+      ex.forEach((e, i) => { const k = clamp((t - i * .5) * 3, 0, 1); if (k <= 0) return; const x = 90 + i * 150, y = GY - 60 - Math.sin(now / 300 + i) * 4; c.globalAlpha = k; label(c, e[1], x, y + 34, { s: 15 }); c.font = '40px "Noto Color Emoji","Segoe UI Emoji",sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(e[0], x, y - 6); c.globalAlpha = 1; });
+      return; }
+    // 길 안내 장면: 횡단보도, 카페
+    for (let x = 300; x < 400; x += 20) BOX(c, x, GY - 3, 12, 3, '#FFFFFF');
+    blk(c, 600, GY - 90, 30, 'plank'); blk(c, 630, GY - 90, 30, 'plank'); blk(c, 660, GY - 90, 30, 'plank'); blk(c, 690, GY - 90, 30, 'plank'); for (let i = 0; i < 4; i++) { blk(c, 600 + i * 30, GY - 60, 30, i === 1 ? 'glass' : 'brick'); blk(c, 600 + i * 30, GY - 30, 30, i === 1 ? 'log' : 'brick'); } label(c, '☕ 카페', 660, GY - 104, { s: 14 });
+    if (!done) { dude(c, 90, GY, { shirt: '#6A4C93', hold: c => { BOX(c, 4, 22, 3, 30, '#FFFFFF'); BOX(c, 4, 44, 3, 8, '#D0261E'); } }); say(c, '카페까지 혼자 갈 수 있을까?', 120, GY - 80, { s: 16 }); return; }
+    walk = Math.min(560, walk + (walk < 560 ? 1.4 : 0)); const x = 70 + walk, stop = walk >= 560;
+    dude(c, x, GY, { shirt: '#6A4C93', walk: !stop, ph: now / 120, earbud: true, hold: c => { BOX(c, 4, 22, 3, 30, '#FFFFFF'); BOX(c, 4, 44, 3, 8, '#D0261E'); } });
+    const tag = (s, col) => label(c, s, x, GY - 120, { s: 13, bg: col, c: '#FFFFFF', bd: col });
+    if (walk > 60 && walk < 230) { say(c, '“10미터 앞에 횡단보도가 있어요”', x + 10, GY - 78, { s: 15 }); tag('📍 위치 + 🎤 음성', '#2350C8'); }
+    else if (walk >= 230 && walk < 440) { say(c, '“오른쪽 앞이 카페 입구예요”', x + 10, GY - 78, { s: 15 }); tag('📍 위치 + 🎤 음성', '#2350C8'); }
+    else if (walk >= 440 && walk < 560) { say(c, '“아메리카노 주문할게요”', x - 20, GY - 78, { s: 15 }); tag('🎤 음성 인식', '#0A7F72'); }
+    else if (stop) { say(c, '💳 결제 완료! 혼자서 해냈어요', x - 120, GY - 78, { s: 15, bg: '#E3F5E8', bd: '#137A3A' }); tag('💳 모바일 결제', '#B85E00'); }
+  }
+  function proScene(t){
+    const GY = 410, rows = R === 'nav' ? [['📍만 있으면', '여기가 어딘지는 알지만… 말해 주지 못해요'], ['🎤만 있으면', '말은 하지만… 여기가 어딘지 몰라요'], ['💳만 있으면', '결제는 되지만… 가게를 못 찾아요']] : [['📡 센서만', '데이터는 모으지만… 판단을 못 해요'], ['🤖 인공지능만', '판단은 하지만… 볼 데이터가 없어요'], ['☁️ 클라우드만', '저장은 하지만… 쓸 곳을 몰라요']];
+    BOX(c, 14, 280, W - 28, 160, 'rgba(255,255,255,.92)');
+    rows.forEach((r, i) => { const k = clamp((t - i * .9) * 2, 0, 1); if (k <= 0) return; c.globalAlpha = k; TXT(c, r[0], 40, 302 + i * 34, { s: 18, a: 'left', w: 900 }); TXT(c, r[1], 190, 302 + i * 34, { s: 17, a: 'left', w: 700 }); TXT(c, '❌', 740, 302 + i * 34, { s: 20 }); c.globalAlpha = 1; });
+    const k = clamp((t - 2.9) * 2, 0, 1); if (k > 0) { c.globalAlpha = k; label(c, R === 'nav' ? '📍 + 🎤 + 💳 + 💻 = 혼자서 이동·주문·결제까지 ✔' : '모두 합치면 = 자율주행처럼 한 기술로는 못 하던 일 ✔', W / 2, 418, { s: 19, bg: '#E6EDFC', bd: '#2350C8', c: '#1B2230' }); c.globalAlpha = 1; }
+  }
+  function conScene(now, t){
+    const GY = 410; BOX(c, 14, 280, W - 28, 160, 'rgba(20,24,36,.92)');
+    const n = t < 4 ? 4 : 7, nodes = []; for (let i = 0; i < n; i++) { const a = -Math.PI / 2 + i * Math.PI * 2 / n; nodes.push([200 + Math.cos(a) * 60 * (n > 4 ? 1.15 : 1), 360 + Math.sin(a) * 58]); }
+    nodes.forEach((p, i) => { c.strokeStyle = '#E5352B'; c.lineWidth = 4; c.beginPath(); c.moveTo(200, 360); c.lineTo(p[0], p[1]); c.stroke(); });
+    blk(c, 186, 346, 28, 'gold'); nodes.forEach(p => blk(c, p[0] - 12, p[1] - 12, 24, 'iron'));
+    nodes.forEach((p, i) => { const mx = (200 + p[0]) / 2, my = (360 + p[1]) / 2, bl = Math.sin(now / 150 + i) > 0; c.fillStyle = bl ? '#FF3B3B' : '#FFD23F'; c.fillRect(mx - 4, my - 4, 8, 8); });
+    TXT(c, `연결 통로 ${n}곳 = 노릴 수 있는 틈 ${n}곳`, 610, 304, { s: 18, c: '#FFB3B3', w: 900 });
+    for (let i = 0; i < Math.min(n, 4); i++) dude(c, 336 + i * 30, 424, { s: .7, hood: true, shirt: '#7B3FA0', pants: '#3A2450' });
+    label(c, '🔓 해커', 381, 330, { s: 14, bg: '#FDEBEA', bd: '#D0261E' });
+    const cost = Math.floor(Math.max(0, t - 1) * 37) * 10; TXT(c, `🔧 업데이트·수리 비용 ₩ ${cost.toLocaleString()}만 (예시)`, 610, 350, { s: 17, c: '#FFE58A', w: 900 });
+    nodes.forEach((p, i) => { if (Math.floor(now / 700 + i) % 3 === 0) TXT(c, '🔧', p[0] + 14, p[1] - 16, { s: 16 }); });
+    TXT(c, t < 4 ? '기술이 더 붙으면 어떻게 될까?' : '기술이 늘수록 틈도, 수리할 곳도 늘어나요!', 610, 400, { s: 16, c: '#FFFFFF', w: 800 });
+  }
+  reset('nav'); runLoop(cv, draw);
+})();
+// ---------- D2-2 교통 체증 시뮬레이션 ----------
+(() => {
+  const cv = $('trCv'); if (!cv) return; const c = cv.getContext('2d'), W = 1192, H = 336, msg = $('trMsg');
+  const MW = 700, RY0 = 128, RY1 = 208, RX0 = 310, RX1 = 390;
+  const LN = { E: { len: 760, stop: 286, xy: p => [p, 188], h: 1 }, W: { len: 760, stop: 286, xy: p => [700 - p, 148], h: 1 }, S: { len: 380, stop: 108, xy: p => [330, p], h: 0 }, N: { len: 380, stop: 108, xy: p => [370, 336 - p], h: 0 }, D: { len: 760, stop: null, xy: p => [p, 38], h: 1 } };
+  const CC = ['#D0261E', '#2350C8', '#F2B705', '#2FA84F', '#EDEDED', '#7B3FA0', '#E06A1B', '#1B2230'];
+  const RATE0 = { E: 1.1, W: 1.0, S: .24, N: .22, D: 0 }, RATE4 = { E: .78, W: .7, S: .24, N: .22, D: .42 };
+  const VMAX = 90, GAP = 34, RT = .45, FIX = { EW: 4, NS: 5 };
+  function mk(seed){ let rs = seed; return { rnd: () => (rs = (rs * 16807) % 2147483647) / 2147483647, cars: [], id: 0, light: 'EW', nxt: 'NS', lt: 0, clr: 0, sp: { E: 0, W: 0, S: 0, N: 0, D: 0 }, rate: RATE0, auto: false, hack: false, broken: {}, st: { fixed: [0, 0], auto: [0, 0] } }; }
+  const green = (S, l) => !S.hack && S.clr <= 0 && (S.light === 'EW' ? (l === 'E' || l === 'W') : (l === 'S' || l === 'N'));
+  const qOf = (S, l) => S.broken[l] ? 0 : S.cars.filter(a => a.l === l && a.p <= LN[l].stop + 1 && a.v < 5).length;
+  function step(S, dt){
+    for (const l in S.rate) { S.sp[l] += S.rate[l] * dt * (.6 + S.rnd() * .8); if (S.sp[l] >= 1) { S.sp[l] -= 1; const mn = Math.min(-20, ...S.cars.filter(a => a.l === l).map(a => a.p - GAP)); if (mn > -900) S.cars.push({ l, p: mn, v: VMAX, w: 0, rt: 0, id: S.id++, col: CC[Math.floor(S.rnd() * CC.length)] }); } }
+    for (const l in LN) { const L = LN[l], cs = S.cars.filter(a => a.l === l).sort((a, b) => b.p - a.p);
+      cs.forEach((a, i) => { let lim = Infinity; if (i > 0) lim = cs[i - 1].p - GAP; if (L.stop !== null && a.p <= L.stop + .01 && !green(S, l)) lim = Math.min(lim, L.stop);
+        let np = Math.min(a.p + VMAX * dt, lim); if (np < a.p) np = a.p;
+        if (a.v < 2 && np - a.p > .5) { a.rt += dt; if (a.rt < RT) np = a.p; }
+        if (np - a.p > .5) a.rt = 0; a.v = (np - a.p) / dt; if (a.v < VMAX * .3 && l !== 'D') a.w += dt; a.p = np; }); }
+    S.cars = S.cars.filter(a => { if (a.p > LN[a.l].len) { if (a.l !== 'D') { const k = S.auto ? 'auto' : 'fixed'; S.st[k][0] += a.w; S.st[k][1]++; } return false; } return true; });
+    S.lt += dt; if (S.clr > 0) { S.clr -= dt; if (S.clr <= 0) { S.light = S.nxt; S.lt = 0; } return; }
+    let sw = false; const g = S.light, r = g === 'EW' ? 'NS' : 'EW';
+    if (!S.auto) sw = S.lt >= FIX[g];
+    else { const qg = g === 'EW' ? qOf(S, 'E') + qOf(S, 'W') : qOf(S, 'S') + qOf(S, 'N'), qr = r === 'EW' ? qOf(S, 'E') + qOf(S, 'W') : qOf(S, 'S') + qOf(S, 'N');
+      sw = qr > 0 && ((S.lt >= 2 && qg === 0) || (S.lt >= 3 && qr >= qg * 2 + 3) || S.lt >= 10); }
+    if (sw) { S.nxt = r; S.clr = .9; }
+  }
+  // 미리 측정(같은 조건 240초)
+  const meas = auto => { const S = mk(7); S.auto = auto; for (let i = 0; i < 240 * 20; i++) step(S, .05); const k = auto ? 'auto' : 'fixed'; return S.st[k][1] ? S.st[k][0] / S.st[k][1] : 0; };
+  const AVG = { fixed: meas(false), auto: meas(true) };
+  let S = mk(11), mode = '0', t0 = 0, last = 0, pk = [], hackOn = false, fixT = 0, worker = null, cost = 0, upd = 0, secured = 0;
+  const MSG = {
+    '0': '퇴근 시간! 신호등은 <b>정해진 시간표대로만</b> 바뀌어요. 차가 많은 동서 방향도, 차가 적은 남북 방향도 똑같이 기다려요. 줄이 점점 길어지죠?',
+    '1': '① <b>센서·카메라·GPS</b>가 도로 위 차량 수와 움직임을 <b>실시간으로 수집</b>해 관제 센터로 보내요. <span class="pp">p.24</span>',
+    '2': '② 모은 데이터를 <b>분석</b>해 교통 패턴을 찾고 <b>언제 막힐지 예측</b>해요. <span class="pp">p.24</span> (그래프는 예시)',
+    '3': '③ 분석 결과로 <b>교통 신호를 자동 조절</b>! 차가 많은 쪽 초록불을 더 길게 → 줄이 줄어요. <span class="pp">p.24</span>',
+    '4': '④ 시민에게 <b>실시간 교통 정보·대중교통 정보</b>를 앱으로 제공 → 일부는 우회 도로로 가요. <span class="pp">p.24</span> 센서+카메라+GPS+분석+신호+앱이 <b>소프트웨어로 하나</b> = 소프트웨어 융합!',
+    pro: '<b style="color:var(--blue)">장점: 교통 상황을 실시간으로 파악하고 바로 대응</b> — 같은 교차로, 같은 차량 수인데 기다린 시간이 줄었어요 (오른쪽: 이 시뮬레이션에서 잰 값). 기존에 해결하기 어려웠던 문제 해결 <span class="pp">p.23</span>',
+    hack: '<b style="color:var(--pen)">단점: 보안 취약점</b> <span class="pp">p.23</span> — 모든 신호등이 네트워크로 이어져 있어 관제 센터 한 곳이 뚫리면 <b>교차로 전체가 멈춰요!</b> 왜? ' + XB + ' 연결된 곳이 많을수록 노릴 틈도 많아요. <b>한 번 더 누르면 🛡 보안 강화</b>',
+    hack2: '<b>🛡 보안 강화 완료!</b> 그래서 융합 시스템은 보안 점검과 관리를 계속해야 해요 → 이것도 비용이에요. <span class="pp">p.23</span>',
+    fix: '<b style="color:var(--pen)">단점: 지속적인 유지 보수 → 비용 증가</b> <span class="pp">p.23</span> — 센서가 고장 나면 잘못된 데이터로 신호를 바꿔 오히려 막혀요. 고치고 업데이트할 때마다 돈이 들어요. 왜? ' + XB + ' 부품이 많을수록 고칠 곳도 많아요.',
+    gen: '<b>비교: 일반적인 해결</b> <span class="pp">p.24</span> — 도로 확장 공사(허가, 야간에 많은 인력), 교통경찰 투입, 대중교통 확대. 경찰관이 직접 보고 신호를 바꾸면 나아지지만 <b>교차로마다 사람이</b> 있어야 하고 공사는 오래 걸려요.'
+  };
+  function setMode(m){
+    if (m === 'hack' && mode === 'hack') { secured = performance.now(); S.hack = false; hackOn = false; setMsg(msg, MSG.hack2); SND.ok(); return; }
+    mode = m; t0 = performance.now(); const n = +m;
+    S.auto = (n >= 3) || ['pro', 'hack', 'fix', 'gen'].includes(m); S.rate = (n >= 4 || m === 'pro') ? RATE4 : RATE0;
+    S.hack = false; hackOn = m === 'hack'; S.broken = {}; worker = null; secured = 0; if (m === 'fix') { fixT = 1.2; cost = 0; upd = 0; }
+    setMsg(msg, MSG[m]);
+    $('trBtns').querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.m === m));
+  }
+  $('trBtns').querySelectorAll('button').forEach(b => b.addEventListener('click', () => { SND.pop(); setMode(b.dataset.m); }));
+  const step1 = () => mode !== '0' && mode !== 'gen';
+  const SENS = [{ l: 'E', x: 250, y: 188 }, { l: 'W', x: 450, y: 148 }, { l: 'S', x: 330, y: 70 }, { l: 'N', x: 370, y: 266 }];
+  const CAMS = [{ x: 292, y: 114, l: 'S' }, { x: 404, y: 114, l: 'W' }, { x: 292, y: 222, l: 'E' }, { x: 404, y: 222, l: 'N' }];
+  const bg = bake(W, H, c => {
+    for (let x = 0; x < MW; x += 24) for (let y = 0; y < H; y += 24) blk(c, x, y, 24, 'grass');
+    for (let x = 0; x < MW; x += 20) for (let y = RY0; y < RY1; y += 20) blk(c, x, y, 20, 'road');
+    for (let y = 0; y < H; y += 20) for (let x = RX0; x < RX1; x += 20) blk(c, x, y, 20, 'road');
+    for (let x = 0; x < MW; x += 16) blk(c, x, 26, 12, 'road'), blk(c, x, 38, 12, 'road');
+    c.fillStyle = '#F2C200'; for (let x = 0; x < MW; x += 26) if (x < RX0 - 10 || x > RX1) c.fillRect(x, 167, 16, 3); for (let y = 0; y < H; y += 26) if (y < RY0 - 10 || y > RY1) c.fillRect(349, y, 3, 16);
+    c.fillStyle = '#FFFFFF'; c.fillRect(RX0 - 6, 168, 4, 40); c.fillRect(RX1 + 2, RY0, 4, 40); c.fillRect(RX0, RY0 - 6, 40, 4); c.fillRect(350, RY1 + 2, 40, 4);
+    for (let i = 0; i < 7; i++) { blk(c, 30 + i * 28, 72, 28, i % 3 ? 'brick' : 'plank'); blk(c, 30 + i * 28, 100, 28, i % 2 ? 'glass' : 'brick'); }
+    for (let i = 0; i < 9; i++) for (let j = 0; j < 3; j++) blk(c, 440 + i * 26, 230 + j * 26, 26, (i + j) % 2 ? 'glass' : 'iron');
+    tree(c, 60, 320, 16); tree(c, 140, 320, 16); tree(c, 220, 320, 16); tree(c, 480, 122, 14); tree(c, 600, 122, 14);
+    c.fillStyle = '#ffffff'; c.font = FNT(900, 15); c.textAlign = 'center'; c.fillText('🏢 회사 (퇴근 출발)', 557, 322); c.fillText('🏠 주택가', 128, 64); c.fillStyle = '#1B2230'; c.fillText('우회 도로', 650, 20);
+    c.fillStyle = '#1B2230'; c.fillRect(MW, 0, W - MW, H);
+  });
+  function car(a){ const L = LN[a.l], [x, y] = L.xy(a.p); if (x < -30 || x > MW + 30 || y < -30 || y > H + 30) return; const h = L.h;
+    const w = h ? 28 : 16, hh = h ? 16 : 28; BOX(c, x - w / 2, y - hh / 2, w, hh, a.col); BOX(c, x - w / 2 + 3, y - hh / 2 + 3, w - 6, hh - 6, 'rgba(0,0,0,.18)');
+    const f = a.l === 'E' || a.l === 'D' ? [x + 6, y - 6, 5, 12] : a.l === 'W' ? [x - 11, y - 6, 5, 12] : a.l === 'S' ? [x - 6, y + 6, 12, 5] : [x - 6, y - 11, 12, 5]; BOX(c, f[0], f[1], f[2], f[3], '#BFE6FF');
+    if (step1() && a.id % 3 === 0 && mode !== 'hack') { c.fillStyle = '#FFE14D'; c.beginPath(); c.moveTo(x, y - 18); c.lineTo(x + 5, y - 12); c.lineTo(x, y - 6); c.lineTo(x - 5, y - 12); c.fill(); }
+  }
+  function light(x, y, on){ BOX(c, x - 9, y - 9, 18, 18, '#1B2230'); const bl = S.hack && Math.floor(performance.now() / 200) % 2; BOX(c, x - 6, y - 6, 12, 12, S.hack ? (bl ? '#FF2D2D' : '#4A1010') : on ? '#3DDC64' : '#FF3B3B'); }
+  function monitor(now, t){
+    BOX(c, 712, 6, 470, 172, '#0E1626'); c.strokeStyle = '#3B4766'; c.lineWidth = 3; c.strokeRect(713, 7, 468, 170);
+    TXT(c, '🖥 교통 관제 센터', 724, 24, { s: 17, c: '#FFFFFF', a: 'left' });
+    if (S.hack) { c.fillStyle = Math.floor(now / 250) % 2 ? '#7A0E0E' : '#4A0808'; c.fillRect(716, 40, 462, 134); TXT(c, '⚠ 해킹 공격!', 947, 86, { s: 34, c: '#FFFFFF', w: 900 }); TXT(c, '신호 제어 불가 · 모든 신호 정지', 947, 132, { s: 20, c: '#FFD0D0' }); return; }
+    const qe = qOf(S, 'E') + qOf(S, 'W'), qn = qOf(S, 'S') + qOf(S, 'N');
+    if (!step1()) { TXT(c, mode === 'gen' ? '👮 교통경찰이 직접 보고 판단' : '연결된 센서 없음', 947, 70, { s: 20, c: '#C9D1DF' }); TXT(c, mode === 'gen' ? '경찰관 1명 = 교차로 1곳' : `신호: 정해진 시간표 (동서 ${FIX.EW}초 · 남북 ${FIX.NS}초)`, 947, 112, { s: 19, c: '#FFE58A', w: 900 }); return; }
+    TXT(c, '동서 방향 대기', 726, 58, { s: 16, c: '#FFFFFF', a: 'left' }); BOX(c, 852, 50, Math.min(150, qe * 8), 16, '#FF6B6B'); TXT(c, qe + '대', 1010, 58, { s: 18, c: '#FFFFFF', a: 'left', w: 900 });
+    TXT(c, '남북 방향 대기', 726, 86, { s: 16, c: '#FFFFFF', a: 'left' }); BOX(c, 852, 78, Math.min(150, qn * 8), 16, '#FFB23E'); TXT(c, qn + '대', 1010, 86, { s: 18, c: '#FFFFFF', a: 'left', w: 900 });
+    const brk = Object.keys(S.broken); if (brk.length) TXT(c, `⚠ ${brk.map(l => ({ E: '동쪽', W: '서쪽', S: '북쪽', N: '남쪽' })[l]).join('·')} 센서 신호 없음 → 엉뚱한 판단!`, 726, 114, { s: 16, c: '#FF8A8A', a: 'left', w: 900 });
+    else TXT(c, `📡 받은 데이터 ${Math.floor(t * 23 + 120)}건`, 726, 114, { s: 16, c: '#7CE0FF', a: 'left' });
+    if (+mode >= 2 || ['pro', 'hack', 'fix'].includes(mode)) { const H8 = [3, 5, 9, 14, 8, 4], hr = ['16', '17', '18', '19', '20', '21']; H8.forEach((v, i) => { const x = 1068 + i * 18; BOX(c, x, 116 - v * 5, 13, v * 5, i === 2 ? '#FF6B6B' : '#5B8DEF'); TXT(c, hr[i], x + 6, 126, { s: 10, c: '#FFFFFF' }); }); TXT(c, '예측 그래프(예시)', 1120, 44, { s: 13, c: '#FFE58A' }); }
+    if (S.auto) TXT(c, `🤖 신호 자동 조절 ON · 지금 ${S.clr > 0 ? '전환 중' : (S.light === 'EW' ? '동서' : '남북') + ' 초록 ' + S.lt.toFixed(1) + '초'}`, 726, 148, { s: 17, c: '#7CFF9E', a: 'left', w: 900 });
+    else TXT(c, `신호: 정해진 시간표 (동서 ${FIX.EW}초 · 남북 ${FIX.NS}초)`, 726, 148, { s: 17, c: '#FFE58A', a: 'left', w: 900 });
+    if (mode === 'fix') { BOX(c, 726, 162, 300, 8, '#2B3656'); BOX(c, 726, 162, 300 * (upd % 1), 8, '#7CE0FF'); TXT(c, '소프트웨어 업데이트 중', 1034, 166, { s: 12, c: '#7CE0FF', a: 'left' }); }
+  }
+  function phone(now){
+    RR(c, 712, 186, 136, 146, 14); c.fillStyle = '#2B3242'; c.fill(); BOX(c, 720, 196, 120, 126, '#FFFFFF');
+    if (+mode >= 4 || mode === 'pro' || mode === 'fix') { TXT(c, '🚗 실시간 길 안내', 780, 210, { s: 13, w: 900 }); BOX(c, 724, 220, 112, 26, '#FDEBEA'); TXT(c, '정체! 5분 지연', 780, 233, { s: 13, c: '#D0261E', w: 900 }); BOX(c, 724, 250, 112, 26, '#E3F5E8'); TXT(c, '우회 도로 추천', 780, 263, { s: 13, c: '#137A3A', w: 900 }); BOX(c, 724, 280, 112, 36, '#E6EDFC'); TXT(c, '🚇 지하철이', 780, 290, { s: 12, w: 800 }); TXT(c, '더 빨라요', 780, 306, { s: 12, w: 800 }); }
+    else { TXT(c, '📱', 780, 248, { s: 30 }); TXT(c, '교통 정보 없음', 780, 290, { s: 13, c: '#1B2230' }); }
+  }
+  function stats(now){
+    BOX(c, 860, 186, 322, 146, '#F5F7FA'); const wq = S.cars.filter(a => a.l !== 'D' && a.v < 5).length;
+    if (mode === 'pro') { TXT(c, '평균 기다린 시간 (시뮬레이션 측정)', 1021, 204, { s: 15, w: 900 }); const mx = Math.max(AVG.fixed, AVG.auto, 1);
+      TXT(c, '정해진 신호', 872, 240, { s: 15, a: 'left', w: 800 }); BOX(c, 970, 230, 150 * AVG.fixed / mx, 20, '#D0261E'); TXT(c, AVG.fixed.toFixed(1) + '초', 1176, 240, { s: 16, a: 'right', w: 900 });
+      TXT(c, '자동 조절', 872, 276, { s: 15, a: 'left', w: 800 }); BOX(c, 970, 266, 150 * AVG.auto / mx, 20, '#2350C8'); TXT(c, AVG.auto.toFixed(1) + '초', 1176, 276, { s: 16, a: 'right', w: 900 });
+      TXT(c, '같은 차량 수 · 240초 실행 결과', 1021, 314, { s: 13, w: 700 }); return; }
+    TXT(c, '지금 멈춰 선 차', 1021, 206, { s: 16, w: 900 }); TXT(c, wq + '대', 1021, 248, { s: 40, w: 900, c: wq > 25 ? '#D0261E' : wq > 12 ? '#B85E00' : '#137A3A' });
+    if (mode === 'fix') TXT(c, `🔧 유지 보수 비용 ₩${(cost * 350).toLocaleString()}만 (예시)`, 1021, 300, { s: 15, w: 900, c: '#D0261E' });
+    else if (mode === 'gen') TXT(c, '🚧 공사 기간 동안 도로가 좁아져요', 1021, 300, { s: 15, w: 900, c: '#B85E00' });
+    else TXT(c, '화면 밖에서 기다리는 차 포함', 1021, 300, { s: 13, w: 700 });
+  }
+  function draw(now){
+    const dt = Math.min(.05, (now - (last || now)) / 1000); last = now; const t = (now - t0) / 1000;
+    if (mode === 'hack' && hackOn && !S.hack && t > 1.4) S.hack = true;
+    if (mode === 'fix') { upd += dt * .25; fixT -= dt; const ls = ['E', 'W', 'S', 'N'].filter(l => !S.broken[l]); if (fixT <= 0 && !worker && ls.length) { const l = ls.includes('E') ? 'E' : ls[Math.floor(Math.random() * ls.length)]; S.broken[l] = 1; SND.no(); const s = SENS.find(s => s.l === l); worker = { x: MW + 10, tx: s.x, ty: s.y, l, fix: 0, wait: 2.2 }; }
+      if (worker) { if (worker.wait > 0) worker.wait -= dt; else if (Math.abs(worker.x - worker.tx) > 4) worker.x += Math.sign(worker.tx - worker.x) * 140 * dt; else { worker.fix += dt; if (worker.fix > 1.6) { delete S.broken[worker.l]; cost++; SND.ok(); worker = null; fixT = 3 + Math.random() * 2; } } } }
+    for (let i = 0; i < 2; i++) step(S, dt / 2);
+    c.drawImage(bg, 0, 0);
+    if (mode === 'gen') { for (let i = 0; i < 8; i++) { BOX(c, 40 + i * 70, 30, 10, 16, '#FF7A00'); BOX(c, 40 + i * 70, 36, 10, 3, '#FFFFFF'); } dude(c, 160, 60, { s: .55, shirt: '#F2B705', cap: '#F2B705', walk: true, ph: now / 150 }); dude(c, 470, 60, { s: .55, shirt: '#F2B705', cap: '#F2B705', armR: -1 + Math.sin(now / 200) }); label(c, '🚧 도로 확장 공사 중 (야간 인력 투입)', 330, 62, { s: 13, bg: '#FFF0DC', bd: '#B85E00' }); }
+    S.cars.forEach(car);
+    const ewG = green(S, 'E'), nsG = green(S, 'S'); light(298, 214, ewG); light(402, 122, ewG); light(298, 122, nsG); light(402, 214, nsG);
+    if (step1()) { SENS.forEach(s => { const b = S.broken[s.l]; c.strokeStyle = b ? '#7A7A7A' : '#FFE14D'; c.lineWidth = 3; s.l === 'E' || s.l === 'W' ? c.strokeRect(s.x - 16, s.y - 12, 32, 24) : c.strokeRect(s.x - 12, s.y - 16, 24, 32); if (b) TXT(c, '⚠', s.x, s.y, { s: 20, c: '#FFD23F' }); });
+      CAMS.forEach(k => { const b = S.broken[k.l]; BOX(c, k.x - 8, k.y - 6, 16, 12, b ? '#7A7A7A' : '#1B2230'); BOX(c, k.x - 3, k.y - 2, 6, 4, b ? '#555' : '#7CE0FF'); });
+      if (!S.hack && Math.random() < .25) { const s = [...SENS, ...CAMS][Math.floor(Math.random() * 8)]; if (!S.broken[s.l]) pk.push({ x: s.x, y: s.y, t: now }); } }
+    if (mode === 'hack') { dude(c, 640, 120, { s: .8, hood: true, shirt: '#2A2A33', pants: '#1F1F26', armR: -1.1 }); BOX(c, 610, 84, 30, 20, '#3B3B45'); BOX(c, 613, 87, 24, 13, Math.floor(now / 200) % 2 ? '#FF3B3B' : '#7A0E0E'); if (hackOn && Math.random() < .3) pk.push({ x: 640, y: 80, t: now, red: 1 }); label(c, '🔓 해커', 640, 140, { s: 13 }); }
+    if (secured && now - secured < 2500) { c.globalAlpha = 1 - (now - secured) / 2500; label(c, '🛡 보안 강화!', 350, 168, { s: 26, bg: '#E3F5E8', bd: '#137A3A' }); c.globalAlpha = 1; }
+    if (mode === 'gen') { dude(c, 350, 200, { s: .7, shirt: '#2350C8', cap: '#1B2230', armL: Math.sin(now / 300) * 1.2 - 1.3, armR: -Math.sin(now / 300) * 1.2 + 1.3 }); label(c, '👮', 350, 140, { s: 12 }); }
+    if (worker) { dude(c, worker.x, worker.ty + 20, { s: .7, shirt: '#E06A1B', cap: '#F2B705', walk: worker.wait <= 0 && worker.fix === 0, ph: now / 120, armR: worker.fix > 0 ? -1 + Math.sin(now / 80) * .6 : undefined }); if (worker.fix > 0) TXT(c, '🔧', worker.x + 16, worker.ty - 30, { s: 18 }); }
+    pk = pk.filter(p => { const k = (now - p.t) / 900; if (k >= 1) return false; const q = qbez([p.x, p.y], [(p.x + 760) / 2, -40], [760, 60], k); packet(c, q[0], q[1], p.red ? '#FF3B3B' : '#FFE14D'); return true; });
+    if (step1() && !S.hack) { /* 연결 표시 */ }
+    monitor(now, t); phone(now); stats(now);
+  }
+  setMode('0'); runLoop(cv, draw);
+})();
+// ---------- D2-3 융합 사례 시뮬레이션 (p.25~26) ----------
+(() => {
+  const cv = $('csCv'); if (!cv) return; const c = cv.getContext('2d'), W = 780, H = 418;
+  const el = { f: $('csField'), nm: $('csName'), pl: $('csPlain'), bt: $('csBtns'), ms: $('csMsg') };
+  let K = 'its', S = {}, last = 0;
+  const pp = s => `<span class="pp">${s}</span>`;
+  const CASE = {};
+
+  // ===== 교통: ITS =====
+  CASE.its = { field: '교통', name: 'ITS (지능형 교통 시스템)',
+    plain: '도로·차량·신호 시스템에 소프트웨어를 융합해 서로 <b>유기적으로</b> 작동해요. 실시간으로 교통 상황을 분석해 <b>체증을 줄이고</b>, 사고를 <b>감지·대응</b>해 사고 발생률을 낮춰요. ' + pp('p.25'),
+    btns: [['💥 사고! (ITS 켜짐)', 'on', 'pro'], ['💥 사고! (ITS 꺼짐)', 'off', 'con'], ['↺ 처음', 'reset']],
+    msg0: '고속도로예요. 앞에서 사고가 나면 어떻게 될까요? 두 버튼을 차례로 눌러 비교해 봐요.',
+    init(S){ S.cars = []; S.sp = 0; S.acc = null; S.its = true; S.brake = 0; S.amb = null; S.fx = []; S.id = 0; S.pk = []; for (let i = 0; i < 14; i++) S.cars.push({ x: 20 + i * 55 + Math.random() * 20, ln: i % 2, y: i % 2 ? 250 : 190, v: 120, vm: 120 + Math.random() * 30, id: S.id++, col: ['#D0261E', '#2350C8', '#F2B705', '#2FA84F', '#EDEDED', '#7B3FA0'][i % 6], st: 0 }); },
+    act(S, a){ this.init(S); if (a === 'reset') return this.msg0; S.its = a === 'on'; S.acc = { x: 600, t: S.t + 1.0, on: false, det: false, sign: false };
+      return a === 'on' ? '카메라가 사고를 <b>바로 감지</b> → 관제 센터 → <b>전광판</b>에 알림 → 차들이 <b>미리</b> 차로를 바꿔요. 구급차도 갓길로 바로 출동! = 사고 감지·대응으로 사고 발생률 감소 ' + pp('p.25')
+        : '알림이 없으면 사고 바로 앞에서야 알아채고 <b>급정거!</b> 뒤따르는 차까지 위험해지고 길이 꽉 막혀요. 오른쪽 위 급정거 횟수를 비교해 봐요.'; },
+    draw(c, S, dt, now){
+      skyBG(c, W, 120, '#8FCBFF', '#D8EEFF'); for (let x = 0; x < W; x += 26) { blk(c, x, 120, 26, 'grass'); blk(c, x, 286, 26, 'grass'); blk(c, x, 312, 26, 'grass'); blk(c, x, 338, 26, 'dirt'); blk(c, x, 364, 26, 'dirt'); blk(c, x, 392, 26, 'dirt'); }
+      BOX(c, 0, 158, W, 128, '#4E4E4E'); BOX(c, 0, 272, W, 14, '#6A6A6A'); c.fillStyle = '#FFFFFF'; for (let x = (-(S.t * 0) % 40); x < W; x += 40) c.fillRect(x, 219, 22, 4); c.fillRect(0, 160, W, 3); c.fillRect(0, 270, W, 3); TXT(c, '갓길', 40, 279, { s: 11, c: '#FFFFFF' });
+      blk(c, 650, 40, 30, 'iron'); blk(c, 680, 40, 30, 'glass'); blk(c, 710, 40, 30, 'iron'); blk(c, 650, 70, 30, 'iron'); blk(c, 680, 70, 30, 'iron'); blk(c, 710, 70, 30, 'glass'); BOX(c, 694, 20, 3, 20, '#1B2230'); label(c, '관제 센터', 695, 112, { s: 13 });
+      // 전광판
+      BOX(c, 150, 120, 6, 40, '#56607A'); BOX(c, 320, 120, 6, 40, '#56607A'); BOX(c, 140, 92, 196, 38, '#14141A'); const A = S.acc;
+      if (A && A.sign) TXT(c, Math.floor(now / 300) % 2 ? '⚠ 앞 사고! 1차로로' : '⚠ 감속 · 1차로 이용', 238, 111, { s: 17, c: '#FFB23E', w: 900 }); else TXT(c, '원활 · 안전 운전', 238, 111, { s: 17, c: '#7CFF9E', w: 900 });
+      BOX(c, 536, 118, 5, 42, '#56607A'); BOX(c, 524, 106, 30, 16, '#1B2230'); BOX(c, 545, 110, 6, 8, '#7CE0FF'); if (A && A.on && S.its && S.t - A.t < 1.2) { c.strokeStyle = '#FFE14D'; c.lineWidth = 3; c.beginPath(); c.arc(538, 114, 14 + (S.t - A.t) * 30, 0, 7); c.stroke(); }
+      if (A && !A.on && S.t >= A.t) { A.on = true; SND.no(); }
+      if (A && A.on && S.its) { if (!A.det && S.t - A.t > .5) { A.det = true; S.pk.push({ a: [538, 110], b: [680, 60], t: now }); } if (!A.sign && S.t - A.t > 1.1) { A.sign = true; S.pk.push({ a: [680, 60], b: [238, 100], t: now }); } if (!S.amb && S.t - A.t > 1.3) S.amb = { x: -40 }; }
+      if (A && A.on && !S.its && !S.amb && S.t - A.t > 6) S.amb = { x: -40 };
+      // 차량 이동
+      S.sp += dt; if (S.sp > .5) { const ln = Math.random() < .5 ? 0 : 1, y = ln ? 250 : 190; if (!S.cars.some(k => k.ln === ln && k.x < 40)) { S.sp = 0; S.cars.push({ x: -40, ln, y, v: 130, vm: 120 + Math.random() * 30, id: S.id++, col: ['#D0261E', '#2350C8', '#F2B705', '#2FA84F', '#EDEDED', '#7B3FA0'][S.id % 6], st: 0 }); } }
+      S.cars.forEach(k => {
+        const ahead = S.cars.filter(o => o !== k && Math.abs(o.y - k.y) < 30 && o.x > k.x).sort((a, b) => a.x - b.x)[0]; let dAhead = ahead ? ahead.x - k.x : 1e9, vAhead = ahead ? ahead.v : 999;
+        if (A && A.on && k.ln === 1 && k.x < A.x) { const d = A.x - 30 - k.x; if (d < dAhead) { dAhead = d + 34; vAhead = 0; } }
+        let v = k.vm; if (dAhead < 90) v = Math.min(v, vAhead + (dAhead - 40) * 2); if (dAhead < 42) v = 0;
+        const warned = A && A.on && k.ln === 1 && k.x < A.x && (S.its ? (A.sign && k.x > 140) : (A.x - k.x < 100));
+        if (warned && S.its) v = Math.min(v, 85);
+        if (!S.its && A && A.on && k.ln === 1 && k.x < A.x && A.x - k.x < 110 && k.v > 95 && !k.br) { k.br = 1; S.brake++; S.fx.push({ x: k.x, y: k.y - 20, t: now }); SND.tick(); }
+        if (warned && k.ln === 1) { const free = !S.cars.some(o => o.ln === 0 && Math.abs(o.x - k.x) < (S.its ? 60 : 46)); if (free && (S.its || k.v < 5)) { k.ln = 0; } }
+        k.v = Math.max(0, v); k.x += k.v * dt; k.y += ((k.ln ? 250 : 190) - k.y) * Math.min(1, dt * 4);
+      });
+      S.cars = S.cars.filter(k => k.x < W + 50);
+      S.cars.forEach(k => { BOX(c, k.x - 17, k.y - 10, 34, 20, k.col); BOX(c, k.x - 11, k.y - 7, 16, 14, 'rgba(0,0,0,.2)'); BOX(c, k.x + 8, k.y - 7, 6, 14, '#BFE6FF'); });
+      if (A && A.on) { BOX(c, A.x - 34, 240, 32, 20, '#7B3FA0'); BOX(c, A.x - 4, 238, 32, 20, '#F2B705'); TXT(c, '💥', A.x - 2, 236, { s: 22 }); for (let i = 0; i < 3; i++) { c.fillStyle = 'rgba(80,80,80,.5)'; const k = (now / 900 + i / 3) % 1; c.fillRect(A.x - 10 + i * 6, 226 - k * 60, 14, 14); } }
+      if (S.amb) { if (A && Math.abs(S.amb.x - A.x) < 10) { S.amb.at = S.amb.at || S.t; if (S.t - S.amb.at > 2.2) { S.acc = null; S.amb.x += 4; } } else S.amb.x += 220 * dt; const bx = S.amb.x; BOX(c, bx - 20, 266, 40, 18, '#FFFFFF'); BOX(c, bx - 4, 270, 8, 10, '#D0261E'); BOX(c, bx - 10, 262, 8, 5, Math.floor(now / 150) % 2 ? '#2350C8' : '#D0261E'); if (bx > W + 40) S.amb = null; }
+      S.fx = S.fx.filter(f => { const k = (now - f.t) / 900; if (k > 1) return false; TXT(c, '끼익!', f.x, f.y - k * 20, { s: 16, c: '#D0261E', w: 900 }); return true; });
+      S.pk = S.pk.filter(p => { const k = (now - p.t) / 600; if (k > 1) return false; const q = qbez(p.a, [(p.a[0] + p.b[0]) / 2, 0], p.b, k); packet(c, q[0], q[1]); return true; });
+      label(c, `급정거 ${S.brake}회`, 80, 24, { s: 16, bg: S.brake ? '#FDEBEA' : '#FFFFFF', bd: S.brake ? '#D0261E' : '#1B2230' }); label(c, S.its ? '🟢 ITS 켜짐' : '⚪ ITS 꺼짐', 220, 24, { s: 16 });
+    } };
+
+  // ===== 건축: BIM =====
+  const LAY0 = ['RRRRRRRR', 'WGGWWGGW', 'WGGWPWGW', 'SSSSSSSS', 'WGWWPGGW', 'WGGWPGGW', 'WDDWPGGW'];
+  const INFO = { R: ['지붕', '목재 + 방수층', '방수 점검 10년마다', 80, 'roof'], W: ['벽', '철근 콘크리트', '균열 점검 5년마다', 120, 'iron'], G: ['창문', '이중 유리', '교체 25년', 60, 'glass'], S: ['바닥판', '철근 콘크리트', '하중 점검 10년', 150, 'stone'], P: ['배관', '스테인리스', '점검 5년마다', 40, 'water'], D: ['출입문', '강화 유리', '교체 15년', 90, 'log'] };
+  const BX = 70, BS = 36, GYb = 360;
+  const cellXY = (r, k) => [BX + k * BS, GYb - (7 - r) * BS];
+  CASE.bim = { field: '건축', name: 'BIM (건축 정보 모델)',
+    plain: '기존 건축 과정에 소프트웨어를 융합한 <b>3차원 정보 모델</b>. 건물의 <b>생애 주기</b>(설계→시공→유지 관리→철거) 동안 생기는 모든 정보를 하나의 디지털 모형에 담아요. ' + pp('p.25'),
+    btns: [['① 미리 짓기', 'model'], ['② 같은 모델 보기', 'share'], ['③ 실제로 짓기', 'build'], ['④ 유지 관리', 'keep'], ['↺ 처음', 'reset']],
+    msg0: '빈 땅이에요. 바로 짓지 않고 먼저 <b>컴퓨터 속에서</b> 지어 볼 거예요. ①부터 눌러 봐요. 블록을 누르면 정보가 나와요!',
+    init(S){ S.ph = 'none'; S.k = 0; S.lay = LAY0.slice(); S.sel = null; S.ed = 0; S.flash = 0; S.yr = 2027; },
+    act(S, a){ const ph0 = S.ph; if (a === 'reset') { this.init(S); return this.msg0; } S.ph = a; S.t0 = S.t; S.sel = null; if (a === 'model') S.k = 0; if (a === 'build') S.k = 0; if (a === 'keep') S.yr = 2027;
+      return { model: '건물을 짓기 <b>전에</b> 3차원 정보 모델로 먼저 지어 봐요. 블록마다 재료·비용 정보가 들어 있어 <b>비용과 일정</b>을 더 정확히 예측해요. ' + pp('p.25') + '<br>(숫자는 예시)',
+        share: '여러 전문가가 <b>같은 모델</b>을 봐요. 한 명이 고치면 모두의 화면이 동시에 바뀌어 정보가 어긋나지 않아요. ' + pp('p.25'),
+        build: '모델대로 실제 건물을 지어요. 계획(파란 모델)과 실제를 비교하며 공사를 관리해요. ' + pp('p.25 일정 관리'),
+        keep: '다 지은 뒤에도 모델에 담긴 정보로 <b>언제 무엇을 점검·교체할지</b> 알 수 있어요. 건물의 <b>생애 주기</b> 정보를 하나로! ' + pp('p.25') + '<br>(점검 주기는 예시)' }[a]; },
+    click(S, x, y){ for (let r = 0; r < 7; r++) for (let k = 0; k < 8; k++) { const [bx, by] = cellXY(r, k); if (x >= bx && x < bx + BS && y >= by && y < by + BS && S.ph !== 'none') { S.sel = { r, k, ch: S.lay[r][k] }; SND.pop(); } } },
+    draw(c, S, dt, now){
+      skyBG(c, W, H, '#8FCBFF', '#E4F4FF'); cloud(c, 230, 40); for (let x = 0; x < W; x += 30) { blk(c, x, GYb, 30, 'grass'); blk(c, x, GYb + 30, 30, 'dirt'); }
+      const t = S.t - (S.t0 || 0), n = 56;
+      if (S.ph === 'model') S.k = Math.min(n, S.k + dt * 26); if (S.ph === 'build') S.k = Math.min(n, S.k + dt * 9);
+      if (S.ph === 'share') { S.ed += dt; if (S.ed > 2.4) { S.ed = 0; const r = [1, 2, 4, 5][Math.floor(Math.random() * 4)], k = [1, 2, 5, 6][Math.floor(Math.random() * 4)], row = S.lay[r].split(''); row[k] = row[k] === 'G' ? 'W' : 'G'; S.lay[r] = row.join(''); S.flash = now; S.who = Math.floor(Math.random() * 3); SND.ok(); } }
+      if (S.ph === 'keep') S.yr = Math.min(2047, 2027 + t * 1.6);
+      if (S.ph === 'none') { label(c, '빈 땅 · 건축 예정', BX + 144, GYb - 30, { s: 16 }); }
+      let i = 0; const built = S.ph === 'build' ? S.k : S.ph === 'keep' ? n : 0, gh = S.ph === 'none' ? 0 : S.ph === 'model' ? S.k : n;
+      for (let r = 6; r >= 0; r--) for (let k = 0; k < 8; k++, i++) { const ch = S.lay[r][k], [x, y] = cellXY(r, k);
+        if (i < built) { blk(c, x, y, BS, INFO[ch][4]); if (ch === 'P') { BOX(c, x + 14, y, 8, BS, '#C6C6C6'); } }
+        else if (i < gh) ghost(c, x, y, BS, '#2F7BEA', .28);
+        if (S.ph === 'keep' && ch === 'P') { const due = Math.floor((S.yr - 2027) / 5) >= 1 && Math.floor(S.yr) % 5 < 2; if (due) { c.strokeStyle = Math.floor(now / 250) % 2 ? '#FF3B3B' : '#FFE14D'; c.lineWidth = 4; c.strokeRect(x + 2, y + 2, BS - 4, BS - 4); } } }
+      if (S.ph === 'keep' && Math.floor((S.yr - 2027) / 5) >= 1 && Math.floor(S.yr) % 5 < 2) label(c, `🔧 배관 점검 시기! (${Math.floor(S.yr)}년)`, BX + 144, 92, { s: 15, bg: '#FDEBEA', bd: '#D0261E' });
+      if (S.ph === 'build') { dude(c, BX - 30, GYb, { s: .8, shirt: '#E06A1B', cap: '#F2B705', armR: -1 + Math.sin(now / 150) * .5 }); dude(c, BX + 320, GYb, { s: .8, shirt: '#E06A1B', cap: '#F2B705', walk: true, ph: now / 120, flip: true }); }
+      // 오른쪽 패널
+      const px = 400; RR(c, px, 14, 366, 236, 10); c.fillStyle = 'rgba(255,255,255,.94)'; c.fill(); c.strokeStyle = '#1B2230'; c.lineWidth = 2; c.stroke();
+      if (S.ph === 'model' || S.ph === 'none') { let cost = 0; let j = 0; for (let r = 6; r >= 0; r--) for (let k = 0; k < 8; k++, j++) if (j < gh) cost += INFO[S.lay[r][k]][3];
+        TXT(c, '🖥 3차원 정보 모델', px + 183, 38, { s: 18, w: 900 }); TXT(c, `블록 ${Math.floor(gh)}개 · 자재 정보 포함`, px + 183, 74, { s: 17 });
+        TXT(c, `예상 비용 ₩${(cost * 10).toLocaleString()}만`, px + 183, 112, { s: 22, w: 900, c: '#2350C8' }); TXT(c, `예상 공사 기간 ${Math.max(1, Math.round(gh / 4))}개월`, px + 183, 148, { s: 20, w: 900, c: '#0A7F72' }); TXT(c, '(예시 숫자)', px + 183, 178, { s: 14 }); TXT(c, '블록을 눌러 정보 보기 👆', px + 183, 216, { s: 16, w: 800, c: '#B85E00' }); }
+      if (S.ph === 'share') { const ex = [['👷 건축가'], ['🔩 구조 전문가'], ['🚰 설비 전문가']]; TXT(c, '모두 같은 모델을 봐요', px + 183, 34, { s: 17, w: 900 });
+        ex.forEach((e, q) => { const x = px + 18 + q * 118, y = 52; BOX(c, x, y, 104, 96, '#0E1626'); for (let r = 0; r < 7; r++) for (let k = 0; k < 8; k++) { const ch = S.lay[r][k]; c.fillStyle = ch === 'G' ? '#7CE0FF' : ch === 'R' ? '#5B8DEF' : '#2F5FB0'; c.fillRect(x + 12 + k * 10, y + 14 + r * 10, 9, 9); }
+          if (now - S.flash < 900) { TXT(c, '✔ 동시 반영', x + 52, y + 88, { s: 12, c: '#7CFF9E', w: 900 }); } TXT(c, e[0], x + 52, y + 112, { s: 14, w: 800 }); if (now - S.flash < 900 && S.who === q) TXT(c, '✏️ 수정', x + 52, y - 4 + 2, { s: 12, c: '#B85E00', w: 900 }); });
+        TXT(c, '예전: 각자 다른 종이 도면', px + 183, 196, { s: 15, w: 800, c: '#D0261E' }); TXT(c, '→ 정보가 어긋나 혼란 ' , px + 183, 222, { s: 15, w: 800, c: '#D0261E' }); }
+      if (S.ph === 'build') { TXT(c, '🏗 공사 진행률', px + 183, 50, { s: 20, w: 900 }); BOX(c, px + 30, 80, 306, 26, '#E3E7F1'); BOX(c, px + 30, 80, 306 * S.k / n, 26, '#0A7F72'); TXT(c, Math.round(S.k / n * 100) + '%', px + 183, 94, { s: 18, w: 900, c: '#FFFFFF' }); TXT(c, '파란 모델 = 계획, 블록 = 실제', px + 183, 140, { s: 17, w: 800 }); TXT(c, S.k >= n ? '✔ 계획대로 완공!' : '모델과 비교하며 짓는 중…', px + 183, 180, { s: 18, w: 900, c: S.k >= n ? '#137A3A' : '#1B2230' }); }
+      if (S.ph === 'keep') { TXT(c, `📅 ${Math.floor(S.yr)}년`, px + 183, 50, { s: 30, w: 900 }); TXT(c, '모델에 기록된 정보로', px + 183, 96, { s: 17, w: 800 }); TXT(c, '점검·교체 시기를 미리 알아요', px + 183, 124, { s: 17, w: 800 }); TXT(c, '블록을 눌러 점검 주기 보기 👆', px + 183, 170, { s: 16, w: 800, c: '#B85E00' }); }
+      // 생애 주기 막대
+      const st = ['설계', '시공', '유지 관리', '철거'], cur = { none: -1, model: 0, share: 0, build: 1, keep: 2 }[S.ph]; TXT(c, '생애 주기', px + 40, 278, { s: 15, w: 900 });
+      st.forEach((s, q) => { const x = px + 80 + q * 72; RR(c, x, 264, 66, 28, 6); c.fillStyle = q === cur ? '#B85E00' : '#E3E7F1'; c.fill(); TXT(c, s, x + 33, 279, { s: 14, w: 900, c: q === cur ? '#FFFFFF' : '#1B2230' }); });
+      if (S.sel) { const f = INFO[S.lay[S.sel.r][S.sel.k]], [x, y] = cellXY(S.sel.r, S.sel.k); c.strokeStyle = '#FFE14D'; c.lineWidth = 4; c.strokeRect(x, y, BS, BS);
+        RR(c, px, 304, 366, 104, 10); c.fillStyle = '#FFF8D6'; c.fill(); c.strokeStyle = '#E0B400'; c.lineWidth = 2; c.stroke(); TXT(c, `📋 ${f[0]} 정보`, px + 16, 326, { s: 18, w: 900, a: 'left' }); TXT(c, `재료: ${f[1]}`, px + 16, 354, { s: 16, a: 'left' }); TXT(c, `관리: ${f[2]}`, px + 16, 380, { s: 16, a: 'left' }); TXT(c, `단가 ${f[3]}0만 원 (예시)`, px + 350, 326, { s: 14, a: 'right' }); }
+    } };
+
+  // ===== 환경: 스마트 워터 그리드 =====
+  CASE.water = { field: '환경', name: '스마트 워터 그리드',
+    plain: '기존 물 공급망에 소프트웨어를 융합해 물의 <b>생산·소비 정보를 실시간 모니터링</b>하고, 수자원과 상하수도를 효율적으로 관리해요. ' + pp('p.25'),
+    btns: [['🏙 평소', 'norm'], ['☔ 폭우', 'rain', 'con'], ['☀️ 가뭄', 'dry'], ['🧪 수질 이상', 'qual'], ['↺ 처음', 'reset']],
+    msg0: '평소에는 집집마다 쓰는 물의 양(소비)과 만드는 양(생산)을 <b>실시간</b>으로 보며 필요한 만큼만 생산해요. ' + pp('p.25'),
+    init(S){ S.m = 'norm'; S.res = .5; S.riv = .35; S.use = [30, 42, 25]; S.drops = []; S.q = 0; S.prod = 97; },
+    act(S, a){ if (a === 'reset') { this.init(S); return this.msg0; } S.m = a; S.t0 = S.t; if (a === 'qual') S.q = 1;
+      return { norm: this.msg0, rain: '☔ 폭우! <b>하천 수위 센서</b>가 바로 감지 → 남는 물을 <b>저수 시설에 저장</b>해 홍수에 대비해요. ' + pp('p.25'), dry: '☀️ 가뭄! 저장해 둔 물을 필요할 때 <b>다시 공급</b>하고, 사용량 정보로 물 절약을 안내해요. ' + pp('p.25'), qual: '🧪 수질 센서가 이상을 바로 발견 → 물을 막고 다시 정수 → 깨끗한 물을 <b>안정적으로 공급</b>해요. ' + pp('p.25 수질 관리') }[a]; },
+    draw(c, S, dt, now){
+      const m = S.m, t = S.t - (S.t0 || 0); skyBG(c, W, H, m === 'rain' ? '#5E6B80' : m === 'dry' ? '#FFD58A' : '#8FCBFF', m === 'rain' ? '#9AA6B8' : m === 'dry' ? '#FFF1C9' : '#E4F4FF');
+      if (m === 'dry') { c.fillStyle = '#FFC93C'; c.fillRect(60, 30, 40, 40); }
+      if (m === 'rain') { for (let i = 0; i < 4; i++) { BOX(c, 30 + i * 120, 20, 110, 26, '#4A5466'); } if (S.drops.length < 120) for (let i = 0; i < 4; i++) S.drops.push({ x: Math.random() * W, y: 40 }); }
+      S.drops = S.drops.filter(d => { d.y += 420 * dt; BOX(c, d.x, d.y, 2, 10, '#CFE3FF'); return d.y < 360 && m === 'rain'; });
+      // 산
+      for (let r = 0; r < 6; r++) for (let k = 0; k <= r; k++) { blk(c, 6 + k * 26, 200 + r * 26, 26, r < 1 ? 'snow' : 'stone'); }
+      for (let x = 160; x < W; x += 26) { blk(c, x, 334, 26, 'grass'); } for (let x = 0; x < W; x += 26) blk(c, x, 392, 26, 'dirt');
+      // 하천
+      const tr = m === 'rain' ? .85 : m === 'dry' ? .12 : .35; S.riv += (tr - S.riv) * dt * .6; const ry = 392 - 12 - S.riv * 28; BOX(c, 0, ry, W, 392 - ry, '#3F76E4'); for (let x = 0; x < W; x += 30) BOX(c, (x + now / 20) % W, ry + 4, 14, 3, '#9CC2FF');
+      BOX(c, 150, 340, 6, 52, '#1B2230'); BOX(c, 140, 330, 26, 14, '#FFE14D'); TXT(c, '수위', 153, 337, { s: 10, w: 900 }); if (S.riv > .6) label(c, '하천 수위 ↑ 감지!', 150, 312, { s: 13, bg: '#FDEBEA', bd: '#D0261E' });
+      // 저수 시설
+      const tres = m === 'rain' ? .95 : m === 'dry' ? .15 : .55; S.res += (tres - S.res) * dt * (m === 'dry' ? .15 : .3);
+      for (let y = 210; y < 334; y += 24) { blk(c, 180, y, 24, 'cobble'); blk(c, 324, y, 24, 'cobble'); } for (let x = 180; x < 348; x += 24) blk(c, x, 334 - 24, 24, 'cobble');
+      const wh = S.res * 100; BOX(c, 204, 310 - wh, 120, wh, '#3F76E4'); TXT(c, '저수 시설', 264, 196, { s: 15, w: 900 }); TXT(c, Math.round(S.res * 100) + '%', 264, 300 - wh / 2, { s: 18, w: 900, c: '#FFFFFF' });
+      if (m === 'rain') { c.strokeStyle = '#3F76E4'; c.lineWidth = 6; c.beginPath(); c.moveTo(170, ry); c.lineTo(170, 250); c.lineTo(204, 250); c.stroke(); TXT(c, '⬆', 160, 290, { s: 18, c: '#FFFFFF' }); }
+      // 정수장
+      for (let x = 370; x < 450; x += 26) for (let y = 256; y < 334; y += 26) blk(c, x, y, 26, (x + y) % 52 ? 'iron' : 'glass'); TXT(c, '정수장', 410, 244, { s: 15, w: 900 });
+      const bad = m === 'qual' && t < 3.2; if (m === 'qual' && t > 3.2) S.q = 0;
+      // 관
+      const pipe = (x1, y1, x2, y2, on, col) => { c.strokeStyle = '#8E97A8'; c.lineWidth = 10; c.beginPath(); c.moveTo(x1, y1); c.lineTo(x2, y2); c.stroke(); if (on) { c.strokeStyle = col; c.lineWidth = 4; c.setLineDash([10, 10]); c.lineDashOffset = -now / 25; c.beginPath(); c.moveTo(x1, y1); c.lineTo(x2, y2); c.stroke(); c.setLineDash([]); } };
+      pipe(324, 322, 370, 322, true, '#4C86F0'); pipe(450, 322, 760, 322, !bad, '#4C86F0'); if (bad) { pipe(450, 322, 500, 322, true, '#8B5A2B'); BOX(c, 496, 310, 20, 24, '#D0261E'); TXT(c, '✖', 506, 322, { s: 14, c: '#FFFFFF' }); label(c, t < 1.5 ? '⚠ 수질 이상 감지!' : '🔒 차단 → 다시 정수 중', 410, 214, { s: 13, bg: '#FDEBEA', bd: '#D0261E' }); }
+      else TXT(c, '수질 ✔', 410, 360, { s: 13, w: 900, c: '#137A3A' });
+      // 집 + 계량기
+      const sav = m === 'dry' ? .7 : 1; [520, 610, 700].forEach((x, q) => { for (let i = 0; i < 2; i++) for (let j = 0; j < 2; j++) blk(c, x + i * 26, 270 + j * 26, 26, j ? 'plank' : (i ? 'glass' : 'plank')); for (let i = -1; i < 3; i++) blk(c, x + i * 18 - 2, 252, 18, 'brick');
+        S.use[q] += (Math.sin(now / 900 + q * 2) * 6 + 32 * sav - S.use[q]) * dt; BOX(c, x - 4, 210, 60, 26, '#14141A'); TXT(c, `${Math.round(bad ? 0 : S.use[q])}L`, x + 26, 223, { s: 15, c: '#7CFF9E', w: 900 }); if (m === 'dry') TXT(c, '절약 모드', x + 26, 200, { s: 12, w: 900, c: '#B85E00' }); });
+      // 대시보드
+      const use = bad ? 0 : S.use.reduce((a, b) => a + b, 0); S.prod += ((m === 'dry' ? use * .9 : use + 4) - S.prod) * Math.min(1, dt * 3); RR(c, 480, 12, 288, 150, 10); c.fillStyle = '#0E1626'; c.fill();
+      TXT(c, '📊 실시간 모니터링', 494, 32, { s: 16, c: '#FFFFFF', a: 'left' }); TXT(c, `💧 생산 ${Math.round(S.prod)}톤`, 494, 62, { s: 17, c: '#7CE0FF', a: 'left', w: 900 }); TXT(c, `🏠 소비 ${Math.round(use)}톤`, 494, 90, { s: 17, c: '#7CFF9E', a: 'left', w: 900 }); TXT(c, `🏞 저수율 ${Math.round(S.res * 100)}%`, 494, 118, { s: 17, c: '#FFE58A', a: 'left', w: 900 }); TXT(c, `🌊 하천 수위 ${S.riv > .6 ? '높음 ⚠' : S.riv < .2 ? '낮음' : '보통'}`, 494, 146, { s: 17, c: S.riv > .6 ? '#FF8A8A' : '#FFFFFF', a: 'left', w: 900 }); TXT(c, '(숫자는 예시)', 760, 32, { s: 11, c: '#C9D1DF', a: 'right' });
+    } };
+
+  // ===== 물류: WMS =====
+  const ITEMS = [['🍎', '사과'], ['🥛', '우유'], ['📚', '책'], ['👟', '신발'], ['🧸', '인형'], ['🎧', '이어폰'], ['🧴', '샴푸'], ['🍜', '라면']];
+  const SHELF = ITEMS.map((_, i) => ({ x: (i % 2) ? 290 : 50, y: 40 + Math.floor(i / 2) * 82, w: 190 }));
+  CASE.wms = { field: '물류', name: 'WMS (창고 관리 시스템)',
+    plain: '기존 창고 관리 방식에 소프트웨어를 융합해 <b>재고 관리, 상품 입출고, 위치 관리, 주문 처리</b>를 효율적으로! 실시간 재고 관리로 재고 과다·부족 문제를 해결해요. ' + pp('p.26'),
+    btns: [['🛒 주문 들어옴', 'order', 'pro'], ['🚚 입고 트럭', 'in'], ['📋 예전 방식', 'old', 'con'], ['↺ 처음', 'reset']],
+    msg0: '창고 안 물건의 <b>위치와 개수</b>가 모두 컴퓨터에 기록되어 있어요. 🛒 주문 들어옴을 눌러 봐요!',
+    init(S){ S.cnt = [9, 6, 4, 8, 3, 7, 5, 6]; S.q = []; S.wk = { x: 520, y: 380, path: [], hold: null, beep: 0 }; S.truck = null; S.old = false; S.fl = {}; S.orders = 0; },
+    act(S, a){ if (a === 'reset') { this.init(S); return this.msg0; } S.old = a === 'old';
+      if (a === 'order') { for (let i = 0; i < 2; i++) { let k = Math.floor(Math.random() * 8); if (S.cnt[k] <= 0) k = S.cnt.indexOf(Math.max(...S.cnt)); S.q.push(k); } S.orders++; return '주문이 들어오면 시스템이 <b>물건 위치</b>를 바로 알려 줘요. 꺼내서 스캔하는 순간 <b>재고 숫자가 실시간</b>으로 바뀌어요. ' + pp('p.26') + ' 위치 관리·주문 처리·출고'; }
+      if (a === 'in') { S.truck = { x: -160, st: 0 }; return '물건이 들어오면(입고) 스캔 한 번으로 재고에 바로 반영! 모자란 물건부터 채워 <b>재고 부족</b>을 막아요. ' + pp('p.26'); }
+      if (a === 'old') return '예전에는 사람이 창고를 돌며 <b>종이 장부</b>에 적었어요 → 장부와 실제 개수가 달라 <b>정확한 재고 관리가 어려웠어요</b>. ' + pp('p.26'); },
+    draw(c, S, dt, now){
+      for (let x = 0; x < 560; x += 28) for (let y = 0; y < H; y += 28) blk(c, x, y, 28, 'plank', { a: .05 }); BOX(c, 560, 0, 220, H, '#F5F7FA');
+      SHELF.forEach((s, i) => { for (let k = 0; k < 5; k++) blk(c, s.x + k * 38, s.y, 38, 'log'); const n = Math.min(5, S.cnt[i]); for (let k = 0; k < n; k++) { BOX(c, s.x + 6 + k * 36, s.y + 6, 26, 26, '#C79457'); c.strokeStyle = '#8B5A2B'; c.strokeRect(s.x + 6 + k * 36, s.y + 6, 26, 26); }
+        TXT(c, ITEMS[i][0], s.x + 20, s.y + 20, { s: 16 }); label(c, `${String.fromCharCode(65 + Math.floor(i / 2))}-${i % 2 + 1}`, s.x + 170, s.y + 46, { s: 11 }); if (S.fl[i] && now - S.fl[i] < 700) { c.strokeStyle = '#FFE14D'; c.lineWidth = 4; c.strokeRect(s.x - 2, s.y - 2, 194, 42); } });
+      BOX(c, 430, 384, 120, 30, '#2350C8'); TXT(c, '출고 ▶', 490, 399, { s: 14, c: '#FFFFFF', w: 900 }); BOX(c, 10, 384, 120, 30, '#0A7F72'); TXT(c, '◀ 입고', 70, 399, { s: 14, c: '#FFFFFF', w: 900 });
+      const w = S.wk; if (!w.path.length && !w.hold && S.q.length && !S.old) { const k = S.q.shift(), s = SHELF[k], ay = s.y + 60; w.path = [[520, ay], [s.x + 95, ay], ['pick', k], [520, ay], [490, 370], ['drop'], [520, 380]]; }
+      if (w.path.length) { const p = w.path[0]; if (p[0] === 'pick') { w.beep += dt; if (w.beep > .6) { w.beep = 0; S.cnt[p[1]] = Math.max(0, S.cnt[p[1]] - 1); S.fl[p[1]] = now; w.hold = p[1]; SND.tick(); w.path.shift(); } } else if (p[0] === 'drop') { w.hold = null; SND.ok(); w.path.shift(); } else { const dx = p[0] - w.x, dy = p[1] - w.y, d = Math.hypot(dx, dy), sp = 230 * dt; if (d < sp) { w.x = p[0]; w.y = p[1]; w.path.shift(); } else { w.x += dx / d * sp; w.y += dy / d * sp; } } }
+      dude(c, w.x, w.y + 22, { s: .75, shirt: '#2350C8', cap: '#F2B705', walk: !!w.path.length && typeof w.path[0][0] === 'number', ph: now / 110, hold: c => { BOX(c, 0, 20, 10, 7, '#1B2230'); BOX(c, 2, 21, 6, 3, '#FF3B3B'); } });
+      if (w.hold !== null) { TXT(c, ITEMS[w.hold][0], w.x + 16, w.y - 40, { s: 18 }); } if (w.path.length && w.path[0][0] === 'pick') { label(c, '삑! 📲 스캔', w.x, w.y - 50, { s: 13, bg: '#E3F5E8', bd: '#137A3A' }); c.fillStyle = 'rgba(255,59,59,.6)'; c.fillRect(w.x + 6, w.y - 16, 40, 2); }
+      if (S.truck) { const T = S.truck; if (T.st === 0) { T.x += 220 * dt; if (T.x >= 10) { T.x = 10; T.st = 1; T.t = now; } } else if (T.st === 1 && now - T.t > 1200) { const low = S.cnt.map((v, i) => [v, i]).sort((a, b) => a[0] - b[0]).slice(0, 2); low.forEach(([, i]) => { S.cnt[i] += 5; S.fl[i] = now; }); SND.ok(); T.st = 2; } else if (T.st === 2) { T.x -= 220 * dt; if (T.x < -170) S.truck = null; }
+        if (S.truck) { BOX(c, T.x, 330, 110, 46, '#EDEDED'); BOX(c, T.x + 110, 344, 34, 32, '#D0261E'); BOX(c, T.x + 118, 348, 18, 12, '#BFE6FF'); c.fillStyle = '#1B2230'; [T.x + 20, T.x + 120].forEach(x => { c.beginPath(); c.arc(x, 378, 9, 0, 7); c.fill(); }); TXT(c, '📦 입고', T.x + 55, 353, { s: 15, w: 900 }); if (T.st === 1) label(c, '스캔 → 재고 +5 반영', T.x + 70, 312, { s: 13, bg: '#E3F5E8', bd: '#137A3A' }); } }
+      // 재고 패널
+      TXT(c, S.old ? '📋 종이 장부' : '🖥 실시간 재고', 670, 22, { s: 17, w: 900 }); ITEMS.forEach((it, i) => { const y = 50 + i * 42, n = S.cnt[i]; TXT(c, it[0] + ' ' + it[1], 574, y, { s: 16, a: 'left', w: 800 });
+        if (S.old) { const fake = n + ((i * 7) % 3) - 1; TXT(c, `${fake}개?`, 760, y, { s: 17, a: 'right', w: 900, c: fake !== n ? '#D0261E' : '#1B2230' }); if (fake !== n) TXT(c, `실제 ${n}`, 760, y + 16, { s: 11, a: 'right', c: '#D0261E' }); }
+        else { BOX(c, 668, y - 8, 64, 14, '#E3E7F1'); BOX(c, 668, y - 8, Math.min(64, n * 5), 14, n < 3 ? '#D0261E' : '#0A7F72'); TXT(c, n + '', 762, y, { s: 17, a: 'right', w: 900, c: n < 3 ? '#D0261E' : '#1B2230' }); if (n < 3) TXT(c, '⚠ 부족', 650, y + 16, { s: 11, w: 900, c: '#D0261E' }); } });
+      if (S.old) { dude(c, 300, 380, { s: .8, shirt: '#56607A', hold: c => { BOX(c, -2, 20, 14, 18, '#FFFFFF'); } }); say(c, '어… 장부랑 개수가 달라요 😵', 300, 300, { s: 15 }); }
+      if (S.q.length) label(c, `처리할 주문 ${S.q.length + (S.wk.path.length ? 1 : 0)}건`, 490, 22, { s: 13 });
+    } };
+
+  // ===== 의료: 원격 의료 =====
+  CASE.med = { field: '의료', name: '원격 의료',
+    plain: '기존 환자 진단 시스템에 소프트웨어를 융합해 <b>물리적 거리의 제약 없이</b> 진료·상담·진단·치료·교육 등의 의료 서비스를 원격으로 제공해요. ' + pp('p.26'),
+    btns: [['📈 건강 정보 보내기', 'send', 'pro'], ['📹 화상 진료·상담', 'video'], ['🧘 건강 관리 교육', 'edu'], ['↺ 처음', 'reset']],
+    msg0: '바다 건너 작은 섬마을에 사는 할머니. 병원까지 너무 멀어요. 어떻게 진료를 받을 수 있을까요?',
+    init(S){ S.m = 'none'; S.pk = []; S.hist = []; },
+    act(S, a){ if (a === 'reset') { this.init(S); return this.msg0; } S.m = a; S.t0 = S.t;
+      return { send: '손목 기기(예시)가 건강 정보를 병원으로 보내요. 의사가 멀리서도 <b>실시간으로</b> 확인하고, 이상 신호를 바로 발견해요. ' + pp('p.26'),
+        video: '화상으로 <b>진료·상담</b>! 의료 자원이 부족한 지역, 거동이 불편한 노인·장애인도 편리하게 의료 서비스를 받아요. ' + pp('p.26'),
+        edu: '건강 관리 방법을 알려 주는 <b>교육</b>도 원격으로 할 수 있어요. ' + pp('p.26') }[a]; },
+    draw(c, S, dt, now){
+      const t = S.t - (S.t0 || 0); skyBG(c, W, H, '#8FCBFF', '#E4F4FF'); cloud(c, 300, 40); cloud(c, 470, 70, .8);
+      for (let x = 230; x < 520; x += 26) for (let y = 330; y < H; y += 26) blk(c, x, y, 26, 'water'); for (let x = 230; x < 520; x += 40) BOX(c, (x + now / 30) % 290 + 230, 334, 20, 3, '#CFE3FF');
+      for (let x = 0; x < 230; x += 26) { blk(c, x, 330, 26, 'grass'); blk(c, x, 356, 26, 'dirt'); blk(c, x, 382, 26, 'dirt'); } for (let x = 520; x < W; x += 26) { blk(c, x, 330, 26, 'grass'); blk(c, x, 356, 26, 'dirt'); blk(c, x, 382, 26, 'dirt'); }
+      label(c, '🌊 바다 건너 먼 병원', 375, 300, { s: 15 });
+      for (let i = 0; i < 3; i++) for (let j = 0; j < 2; j++) blk(c, 20 + i * 30, 270 + j * 30, 30, j ? 'plank' : (i === 1 ? 'glass' : 'plank')); for (let i = -1; i < 4; i++) blk(c, 20 + i * 24 - 6, 246, 24, 'brick');
+      for (let i = 0; i < 7; i++) for (let j = 0; j < 4; j++) blk(c, 560 + i * 30, 210 + j * 30, 30, j === 3 && i === 3 ? 'glass' : (i + j) % 3 ? 'iron' : 'glass'); BOX(c, 655, 172, 30, 10, '#D0261E'); BOX(c, 665, 162, 10, 30, '#D0261E'); label(c, '병원', 730, 186, { s: 14 });
+      const edu = S.m === 'edu', armUp = edu ? -2.6 + Math.sin(now / 400) * .4 : undefined;
+      dude(c, 175, 330, { shirt: '#B85E00', hair: '#DADADA', armL: armUp, armR: edu ? 2.6 - Math.sin(now / 400) * .4 : -.5, hold: c => BOX(c, -1, 14, 8, 6, '#1B2230') });
+      if (S.m === 'video' || edu) { BOX(c, 196, 268, 40, 30, '#1B2230'); BOX(c, 199, 271, 34, 24, '#BFE6FF'); dude(c, 216, 300, { s: .32, coat: true }); }
+      // 할머니 쪽 그래프
+      RR(c, 10, 14, 220, 110, 8); c.fillStyle = '#0E1626'; c.fill(); TXT(c, '⌚ 내 건강 기록', 20, 30, { s: 14, c: '#FFFFFF', a: 'left' });
+      const bad = S.m === 'send' && t > 2.6 && t < 5; const hr = 72 + (bad ? 38 : 0) + Math.sin(now / 300) * 3; if (Math.random() < .5) { S.hist.push(hr); if (S.hist.length > 90) S.hist.shift(); }
+      c.strokeStyle = '#7CFF9E'; c.lineWidth = 2; c.beginPath(); S.hist.forEach((v, i) => { const x = 20 + i * 2.2, y = 110 - (v - 50) * .9 + ((i % 9) === 0 ? -14 : 0); i ? c.lineTo(x, y) : c.moveTo(x, y); }); c.stroke(); TXT(c, `심박 ${Math.round(hr)}`, 220, 30, { s: 14, c: bad ? '#FF8A8A' : '#7CFF9E', a: 'right', w: 900 });
+      // 병원 모니터
+      const on = S.m !== 'none'; RR(c, 520, 14, 250, 130, 8); c.fillStyle = '#0E1626'; c.fill(); TXT(c, '🏥 의사 모니터', 530, 30, { s: 14, c: '#FFFFFF', a: 'left' });
+      if (S.m === 'send') { c.strokeStyle = bad ? '#FF8A8A' : '#7CFF9E'; c.beginPath(); S.hist.slice(-60).forEach((v, i) => { const x = 532 + i * 3.8, y = 128 - (v - 50) * .9; i ? c.lineTo(x, y) : c.moveTo(x, y); }); c.stroke(); if (bad) label(c, '⚠ 심박 이상 신호!', 645, 60, { s: 14, bg: '#FDEBEA', bd: '#D0261E' }); }
+      else if (on) { BOX(c, 560, 44, 170, 92, '#BFE6FF'); dude(c, 645, 136, { s: 1.05, shirt: '#B85E00', hair: '#DADADA', armL: armUp }); } else TXT(c, '연결 대기 중…', 645, 84, { s: 16, c: '#C9D1DF' });
+      dude(c, 620, 330, { coat: true, hair: '#2B2118', armL: edu ? -2.6 + Math.sin(now / 400) * .4 : undefined, armR: edu ? 2.6 - Math.sin(now / 400) * .4 : -.9 });
+      if (S.m === 'send' && Math.random() < .2) S.pk.push({ t: now }); if (S.m === 'video' && Math.random() < .25) S.pk.push({ t: now, v: 1 });
+      S.pk = S.pk.filter(p => { const k = (now - p.t) / 1100; if (k > 1) return false; const q = p.v && Math.floor(p.t) % 2 ? qbez([600, 120], [380, 60], [210, 270], k) : qbez([185, 290], [380, 60], [600, 140], k); packet(c, q[0], q[1], p.v ? '#7CE0FF' : '#7CFF9E'); return true; });
+      if (S.m === 'send' && bad) say(c, '❗ 이상 신호 확인!', 620, 250, { s: 15 });
+      if (S.m === 'video') { const L = [['어지러운 곳은 없으세요?', 620], ['아침에 조금 어지러웠어요', 175], ['약 먹는 시간을 바꿔 볼게요', 620]], i = Math.floor(t / 2.2) % 3; say(c, L[i][0], L[i][1], 250, { s: 15 }); }
+      if (edu) say(c, '하루 10분 스트레칭 함께 해요!', 620, 250, { s: 15 });
+    } };
+
+  // ===== 스포츠: VAR =====
+  CASE.var = { field: '스포츠', name: 'VAR (비디오 보조 심판)',
+    plain: '심판의 판정에 소프트웨어를 융합! 경기장 <b>카메라가 찍은 영상</b>으로 경기 과정을 분석해 판정을 도와요. 도입 후 판정 정확도 <b>93.0% → 98.8%</b> ' + pp('p.26'),
+    btns: [['▶ 경기 장면', 'play', 'pro'], ['📹 VAR 판독', 'var', 'con'], ['🔄 다른 장면', 'new'], ['↺ 처음', 'reset']],
+    msg0: '▶ 경기 장면을 눌러 보세요. 빨간 팀 공격수가 패스를 받아 골을 넣을까요?',
+    init(S){ S.m = 'none'; S.off = Math.random() < .5 ? 16 : -14; S.tv = 0; S.rw = 0; },
+    act(S, a){ if (a === 'reset') { this.init(S); return this.msg0; } if (a === 'new') { this.init(S); S.m = 'play'; S.tv = 0; return '새 장면! ▶ 경기가 끝나면 📹 VAR 판독을 눌러요.'; }
+      if (a === 'play') { S.m = 'play'; S.tv = 0; return '눈 깜짝할 사이에 골! 그런데 <b>패스하는 순간</b> 공격수 위치가 반칙(오프사이드)이었을까요? 사람 눈으로는 판단하기 어려워요.'; }
+      if (a === 'var') { if (S.m === 'none') S.tv = 2.6; S.m = 'var'; S.rw = 0; return '경기장 곳곳의 <b>카메라 영상</b>을 되돌려 <b>패스 순간</b>을 분석 → 정확한 판정! ' + pp('p.26') + '<br>오프사이드: 패스 순간 공격수가 마지막 수비수보다 골대에 더 가까우면 반칙 ' + XB; } },
+    pos(S, t){ const dl = 540, ax0 = dl + S.off; const P = [250, 250], D1 = [520 + Math.sin(t * 2) * 4, 150], D2 = [dl, 262], GK = [722, 220];
+      const rec = [ax0 + 110, 300]; const A = t < 1 ? [ax0 + t * 6, 300] : t < 1.8 ? [lerp(ax0 + 6, rec[0], (t - 1) / .8), 300] : [rec[0] + (t - 1.8) * 30, 300 - (t - 1.8) * 20];
+      let B; if (t < 1) B = [P[0] + 12, P[1] + 6]; else if (t < 1.8) B = [lerp(P[0] + 12, rec[0], (t - 1) / .8), lerp(256, 300, (t - 1) / .8)]; else if (t < 1.9) B = [A[0] + 10, A[1]]; else B = [lerp(A[0] + 10, 760, Math.min(1, (t - 1.9) / .5)), lerp(A[1], 214, Math.min(1, (t - 1.9) / .5))];
+      return { P, D1, D2: [D2[0] + Math.min(t, 1.8) * 4, D2[1]], GK: [GK[0], GK[1] + (t > 1.9 ? -10 : 0)], A, B }; },
+    draw(c, S, dt, now){
+      for (let x = 0; x < W; x += 26) for (let y = 0; y < H; y += 26) blk(c, x, y, 26, 'green', { a: Math.floor(x / 78) % 2 ? .1 : 0 });
+      c.strokeStyle = '#FFFFFF'; c.lineWidth = 4; c.strokeRect(14, 14, W - 28, H - 28); c.strokeRect(640, 104, 126, 210); c.strokeRect(710, 160, 56, 100); c.beginPath(); c.moveTo(200, 14); c.lineTo(200, H - 14); c.stroke(); BOX(c, 762, 180, 12, 60, '#FFFFFF');
+      [[40, 6], [200, 6], [400, 6], [600, 6], [40, 404], [300, 404], [500, 404], [700, 404]].forEach(([x, y], i) => { BOX(c, x - 10, y - 4, 20, 12, '#1B2230'); BOX(c, x - 3, y, 6, 4, S.m === 'var' && Math.floor(now / 200 + i) % 2 ? '#FFE14D' : '#7CE0FF'); });
+      if (S.m === 'play') S.tv = Math.min(2.7, S.tv + dt); if (S.m === 'var') { S.rw += dt; S.tv = S.rw < 1.4 ? Math.max(1, 2.7 - S.rw * 1.25) : 1; }
+      const p = this.pos(S, S.tv), pl = (q, col, n) => { BOX(c, q[0] - 10, q[1] - 10, 20, 20, col); c.strokeStyle = '#1B2230'; c.lineWidth = 2; c.strokeRect(q[0] - 10, q[1] - 10, 20, 20); TXT(c, n, q[0], q[1] + 1, { s: 12, c: '#FFFFFF', w: 900 }); };
+      pl(p.P, '#D0261E', '10'); pl(p.A, '#D0261E', '9'); pl(p.D1, '#2350C8', '4'); pl(p.D2, '#2350C8', '5'); pl(p.GK, '#F2B705', '1'); BOX(c, p.B[0] - 5, p.B[1] - 5, 10, 10, '#FFFFFF'); c.strokeStyle = '#1B2230'; c.strokeRect(p.B[0] - 5, p.B[1] - 5, 10, 10);
+      if (S.m === 'play' && S.tv >= 2.4) { label(c, '⚽ 골?!', 390, 60, { s: 30, bg: '#FFF3C4', bd: '#E0B400' }); TXT(c, '🧑‍⚖️ 주심: 너무 빨라서 잘 안 보였어…', 390, 108, { s: 18, w: 900, c: '#FFFFFF' }); }
+      if (S.m === 'var') { c.fillStyle = 'rgba(14,22,38,.25)'; c.fillRect(0, 0, W, H); label(c, S.rw < 1.4 ? '◀◀ VAR 판독 중 · 영상 되돌리기' : '⏸ 패스 순간 정지', 300, 40, { s: 18, bg: '#0E1626', bd: '#7CE0FF', c: '#FFFFFF' });
+        if (S.rw > 1.6) { const dx = p.D2[0], ax = p.A[0]; c.lineWidth = 3; c.strokeStyle = '#2F7BEA'; c.beginPath(); c.moveTo(dx, 14); c.lineTo(dx, H - 14); c.stroke(); c.strokeStyle = '#FF3B3B'; c.beginPath(); c.moveTo(ax, 14); c.lineTo(ax, H - 14); c.stroke();
+          RR(c, 460, 80, 300, 150, 8); c.fillStyle = '#0E1626'; c.fill(); TXT(c, '🔍 확대 화면', 610, 98, { s: 14, c: '#FFFFFF' }); const zx = 610, k = 4; c.strokeStyle = '#2F7BEA'; c.beginPath(); c.moveTo(zx + (dx - (dx + ax) / 2) * k, 110); c.lineTo(zx + (dx - (dx + ax) / 2) * k, 220); c.stroke(); c.strokeStyle = '#FF3B3B'; c.beginPath(); c.moveTo(zx + (ax - (dx + ax) / 2) * k, 110); c.lineTo(zx + (ax - (dx + ax) / 2) * k, 220); c.stroke();
+          TXT(c, '수비수 5번', zx + (dx - (dx + ax) / 2) * k, 202, { s: 12, c: '#7CB8FF', w: 900 }); TXT(c, '공격수 9번', zx + (ax - (dx + ax) / 2) * k, 128, { s: 12, c: '#FF9C9C', w: 900 });
+          if (S.rw > 2.4) { const offs = ax > dx; label(c, offs ? '🚩 오프사이드! 골 취소' : '✔ 온사이드! 골 인정', 390, 290, { s: 26, bg: offs ? '#FDEBEA' : '#E3F5E8', bd: offs ? '#D0261E' : '#137A3A' }); if (!S.done) { S.done = 1; offs ? SND.no() : SND.ok(); } } else S.done = 0; } }
+      label(c, '판정 정확도 93.0% → 98.8%', 140, 386, { s: 14 });
+    } };
+
+  function load(k){ K = k; S = { t: 0 }; const C = CASE[k]; C.init(S); el.f.textContent = C.field; el.nm.textContent = '이름은? 눌러서 확인'; el.nm.classList.remove('on'); setMsg(el.pl, C.plain); simBtns(el.bt, C.btns, a => { const m = C.act(S, a); if (m) setMsg(el.ms, m); }); setMsg(el.ms, C.msg0); }
+  el.nm.addEventListener('click', () => { const on = el.nm.classList.toggle('on'); el.nm.textContent = on ? CASE[K].name : '이름은? 눌러서 확인'; if (on) SND.ok(); });
+  cv.addEventListener('click', e => { const C = CASE[K]; if (!C.click) return; const r = cv.getBoundingClientRect(); C.click(S, (e.clientX - r.left) * W / r.width, (e.clientY - r.top) * H / r.height); });
+  bindTabs('csTabs', load);
+  runLoop(cv, now => { const dt = Math.min(.05, (now - (last || now)) / 1000); last = now; S.t += dt; CASE[K].draw(c, S, dt, now); });
+  load('its');
+})();
+// ---------- D2-4 학문 분야 시뮬레이션 (p.28~29) ----------
+(() => {
+  const cv = $('fdCv'); if (!cv) return; const c = cv.getContext('2d'), W = 780, H = 418;
+  const el = { f: $('fdField'), pg: $('fdPage'), pl: $('fdPlain'), bt: $('fdBtns'), ms: $('fdMsg') };
+  let K = 'hum', S = {}, last = 0;
+  const pp = s => `<span class="pp">${s}</span>`;
+  const F = {};
+  const pipeLine = (steps, cur, y = 388) => { const w = 200; steps.forEach((s, i) => { const x = 40 + i * (w + 40); RR(c, x, y - 18, w, 36, 8); c.fillStyle = i === cur ? '#B85E00' : '#FFFFFF'; c.fill(); c.strokeStyle = '#1B2230'; c.lineWidth = 2; c.stroke(); TXT(c, s, x + w / 2, y, { s: 16, w: 900, c: i === cur ? '#FFFFFF' : '#1B2230' }); if (i < steps.length - 1) TXT(c, '▶', x + w + 20, y, { s: 18 }); }); };
+
+  // ===== 인문: 번역 =====
+  F.hum = { field: '인문 분야', page: 'p.28', plain: '대표 사례: <b>언어 번역 프로그램</b>. 외국인과의 의사소통 장벽을 해결해요. 텍스트 번역뿐 아니라 <b>음성 번역</b>, 청각 장애인을 위한 <b>수어 3D 영상 실시간 번역</b>까지! ' + pp('p.28'),
+    btns: [['🗣 여행지에서 음성 번역', 'voice', 'pro'], ['🧏 말 → 수어 3D 영상', 'sign'], ['↺ 처음', 'reset']],
+    msg0: '외국 가게에서 물건값을 묻고 싶어요. 그런데 말이 통하지 않아요! 버튼을 눌러 봐요.',
+    init(S){ S.m = 'none'; },
+    act(S, a){ if (a === 'reset') { this.init(S); return this.msg0; } S.m = a; S.t0 = S.t;
+      return a === 'voice' ? '말을 알아듣고(<b>음성 인식</b>) → <b>번역</b>하고 → 다른 언어로 <b>말해 줘요</b>. 간판 글자(텍스트) 번역도 돼요! ' + pp('p.28') : '청각 장애인을 위해 말을 <b>수어 3D 영상</b>으로 실시간 번역하는 소프트웨어도 개발되었어요. ' + pp('p.28') + '<br>(화면의 손동작은 예시 애니메이션)'; },
+    draw(c, S, dt, now){ const t = S.t - (S.t0 || 0);
+      if (S.m !== 'sign') {
+        for (let x = 0; x < W; x += 30) for (let y = 0; y < 330; y += 30) blk(c, x, y, 30, 'plank', { a: .08 }); for (let x = 0; x < W; x += 30) { blk(c, x, 330, 30, 'stone'); blk(c, x, 360, 30, 'stone'); }
+        for (let i = 0; i < 6; i++) blk(c, 440 + i * 36, 266, 36, 'log'); for (let i = 0; i < 6; i++) blk(c, 440 + i * 36, 302, 36, 'log');
+        BOX(c, 470, 40, 200, 60, '#1B2230'); TXT(c, 'SALE 50% OFF', 570, 70, { s: 24, c: '#FFE14D', w: 900 });
+        dude(c, 600, 266, { s: 1.4, shirt: '#0A7F72', hair: '#C27A2C' }); dude(c, 260, 330, { s: 1.4, shirt: '#2350C8', earbud: true, hold: c => { BOX(c, -2, 16, 12, 18, '#1B2230'); BOX(c, 0, 18, 8, 13, '#7CE0FF'); } });
+        if (S.m === 'none') { say(c, '(말이 안 통해요…)', 260, 220, { s: 17 }); pipeLine(['🎤 음성 인식', '🌐 번역', '🔊 음성 합성'], -1); return; }
+        const L = [[0, 1.6, '이거 얼마예요?', 260, 0], [1.6, 3.2, '🔊 How much is this?', 600, 2], [3.2, 4.8, "It's 10 dollars.", 600, 0], [4.8, 6.4, '🎧 10달러예요.', 260, 2]], cyc = t % 9.2;
+        L.forEach(l => { if (cyc >= l[0] && cyc < l[1]) { say(c, l[2], l[3], l[3] === 600 ? 150 : 220, { s: 19, bg: l[2].startsWith('🔊') || l[2].startsWith('🎧') ? '#E6EDFC' : '#FFFFFF', bd: '#1B2230' }); } });
+        const stage = cyc < 1.6 ? Math.floor(cyc / .55) : cyc < 3.2 ? 2 : cyc < 4.8 ? Math.floor((cyc - 3.2) / .55) : cyc < 6.4 ? 2 : -1;
+        if (cyc >= 6.4) { c.strokeStyle = '#FFE14D'; c.lineWidth = 4; c.strokeRect(462, 32, 216, 76); BOX(c, 470, 40, 200, 60, 'rgba(255,255,255,.92)'); TXT(c, '📷 50% 할인', 570, 70, { s: 26, w: 900, c: '#D0261E' }); say(c, '간판 글자도 번역!', 300, 220, { s: 17 }); }
+        pipeLine(cyc >= 6.4 ? ['📷 글자 인식', '🌐 번역', '🖼 화면 표시'] : ['🎤 음성 인식', '🌐 번역', '🔊 음성 합성'], cyc >= 6.4 ? Math.min(2, Math.floor((cyc - 6.4) / .7)) : Math.min(2, stage));
+      } else {
+        skyBG(c, W, H, '#2B3242', '#3B4766'); RR(c, 30, 30, 340, 230, 10); c.fillStyle = '#0E1626'; c.fill(); BOX(c, 44, 44, 312, 202, '#CDEBFF'); dude(c, 200, 246, { s: 2, shirt: '#1B2230' }); BOX(c, 44, 214, 312, 32, 'rgba(0,0,0,.7)');
+        const sent = ['오늘 오후에 비가 와요', '우산을 챙기세요'], si = Math.floor(t / 2.6) % 2; TXT(c, sent[si], 200, 230, { s: 18, c: '#FFFFFF', w: 800 }); TXT(c, '📺 뉴스 (소리)', 200, 20, { s: 15, c: '#FFFFFF', w: 900 });
+        TXT(c, '▶', 395, 145, { s: 40, c: '#FFE14D' }); RR(c, 420, 30, 330, 230, 10); c.fillStyle = '#0E1626'; c.fill(); BOX(c, 434, 44, 302, 202, '#E3F5E8'); TXT(c, '🧍 3D 수어 영상', 585, 20, { s: 15, c: '#FFFFFF', w: 900 });
+        const ph = t * 3; dude(c, 585, 246, { s: 2, shirt: '#0A7F72', hair: '#2B2118', armL: -1.6 + Math.sin(ph) * .9 + (si ? .6 : 0), armR: 1.6 - Math.cos(ph * 1.3) * .9 - (si ? .5 : 0) });
+        TXT(c, '(손동작은 예시)', 585, 236, { s: 13, w: 800 }); dude(c, 640, 380, { s: 1.1, shirt: '#B85E00' }); say(c, '이제 뉴스도 알 수 있어요!', 600, 300, { s: 15 });
+        pipeLine(['🎤 음성 인식', '📝 문장 번역', '🧍 3D 수어 영상'], Math.floor(t / .7) % 3);
+      } } };
+
+  // ===== 사회: 문화재 복원 =====
+  const GATE = ['..RRRRRRRR..', 'RRRRRRRRRRRR', '.PPPPPPPPPP.', '..L......L..', '..L......L..', 'CCCCC..CCCCC', 'CCCC....CCCC', 'CCCC....CCCC'];
+  const GK = { R: 'roof', P: 'red', L: 'red', C: 'cobble' }, GSZ = 28, GX = 60, GY0 = 140;
+  F.soc = { field: '사회 분야', page: 'p.28', plain: '대표 사례: <b>디지털 유산</b>(문화유산 정보를 디지털로 표현). 3D 모델링으로 문화유산을 디지털로 복원하고, 화재로 소실된 문화재 복원에 <b>3D 스캔 데이터</b>를 활용해요. ' + pp('p.28'),
+    btns: [['📡 미리 3D 스캔', 'scan', 'pro'], ['🔥 화재 발생', 'fire', 'con'], ['🧱 3D 데이터로 복원', 'fix'], ['🌐 홀로그램 전시', 'holo'], ['↺ 처음', 'reset']],
+    msg0: '오래된 성문이에요. 만약 사고로 무너진다면, 원래 모습을 어떻게 알 수 있을까요?',
+    init(S){ S.gone = {}; S.burn = {}; S.scan = 0; S.scanned = false; S.fix = -1; S.m = 'none'; },
+    act(S, a){ if (a === 'reset') { this.init(S); return this.msg0; } S.m = a; S.t0 = S.t;
+      if (a === 'scan') { S.scan = 0; return '레이저 <b>3D 스캐너</b>로 문화재 모양을 점 하나하나 데이터로 저장해요. ' + pp('p.28 그림 Ⅰ-15'); }
+      if (a === 'fire') return '화재로 문화재 일부가 사라졌어요… 😢';
+      if (a === 'fix') { if (!S.scanned) { S.m = 'none'; return '❌ 스캔 데이터가 없어요! 원래 모습을 정확히 알기 어려워요. 먼저 <b>📡 미리 3D 스캔</b>부터 눌러 볼까요?'; } S.fix = 0; return '저장해 둔 <b>3D 스캔 데이터</b>로 사라진 부분을 원래 모습 그대로 복원! ' + pp('p.28'); }
+      if (a === 'holo') return '<b>홀로그램</b>으로 형태가 남아 있지 않은 유물도 실물처럼 보여 줘요. 과거를 통해 현재와 미래를 알게 하는 데 도움! ' + pp('p.28'); },
+    draw(c, S, dt, now){ const t = S.t - (S.t0 || 0); skyBG(c, W, H, S.m === 'fire' ? '#5A4A4A' : '#8FCBFF', S.m === 'fire' ? '#C98A5A' : '#E4F4FF'); cloud(c, 420, 30, .8);
+      for (let x = 0; x < W; x += 28) { blk(c, x, GY0 + 8 * GSZ, 28, 'grass'); blk(c, x, GY0 + 9 * GSZ, 28, 'dirt'); }
+      if (S.m === 'fire' && t > .3) GATE.forEach((row, r) => row.split('').forEach((ch, k) => { if ((ch === 'R' || ch === 'P' || (ch === 'L' && r === 3)) && !S.gone[r + ',' + k]) { const key = r + ',' + k, d = 0.4 + H32(r * 11, k * 7) * 2.2; if (t > d) S.burn[key] = 1; if (t > d + 1 && H32(k, r) > .25) { S.gone[key] = 1; } } }));
+      const miss = []; GATE.forEach((row, r) => row.split('').forEach((ch, k) => { if (ch === '.') return; const x = GX + k * GSZ, y = GY0 + r * GSZ, key = r + ',' + k; if (S.gone[key] || (S.fix >= 0 && S.burn[key])) { miss.push([r, k, ch, x, y]); return; } blk(c, x, y, GSZ, S.burn[key] ? 'burnt' : GK[ch]); if (S.burn[key] && S.m === 'fire') flame(c, x + 14, y + 6, 22, now / 1000 + k); }));
+      if (S.fix >= 0) { S.fix += dt * 6; miss.forEach((m, i) => { if (i < S.fix) { blk(c, m[3], m[4], GSZ, GK[m[2]]); c.strokeStyle = '#FFD23F'; c.lineWidth = 2; c.strokeRect(m[3] + 1, m[4] + 1, GSZ - 2, GSZ - 2); if (i + 1 >= miss.length - .5) {} } else ghost(c, m[3], m[4], GSZ, '#FFD23F', .3); }); if (S.fix > miss.length + 2) { S.gone = {}; S.burn = {}; S.fix = -1; SND.fan(); confetti(); } }
+      else if (miss.length && S.m !== 'fire') miss.forEach(m => { c.strokeStyle = 'rgba(0,0,0,.25)'; c.setLineDash([4, 4]); c.strokeRect(m[3] + 2, m[4] + 2, GSZ - 4, GSZ - 4); c.setLineDash([]); });
+      // 스캐너
+      if (S.m === 'scan' || S.scanned) { BOX(c, 6, GY0 + 8 * GSZ - 50, 4, 50, '#1B2230'); BOX(c, 0, GY0 + 8 * GSZ - 64, 22, 16, '#1B2230'); BOX(c, 16, GY0 + 8 * GSZ - 60, 6, 6, '#FF3B3B'); }
+      if (S.m === 'scan') { S.scan = Math.min(1, S.scan + dt * .35); const ly = GY0 + S.scan * 8 * GSZ; c.strokeStyle = 'rgba(255,59,59,.85)'; c.lineWidth = 3; c.beginPath(); c.moveTo(20, GY0 + 8 * GSZ - 56); c.lineTo(GX + 12 * GSZ, ly); c.stroke(); c.beginPath(); c.moveTo(GX - 4, ly); c.lineTo(GX + 12 * GSZ + 4, ly); c.stroke(); if (S.scan >= 1 && !S.scanned) { S.scanned = true; SND.ok(); } }
+      // 점구름 패널
+      RR(c, 440, 16, 326, 220, 10); c.fillStyle = '#0E1626'; c.fill(); TXT(c, '💾 3D 스캔 데이터', 603, 34, { s: 16, c: '#FFFFFF', w: 900 });
+      const lim = S.scanned ? 8 : S.m === 'scan' ? S.scan * 8 : 0; if (!lim) TXT(c, '저장된 데이터 없음', 603, 130, { s: 17, c: '#C9D1DF' });
+      GATE.forEach((row, r) => row.split('').forEach((ch, k) => { if (ch === '.' || r > lim) return; for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) { c.fillStyle = H32(r * 9 + i, k * 5 + j) > .5 ? '#FF8A2A' : '#FFD23F'; c.fillRect(490 + k * 19 + i * 6, 56 + r * 19 + j * 6, 3, 3); } }));
+      if (S.scanned) TXT(c, '✔ 점 수천 개로 모양 저장 완료', 603, 222, { s: 14, c: '#7CFF9E', w: 900 });
+      if (S.m === 'holo') { BOX(c, 560, 360, 90, 16, '#3B4766'); BOX(c, 580, 352, 50, 10, '#7CE0FF'); const sc = Math.cos(now / 700); c.save(); c.translate(605, 330); c.scale(sc, 1); c.globalAlpha = .55; GATE.forEach((row, r) => row.split('').forEach((ch, k) => { if (ch !== '.') { c.fillStyle = '#7CE0FF'; c.fillRect(-72 + k * 12, -100 + r * 12, 11, 11); } })); c.restore(); c.globalAlpha = 1; label(c, '🌐 디지털 유산 · 홀로그램', 605, 400, { s: 14 }); }
+    } };
+
+  // ===== 과학: 기후 예측 =====
+  const CW = 24, CR = 13, CS = 22, MX = 12, MY = 62;
+  const VN = (x, y) => { const x0 = Math.floor(x), y0 = Math.floor(y), fx = x - x0, fy = y - y0, sm = t => t * t * (3 - 2 * t), a = H32(x0, y0), b = H32(x0 + 1, y0), cc = H32(x0, y0 + 1), d = H32(x0 + 1, y0 + 1); return lerp(lerp(a, b, sm(fx)), lerp(cc, d, sm(fx)), sm(fy)); };
+  const LAND = []; for (let r = 0; r < CR; r++) for (let k = 0; k < CW; k++) { const n = VN(k / 5 + 3, r / 4 + 7) * .7 + VN(k / 2.5, r / 2) * .3, d = Math.hypot((k - 11.5) / 12, (r - 6) / 7.5); LAND.push(n - d * .5 > .12); }
+  F.sci = { field: '과학 분야', page: 'p.29', plain: '대표 사례: <b>시뮬레이션을 활용한 기후 변화 예측</b>. 시간과 비용이 많이 드는 실험, 현실에서 하기 어려운 실험, 위험한 실험을 컴퓨터 시뮬레이션이 대신해요. ' + pp('p.29'),
+    btns: [['🧪 실제로 실험하면?', 'exp', 'con'], ['💻 시뮬레이션 실행', 'run', 'pro'], ['🏭 온실가스 많이', 'hi'], ['🌿 온실가스 적게', 'lo'], ['↺ 처음', 'reset']],
+    msg0: '“100년 뒤 우리 지역은 얼마나 더워질까?” 이런 질문은 어떻게 실험할 수 있을까요?',
+    init(S){ S.m = 'none'; S.yr = 2025; S.e = 1; },
+    act(S, a){ if (a === 'reset') { this.init(S); return this.msg0; } S.t0 = S.t;
+      if (a === 'exp') { S.m = 'exp'; return '기후 변화는 지구를 놓고 직접 실험할 수도 없고, 결과를 보려면 <b>수십 년</b>을 기다려야 해요. 시간과 비용이 너무 많이 들어요. ' + pp('p.29'); }
+      S.m = 'run'; S.yr = 2025; S.e = a === 'hi' ? 2 : a === 'lo' ? .4 : 1;
+      return a === 'run' ? '컴퓨터 <b>시뮬레이션</b>으로 수십 년 뒤를 <b>몇 초 만에</b> 예측! 색은 “평년보다 기온이 높을 확률”이에요. ' + pp('p.29 그림 Ⅰ-16') + '<br>(이 화면은 예시 시뮬레이션)' : '조건(온실가스 배출량)을 바꿔 다시 실행하고 결과를 <b>비교</b>해요. 현실에서는 할 수 없는 실험이죠! ' + pp('p.29') + ' (예시)'; },
+    draw(c, S, dt, now){ const t = S.t - (S.t0 || 0); BOX(c, 0, 0, W, H, '#F5F7FA');
+      if (S.m === 'exp') { skyBG(c, W, H, '#8FCBFF', '#E4F4FF'); for (let x = 0; x < W; x += 30) { blk(c, x, 330, 30, 'grass'); blk(c, x, 360, 30, 'dirt'); blk(c, x, 390, 30, 'dirt'); } const y = 2025 + Math.floor(t * .7); dude(c, 300, 330, { s: 1.5, shirt: '#2350C8', armR: -.4 }); say(c, t > 3 ? '아직 결과가 안 나왔어요… 😴' : '100년 동안 지켜보자!', 300, 210, { s: 18 });
+        BOX(c, 470, 120, 200, 150, '#FFFFFF'); BOX(c, 470, 120, 200, 40, '#D0261E'); TXT(c, '📅 달력', 570, 140, { s: 18, c: '#FFFFFF', w: 900 }); TXT(c, y + '년', 570, 210, { s: 40, w: 900 }); TXT(c, `결과까지 ${2125 - y}년 남음`, 570, 252, { s: 15, w: 800, c: '#D0261E' }); return; }
+      if (S.m === 'run') S.yr = Math.min(2100, 2025 + t * 10); const k = (S.yr - 2025) / 75, an = k * S.e * 2.2;
+      TXT(c, '평년보다 기온이 높을 확률 (예시 시뮬레이션)', 14, 26, { s: 17, a: 'left', w: 900 }); TXT(c, '실제 예측값이 아니에요 · 짙은 남색 = 바다', 14, 48, { s: 13, a: 'left', w: 800, c: '#B85E00' });
+      for (let r = 0; r < CR; r++) for (let q = 0; q < CW; q++) { const x = MX + q * CS, y = MY + r * CS; if (!LAND[r * CW + q]) { BOX(c, x, y, CS, CS, '#1E2A4A'); if ((q + r) % 3 === 0) BOX(c, x + 4, y + 10, 10, 2, '#3B4E80'); continue; }
+        const pr = 1 / (1 + Math.exp(-((an - .9) * 1.5 + (VN(q / 3, r / 3) - .5) * 2.2 + (CR / 2 - r) * .08))); const v = S.m === 'none' ? .5 : pr;
+        const col = v > .5 ? `rgb(255,${Math.round(255 - (v - .5) * 2 * 200)},${Math.round(255 - (v - .5) * 2 * 220)})` : `rgb(${Math.round(255 - (.5 - v) * 2 * 200)},${Math.round(255 - (.5 - v) * 2 * 120)},255)`; BOX(c, x, y, CS, CS, col); c.strokeStyle = 'rgba(0,0,0,.12)'; c.strokeRect(x + .5, y + .5, CS - 1, CS - 1); }
+      const lx = MX, ly = MY + CR * CS + 14; ['#3A6BFF', '#9DB6FF', '#FFFFFF', '#FF9C7A', '#E8331C'].forEach((col, i) => { BOX(c, lx + i * 50, ly, 50, 16, col); }); c.strokeStyle = '#1B2230'; c.strokeRect(lx, ly, 250, 16); TXT(c, '낮음', lx + 25, ly + 30, { s: 13, w: 800 }); TXT(c, '보통', lx + 125, ly + 30, { s: 13, w: 800 }); TXT(c, '높음', lx + 225, ly + 30, { s: 13, w: 800 });
+      RR(c, 560, 62, 206, 286, 10); c.fillStyle = '#0E1626'; c.fill(); TXT(c, '🖥 슈퍼컴퓨터', 663, 84, { s: 16, c: '#FFFFFF', w: 900 }); TXT(c, Math.floor(S.yr) + '년', 663, 132, { s: 38, c: '#FFE58A', w: 900 });
+      TXT(c, `기온 변화 +${an.toFixed(1)}℃`, 663, 180, { s: 20, c: an > 2.5 ? '#FF8A8A' : '#7CFF9E', w: 900 }); TXT(c, `온실가스: ${S.e > 1.5 ? '많이 🏭' : S.e < .7 ? '적게 🌿' : '보통'}`, 663, 214, { s: 17, c: '#FFFFFF', w: 800 });
+      TXT(c, S.m === 'run' ? (S.yr < 2100 ? `⚡ 계산 중… ${Math.round(k * 100)}%` : '✔ 몇 초 만에 완료!') : '실행 대기', 663, 252, { s: 17, c: '#7CE0FF', w: 900 }); TXT(c, '(예시 숫자)', 663, 330, { s: 12, c: '#C9D1DF' });
+      if (S.m === 'run') { for (let i = 0; i < 6; i++) { const q = (now / 400 + i / 6) % 1; c.fillStyle = '#7CE0FF'; c.fillRect(580 + q * 160, 280 + (i % 3) * 12, 6, 6); } } } };
+
+  // ===== 예술: 컴퓨터 그래픽 =====
+  F.art = { field: '예술 분야', page: 'p.29', plain: '대표 사례: <b>컴퓨터 그래픽을 활용한 영상 특수 효과</b>. 화재·액션 같은 위험하거나 복잡한 장면을 <b>안전하게</b> 사실감 있게 재현하고, 촬영 과정을 간소화해요. ' + pp('p.29'),
+    btns: [['🎬 촬영', 'shoot'], ['✂️ 초록 배경 지우기', 'key'], ['🏙 배경 합성', 'comp'], ['🔥 불길 효과', 'fx', 'pro'], ['↔ 촬영장 vs 완성', 'cmp', 'con']],
+    msg0: '불타는 건물 앞 액션 장면! 정말 불을 지르고 찍을까요? 🎬 촬영부터 눌러 봐요.',
+    init(S){ S.st = 0; S.cmp = false; S.p = []; },
+    act(S, a){ S.t0 = S.t; if (a === 'cmp') { if (S.st < 4) S.st = 4; S.cmp = !S.cmp; return '왼쪽은 실제 촬영장, 오른쪽은 완성 화면! 컴퓨터 그래픽은 <b>복잡한 촬영 과정을 간소화</b>하고, 이전에 불가능했던 영상도 만들어요. ' + pp('p.29'); }
+      S.cmp = false; S.st = { shoot: 1, key: 2, comp: 3, fx: 4 }[a];
+      return { shoot: '배우는 <b>안전한 촬영장</b>의 초록 배경 앞에서 연기해요. 진짜 불은 없어요!', key: '컴퓨터가 <b>초록색만 골라 지워요</b> ✂️ ' + XB, comp: '컴퓨터 그래픽으로 만든 <b>밤의 도시 배경</b>을 합성해요.', fx: '불길·연기 효과까지! 위험한 화재 장면을 <b>안전하게</b>, 사실감 있게 재현 ' + pp('p.29') }[a]; },
+    draw(c, S, dt, now){ const t = S.t - (S.t0 || 0), st = S.st;
+      const actor = () => dude(c, 390, 330, { s: 2.2, shirt: '#1B2230', pants: '#23356B', armL: -2.4 + Math.sin(now / 300) * .3, armR: -.6, walk: true, ph: now / 200 });
+      const studio = () => { BOX(c, 0, 0, W, H, '#3B4766'); for (let x = 40; x < 740; x += 30) for (let y = 20; y < 330; y += 30) blk(c, x, y, 30, 'green'); for (let x = 0; x < W; x += 30) { blk(c, x, 330, 30, 'plank'); blk(c, x, 360, 30, 'plank'); blk(c, x, 390, 30, 'plank'); }
+        BOX(c, 70, 270, 6, 90, '#1B2230'); BOX(c, 46, 248, 60, 34, '#1B2230'); BOX(c, 100, 256, 18, 18, '#56607A'); if (st >= 1 && Math.floor(now / 400) % 2) { c.fillStyle = '#FF3B3B'; c.beginPath(); c.arc(56, 258, 6, 0, 7); c.fill(); TXT(c, 'REC', 80, 238, { s: 13, c: '#FF3B3B', w: 900 }); }
+        dude(c, 690, 380, { s: 1.1, shirt: '#B85E00', cap: '#1B2230', armR: -1.2 }); say(c, st >= 1 ? '액션!' : '준비~', 690, 290, { s: 16 }); actor(); };
+      const fin = () => { if (st === 2) { for (let x = 0; x < W; x += 20) for (let y = 0; y < H; y += 20) BOX(c, x, y, 20, 20, (x + y) / 20 % 2 ? '#FFFFFF' : '#D9DEE8'); }
+        else { const g = c.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#0B1030'); g.addColorStop(1, '#3A2440'); c.fillStyle = g; c.fillRect(0, 0, W, H);
+          [[30, 6, 'brick'], [150, 9, 'iron'], [260, 5, 'brick'], [520, 8, 'iron'], [640, 6, 'brick']].forEach(([x, h, k]) => { for (let j = 0; j < h; j++) for (let i = 0; i < 3; i++) blk(c, x + i * 30, 360 - (j + 1) * 30, 30, (i + j) % 3 === 1 ? 'glass' : k, { a: .35 }); }); for (let x = 0; x < W; x += 30) { blk(c, x, 360, 30, 'road'); blk(c, x, 390, 30, 'road'); } }
+        actor();
+        if (st >= 4) { if (S.p.length < 160) for (let i = 0; i < 6; i++) S.p.push({ x: [90, 200, 290, 560, 680][Math.floor(Math.random() * 5)] + Math.random() * 60, y: 360 - Math.random() * 120, v: 40 + Math.random() * 80, l: 1 }); S.p = S.p.filter(p => { p.y -= p.v * dt; p.l -= dt * .8; const s = 10 + (1 - p.l) * 18; c.fillStyle = p.l > .6 ? '#FFD23F' : p.l > .3 ? '#FF7A1A' : `rgba(70,70,70,${p.l * 1.5})`; c.fillRect(p.x - s / 2, p.y - s / 2, s, s); return p.l > 0; }); } };
+      if (st === 0 || st === 1) studio();
+      else if (!S.cmp) { fin(); RR(c, 8, 8, 170, 30, 6); c.fillStyle = 'rgba(0,0,0,.6)'; c.fill(); TXT(c, '🎬 완성 화면', 93, 23, { s: 15, c: '#FFFFFF', w: 900 }); }
+      else { BOX(c, 0, 0, W, H, '#1B2230'); c.save(); c.translate(4, 110); c.scale(.49, .49); studio(); c.restore(); c.save(); c.translate(394, 110); c.scale(.49, .49); fin(); c.restore(); label(c, '실제 촬영장', 195, 84, { s: 18 }); label(c, '완성 화면', 586, 84, { s: 18 }); TXT(c, '▶', 390, 214, { s: 28, c: '#FFE14D' }); }
+      const steps = ['촬영', '배경 지우기', '배경 합성', '불길 효과']; steps.forEach((s, i) => { const x = 220 + i * 136; RR(c, x, 6, 126, 26, 6); c.fillStyle = i < st ? '#B85E00' : 'rgba(255,255,255,.85)'; c.fill(); TXT(c, `${i + 1} ${s}`, x + 60, 19, { s: 13, w: 900, c: i < st ? '#FFFFFF' : '#1B2230' }); });
+    } };
+
+  function load(k){ K = k; S = { t: 0 }; const C = F[k]; C.init(S); el.f.textContent = C.field; el.pg.textContent = C.page; setMsg(el.pl, C.plain); simBtns(el.bt, C.btns, a => { const m = C.act(S, a); if (m) setMsg(el.ms, m); }); setMsg(el.ms, C.msg0); }
+  bindTabs('fdTabs', load);
+  runLoop(cv, now => { const dt = Math.min(.05, (now - (last || now)) / 1000); last = now; S.t += dt; F[K].draw(c, S, dt, now); });
+  load('hum');
 })();
 
 // 활동 타이머
