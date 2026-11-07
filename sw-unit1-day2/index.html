@@ -218,6 +218,38 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);over
 .simmsg .pp{font-size:15px;margin-left:4px}
 .simmsg hr.sep{border:0;border-top:2px dashed var(--line);margin:7px 0}
 .trmsg{margin-top:8px;background:var(--f-orange);border-radius:10px;padding:7px 16px;font-size:19px;line-height:1.45;min-height:56px}
+.fsteps button{font-size:18px;padding:7px 14px}
+.trgrid{display:grid;grid-template-columns:740px 1fr;gap:12px;margin-top:8px}
+.trgrid canvas{width:740px;height:372px;border-radius:12px;display:block}
+.trcards{display:grid;grid-template-rows:auto repeat(4,1fr);gap:7px;height:372px}
+.trc{font:inherit;display:grid;grid-template-columns:48px 1fr auto;grid-template-rows:auto auto;align-items:center;column-gap:10px;text-align:left;border:3px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:4px 12px;cursor:pointer;min-height:0}
+.trc .sym{grid-row:1/3;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:26px;background:var(--f-grey);color:var(--ink)}
+.trc .nm{font-size:19px;font-weight:900;line-height:1.25;white-space:nowrap}
+.trc .sw{font-size:15px;font-weight:900;padding:2px 10px;border-radius:999px;background:var(--f-grey)}
+.trc .ef{grid-column:2/4;font-size:16px;font-weight:700;margin-top:2px}
+.trc.on{border-color:var(--orange);background:var(--f-orange)}
+.trc.on .sym{background:var(--orange);color:#fff}
+.trc.on .sw{background:var(--orange);color:#fff}
+.trc:focus-visible,.trpc button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.trpc{display:grid;grid-template-columns:1fr 1.4fr;gap:12px;margin-top:10px}
+.pc{display:flex;align-items:center;gap:12px;border-radius:12px;padding:10px 16px;border:3px solid}
+.pc.pro{background:var(--f-blue);border-color:var(--blue)} .pc.con{background:var(--f-red);border-color:var(--pen)}
+.pc .hdp{font-size:19px;white-space:nowrap} .pc.pro .hdp{color:var(--blue)} .pc.con .hdp{color:var(--pen)}
+.pc .tx{font-size:22px;font-weight:700;flex:1;line-height:1.35}
+.pc button{font:inherit;font-size:16px;font-weight:900;border-radius:999px;padding:6px 12px;border:2.5px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer;white-space:nowrap}
+.pc button.on{background:var(--ink);color:#fff}
+.bigtabs button{font-size:20px;padding:6px 16px}
+.wsbox{display:flex;flex-direction:column;gap:8px;background:#FFFDF3;border:3px solid #E0B400;border-radius:12px;padding:10px 14px;overflow:hidden}
+.wsh{font-size:20px;font-weight:900;color:#8A6A00}
+.wsq{display:flex;align-items:flex-start;gap:10px;font-size:21px;font-weight:800;line-height:1.38;background:#fff;border:2px solid var(--line);border-radius:10px;padding:8px 10px}
+.wsa{font-size:22px;font-weight:900;display:flex;align-items:center;gap:8px}
+.wsbl{font:inherit;font-size:23px;font-weight:900;min-width:150px;padding:4px 14px;border:0;border-bottom:4px solid var(--pen);background:var(--f-red);color:transparent;border-radius:6px 6px 0 0;cursor:pointer}
+.wsbl.on{color:var(--pen);background:#fff}
+.wsbl:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.wsbogi{font-size:17px;font-weight:800;color:var(--ink)}
+.simbtns.big button{font-size:17px;padding:6px 11px}
+.simmsg.big{font-size:19px;font-weight:600;line-height:1.42}
+.trhd{font-size:18px;font-weight:900;color:#8A6A00}
 .nmrow{display:flex;align-items:center;gap:10px}
 .fldb{font-size:21px;color:#fff;background:var(--orange);padding:3px 14px;border-radius:8px;white-space:nowrap}
 .nmbtn{font:inherit;font-size:18px;font-weight:900;border:2.5px dashed var(--pen);background:var(--f-red);color:var(--pen);border-radius:10px;padding:5px 12px;cursor:pointer}
@@ -333,17 +365,13 @@ h2.tt{margin:12px 0 0;font-size:40px;font-weight:900;letter-spacing:-.5px}
   <div class="box c" style="margin-top:16px;font-size:24px">여러 분야의 기술과 지식을 소프트웨어로 합치는 것 = <b class="bl" tabindex="0">소프트웨어 융합</b></div>
 </section>
 
-<!-- D2 융합 크래프팅 -->
-<section class="slide s3" data-t="융합 크래프팅" data-day="2">
-  <div class="hd"><span class="tag">3. 소프트웨어 융합</span><span class="pref">교과서 p.22~23</span><div class="tabs" id="cfTabs"><button data-k="nav" aria-pressed="true">레시피 ① 길 안내 앱 (p.22)</button><button data-k="ai" aria-pressed="false">레시피 ② 지능 정보 기술 (p.23)</button></div><span class="ws listen">보고 이해하기</span></div>
-  <h2 class="tt" style="font-size:34px">기술 블록을 조합하면? 소프트웨어 융합 작업대</h2>
-  <div class="simgrid">
-    <canvas id="cfCv" width="780" height="450"></canvas>
-    <div class="tile simside">
-      <div class="simbtns"><button id="cfNext">▶ 재료 넣기</button><button class="pro" id="cfPro">👍 장점은 왜?</button><button class="con" id="cfCon">⚠ 단점은 왜?</button><button id="cfReset">↺ 처음</button></div>
-      <div class="simmsg" id="cfMsg"></div>
-    </div>
-  </div>
+<!-- D2 소프트웨어 융합 이야기 -->
+<section class="slide s3" data-t="소프트웨어 융합 이야기" data-day="2">
+  <div class="hd"><span class="tag">3. 소프트웨어 융합</span><span class="pref">교과서 p.22~23</span><span class="ws listen">보고 이해하기</span></div>
+  <div class="simbtns fsteps" id="fuSteps" style="margin-top:10px"><button data-s="0" class="on">① 문제 상황</button><button data-s="1">② 기술 하나씩이면?</button><button data-s="2">③ 소프트웨어로 연결하면!</button><button data-s="3">④ 그래서, 소프트웨어 융합이란?</button></div>
+  <h2 class="tt" id="fuHead" style="font-size:32px;margin-top:8px"></h2>
+  <canvas id="fuCv" width="1192" height="400" style="width:1192px;height:400px;border-radius:12px;display:block;margin-top:8px;cursor:pointer"></canvas>
+  <div class="simmsg trmsg" id="fuCap" style="min-height:0"></div>
 </section>
 
 
@@ -363,14 +391,21 @@ h2.tt{margin:12px 0 0;font-size:40px;font-weight:900;letter-spacing:-.5px}
 
 <!-- D2 교통 체증 시뮬레이션 -->
 <section class="slide s3" data-t="교통 체증 시뮬레이션" data-day="2">
-  <div class="hd"><span class="tag">3. 소프트웨어 융합</span><span class="pref">교과서 p.23~24</span><span class="ws listen">보고 이해하기</span></div>
-  <h2 class="tt" style="font-size:32px;margin-top:8px">퇴근길 교통 체증, 소프트웨어 융합으로 풀어 보기</h2>
-  <div class="simbtns" id="trBtns" style="margin-top:8px">
-    <button data-m="0" class="on">🚗 퇴근 시간</button><button data-m="1">① 센서·카메라·GPS 수집</button><button data-m="2">② 데이터 분석·예측</button><button data-m="3">③ 신호 자동 조절</button><button data-m="4">④ 앱으로 안내</button>
-    <button data-m="pro" class="pro">👍 장점: 실시간 대응</button><button data-m="hack" class="con">⚠ 단점: 보안</button><button data-m="fix" class="con">⚠ 단점: 유지 보수</button><button data-m="gen" class="gen">🚧 비교: 일반적 해결</button>
+  <div class="hd"><span class="tag">3. 소프트웨어 융합</span><span class="pref">교과서 p.23~24</span><span class="ws">학습지 3-2 쓰기</span></div>
+  <h2 class="tt" style="font-size:30px;margin-top:6px">퇴근길 교통 체증! 융합 기술을 하나씩 켜 보면?</h2>
+  <div class="trgrid">
+    <canvas id="trCv" width="740" height="372"></canvas>
+    <div class="trcards" id="trCards"><div class="trhd">📝 학습지 3-2 (1) 소프트웨어 융합 해결 = 이 4가지!</div>
+      <button class="trc" data-k="1"><b class="sym">㉡</b><span class="nm">센서·카메라·GPS로 실시간 수집</span><span class="sw">OFF</span><span class="ef">켜면 → 도로 위 차를 실시간으로 세요</span></button>
+      <button class="trc" data-k="2"><b class="sym">㉣</b><span class="nm">데이터 분석으로 패턴 예측</span><span class="sw">OFF</span><span class="ef">켜면 → 언제·어디가 막힐지 미리 알아요</span></button>
+      <button class="trc" data-k="3"><b class="sym">㉤</b><span class="nm">교통 신호 자동 조절</span><span class="sw">OFF</span><span class="ef">켜면 → 차 많은 쪽 초록불이 길어져요</span></button>
+      <button class="trc" data-k="4"><b class="sym">㉦</b><span class="nm">실시간 교통 정보 앱 제공</span><span class="sw">OFF</span><span class="ef">켜면 → 지하철·버스로 갈아타요</span></button>
+    </div>
   </div>
-  <canvas id="trCv" width="1192" height="336" style="width:1192px;height:336px;border-radius:10px;display:block;margin-top:8px"></canvas>
-  <div class="simmsg trmsg" id="trMsg"></div>
+  <div class="trpc">
+    <div class="pc pro"><b class="hdp">📝 3-2 (2)<br>👍 장점</b><span class="tx">교통 상황을 <b class="bl" tabindex="0">실시간</b>으로 파악하고 대응</span><button data-m="pro">▶ 확인하기</button></div>
+    <div class="pc con"><b class="hdp">📝 3-2 (2)<br>⚠ 단점</b><span class="tx"><b class="bl" tabindex="0">보안</b> 취약점, 지속적인 <b>유지 보수</b></span><button data-m="hack">▶ 해킹되면?</button><button data-m="fix">▶ 고장 나면?</button></div>
+  </div>
 </section>
 
 
@@ -397,16 +432,18 @@ h2.tt{margin:12px 0 0;font-size:40px;font-weight:900;letter-spacing:-.5px}
 
 <!-- D2 융합 사례 시뮬레이션 -->
 <section class="slide s3" data-t="융합 사례 시뮬레이션" data-day="2">
-  <div class="hd"><span class="tag">3. 소프트웨어 융합</span><span class="pref">교과서 p.25~26</span><span class="ws listen">보고 이해하기</span></div>
-  <h2 class="tt" style="font-size:32px;margin-top:8px">소프트웨어 융합 사례, 직접 움직여 보기</h2>
-  <div class="tabs" id="csTabs" style="margin-top:8px"><button data-k="its" aria-pressed="true">🚦 교통</button><button data-k="bim">🏗 건축</button><button data-k="water">💧 환경</button><button data-k="wms">📦 물류</button><button data-k="med">🩺 의료</button><button data-k="var">⚽ 스포츠</button></div>
+  <div class="hd"><span class="tag">3. 소프트웨어 융합</span><span class="pref">교과서 p.25~26</span><span class="ws">학습지 3-3 쓰기</span></div>
+  <h2 class="tt" style="font-size:30px;margin-top:6px">소프트웨어 융합 사례, 움직여 보고 이름 쓰기</h2>
+  <div class="tabs bigtabs" id="csTabs" style="margin-top:8px"><button data-k="its" aria-pressed="true">🚦 교통</button><button data-k="bim">🏗 건축</button><button data-k="water">💧 환경</button><button data-k="wms">📦 물류</button><button data-k="med">🩺 의료</button><button data-k="var">⚽ 스포츠</button></div>
   <div class="simgrid">
     <canvas id="csCv" width="780" height="418"></canvas>
-    <div class="tile simside">
-      <div class="nmrow"><b class="fldb" id="csField">교통</b><button class="nmbtn" id="csName">이름은? 눌러서 확인</button></div>
-      <div class="simmsg plain" id="csPlain"></div>
-      <div class="simbtns" id="csBtns"></div>
-      <div class="simmsg" id="csMsg"></div>
+    <div class="wsbox">
+      <div class="wsh">📝 학습지 3-3</div>
+      <div class="wsq"><b class="fldb" id="csField">교통</b><span id="csDesc"></span></div>
+      <div class="wsa">이름: <button class="wsbl" id="csName"></button></div>
+      <div class="wsbogi">보기 ITS · BIM · 스마트 워터 그리드 · WMS · 원격 의료 · VAR</div>
+      <div class="simbtns big" id="csBtns"></div>
+      <div class="simmsg big" id="csMsg"></div>
     </div>
   </div>
 </section>
@@ -429,16 +466,18 @@ h2.tt{margin:12px 0 0;font-size:40px;font-weight:900;letter-spacing:-.5px}
 
 <!-- D2 학문 분야 시뮬레이션 -->
 <section class="slide s3" data-t="학문 분야 시뮬레이션" data-day="2">
-  <div class="hd"><span class="tag">3. 소프트웨어 융합</span><span class="pref">교과서 p.28~29</span><span class="ws listen">보고 이해하기</span></div>
-  <h2 class="tt" style="font-size:32px;margin-top:8px">학문 분야의 소프트웨어 융합, 시뮬레이션으로 보기</h2>
-  <div class="tabs" id="fdTabs" style="margin-top:8px"><button data-k="hum" aria-pressed="true">🗣 인문</button><button data-k="soc">🏯 사회</button><button data-k="sci">🌡 과학</button><button data-k="art">🎬 예술</button></div>
+  <div class="hd"><span class="tag">3. 소프트웨어 융합</span><span class="pref">교과서 p.28~29</span><span class="ws">학습지 3-4 쓰기</span></div>
+  <h2 class="tt" style="font-size:30px;margin-top:6px">학문 분야의 소프트웨어 융합, 보고 분야 쓰기</h2>
+  <div class="tabs bigtabs" id="fdTabs" style="margin-top:8px"><button data-k="hum" aria-pressed="true">사례 1 · 🗣 번역</button><button data-k="soc">사례 2 · 🏯 문화재</button><button data-k="sci">사례 3 · 🌡 기후</button><button data-k="art">사례 4 · 🎬 특수 효과</button></div>
   <div class="simgrid">
     <canvas id="fdCv" width="780" height="418"></canvas>
-    <div class="tile simside">
-      <div class="nmrow"><b class="fldb" id="fdField">인문 분야</b><span class="pp" id="fdPage">p.28</span></div>
-      <div class="simmsg plain" id="fdPlain"></div>
-      <div class="simbtns" id="fdBtns"></div>
-      <div class="simmsg" id="fdMsg"></div>
+    <div class="wsbox">
+      <div class="wsh">📝 학습지 3-4 <span class="pp" id="fdPage">p.28</span></div>
+      <div class="wsq"><span id="fdDesc"></span></div>
+      <div class="wsa"><button class="wsbl" id="fdName"></button> 분야</div>
+      <div class="wsbogi">(인문, 사회, 과학, 예술)</div>
+      <div class="simbtns big" id="fdBtns"></div>
+      <div class="simmsg big" id="fdMsg"></div>
     </div>
   </div>
 </section>
@@ -1150,8 +1189,8 @@ function dude(c, x, gy, o = {}){
   if (o.earbud) BOX(c, 8, -57, 3, 4, '#FFFFFF');
   c.restore();
 }
-function label(c, s, x, y, o = {}){ c.font = FNT(o.w || 900, o.s || 16); const w = c.measureText(s).width + 16, h = (o.s || 16) + 12; RR(c, x - w / 2, y - h / 2, w, h, 6); c.fillStyle = o.bg || '#FFFFFF'; c.fill(); c.lineWidth = 2; c.strokeStyle = o.bd || '#1B2230'; c.stroke(); TXT(c, s, x, y + 1, { s: o.s || 16, c: o.c || '#1B2230', w: o.w || 900 }); }
-function say(c, s, x, y, o = {}){ c.font = FNT(800, o.s || 17); const w = Math.max(60, c.measureText(s).width + 26), h = (o.s || 17) + 20; bubble(c, x, y, w, h, o.bg || '#FFFFFF', o.bd || '#1B2230'); TXT(c, s, x, y - h / 2, { s: o.s || 17, c: o.c || '#1B2230', w: 800 }); }
+function label(c, s, x, y, o = {}){ o = Object.assign({}, o, { s: BIG(o.s || 16) }); c.font = FNT(o.w || 900, o.s || 16); const w = c.measureText(s).width + 16, h = (o.s || 16) + 12; RR(c, x - w / 2, y - h / 2, w, h, 6); c.fillStyle = o.bg || '#FFFFFF'; c.fill(); c.lineWidth = 2; c.strokeStyle = o.bd || '#1B2230'; c.stroke(); TXT(c, s, x, y + 1, { s: o.s || 16, c: o.c || '#1B2230', w: o.w || 900 }); }
+function say(c, s, x, y, o = {}){ o = Object.assign({}, o, { s: BIG(o.s || 17) }); c.font = FNT(800, o.s || 17); const w = Math.max(60, c.measureText(s).width + 26), h = (o.s || 17) + 20; bubble(c, x, y, w, h, o.bg || '#FFFFFF', o.bd || '#1B2230'); TXT(c, s, x, y - h / 2, { s: o.s || 17, c: o.c || '#1B2230', w: 800 }); }
 function packet(c, x, y, col = '#FFE14D'){ BOX(c, x - 5, y - 5, 10, 10, col); c.strokeStyle = '#1B2230'; c.lineWidth = 1.5; c.strokeRect(x - 5, y - 5, 10, 10); }
 const lerp = (a, b, k) => a + (b - a) * k, clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const qbez = (p0, p1, p2, k) => [(1 - k) * (1 - k) * p0[0] + 2 * (1 - k) * k * p1[0] + k * k * p2[0], (1 - k) * (1 - k) * p0[1] + 2 * (1 - k) * k * p1[1] + k * k * p2[1]];
@@ -1160,134 +1199,102 @@ function setMsg(el, h){ if (el.innerHTML !== h) el.innerHTML = h; }
 function bindTabs(id, cb){ const t = $(id); t.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { t.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b)); SND.pop(); cb(b.dataset.k); })); }
 function simBtns(box, list, cb){ box.innerHTML = list.map((b, i) => `<button data-i="${i}" class="${b[2] || ''}">${b[0]}</button>`).join(''); box.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { box.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); SND.pop(); cb(list[+b.dataset.i][1]); })); }
 const XB = '<span class="xb">교과서 밖 보충</span>';
+const BIG = n => n < 16 ? n + 3 : n; const TXT_ = TXT;
 
-// ---------- D2-1 융합 크래프팅 ----------
+// ---------- D2-1 소프트웨어 융합 이야기 (p.22~23) ----------
+const shade = (hex, k) => { const n = parseInt(hex.slice(1), 16); const f = v => Math.max(0, Math.min(255, Math.round(v + k))); return `rgb(${f(n >> 16)},${f((n >> 8) & 255)},${f(n & 255)})`; };
+function isoCube(c, cx, cy, s, col, o = {}){
+  const T = [cx, cy - s * .5], R = [cx + s * .87, cy], B = [cx, cy + s * .5], L = [cx - s * .87, cy];
+  const face = (O, U, V, off) => { c.save(); c.transform(U[0], U[1], V[0], V[1], O[0], O[1]); for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) { c.fillStyle = shade(col, off + (H32(i * 13 + cx, j * 7 + cy) - .5) * 22); c.fillRect(i / 4, j / 4, .26, .26); } c.restore(); };
+  if (o.glow) { c.save(); c.shadowColor = o.glow; c.shadowBlur = 30; c.fillStyle = o.glow; c.beginPath(); c.moveTo(...T); c.lineTo(...R); c.lineTo(R[0], R[1] + s); c.lineTo(B[0], B[1] + s); c.lineTo(L[0], L[1] + s); c.lineTo(...L); c.closePath(); c.fill(); c.restore(); }
+  face(L, [T[0] - L[0], T[1] - L[1]], [B[0] - L[0], B[1] - L[1]], 40);
+  face(L, [B[0] - L[0], B[1] - L[1]], [0, s], 0);
+  face(B, [R[0] - B[0], R[1] - B[1]], [0, s], -38);
+  c.strokeStyle = 'rgba(20,24,36,.55)'; c.lineWidth = 2; c.beginPath(); c.moveTo(...T); c.lineTo(...R); c.lineTo(R[0], R[1] + s); c.lineTo(B[0], B[1] + s); c.lineTo(L[0], L[1] + s); c.lineTo(...L); c.closePath(); c.moveTo(...L); c.lineTo(...B); c.lineTo(...R); c.moveTo(...B); c.lineTo(B[0], B[1] + s); c.stroke();
+  if (o.ic) { c.font = `${Math.round(s * .9)}px "Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji",sans-serif`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(o.ic, cx, cy - s * 1.05 + (o.bob || 0)); }
+}
+function card(c, x, y, w, h, col){ c.save(); c.shadowColor = 'rgba(20,24,36,.18)'; c.shadowBlur = 14; c.shadowOffsetY = 4; RR(c, x, y, w, h, 16); c.fillStyle = '#FFFFFF'; c.fill(); c.restore(); RR(c, x, y, w, h, 16); c.lineWidth = 3; c.strokeStyle = col; c.stroke(); }
 (() => {
-  const cv = $('cfCv'); if (!cv) return; const c = cv.getContext('2d'), W = 780, H = 450, msg = $('cfMsg');
-  const RC = {
-    nav: { out: { ic: '🦯', n: '시각 장애인용 길 안내 앱' }, center: 'sw',
-      items: [{ k: 'gps', ic: '📍', n: '위치 기반', g: [0, 1] }, { k: 'voice', ic: '🎤', n: '음성 인식', g: [1, 0] }, { k: 'pay', ic: '💳', n: '모바일 결제', g: [2, 1] }, { k: 'sw', ic: '💻', n: '소프트웨어', g: [1, 1], core: 1 },
-        { k: 'brick', ic: '🧱', n: '벽돌', bad: '벽돌은 집 짓는 재료! 이 앱에는 필요 없어요.' }, { k: 'wood', ic: '🪵', n: '나무', bad: '나무도 이 앱의 재료가 아니에요.' }, { k: 'tv', ic: '📺', n: '흑백 TV', bad: '흑백 TV는 길 안내와 관계없어요!' }] },
-    ai: { out: { ic: '🧠', n: '지능 정보 기술' }, center: 'ai',
-      items: [{ k: 'iot', ic: '📡', n: '사물 인터넷', g: [1, 0] }, { k: 'big', ic: '📊', n: '빅데이터', g: [0, 1] }, { k: 'cloud', ic: '☁️', n: '클라우드', g: [2, 1] }, { k: 'mob', ic: '📱', n: '모바일', g: [1, 2] }, { k: 'ai', ic: '🤖', n: '인공지능', g: [1, 1], core: 1 },
-        { k: 'brick', ic: '🧱', n: '벽돌', bad: '벽돌은 데이터 활용 기술이 아니에요!' }, { k: 'wood', ic: '🪵', n: '나무', bad: '나무는 이 레시피에 필요 없어요.' }] }
-  };
-  let R = 'nav', placed = [], fly = [], ph = 'craft', t0 = 0, done = false, warn = '', warnT = 0, walk = 0, shake = { k: '', t: 0 };
-  const G0 = [52, 40], GS = 62, INV = [470, 40], IS = 66;
-  const slotXY = g => [G0[0] + g[0] * GS, G0[1] + g[1] * GS];
-  const invXY = i => [INV[0] + (i % 4) * 74, INV[1] + Math.floor(i / 4) * 100];
-  const MS = {
-    craft0: { nav: '<b>p.22 생각 열기</b>의 시각 장애인용 길 안내 앱을 만들어 봐요.<br>오른쪽 재료 상자에서 필요한 기술 블록을 눌러 작업대에 넣어요. (▶ 재료 넣기를 눌러도 돼요)', ai: '<b>지능 정보 기술 (p.23)</b><br>= 인공지능 + 데이터 활용 기술(<b>사물 인터넷</b>, 빅데이터, 클라우드, 모바일)<br>재료를 작업대에 넣어 봐요.' },
-    nocore: { nav: '기술 블록만 옆에 놓으면 <b>따로따로</b>예요. 기술들을 이어 줄 <b>💻 소프트웨어</b>를 가운데에 넣어야 하나로 합쳐져요!<br><span class="pp">p.23</span> 소프트웨어 <b>중심으로</b> 통합', ai: '데이터 활용 기술만으로는 부족해요. 가운데에 <b>🤖 인공지능</b>을 넣어 융합해 봐요! <span class="pp">p.23</span>' },
-    done: { nav: '<b>완성! 소프트웨어 융합</b><br>위치 기반 + 음성 인식 + 모바일 결제 기술이 <b>소프트웨어 중심으로</b> 하나의 시스템이 됐어요. 아래에서 길 안내가 시작돼요. <span class="pp">p.22~23</span>', ai: '<b>완성! 지능 정보 기술</b><br>인공지능과 데이터 활용 기술이 융합되어 자율주행 자동차, 스마트 도시, 스마트 공장, 지능형 로봇 같은 융합으로 이어져요. <span class="pp">p.23 그림 Ⅰ-7</span>' },
-    pro: '<b style="color:var(--blue)">장점</b> 기존에 <b>해결하기 어려웠던 문제</b>, <b>장기적인 문제</b>의 해결에 적합 <span class="pp">p.23</span><hr class="sep"><b>왜?</b> ' + XB + '<br>기술 하나는 한 가지 일만 해요. 📍은 위치만, 🎤는 말만, 💳는 결제만! 소프트웨어로 합치면 <b>혼자서는 못 하던 일</b>을 함께 해내요.',
-    con: '<b style="color:var(--pen)">단점</b> <b>보안 취약점</b> 증가, 관리가 어려움, 지속적인 <b>유지 보수</b> → 비용 증가 <span class="pp">p.23</span><hr class="sep"><b>왜?</b> ' + XB + '<br>① 이어진 통로가 많을수록 해커가 노릴 <b>틈</b>도 많아져요.<br>② 부품이 많을수록 고치고 <b>업데이트</b>할 곳도 많아져 돈이 계속 들어요.'
-  };
-  function reset(r){ if (r) R = r; placed = []; fly = []; ph = 'craft'; done = false; warn = ''; walk = 0; t0 = performance.now(); setMsg(msg, MS.craft0[R]); ['cfPro', 'cfCon', 'cfNext'].forEach(id => $(id).classList.remove('on')); }
-  const rc = () => RC[R], need = () => rc().items.filter(i => i.g);
-  function put(it){
-    if (placed.includes(it.k) || fly.some(f => f.it.k === it.k) || done) return;
-    if (it.bad) { warn = it.bad; warnT = performance.now(); shake = { k: it.k, t: performance.now() }; SND.no(); setMsg(msg, '❌ ' + it.bad); return; }
-    const i = rc().items.indexOf(it); fly.push({ it, from: invXY(i), to: slotXY(it.g), t: performance.now() }); SND.pop();
+  const cv = $('fuCv'); if (!cv) return; const c = cv.getContext('2d'), W = 1192, H = 400, head = $('fuHead'), cap = $('fuCap');
+  const TECH = [{ ic: '📍', n: '위치 기반 시스템', col: '#2F7BEA', ok: '지금 어디에 있는지 알아요', no: '그걸 말로 알려 주지 못해요' },
+                { ic: '🎤', n: '음성 인식', col: '#0A9E8C', ok: '말을 알아듣고 대답해요', no: '여기가 어딘지는 몰라요' },
+                { ic: '💳', n: '모바일 결제', col: '#E07A1B', ok: '휴대폰으로 결제해요', no: '가게를 찾아가지는 못해요' }];
+  const SW = '#E8B21C';
+  const HEAD = ['① 블록 친구는 혼자서 카페에 갈 수 있을까?', '② 기술 하나씩만 있으면? 문제의 한 조각만 풀려요', '③ 소프트웨어로 연결하면? 하나의 길 안내 앱!', '④ 그래서, 소프트웨어 융합이란?'];
+  const CAP = ['시각 장애인에게는 <b>길 찾기·주문·결제</b>가 모두 어려운 문제예요. <span class="pp">p.22 생각 열기</span>',
+    '기술마다 잘하는 일이 <b>딱 하나</b>씩이에요. 따로따로 있으면 카페까지 갈 수 없어요. ' + XB,
+    '<b>소프트웨어</b>가 가운데에서 세 기술이 정보를 <b>주고받게</b> 연결해요 → 혼자서는 못 풀던 문제 해결! <span class="pp">p.22~23</span>',
+    '다음 장에서 정의를 <b>학습지 3-1</b>에 정리해요 ✏️ <span class="pp">p.23</span>'];
+  let st = 0, t0 = performance.now();
+  const set = s => { st = s; t0 = performance.now(); head.textContent = HEAD[s]; setMsg(cap, CAP[s]); $('fuSteps').querySelectorAll('button').forEach(b => b.classList.toggle('on', +b.dataset.s === s)); };
+  $('fuSteps').querySelectorAll('button').forEach(b => b.addEventListener('click', () => { SND.pop(); set(+b.dataset.s); }));
+  cv.addEventListener('click', () => { SND.pop(); set(st < 3 ? st + 1 : 0); });
+  const bgStreet = bake(W, H, c => { skyBG(c, W, H, '#9ED4FF', '#E8F5FF'); cloud(c, 120, 50, 1.3); cloud(c, 620, 34, 1); cloud(c, 900, 70, 1.2); for (let x = 0; x < W; x += 36) { blk(c, x, 332, 36, 'grass'); blk(c, x, 368, 36, 'dirt'); } });
+  const cane = c => { BOX(c, 3, 22, 3, 34, '#FFFFFF'); BOX(c, 3, 50, 3, 8, '#D0261E'); };
+  function kid(x, gy, s, o = {}){ dude(c, x, gy, Object.assign({ s, shirt: '#6A4C93', pants: '#3F4552', hold: cane }, o)); BOX(c, x - 9 * s, gy - 59 * s, 18 * s, 5 * s, '#1B2230'); }
+  function houseAt(x, gy){ for (let i = 0; i < 4; i++) for (let j = 0; j < 3; j++) blk(c, x + i * 36, gy - (j + 1) * 36, 36, j === 1 && (i === 1 || i === 2) ? 'glass' : 'plank'); for (let i = -1; i < 5; i++) blk(c, x + i * 30, gy - 136, 30, 'brick'); }
+  function cafeAt(x, gy){ for (let i = 0; i < 5; i++) for (let j = 0; j < 3; j++) blk(c, x + i * 36, gy - (j + 1) * 36, 36, j === 0 && i === 2 ? 'log' : j === 1 && i !== 2 ? 'glass' : 'brick'); for (let i = 0; i < 5; i++) { BOX(c, x + i * 36, gy - 132, 36, 22, i % 2 ? '#FFFFFF' : '#D0261E'); } label(c, '☕ 카페', x + 90, gy - 156, { s: 20 }); }
+  function cross(x, gy){ BOX(c, x, gy - 4, 200, 8, '#4E4E4E'); for (let i = 0; i < 6; i++) BOX(c, x + 8 + i * 32, gy - 3, 20, 6, '#FFFFFF'); }
+  function hub(cx, cy, k, act, now){ // k: 0~1 모이기
+    const pos = [[cx - 140, cy - 60], [cx + 140, cy - 60], [cx, cy + 150]];
+    TECH.forEach((t, i) => { const from = [120 + i * 180, 60], p = [lerp(from[0], pos[i][0], k), lerp(from[1], pos[i][1], k)]; t.p = p; });
+    if (k > .9) TECH.forEach((t, i) => { const on = act.includes(i); c.strokeStyle = on ? t.col : '#9AA3B5'; c.lineWidth = on ? 9 : 6; c.beginPath(); c.moveTo(t.p[0], t.p[1] + 20); c.lineTo(cx, cy + 20); c.stroke();
+      for (let q = 0; q < (on ? 3 : 1); q++) { const f = ((now / (on ? 500 : 1400)) + q / 3) % 1, back = q % 2; packet(c, lerp(back ? cx : t.p[0], back ? t.p[0] : cx, f), lerp(back ? cy + 20 : t.p[1] + 20, back ? t.p[1] + 20 : cy + 20, f), on ? '#FFE14D' : '#FFFFFF'); } });
+    TECH.forEach((t, i) => { const on = act.includes(i); isoCube(c, t.p[0], t.p[1], on ? 40 : 34, t.col, { ic: t.ic, bob: Math.sin(now / 300 + i) * 3, glow: on ? t.col : null }); label(c, t.n, t.p[0], t.p[1] + 78, { s: 16, bg: on ? t.col : '#FFFFFF', c: on ? '#FFFFFF' : '#1B2230', bd: t.col }); });
+    if (k > .6) { const a = clamp((k - .6) / .4, 0, 1); c.globalAlpha = a; isoCube(c, cx, cy, 46, SW, { ic: '💻', bob: Math.sin(now / 250) * 3, glow: 'rgba(255,210,63,.9)' }); label(c, '소프트웨어', cx, cy + 84, { s: 19, bg: '#FFF3C4', bd: '#E0B400' }); c.globalAlpha = 1; }
   }
-  function next(){ const n = need(), core = n.find(i => i.core), rest = n.filter(i => !i.core && !placed.includes(i.k) && !fly.some(f => f.it.k === i.k)); if (rest.length) put(rest[0]); else if (core) put(core); }
-  function land(f){ placed.push(f.it.k); const n = need(); const core = n.find(i => i.core);
-    if (n.every(i => placed.includes(i.k))) { done = true; ph = 'run'; t0 = performance.now(); walk = 0; SND.fan(); confetti(); setMsg(msg, MS.done[R]); }
-    else if (n.filter(i => !i.core).every(i => placed.includes(i.k)) && !placed.includes(core.k)) { setMsg(msg, '🤔 ' + MS.nocore[R]); SND.no(); } }
-  $('cfNext').addEventListener('click', () => { if (ph !== 'craft' && ph !== 'run') { ph = done ? 'run' : 'craft'; } next(); });
-  $('cfReset').addEventListener('click', () => reset());
-  $('cfPro').addEventListener('click', () => { if (!done) { while (!done) { const n = need(); n.forEach(i => { if (!placed.includes(i.k)) placed.push(i.k); }); done = true; } } ph = 'pro'; t0 = performance.now(); setMsg(msg, MS.pro); $('cfPro').classList.add('on'); $('cfCon').classList.remove('on'); SND.pop(); });
-  $('cfCon').addEventListener('click', () => { if (!done) { need().forEach(i => { if (!placed.includes(i.k)) placed.push(i.k); }); done = true; } ph = 'con'; t0 = performance.now(); setMsg(msg, MS.con); $('cfCon').classList.add('on'); $('cfPro').classList.remove('on'); SND.pop(); });
-  bindTabs('cfTabs', k => reset(k));
-  cv.addEventListener('click', e => { const r = cv.getBoundingClientRect(), x = (e.clientX - r.left) * W / r.width, y = (e.clientY - r.top) * H / r.height;
-    rc().items.forEach((it, i) => { const [ix, iy] = invXY(i); if (x > ix && x < ix + IS && y > iy && y < iy + IS + 26) { if (ph !== 'craft' && ph !== 'run') return; put(it); } }); });
-  const bg = bake(W, H, c => { skyBG(c, W, H, '#7EC4FF', '#DDF0FF'); cloud(c, 60, 300, 1.2); cloud(c, 560, 290, 1); ground(c, 410, W, 20); });
-  function slot(x, y, s, hl){ BOX(c, x, y, s, s, '#8B8B8B'); BOX(c, x, y, s, 3, '#373737'); BOX(c, x, y, 3, s, '#373737'); BOX(c, x + 3, y + s - 3, s - 3, 3, '#FFFFFF'); BOX(c, x + s - 3, y + 3, 3, s - 3, '#FFFFFF'); if (hl) { c.strokeStyle = hl; c.lineWidth = 4; c.strokeRect(x - 2, y - 2, s + 4, s + 4); } }
-  function icon(it, x, y, s, a = 1){ c.globalAlpha = a; c.font = `${Math.round(s * .58)}px "Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji",sans-serif`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(it.ic, x + s / 2, y + s / 2 + 2); c.globalAlpha = 1; if (it.core) { c.strokeStyle = '#FFD23F'; c.lineWidth = 3; c.strokeRect(x + 4, y + 4, s - 8, s - 8); } }
   function draw(now){
-    const t = (now - t0) / 1000; c.drawImage(bg, 0, 0);
-    // 작업대 패널
-    BOX(c, 14, 10, W - 28, 262, '#C6C6C6'); BOX(c, 14, 10, W - 28, 4, '#FFFFFF'); BOX(c, 14, 10, 4, 262, '#FFFFFF'); BOX(c, 14, 268, W - 28, 4, '#555555'); BOX(c, W - 18, 10, 4, 262, '#555555');
-    TXT(c, '작업대', 145, 26, { s: 15, c: '#1B2230', w: 900 }); TXT(c, '재료 상자 (눌러서 넣기)', 610, 26, { s: 15, w: 900 });
-    const hot = ph === 'run' || ph === 'pro' ? Math.floor(t * 2) % 3 : -1;
-    for (let gx = 0; gx < 3; gx++) for (let gy = 0; gy < 3; gy++) { const [x, y] = slotXY([gx, gy]); slot(x, y, GS - 4); }
-    // 연결선(레드스톤 느낌)
-    const it = rc().items, core = it.find(i => i.core), cxy = slotXY(core.g);
-    if (done) it.filter(i => i.g && !i.core).forEach((i, n) => { const [x, y] = slotXY(i.g); c.strokeStyle = ph === 'con' ? '#FF3B3B' : '#E5352B'; c.lineWidth = 5; c.beginPath(); c.moveTo(x + 29, y + 29); c.lineTo(cxy[0] + 29, cxy[1] + 29); c.stroke(); const k = (t * 1.2 + n * .3) % 1; packet(c, lerp(x + 29, cxy[0] + 29, k), lerp(y + 29, cxy[1] + 29, k), '#FFE14D'); });
-    it.forEach(i => { if (i.g && placed.includes(i.k)) { const [x, y] = slotXY(i.g); icon(i, x, y, GS - 4); } });
-    // 화살표 + 결과
-    c.fillStyle = done ? '#1B2230' : '#8B8B8B'; c.beginPath(); c.moveTo(252, 118); c.lineTo(300, 118); c.lineTo(300, 104); c.lineTo(330, 132); c.lineTo(300, 160); c.lineTo(300, 146); c.lineTo(252, 146); c.closePath(); c.fill();
-    slot(342, 92, 82, done ? '#FFD23F' : null);
-    const allSide = it.filter(i => i.g && !i.core).every(i => placed.includes(i.k));
-    if (done) { const b = 1 + Math.sin(now / 200) * .05; c.save(); c.translate(383, 133); c.scale(b, b); icon(rc().out, -41, -41, 82); c.restore(); TXT(c, rc().out.n, 383, 196, { s: 15, w: 900 }); TXT(c, '= 소프트웨어 융합', 383, 218, { s: 15, w: 900, c: '#B85E00' }); }
-    else if (allSide) { TXT(c, '❌', 383, 133, { s: 40 }); TXT(c, '합쳐지지 않음', 383, 196, { s: 15, w: 900, c: '#D0261E' }); }
-    // 재료 상자
-    it.forEach((i, n) => { const [x, y] = invXY(n), used = placed.includes(i.k) || fly.some(f => f.it.k === i.k); let dx = 0; if (shake.k === i.k && now - shake.t < 400) dx = Math.sin((now - shake.t) / 25) * 5; slot(x + dx, y, IS); if (!used) icon(i, x + dx, y, IS); TXT(c, i.n, x + IS / 2, y + IS + 14, { s: 14, w: 800, c: '#1B2230' }); });
-    // 날아가는 블록
-    fly = fly.filter(f => { const k = Math.min(1, (now - f.t) / 380); const p = qbez(f.from, [(f.from[0] + f.to[0]) / 2, -20], f.to, k); icon(f.it, p[0], p[1], GS - 4); if (k >= 1) { land(f); return false; } return true; });
-    // 아래 장면
-    scene(now, t);
-  }
-  function scene(now, t){
-    const GY = 410;
-    if (ph === 'pro') return proScene(t);
-    if (ph === 'con') return conScene(now, t);
-    if (R === 'ai') { if (!done) { dude(c, 390, GY, { s: 1.1 }); say(c, '이 기술들을 합치면 뭐가 될까?', 390, GY - 82, { s: 16 }); return; }
-      const ex = [['🚗', '자율주행 자동차'], ['🏙️', '스마트 도시'], ['🏭', '스마트 공장'], ['🤖', '지능형 로봇'], ['⌚', '웨어러블']];
-      ex.forEach((e, i) => { const k = clamp((t - i * .5) * 3, 0, 1); if (k <= 0) return; const x = 90 + i * 150, y = GY - 60 - Math.sin(now / 300 + i) * 4; c.globalAlpha = k; label(c, e[1], x, y + 34, { s: 15 }); c.font = '40px "Noto Color Emoji","Segoe UI Emoji",sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(e[0], x, y - 6); c.globalAlpha = 1; });
+    const t = (now - t0) / 1000; c.clearRect(0, 0, W, H);
+    if (st === 0) { c.drawImage(bgStreet, 0, 0); houseAt(30, 332); cross(480, 332); cafeAt(930, 332);
+      kid(250, 332, 2.1); c.save(); c.globalAlpha = clamp(t * 2, 0, 1); say(c, '카페까지 가서, 주문하고, 결제까지 혼자 해 보고 싶어!', 300, 150, { s: 21 }); c.restore();
+      [['어디서 건너지?', 580, 260, .8], ['입구가 어디지?', 820, 230, 1.4], ['메뉴·결제는?', 1110, 96, 2]].forEach(([s, x, y, d]) => { const a = clamp((t - d) * 2, 0, 1); if (!a) return; c.globalAlpha = a; TXT(c, '?', x, y - 46 + Math.sin(now / 300 + x) * 4, { s: 44, c: '#D0261E', w: 900 }); label(c, s, x, y, { s: 18, bg: '#FDEBEA', bd: '#D0261E' }); c.globalAlpha = 1; });
       return; }
-    // 길 안내 장면: 횡단보도, 카페
-    for (let x = 300; x < 400; x += 20) BOX(c, x, GY - 3, 12, 3, '#FFFFFF');
-    blk(c, 600, GY - 90, 30, 'plank'); blk(c, 630, GY - 90, 30, 'plank'); blk(c, 660, GY - 90, 30, 'plank'); blk(c, 690, GY - 90, 30, 'plank'); for (let i = 0; i < 4; i++) { blk(c, 600 + i * 30, GY - 60, 30, i === 1 ? 'glass' : 'brick'); blk(c, 600 + i * 30, GY - 30, 30, i === 1 ? 'log' : 'brick'); } label(c, '☕ 카페', 660, GY - 104, { s: 14 });
-    if (!done) { dude(c, 90, GY, { shirt: '#6A4C93', hold: c => { BOX(c, 4, 22, 3, 30, '#FFFFFF'); BOX(c, 4, 44, 3, 8, '#D0261E'); } }); say(c, '카페까지 혼자 갈 수 있을까?', 120, GY - 80, { s: 16 }); return; }
-    walk = Math.min(560, walk + (walk < 560 ? 1.4 : 0)); const x = 70 + walk, stop = walk >= 560;
-    dude(c, x, GY, { shirt: '#6A4C93', walk: !stop, ph: now / 120, earbud: true, hold: c => { BOX(c, 4, 22, 3, 30, '#FFFFFF'); BOX(c, 4, 44, 3, 8, '#D0261E'); } });
-    const tag = (s, col) => label(c, s, x, GY - 120, { s: 13, bg: col, c: '#FFFFFF', bd: col });
-    if (walk > 60 && walk < 230) { say(c, '“10미터 앞에 횡단보도가 있어요”', x + 10, GY - 78, { s: 15 }); tag('📍 위치 + 🎤 음성', '#2350C8'); }
-    else if (walk >= 230 && walk < 440) { say(c, '“오른쪽 앞이 카페 입구예요”', x + 10, GY - 78, { s: 15 }); tag('📍 위치 + 🎤 음성', '#2350C8'); }
-    else if (walk >= 440 && walk < 560) { say(c, '“아메리카노 주문할게요”', x - 20, GY - 78, { s: 15 }); tag('🎤 음성 인식', '#0A7F72'); }
-    else if (stop) { say(c, '💳 결제 완료! 혼자서 해냈어요', x - 120, GY - 78, { s: 15, bg: '#E3F5E8', bd: '#137A3A' }); tag('💳 모바일 결제', '#B85E00'); }
+    if (st === 1) { BOX(c, 0, 0, W, H, '#F3F6FB');
+      TECH.forEach((tc, i) => { const a = clamp((t - i * .7) * 2.5, 0, 1); if (!a) return; const x = 40 + i * 384, y = 20 + (1 - a) * 30; c.globalAlpha = a; card(c, x, y, 344, 300, tc.col);
+        isoCube(c, x + 172, y + 96, 40, tc.col, { ic: tc.ic, bob: Math.sin(now / 300 + i) * 3 }); TXT(c, tc.n, x + 172, y + 184, { s: 26, w: 900 });
+        TXT(c, '✔ ' + tc.ok, x + 172, y + 228, { s: 19, w: 800, c: '#137A3A' }); TXT(c, '✘ ' + tc.no, x + 172, y + 264, { s: 19, w: 800, c: '#D0261E' }); c.globalAlpha = 1; });
+      const a = clamp((t - 2.4) * 2, 0, 1); if (a) { c.globalAlpha = a; label(c, '따로따로 있으면 → 카페까지 혼자 갈 수 없어요 ❌', W / 2, 360, { s: 24, bg: '#FDEBEA', bd: '#D0261E' }); c.globalAlpha = 1; }
+      return; }
+    if (st === 2) { BOX(c, 0, 0, 440, H, '#F3F6FB'); c.drawImage(bgStreet, 440, 0, W - 440, H, 440, 0, W - 440, H);
+      const k = clamp(t / 1.6, 0, 1), wt = Math.max(0, t - 2.2), wx = Math.min(470, wt * 70), done = wx >= 470 && wt > 8.5;
+      const ev = wx < 1 ? null : wx < 160 ? { s: '🔊 “10미터 앞에 횡단보도가 있어요”', a: [0, 1] } : wx < 330 ? { s: '🔊 “오른쪽 세 걸음 앞이 카페 입구예요”', a: [0, 1] } : wt < 7.4 ? { s: '🗣 “아이스티 한 잔 주세요” → 주문 완료', a: [1] } : !done ? { s: '💳 결제 완료!', a: [2] } : { s: '🎉 혼자서 해냈어요!', a: [0, 1, 2] };
+      hub(220, 150, k, ev ? ev.a : [], now); if (k < 1) TXT(c, '세 기술을 소프트웨어로 연결 중…', 220, 20, { s: 18, w: 900 }); else label(c, '📱 = 시각 장애인용 길 안내 앱', 220, 20, { s: 17, bg: '#FFF3C4', bd: '#E0B400' });
+      cross(640, 332); cafeAt(980, 332); kid(500 + wx, 332, 1.8, { walk: wx > 0 && wx < 470, ph: now / 130, earbud: true });
+      if (ev) say(c, ev.s, Math.min(900, 560 + wx), 190, { s: 21, bg: done ? '#E3F5E8' : '#FFFFFF', bd: done ? '#137A3A' : '#1B2230' });
+      if (done && !draw.cf) { draw.cf = 1; SND.fan(); confetti(); } if (!done) draw.cf = 0;
+      return; }
+    // 4 정리
+    BOX(c, 0, 0, W, H, '#F3F6FB'); card(c, 30, 16, W - 60, 230, '#B85E00');
+    TECH.forEach((tc, i) => { isoCube(c, 110 + i * 150, 110, 30, tc.col, { ic: tc.ic, bob: Math.sin(now / 300 + i) * 2 }); TXT(c, tc.n.replace(' 시스템', ''), 110 + i * 150, 190, { s: 16, w: 900 }); if (i < 2) TXT(c, '+', 185 + i * 150, 118, { s: 34, w: 900 }); });
+    TXT(c, '➜', 470, 118, { s: 40, w: 900, c: '#B85E00' }); isoCube(c, 600, 104, 36, SW, { ic: '💻', glow: 'rgba(255,210,63,.8)', bob: Math.sin(now / 250) * 2 }); TXT(c, '소프트웨어가 연결', 600, 196, { s: 16, w: 900 });
+    TXT(c, '➜', 730, 118, { s: 40, w: 900, c: '#B85E00' }); c.font = '64px "Noto Color Emoji","Segoe UI Emoji",sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('📱', 850, 104); TXT(c, '하나의 시스템', 850, 176, { s: 18, w: 900 });
+    TXT(c, '➜', 960, 118, { s: 40, w: 900, c: '#B85E00' }); TXT(c, '🔓', 1070, 100, { s: 52 }); TXT(c, '어려운 문제 해결', 1070, 176, { s: 18, w: 900 });
+    TXT(c, '여러 기술을 그냥 모아 놓은 것이 아니라, 소프트웨어로 서로 주고받으며 하나처럼 움직이는 것!', W / 2, 226, { s: 20, w: 900, c: '#B85E00' });
+    TXT(c, '교과서 p.23 그림 속 다른 소프트웨어 융합 예', W / 2, 284, { s: 19, w: 900 });
+    ['🚗 자율주행 자동차', '🏙️ 스마트 도시', '🏭 스마트 공장', '🤖 지능형 로봇', '⌚ 웨어러블'].forEach((s, i) => { const a = clamp((t - .3 - i * .25) * 3, 0, 1); c.globalAlpha = a; label(c, s, 150 + i * 223, 330, { s: 19 }); c.globalAlpha = 1; });
   }
-  function proScene(t){
-    const GY = 410, rows = R === 'nav' ? [['📍만 있으면', '여기가 어딘지는 알지만… 말해 주지 못해요'], ['🎤만 있으면', '말은 하지만… 여기가 어딘지 몰라요'], ['💳만 있으면', '결제는 되지만… 가게를 못 찾아요']] : [['📡 센서만', '데이터는 모으지만… 판단을 못 해요'], ['🤖 인공지능만', '판단은 하지만… 볼 데이터가 없어요'], ['☁️ 클라우드만', '저장은 하지만… 쓸 곳을 몰라요']];
-    BOX(c, 14, 280, W - 28, 160, 'rgba(255,255,255,.92)');
-    rows.forEach((r, i) => { const k = clamp((t - i * .9) * 2, 0, 1); if (k <= 0) return; c.globalAlpha = k; TXT(c, r[0], 40, 302 + i * 34, { s: 18, a: 'left', w: 900 }); TXT(c, r[1], 190, 302 + i * 34, { s: 17, a: 'left', w: 700 }); TXT(c, '❌', 740, 302 + i * 34, { s: 20 }); c.globalAlpha = 1; });
-    const k = clamp((t - 2.9) * 2, 0, 1); if (k > 0) { c.globalAlpha = k; label(c, R === 'nav' ? '📍 + 🎤 + 💳 + 💻 = 혼자서 이동·주문·결제까지 ✔' : '모두 합치면 = 자율주행처럼 한 기술로는 못 하던 일 ✔', W / 2, 418, { s: 19, bg: '#E6EDFC', bd: '#2350C8', c: '#1B2230' }); c.globalAlpha = 1; }
-  }
-  function conScene(now, t){
-    const GY = 410; BOX(c, 14, 280, W - 28, 160, 'rgba(20,24,36,.92)');
-    const n = t < 4 ? 4 : 7, nodes = []; for (let i = 0; i < n; i++) { const a = -Math.PI / 2 + i * Math.PI * 2 / n; nodes.push([200 + Math.cos(a) * 60 * (n > 4 ? 1.15 : 1), 360 + Math.sin(a) * 58]); }
-    nodes.forEach((p, i) => { c.strokeStyle = '#E5352B'; c.lineWidth = 4; c.beginPath(); c.moveTo(200, 360); c.lineTo(p[0], p[1]); c.stroke(); });
-    blk(c, 186, 346, 28, 'gold'); nodes.forEach(p => blk(c, p[0] - 12, p[1] - 12, 24, 'iron'));
-    nodes.forEach((p, i) => { const mx = (200 + p[0]) / 2, my = (360 + p[1]) / 2, bl = Math.sin(now / 150 + i) > 0; c.fillStyle = bl ? '#FF3B3B' : '#FFD23F'; c.fillRect(mx - 4, my - 4, 8, 8); });
-    TXT(c, `연결 통로 ${n}곳 = 노릴 수 있는 틈 ${n}곳`, 610, 304, { s: 18, c: '#FFB3B3', w: 900 });
-    for (let i = 0; i < Math.min(n, 4); i++) dude(c, 336 + i * 30, 424, { s: .7, hood: true, shirt: '#7B3FA0', pants: '#3A2450' });
-    label(c, '🔓 해커', 381, 330, { s: 14, bg: '#FDEBEA', bd: '#D0261E' });
-    const cost = Math.floor(Math.max(0, t - 1) * 37) * 10; TXT(c, `🔧 업데이트·수리 비용 ₩ ${cost.toLocaleString()}만 (예시)`, 610, 350, { s: 17, c: '#FFE58A', w: 900 });
-    nodes.forEach((p, i) => { if (Math.floor(now / 700 + i) % 3 === 0) TXT(c, '🔧', p[0] + 14, p[1] - 16, { s: 16 }); });
-    TXT(c, t < 4 ? '기술이 더 붙으면 어떻게 될까?' : '기술이 늘수록 틈도, 수리할 곳도 늘어나요!', 610, 400, { s: 16, c: '#FFFFFF', w: 800 });
-  }
-  reset('nav'); runLoop(cv, draw);
+  set(0); runLoop(cv, draw);
 })();
-// ---------- D2-2 교통 체증 시뮬레이션 ----------
+// ---------- D2-2 교통 체증: 융합 기술 하나씩 켜기 (p.23~24) ----------
 (() => {
-  const cv = $('trCv'); if (!cv) return; const c = cv.getContext('2d'), W = 1192, H = 336, msg = $('trMsg');
-  const MW = 700, RY0 = 128, RY1 = 208, RX0 = 310, RX1 = 390;
-  const LN = { E: { len: 760, stop: 286, xy: p => [p, 188], h: 1 }, W: { len: 760, stop: 286, xy: p => [700 - p, 148], h: 1 }, S: { len: 380, stop: 108, xy: p => [330, p], h: 0 }, N: { len: 380, stop: 108, xy: p => [370, 336 - p], h: 0 }, D: { len: 760, stop: null, xy: p => [p, 38], h: 1 } };
-  const CC = ['#D0261E', '#2350C8', '#F2B705', '#2FA84F', '#EDEDED', '#7B3FA0', '#E06A1B', '#1B2230'];
-  const RATE0 = { E: 1.1, W: 1.0, S: .24, N: .22, D: 0 }, RATE4 = { E: .78, W: .7, S: .24, N: .22, D: .42 };
+  const cv = $('trCv'); if (!cv) return;
+  const TXT = (c, s, x, y, o = {}) => TXT_(c, s, x, y, Object.assign({}, o, { s: BIG(o.s || 20) })); const c = cv.getContext('2d'), W = 740, H = 372, Y0 = 56;
+  const RY0 = 156, RY1 = 236, RX0 = 300, RX1 = 380;
+  const LN = { E: { len: 800, stop: 280, xy: p => [p, 216], h: 1 }, W: { len: 800, stop: 340, xy: p => [740 - p, 176], h: 1 }, S: { len: 360, stop: 80, xy: p => [320, Y0 + p], h: 0 }, N: { len: 360, stop: 116, xy: p => [360, H - p], h: 0 } };
+  const CC = ['#E5484D', '#3B6FE0', '#F2B705', '#2FA84F', '#8E5BD0', '#F07A2A', '#2BB3C0', '#5A6375'];
+  const RATE0 = { E: 1.1, W: 1.0, S: .24, N: .22 }, RATE4 = { E: .78, W: .7, S: .24, N: .22 };
   const VMAX = 90, GAP = 34, RT = .45, FIX = { EW: 4, NS: 5 };
-  function mk(seed){ let rs = seed; return { rnd: () => (rs = (rs * 16807) % 2147483647) / 2147483647, cars: [], id: 0, light: 'EW', nxt: 'NS', lt: 0, clr: 0, sp: { E: 0, W: 0, S: 0, N: 0, D: 0 }, rate: RATE0, auto: false, hack: false, broken: {}, st: { fixed: [0, 0], auto: [0, 0] } }; }
+  function mk(seed){ let rs = seed; return { rnd: () => (rs = (rs * 16807) % 2147483647) / 2147483647, cars: [], id: 0, light: 'EW', nxt: 'NS', lt: 0, clr: 0, sp: { E: 0, W: 0, S: 0, N: 0 }, rate: RATE0, auto: false, hack: false, broken: {}, done: [] }; }
   const green = (S, l) => !S.hack && S.clr <= 0 && (S.light === 'EW' ? (l === 'E' || l === 'W') : (l === 'S' || l === 'N'));
   const qOf = (S, l) => S.broken[l] ? 0 : S.cars.filter(a => a.l === l && a.p <= LN[l].stop + 1 && a.v < 5).length;
   function step(S, dt){
     for (const l in S.rate) { S.sp[l] += S.rate[l] * dt * (.6 + S.rnd() * .8); if (S.sp[l] >= 1) { S.sp[l] -= 1; const mn = Math.min(-20, ...S.cars.filter(a => a.l === l).map(a => a.p - GAP)); if (mn > -900) S.cars.push({ l, p: mn, v: VMAX, w: 0, rt: 0, id: S.id++, col: CC[Math.floor(S.rnd() * CC.length)] }); } }
     for (const l in LN) { const L = LN[l], cs = S.cars.filter(a => a.l === l).sort((a, b) => b.p - a.p);
-      cs.forEach((a, i) => { let lim = Infinity; if (i > 0) lim = cs[i - 1].p - GAP; if (L.stop !== null && a.p <= L.stop + .01 && !green(S, l)) lim = Math.min(lim, L.stop);
+      cs.forEach((a, i) => { let lim = Infinity; if (i > 0) lim = cs[i - 1].p - GAP; if (a.p <= L.stop + .01 && !green(S, l)) lim = Math.min(lim, L.stop);
         let np = Math.min(a.p + VMAX * dt, lim); if (np < a.p) np = a.p;
         if (a.v < 2 && np - a.p > .5) { a.rt += dt; if (a.rt < RT) np = a.p; }
-        if (np - a.p > .5) a.rt = 0; a.v = (np - a.p) / dt; if (a.v < VMAX * .3 && l !== 'D') a.w += dt; a.p = np; }); }
-    S.cars = S.cars.filter(a => { if (a.p > LN[a.l].len) { if (a.l !== 'D') { const k = S.auto ? 'auto' : 'fixed'; S.st[k][0] += a.w; S.st[k][1]++; } return false; } return true; });
+        if (np - a.p > .5) a.rt = 0; a.v = (np - a.p) / dt; if (a.v < VMAX * .3) a.w += dt; a.p = np; }); }
+    S.cars = S.cars.filter(a => { if (a.p > LN[a.l].len) { S.done.push(a.w); if (S.done.length > 30) S.done.shift(); return false; } return true; });
     S.lt += dt; if (S.clr > 0) { S.clr -= dt; if (S.clr <= 0) { S.light = S.nxt; S.lt = 0; } return; }
     let sw = false; const g = S.light, r = g === 'EW' ? 'NS' : 'EW';
     if (!S.auto) sw = S.lt >= FIX[g];
@@ -1295,111 +1302,91 @@ const XB = '<span class="xb">교과서 밖 보충</span>';
       sw = qr > 0 && ((S.lt >= 2 && qg === 0) || (S.lt >= 3 && qr >= qg * 2 + 3) || S.lt >= 10); }
     if (sw) { S.nxt = r; S.clr = .9; }
   }
-  // 미리 측정(같은 조건 240초)
-  const meas = auto => { const S = mk(7); S.auto = auto; for (let i = 0; i < 240 * 20; i++) step(S, .05); const k = auto ? 'auto' : 'fixed'; return S.st[k][1] ? S.st[k][0] / S.st[k][1] : 0; };
-  const AVG = { fixed: meas(false), auto: meas(true) };
-  let S = mk(11), mode = '0', t0 = 0, last = 0, pk = [], hackOn = false, fixT = 0, worker = null, cost = 0, upd = 0, secured = 0;
-  const MSG = {
-    '0': '퇴근 시간! 신호등은 <b>정해진 시간표대로만</b> 바뀌어요. 차가 많은 동서 방향도, 차가 적은 남북 방향도 똑같이 기다려요. 줄이 점점 길어지죠?',
-    '1': '① <b>센서·카메라·GPS</b>가 도로 위 차량 수와 움직임을 <b>실시간으로 수집</b>해 관제 센터로 보내요. <span class="pp">p.24</span>',
-    '2': '② 모은 데이터를 <b>분석</b>해 교통 패턴을 찾고 <b>언제 막힐지 예측</b>해요. <span class="pp">p.24</span> (그래프는 예시)',
-    '3': '③ 분석 결과로 <b>교통 신호를 자동 조절</b>! 차가 많은 쪽 초록불을 더 길게 → 줄이 줄어요. <span class="pp">p.24</span>',
-    '4': '④ 시민에게 <b>실시간 교통 정보·대중교통 정보</b>를 앱으로 제공 → 일부는 우회 도로로 가요. <span class="pp">p.24</span> 센서+카메라+GPS+분석+신호+앱이 <b>소프트웨어로 하나</b> = 소프트웨어 융합!',
-    pro: '<b style="color:var(--blue)">장점: 교통 상황을 실시간으로 파악하고 바로 대응</b> — 같은 교차로, 같은 차량 수인데 기다린 시간이 줄었어요 (오른쪽: 이 시뮬레이션에서 잰 값). 기존에 해결하기 어려웠던 문제 해결 <span class="pp">p.23</span>',
-    hack: '<b style="color:var(--pen)">단점: 보안 취약점</b> <span class="pp">p.23</span> — 모든 신호등이 네트워크로 이어져 있어 관제 센터 한 곳이 뚫리면 <b>교차로 전체가 멈춰요!</b> 왜? ' + XB + ' 연결된 곳이 많을수록 노릴 틈도 많아요. <b>한 번 더 누르면 🛡 보안 강화</b>',
-    hack2: '<b>🛡 보안 강화 완료!</b> 그래서 융합 시스템은 보안 점검과 관리를 계속해야 해요 → 이것도 비용이에요. <span class="pp">p.23</span>',
-    fix: '<b style="color:var(--pen)">단점: 지속적인 유지 보수 → 비용 증가</b> <span class="pp">p.23</span> — 센서가 고장 나면 잘못된 데이터로 신호를 바꿔 오히려 막혀요. 고치고 업데이트할 때마다 돈이 들어요. 왜? ' + XB + ' 부품이 많을수록 고칠 곳도 많아요.',
-    gen: '<b>비교: 일반적인 해결</b> <span class="pp">p.24</span> — 도로 확장 공사(허가, 야간에 많은 인력), 교통경찰 투입, 대중교통 확대. 경찰관이 직접 보고 신호를 바꾸면 나아지지만 <b>교차로마다 사람이</b> 있어야 하고 공사는 오래 걸려요.'
-  };
-  function setMode(m){
-    if (m === 'hack' && mode === 'hack') { secured = performance.now(); S.hack = false; hackOn = false; setMsg(msg, MSG.hack2); SND.ok(); return; }
-    mode = m; t0 = performance.now(); const n = +m;
-    S.auto = (n >= 3) || ['pro', 'hack', 'fix', 'gen'].includes(m); S.rate = (n >= 4 || m === 'pro') ? RATE4 : RATE0;
-    S.hack = false; hackOn = m === 'hack'; S.broken = {}; worker = null; secured = 0; if (m === 'fix') { fixT = 1.2; cost = 0; upd = 0; }
-    setMsg(msg, MSG[m]);
-    $('trBtns').querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.m === m));
-  }
-  $('trBtns').querySelectorAll('button').forEach(b => b.addEventListener('click', () => { SND.pop(); setMode(b.dataset.m); }));
-  const step1 = () => mode !== '0' && mode !== 'gen';
-  const SENS = [{ l: 'E', x: 250, y: 188 }, { l: 'W', x: 450, y: 148 }, { l: 'S', x: 330, y: 70 }, { l: 'N', x: 370, y: 266 }];
-  const CAMS = [{ x: 292, y: 114, l: 'S' }, { x: 404, y: 114, l: 'W' }, { x: 292, y: 222, l: 'E' }, { x: 404, y: 222, l: 'N' }];
+  const meas = (auto, rate) => { const S = mk(7); S.auto = auto; S.rate = rate; let w = 0, n = 0; for (let i = 0; i < 240 * 20; i++) { const before = S.done.length; step(S, .05); } S.done = []; for (let i = 0; i < 240 * 20; i++) { step(S, .05); if (S.done.length) { w += S.done.reduce((a, b) => a + b, 0); n += S.done.length; S.done = []; } } return n ? w / n : 0; };
+  const AVG = { fixed: meas(false, RATE0), fused: meas(true, RATE4) };
+  let S = mk(11), lv = 0, mode = 'run', t0 = 0, last = 0, pk = [], worker = null, cost = 0, fixT = 0, secured = 0, train = 0, riders = 0;
+  const BAN = ['신호등이 <정해진 시간표>대로만 바뀌어요. 차가 많은 동서 방향도 똑같이 기다려요 → 줄이 길어져요!',
+    '㉡ 카메라·센서·GPS가 차의 수와 움직임을 실시간으로 모아 관제 센터로 보내요',
+    '㉣ 모은 데이터를 분석 → “동서 방향이 막힐 것” 미리 예측!',
+    '㉤ 예측대로 신호를 자동 조절 → 차 많은 동서 방향 초록불을 길게!',
+    '㉦ 앱으로 실시간 정보 제공 → 일부는 지하철·버스로 → 도로의 차가 줄어요'];
+  const MB = { pro: '장점: 같은 차량, 같은 교차로인데 실시간으로 보고 바로 대응하니 기다리는 시간이 확 줄었어요!', hack: '단점(보안): 신호등이 모두 네트워크로 연결 → 관제 센터가 뚫리면 전체 신호가 멈춰요!', hack2: '🛡 보안 강화! 그래서 융합 시스템은 보안 관리를 계속해야 해요', fix: '단점(유지 보수): 센서가 고장 나면 엉뚱한 판단 → 계속 고치고 업데이트해야 해서 비용이 들어요' };
+  const cards = [...$('trCards').querySelectorAll('.trc')], pcBtns = [...cv.closest('.slide').querySelectorAll('.trpc button')];
+  function apply(){ S.auto = lv >= 3; S.rate = lv >= 4 ? RATE4 : RATE0; cards.forEach(b => { const on = +b.dataset.k <= lv; b.classList.toggle('on', on); b.querySelector('.sw').textContent = on ? 'ON' : 'OFF'; }); S.done = []; }
+  function setLv(k){ lv = k; mode = 'run'; S.hack = false; S.broken = {}; worker = null; secured = 0; t0 = performance.now(); pcBtns.forEach(b => b.classList.remove('on')); apply(); }
+  cards.forEach(b => b.addEventListener('click', () => { const k = +b.dataset.k; SND.pop(); setLv(lv === k ? k - 1 : k); }));
+  pcBtns.forEach(b => b.addEventListener('click', () => { const m = b.dataset.m; SND.pop();
+    if (m === 'hack' && mode === 'hack') { S.hack = false; secured = performance.now(); mode = 'hack2'; SND.ok(); return; }
+    lv = 4; apply(); mode = m; t0 = performance.now(); S.hack = false; S.broken = {}; worker = null; secured = 0; if (m === 'fix') { cost = 0; fixT = 1; }
+    pcBtns.forEach(x => x.classList.toggle('on', x === b)); if (m === 'hack') b.textContent = '🛡 보안 강화'; else pcBtns.find(x => x.dataset.m === 'hack').textContent = '▶ 해킹되면?'; }));
+  const SENS = [{ l: 'E', x: 230, y: 216 }, { l: 'W', x: 450, y: 176 }, { l: 'S', x: 320, y: 112 }, { l: 'N', x: 360, y: 290 }];
+  const CAMS = [{ x: 286, y: 146, l: 'S', a: -.3 }, { x: 394, y: 146, l: 'W', a: .3 }, { x: 286, y: 246, l: 'E', a: Math.PI + .3 }, { x: 394, y: 246, l: 'N', a: -.3 }];
   const bg = bake(W, H, c => {
-    for (let x = 0; x < MW; x += 24) for (let y = 0; y < H; y += 24) blk(c, x, y, 24, 'grass');
-    for (let x = 0; x < MW; x += 20) for (let y = RY0; y < RY1; y += 20) blk(c, x, y, 20, 'road');
-    for (let y = 0; y < H; y += 20) for (let x = RX0; x < RX1; x += 20) blk(c, x, y, 20, 'road');
-    for (let x = 0; x < MW; x += 16) blk(c, x, 26, 12, 'road'), blk(c, x, 38, 12, 'road');
-    c.fillStyle = '#F2C200'; for (let x = 0; x < MW; x += 26) if (x < RX0 - 10 || x > RX1) c.fillRect(x, 167, 16, 3); for (let y = 0; y < H; y += 26) if (y < RY0 - 10 || y > RY1) c.fillRect(349, y, 3, 16);
-    c.fillStyle = '#FFFFFF'; c.fillRect(RX0 - 6, 168, 4, 40); c.fillRect(RX1 + 2, RY0, 4, 40); c.fillRect(RX0, RY0 - 6, 40, 4); c.fillRect(350, RY1 + 2, 40, 4);
-    for (let i = 0; i < 7; i++) { blk(c, 30 + i * 28, 72, 28, i % 3 ? 'brick' : 'plank'); blk(c, 30 + i * 28, 100, 28, i % 2 ? 'glass' : 'brick'); }
-    for (let i = 0; i < 9; i++) for (let j = 0; j < 3; j++) blk(c, 440 + i * 26, 230 + j * 26, 26, (i + j) % 2 ? 'glass' : 'iron');
-    tree(c, 60, 320, 16); tree(c, 140, 320, 16); tree(c, 220, 320, 16); tree(c, 480, 122, 14); tree(c, 600, 122, 14);
-    c.fillStyle = '#ffffff'; c.font = FNT(900, 15); c.textAlign = 'center'; c.fillText('🏢 회사 (퇴근 출발)', 557, 322); c.fillText('🏠 주택가', 128, 64); c.fillStyle = '#1B2230'; c.fillText('우회 도로', 650, 20);
-    c.fillStyle = '#1B2230'; c.fillRect(MW, 0, W - MW, H);
+    c.fillStyle = '#DCEBD2'; c.fillRect(0, Y0, W, H - Y0);
+    c.fillStyle = '#C9DDBE'; for (let x = 0; x < W; x += 40) for (let y = Y0; y < H; y += 40) if ((x + y) / 40 % 2) c.fillRect(x, y, 40, 40);
+    c.fillStyle = '#4A4F5C'; c.fillRect(0, RY0, W, RY1 - RY0); c.fillRect(RX0, Y0, RX1 - RX0, H - Y0);
+    c.fillStyle = '#F2C200'; for (let x = 0; x < W; x += 28) if (x < RX0 - 14 || x > RX1) c.fillRect(x, 195, 16, 3); for (let y = Y0; y < H; y += 28) if (y < RY0 - 14 || y > RY1) c.fillRect(339, y, 3, 16);
+    c.fillStyle = '#FFFFFF'; c.fillRect(RX0 - 6, 196, 4, 40); c.fillRect(RX1 + 2, RY0, 4, 40); c.fillRect(RX0, RY0 - 6, 40, 4); c.fillRect(340, RY1 + 2, 40, 4);
+    for (let i = 0; i < 5; i++) { c.fillStyle = '#FFFFFF'; c.fillRect(RX0 + 6 + i * 14, RY0 - 26, 8, 18); }
+    // 회사 건물(동남쪽), 지하철 선로
+    c.fillStyle = '#9AA6BC'; c.fillRect(560, 250, 170, 76); c.fillStyle = '#C7E3FF'; for (let i = 0; i < 6; i++) for (let j = 0; j < 2; j++) c.fillRect(570 + i * 26, 258 + j * 30, 18, 20); c.fillStyle = '#1B2230'; c.font = FNT(900, 14); c.textAlign = 'center'; c.fillText('🏢 회사 (퇴근 출발)', 645, 342);
+    c.fillStyle = '#8A8F99'; c.fillRect(392, 352, 348, 6); for (let x = 392; x < W; x += 14) c.fillRect(x, 348, 4, 14);
   });
-  function car(a){ const L = LN[a.l], [x, y] = L.xy(a.p); if (x < -30 || x > MW + 30 || y < -30 || y > H + 30) return; const h = L.h;
-    const w = h ? 28 : 16, hh = h ? 16 : 28; BOX(c, x - w / 2, y - hh / 2, w, hh, a.col); BOX(c, x - w / 2 + 3, y - hh / 2 + 3, w - 6, hh - 6, 'rgba(0,0,0,.18)');
-    const f = a.l === 'E' || a.l === 'D' ? [x + 6, y - 6, 5, 12] : a.l === 'W' ? [x - 11, y - 6, 5, 12] : a.l === 'S' ? [x - 6, y + 6, 12, 5] : [x - 6, y - 11, 12, 5]; BOX(c, f[0], f[1], f[2], f[3], '#BFE6FF');
-    if (step1() && a.id % 3 === 0 && mode !== 'hack') { c.fillStyle = '#FFE14D'; c.beginPath(); c.moveTo(x, y - 18); c.lineTo(x + 5, y - 12); c.lineTo(x, y - 6); c.lineTo(x - 5, y - 12); c.fill(); }
-  }
-  function light(x, y, on){ BOX(c, x - 9, y - 9, 18, 18, '#1B2230'); const bl = S.hack && Math.floor(performance.now() / 200) % 2; BOX(c, x - 6, y - 6, 12, 12, S.hack ? (bl ? '#FF2D2D' : '#4A1010') : on ? '#3DDC64' : '#FF3B3B'); }
-  function monitor(now, t){
-    BOX(c, 712, 6, 470, 172, '#0E1626'); c.strokeStyle = '#3B4766'; c.lineWidth = 3; c.strokeRect(713, 7, 468, 170);
-    TXT(c, '🖥 교통 관제 센터', 724, 24, { s: 17, c: '#FFFFFF', a: 'left' });
-    if (S.hack) { c.fillStyle = Math.floor(now / 250) % 2 ? '#7A0E0E' : '#4A0808'; c.fillRect(716, 40, 462, 134); TXT(c, '⚠ 해킹 공격!', 947, 86, { s: 34, c: '#FFFFFF', w: 900 }); TXT(c, '신호 제어 불가 · 모든 신호 정지', 947, 132, { s: 20, c: '#FFD0D0' }); return; }
-    const qe = qOf(S, 'E') + qOf(S, 'W'), qn = qOf(S, 'S') + qOf(S, 'N');
-    if (!step1()) { TXT(c, mode === 'gen' ? '👮 교통경찰이 직접 보고 판단' : '연결된 센서 없음', 947, 70, { s: 20, c: '#C9D1DF' }); TXT(c, mode === 'gen' ? '경찰관 1명 = 교차로 1곳' : `신호: 정해진 시간표 (동서 ${FIX.EW}초 · 남북 ${FIX.NS}초)`, 947, 112, { s: 19, c: '#FFE58A', w: 900 }); return; }
-    TXT(c, '동서 방향 대기', 726, 58, { s: 16, c: '#FFFFFF', a: 'left' }); BOX(c, 852, 50, Math.min(150, qe * 8), 16, '#FF6B6B'); TXT(c, qe + '대', 1010, 58, { s: 18, c: '#FFFFFF', a: 'left', w: 900 });
-    TXT(c, '남북 방향 대기', 726, 86, { s: 16, c: '#FFFFFF', a: 'left' }); BOX(c, 852, 78, Math.min(150, qn * 8), 16, '#FFB23E'); TXT(c, qn + '대', 1010, 86, { s: 18, c: '#FFFFFF', a: 'left', w: 900 });
-    const brk = Object.keys(S.broken); if (brk.length) TXT(c, `⚠ ${brk.map(l => ({ E: '동쪽', W: '서쪽', S: '북쪽', N: '남쪽' })[l]).join('·')} 센서 신호 없음 → 엉뚱한 판단!`, 726, 114, { s: 16, c: '#FF8A8A', a: 'left', w: 900 });
-    else TXT(c, `📡 받은 데이터 ${Math.floor(t * 23 + 120)}건`, 726, 114, { s: 16, c: '#7CE0FF', a: 'left' });
-    if (+mode >= 2 || ['pro', 'hack', 'fix'].includes(mode)) { const H8 = [3, 5, 9, 14, 8, 4], hr = ['16', '17', '18', '19', '20', '21']; H8.forEach((v, i) => { const x = 1068 + i * 18; BOX(c, x, 116 - v * 5, 13, v * 5, i === 2 ? '#FF6B6B' : '#5B8DEF'); TXT(c, hr[i], x + 6, 126, { s: 10, c: '#FFFFFF' }); }); TXT(c, '예측 그래프(예시)', 1120, 44, { s: 13, c: '#FFE58A' }); }
-    if (S.auto) TXT(c, `🤖 신호 자동 조절 ON · 지금 ${S.clr > 0 ? '전환 중' : (S.light === 'EW' ? '동서' : '남북') + ' 초록 ' + S.lt.toFixed(1) + '초'}`, 726, 148, { s: 17, c: '#7CFF9E', a: 'left', w: 900 });
-    else TXT(c, `신호: 정해진 시간표 (동서 ${FIX.EW}초 · 남북 ${FIX.NS}초)`, 726, 148, { s: 17, c: '#FFE58A', a: 'left', w: 900 });
-    if (mode === 'fix') { BOX(c, 726, 162, 300, 8, '#2B3656'); BOX(c, 726, 162, 300 * (upd % 1), 8, '#7CE0FF'); TXT(c, '소프트웨어 업데이트 중', 1034, 166, { s: 12, c: '#7CE0FF', a: 'left' }); }
-  }
-  function phone(now){
-    RR(c, 712, 186, 136, 146, 14); c.fillStyle = '#2B3242'; c.fill(); BOX(c, 720, 196, 120, 126, '#FFFFFF');
-    if (+mode >= 4 || mode === 'pro' || mode === 'fix') { TXT(c, '🚗 실시간 길 안내', 780, 210, { s: 13, w: 900 }); BOX(c, 724, 220, 112, 26, '#FDEBEA'); TXT(c, '정체! 5분 지연', 780, 233, { s: 13, c: '#D0261E', w: 900 }); BOX(c, 724, 250, 112, 26, '#E3F5E8'); TXT(c, '우회 도로 추천', 780, 263, { s: 13, c: '#137A3A', w: 900 }); BOX(c, 724, 280, 112, 36, '#E6EDFC'); TXT(c, '🚇 지하철이', 780, 290, { s: 12, w: 800 }); TXT(c, '더 빨라요', 780, 306, { s: 12, w: 800 }); }
-    else { TXT(c, '📱', 780, 248, { s: 30 }); TXT(c, '교통 정보 없음', 780, 290, { s: 13, c: '#1B2230' }); }
-  }
-  function stats(now){
-    BOX(c, 860, 186, 322, 146, '#F5F7FA'); const wq = S.cars.filter(a => a.l !== 'D' && a.v < 5).length;
-    if (mode === 'pro') { TXT(c, '평균 기다린 시간 (시뮬레이션 측정)', 1021, 204, { s: 15, w: 900 }); const mx = Math.max(AVG.fixed, AVG.auto, 1);
-      TXT(c, '정해진 신호', 872, 240, { s: 15, a: 'left', w: 800 }); BOX(c, 970, 230, 150 * AVG.fixed / mx, 20, '#D0261E'); TXT(c, AVG.fixed.toFixed(1) + '초', 1176, 240, { s: 16, a: 'right', w: 900 });
-      TXT(c, '자동 조절', 872, 276, { s: 15, a: 'left', w: 800 }); BOX(c, 970, 266, 150 * AVG.auto / mx, 20, '#2350C8'); TXT(c, AVG.auto.toFixed(1) + '초', 1176, 276, { s: 16, a: 'right', w: 900 });
-      TXT(c, '같은 차량 수 · 240초 실행 결과', 1021, 314, { s: 13, w: 700 }); return; }
-    TXT(c, '지금 멈춰 선 차', 1021, 206, { s: 16, w: 900 }); TXT(c, wq + '대', 1021, 248, { s: 40, w: 900, c: wq > 25 ? '#D0261E' : wq > 12 ? '#B85E00' : '#137A3A' });
-    if (mode === 'fix') TXT(c, `🔧 유지 보수 비용 ₩${(cost * 350).toLocaleString()}만 (예시)`, 1021, 300, { s: 15, w: 900, c: '#D0261E' });
-    else if (mode === 'gen') TXT(c, '🚧 공사 기간 동안 도로가 좁아져요', 1021, 300, { s: 15, w: 900, c: '#B85E00' });
-    else TXT(c, '화면 밖에서 기다리는 차 포함', 1021, 300, { s: 13, w: 700 });
-  }
+  function car(a){ const [x, y] = LN[a.l].xy(a.p); if (x < -30 || x > W + 30 || y < Y0 - 20 || y > H + 30) return; const h = LN[a.l].h, w = h ? 30 : 18, hh = h ? 18 : 30;
+    RR(c, x - w / 2, y - hh / 2, w, hh, 5); c.fillStyle = a.col; c.fill(); c.fillStyle = 'rgba(255,255,255,.75)';
+    if (a.l === 'E') c.fillRect(x + 4, y - 6, 6, 12); else if (a.l === 'W') c.fillRect(x - 10, y - 6, 6, 12); else if (a.l === 'S') c.fillRect(x - 6, y + 4, 12, 6); else c.fillRect(x - 6, y - 10, 12, 6);
+    if (lv >= 1 && a.id % 3 === 0 && !S.hack) { c.fillStyle = '#FF3B6B'; c.beginPath(); c.arc(x, y - 16, 5, 0, 7); c.fill(); c.beginPath(); c.moveTo(x - 4, y - 14); c.lineTo(x, y - 8); c.lineTo(x + 4, y - 14); c.fill(); } }
+  function light(x, y, on, tm){ RR(c, x - 11, y - 11, 22, 22, 5); c.fillStyle = '#1B2230'; c.fill(); const bl = S.hack && Math.floor(performance.now() / 200) % 2; c.fillStyle = S.hack ? (bl ? '#FF2D2D' : '#5A1414') : on ? '#3DDC64' : '#FF3B3B'; c.beginPath(); c.arc(x, y, 7, 0, 7); c.fill(); if (tm) label(c, tm, x, y - 24, { s: 13, bg: '#E3F5E8', bd: '#137A3A' }); }
+  function banner(s, col = '#1B2230'){ BOX(c, 0, 0, W, Y0, col); c.font = FNT(900, s.length > 46 ? 17 : 19); c.fillStyle = '#FFFFFF'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(s, W / 2, Y0 / 2 + 1); }
   function draw(now){
     const dt = Math.min(.05, (now - (last || now)) / 1000); last = now; const t = (now - t0) / 1000;
-    if (mode === 'hack' && hackOn && !S.hack && t > 1.4) S.hack = true;
-    if (mode === 'fix') { upd += dt * .25; fixT -= dt; const ls = ['E', 'W', 'S', 'N'].filter(l => !S.broken[l]); if (fixT <= 0 && !worker && ls.length) { const l = ls.includes('E') ? 'E' : ls[Math.floor(Math.random() * ls.length)]; S.broken[l] = 1; SND.no(); const s = SENS.find(s => s.l === l); worker = { x: MW + 10, tx: s.x, ty: s.y, l, fix: 0, wait: 2.2 }; }
-      if (worker) { if (worker.wait > 0) worker.wait -= dt; else if (Math.abs(worker.x - worker.tx) > 4) worker.x += Math.sign(worker.tx - worker.x) * 140 * dt; else { worker.fix += dt; if (worker.fix > 1.6) { delete S.broken[worker.l]; cost++; SND.ok(); worker = null; fixT = 3 + Math.random() * 2; } } } }
-    for (let i = 0; i < 2; i++) step(S, dt / 2);
+    if (mode === 'hack' && !S.hack && t > 1.2) S.hack = true;
+    if (mode === 'fix') { fixT -= dt; const ls = ['E', 'W', 'S', 'N'].filter(l => !S.broken[l]); if (fixT <= 0 && !worker && ls.length) { const l = ls.includes('E') && !cost ? 'E' : ls[Math.floor(Math.random() * ls.length)]; S.broken[l] = 1; SND.no(); const s = SENS.find(s => s.l === l); worker = { x: W + 10, tx: s.x, ty: s.y, l, fix: 0, wait: 2.2 }; }
+      if (worker) { if (worker.wait > 0) worker.wait -= dt; else if (Math.abs(worker.x - worker.tx) > 4) worker.x += Math.sign(worker.tx - worker.x) * 150 * dt; else { worker.fix += dt; if (worker.fix > 1.6) { delete S.broken[worker.l]; cost++; SND.ok(); worker = null; fixT = 3 + Math.random() * 2; } } } }
+    step(S, dt / 2); step(S, dt / 2);
     c.drawImage(bg, 0, 0);
-    if (mode === 'gen') { for (let i = 0; i < 8; i++) { BOX(c, 40 + i * 70, 30, 10, 16, '#FF7A00'); BOX(c, 40 + i * 70, 36, 10, 3, '#FFFFFF'); } dude(c, 160, 60, { s: .55, shirt: '#F2B705', cap: '#F2B705', walk: true, ph: now / 150 }); dude(c, 470, 60, { s: .55, shirt: '#F2B705', cap: '#F2B705', armR: -1 + Math.sin(now / 200) }); label(c, '🚧 도로 확장 공사 중 (야간 인력 투입)', 330, 62, { s: 13, bg: '#FFF0DC', bd: '#B85E00' }); }
+    // ㉣ 예측: 정체 예상 구간
+    if (lv >= 2 && !S.hack) { const a = .18 + Math.sin(now / 300) * .08; c.fillStyle = `rgba(229,72,77,${a})`; c.fillRect(0, RY0, RX0 - 8, RY1 - RY0); c.fillRect(RX1 + 8, RY0, W - RX1 - 8, RY1 - RY0); label(c, '㉣ 정체 예상 구간', 150, 246, { s: 13, bg: '#FDEBEA', bd: '#E5484D' }); }
+    // ㉡ 수집: 카메라 시야, 센서
+    if (lv >= 1) { CAMS.forEach(k => { const b = S.broken[k.l]; if (!b && !S.hack) { c.fillStyle = 'rgba(80,190,255,.18)'; c.beginPath(); c.moveTo(k.x, k.y); c.arc(k.x, k.y, 110, k.a + (k.y < 200 ? Math.PI * .25 : -Math.PI * .75), k.a + (k.y < 200 ? Math.PI * .75 : -Math.PI * .25)); c.closePath(); c.fill(); }
+        RR(c, k.x - 10, k.y - 7, 20, 14, 3); c.fillStyle = b ? '#8A8F99' : '#1B2230'; c.fill(); c.fillStyle = b ? '#555' : '#50BEFF'; c.fillRect(k.x - 3, k.y - 3, 6, 6); if (b) TXT(c, '⚠', k.x, k.y - 16, { s: 18, c: '#E5484D' }); });
+      SENS.forEach(s => { const b = S.broken[s.l]; c.strokeStyle = b ? '#8A8F99' : '#FFD23F'; c.lineWidth = 3; s.l === 'E' || s.l === 'W' ? c.strokeRect(s.x - 16, s.y - 13, 32, 26) : c.strokeRect(s.x - 13, s.y - 16, 26, 32); });
+      if (!S.hack && Math.random() < .35) { const s = [...SENS, ...CAMS][Math.floor(Math.random() * 8)]; if (!S.broken[s.l]) pk.push({ x: s.x, y: s.y, t: now }); } }
     S.cars.forEach(car);
-    const ewG = green(S, 'E'), nsG = green(S, 'S'); light(298, 214, ewG); light(402, 122, ewG); light(298, 122, nsG); light(402, 214, nsG);
-    if (step1()) { SENS.forEach(s => { const b = S.broken[s.l]; c.strokeStyle = b ? '#7A7A7A' : '#FFE14D'; c.lineWidth = 3; s.l === 'E' || s.l === 'W' ? c.strokeRect(s.x - 16, s.y - 12, 32, 24) : c.strokeRect(s.x - 12, s.y - 16, 24, 32); if (b) TXT(c, '⚠', s.x, s.y, { s: 20, c: '#FFD23F' }); });
-      CAMS.forEach(k => { const b = S.broken[k.l]; BOX(c, k.x - 8, k.y - 6, 16, 12, b ? '#7A7A7A' : '#1B2230'); BOX(c, k.x - 3, k.y - 2, 6, 4, b ? '#555' : '#7CE0FF'); });
-      if (!S.hack && Math.random() < .25) { const s = [...SENS, ...CAMS][Math.floor(Math.random() * 8)]; if (!S.broken[s.l]) pk.push({ x: s.x, y: s.y, t: now }); } }
-    if (mode === 'hack') { dude(c, 640, 120, { s: .8, hood: true, shirt: '#2A2A33', pants: '#1F1F26', armR: -1.1 }); BOX(c, 610, 84, 30, 20, '#3B3B45'); BOX(c, 613, 87, 24, 13, Math.floor(now / 200) % 2 ? '#FF3B3B' : '#7A0E0E'); if (hackOn && Math.random() < .3) pk.push({ x: 640, y: 80, t: now, red: 1 }); label(c, '🔓 해커', 640, 140, { s: 13 }); }
-    if (secured && now - secured < 2500) { c.globalAlpha = 1 - (now - secured) / 2500; label(c, '🛡 보안 강화!', 350, 168, { s: 26, bg: '#E3F5E8', bd: '#137A3A' }); c.globalAlpha = 1; }
-    if (mode === 'gen') { dude(c, 350, 200, { s: .7, shirt: '#2350C8', cap: '#1B2230', armL: Math.sin(now / 300) * 1.2 - 1.3, armR: -Math.sin(now / 300) * 1.2 + 1.3 }); label(c, '👮', 350, 140, { s: 12 }); }
-    if (worker) { dude(c, worker.x, worker.ty + 20, { s: .7, shirt: '#E06A1B', cap: '#F2B705', walk: worker.wait <= 0 && worker.fix === 0, ph: now / 120, armR: worker.fix > 0 ? -1 + Math.sin(now / 80) * .6 : undefined }); if (worker.fix > 0) TXT(c, '🔧', worker.x + 16, worker.ty - 30, { s: 18 }); }
-    pk = pk.filter(p => { const k = (now - p.t) / 900; if (k >= 1) return false; const q = qbez([p.x, p.y], [(p.x + 760) / 2, -40], [760, 60], k); packet(c, q[0], q[1], p.red ? '#FF3B3B' : '#FFE14D'); return true; });
-    if (step1() && !S.hack) { /* 연결 표시 */ }
-    monitor(now, t); phone(now); stats(now);
+    const ewG = green(S, 'E'), nsG = green(S, 'S'), tm = lv >= 3 && !S.hack && S.clr <= 0 ? `초록 ${S.lt.toFixed(0)}초` : null;
+    light(288, 252, ewG, ewG ? tm : null); light(392, 140, ewG, null); light(288, 140, nsG, nsG ? tm : null); light(392, 252, nsG, null);
+    pk = pk.filter(p => { const k = (now - p.t) / 800; if (k >= 1) return false; const q = qbez([p.x, p.y], [(p.x + 560) / 2, Y0], [560, Y0 + 70], k); packet(c, q[0], q[1], '#FFE14D'); return true; });
+    // 패널: 상태(북서), 관제 센터(북동)
+    RR(c, 8, Y0 + 6, 270, 88, 10); c.fillStyle = 'rgba(255,255,255,.95)'; c.fill(); c.strokeStyle = '#1B2230'; c.lineWidth = 2; c.stroke();
+    const wq = S.cars.filter(a => a.v < 5).length, avg = S.done.length >= 5 ? S.done.reduce((a, b) => a + b, 0) / S.done.length : null;
+    TXT(c, '🚗 멈춰 선 차', 20, Y0 + 30, { s: 17, a: 'left', w: 900 }); TXT(c, wq + '대', 266, Y0 + 30, { s: 26, a: 'right', w: 900, c: wq > 25 ? '#D0261E' : wq > 12 ? '#B85E00' : '#137A3A' });
+    TXT(c, '⏱ 평균 기다린 시간', 20, Y0 + 70, { s: 17, a: 'left', w: 900 }); TXT(c, avg === null ? '측정 중' : avg.toFixed(1) + '초', 266, Y0 + 70, { s: 22, a: 'right', w: 900 });
+    RR(c, 404, Y0 + 6, 328, 88, 10); c.fillStyle = S.hack ? (Math.floor(now / 250) % 2 ? '#7A0E0E' : '#4A0808') : '#0E1626'; c.fill();
+    TXT(c, '🖥 교통 관제 센터', 416, Y0 + 22, { s: 15, a: 'left', c: '#FFFFFF', w: 900 });
+    if (S.hack) TXT(c, '⚠ 해킹! 신호 제어 불가', 568, Y0 + 62, { s: 22, c: '#FFFFFF', w: 900 });
+    else if (lv === 0) TXT(c, '연결된 센서 없음 (꺼짐)', 568, Y0 + 58, { s: 17, c: '#C9D1DF', w: 800 });
+    else { const qe = qOf(S, 'E') + qOf(S, 'W'), qn = qOf(S, 'S') + qOf(S, 'N'); TXT(c, `동서 대기 ${qe}대`, 416, Y0 + 50, { s: 16, a: 'left', c: '#FF9C9C', w: 900 }); TXT(c, `남북 대기 ${qn}대`, 416, Y0 + 76, { s: 16, a: 'left', c: '#FFD08A', w: 900 });
+      if (Object.keys(S.broken).length) TXT(c, '⚠ 센서 신호 없음!', 720, Y0 + 50, { s: 15, a: 'right', c: '#FF8A8A', w: 900 });
+      if (lv >= 2) { const HB = [3, 5, 9, 14, 8, 4]; HB.forEach((v, i) => { BOX(c, 592 + i * 20, Y0 + 86 - v * 3.6, 14, v * 3.6, i === 2 ? '#FF6B6B' : '#5B8DEF'); }); TXT(c, '18시 정체 예측', 650, Y0 + 26, { s: 13, c: '#FFE58A', w: 900 }); } }
+    // ㉦ 앱 + 지하철 (남서, 남동)
+    if (lv >= 4) { RR(c, 14, 252, 104, 112, 12); c.fillStyle = '#1B2230'; c.fill(); BOX(c, 20, 260, 92, 96, '#FFFFFF'); TXT(c, '㉦ 교통 앱', 66, 272, { s: 12, w: 900 }); BOX(c, 24, 282, 84, 22, '#FDEBEA'); TXT(c, '도로 정체!', 66, 293, { s: 12, w: 900, c: '#D0261E' }); BOX(c, 24, 308, 84, 42, '#E6EDFC'); TXT(c, '🚇 지하철이', 66, 320, { s: 12, w: 900 }); TXT(c, '15분 빨라요', 66, 338, { s: 12, w: 900 });
+      train = (train + dt * 160) % 520; const tx = 392 + train - 160; c.save(); c.beginPath(); c.rect(392, 330, 348, 30); c.clip(); for (let i = 0; i < 3; i++) { RR(c, tx + i * 54, 334, 50, 18, 4); c.fillStyle = '#2BB3C0'; c.fill(); c.fillStyle = '#FFFFFF'; c.fillRect(tx + i * 54 + 6, 338, 10, 7); c.fillRect(tx + i * 54 + 22, 338, 10, 7); } c.restore(); riders += dt * 2.3; label(c, `🚇 지하철로 바꾼 사람 ${Math.floor(riders)}명`, 560, 318, { s: 13, bg: '#DFF3EF', bd: '#0A7F72' }); } else riders = 0;
+    if (mode === 'hack') { dude(c, 690, 190, { s: .75, hood: true, shirt: '#2A2A33', pants: '#1F1F26', armR: -1.1 }); label(c, '🔓 해커', 690, 202, { s: 12 }); if (Math.random() < .4) pk.push({ x: 690, y: 150, t: now }); }
+    if (secured && now - secured < 2500) { c.globalAlpha = 1 - (now - secured) / 2500; label(c, '🛡 보안 강화!', 340, 196, { s: 28, bg: '#E3F5E8', bd: '#137A3A' }); c.globalAlpha = 1; }
+    if (worker) { dude(c, worker.x, worker.ty + 22, { s: .7, shirt: '#E06A1B', cap: '#F2B705', walk: worker.wait <= 0 && worker.fix === 0, ph: now / 120 }); if (worker.fix > 0) TXT(c, '🔧', worker.x + 16, worker.ty - 28, { s: 18 }); }
+    if (mode === 'fix') label(c, `🔧 수리·업데이트 비용 ${cost * 350}만 원 (예시)`, 560, 318, { s: 14, bg: '#FDEBEA', bd: '#D0261E' });
+    if (mode === 'pro') { RR(c, 150, 120, 440, 180, 14); c.fillStyle = 'rgba(255,255,255,.97)'; c.fill(); c.strokeStyle = '#2350C8'; c.lineWidth = 3; c.stroke(); TXT(c, '평균 기다린 시간 (같은 차량 수 · 240초)', 370, 146, { s: 17, w: 900 });
+      const mx = Math.max(AVG.fixed, AVG.fused), k = clamp(t * 1.2, 0, 1); TXT(c, '정해진 신호', 168, 196, { s: 17, a: 'left', w: 900 }); BOX(c, 290, 182, 220 * AVG.fixed / mx * k, 28, '#E5484D'); TXT(c, AVG.fixed.toFixed(1) + '초', 576, 196, { s: 20, a: 'right', w: 900 });
+      TXT(c, '융합 기술 ON', 168, 244, { s: 17, a: 'left', w: 900 }); BOX(c, 290, 230, 220 * AVG.fused / mx * k, 28, '#2350C8'); TXT(c, AVG.fused.toFixed(1) + '초', 576, 244, { s: 20, a: 'right', w: 900 }); TXT(c, '이 시뮬레이션에서 직접 잰 값', 370, 284, { s: 14, w: 800 }); }
+    const msg = mode === 'run' ? BAN[lv] : MB[mode]; banner(msg.replace(/[<>]/g, ''), mode === 'pro' ? '#2350C8' : mode === 'hack' || mode === 'fix' ? '#B3261E' : mode === 'hack2' ? '#137A3A' : lv ? '#B85E00' : '#1B2230');
   }
-  setMode('0'); runLoop(cv, draw);
+  setLv(0); runLoop(cv, draw);
 })();
 // ---------- D2-3 융합 사례 시뮬레이션 (p.25~26) ----------
 (() => {
-  const cv = $('csCv'); if (!cv) return; const c = cv.getContext('2d'), W = 780, H = 418;
-  const el = { f: $('csField'), nm: $('csName'), pl: $('csPlain'), bt: $('csBtns'), ms: $('csMsg') };
+  const cv = $('csCv'); if (!cv) return;
+  const TXT = (c, s, x, y, o = {}) => TXT_(c, s, x, y, Object.assign({}, o, { s: BIG(o.s || 20) })); const c = cv.getContext('2d'), W = 780, H = 418;
+  const el = { f: $('csField'), nm: $('csName'), ds: $('csDesc'), bt: $('csBtns'), ms: $('csMsg') };
   let K = 'its', S = {}, last = 0;
   const pp = s => `<span class="pp">${s}</span>`;
   const CASE = {};
@@ -1628,8 +1615,16 @@ const XB = '<span class="xb">교과서 밖 보충</span>';
       label(c, '판정 정확도 93.0% → 98.8%', 140, 386, { s: 14 });
     } };
 
-  function load(k){ K = k; S = { t: 0 }; const C = CASE[k]; C.init(S); el.f.textContent = C.field; el.nm.textContent = '이름은? 눌러서 확인'; el.nm.classList.remove('on'); setMsg(el.pl, C.plain); simBtns(el.bt, C.btns, a => { const m = C.act(S, a); if (m) setMsg(el.ms, m); }); setMsg(el.ms, C.msg0); }
-  el.nm.addEventListener('click', () => { const on = el.nm.classList.toggle('on'); el.nm.textContent = on ? CASE[K].name : '이름은? 눌러서 확인'; if (on) SND.ok(); });
+  const WSD = { its: ['교통 혼잡을 조정하고 사고 발생률을 감소', 'ITS (지능형 교통 시스템)'], bim: ['3차원 정보 모델로 건물의 생애 주기 정보를 통합', 'BIM (건축 정보 모델)'], water: ['물의 생산·소비 정보를 실시간 모니터링', '스마트 워터 그리드'], wms: ['창고의 재고 관리, 상품 입출고, 주문 처리', 'WMS (창고 관리 시스템)'], med: ['물리적 거리의 제약 없이 진료·상담 제공', '원격 의료'], var: ['카메라 영상으로 경기 과정을 분석해 판정', 'VAR (비디오 보조 심판)'] };
+  const MSC = {
+    its: { _0: '앞에서 사고가 나면? 두 버튼을 차례로 눌러 비교해 봐요.', on: '카메라가 사고 감지 → 전광판 알림 → 차들이 <b>미리</b> 비켜요! 구급차도 바로 출동', off: '알림이 없으면 사고 바로 앞에서 <b>급정거!</b> 뒤차까지 위험해요' },
+    bim: { _0: '바로 짓지 않고 <b>컴퓨터 속에서 먼저</b> 지어 봐요. ①부터! (블록을 누르면 정보)', model: '짓기 전에 3D 모델로 <b>비용·기간</b>을 미리 계산 (숫자는 예시)', share: '모두 <b>같은 모델</b>을 봐요. 한 명이 고치면 모두 바로 바뀌어요', build: '모델(파란색)대로 실제로 지어요', keep: '다 지은 뒤에도 언제 무엇을 고칠지 알려 줘요 = <b>생애 주기</b> 정보' },
+    water: { _0: '집마다 쓰는 물과 만드는 물을 <b>실시간</b>으로 봐요', norm: '집마다 쓰는 물과 만드는 물을 <b>실시간</b>으로 봐요', rain: '폭우! 수위 센서가 감지 → 남는 물을 <b>저수 시설에 저장</b>', dry: '가뭄! 저장해 둔 물을 <b>다시 공급</b>하고 절약을 안내해요', qual: '수질 이상 감지 → 물을 막고 <b>다시 정수</b>해요' },
+    wms: { _0: '물건 위치와 개수가 모두 컴퓨터에! 🛒 주문 들어옴을 눌러 봐요', order: '시스템이 <b>물건 위치</b>를 알려 주고, 스캔하면 <b>재고 숫자</b>가 바로 바뀌어요', in: '들어온 물건(입고)도 스캔 한 번으로 재고에 반영!', old: '예전엔 <b>종이 장부</b> → 실제 개수와 달라 관리가 어려웠어요' },
+    med: { _0: '바다 건너 섬마을 할머니, 병원이 너무 멀어요. 어떻게 진료받을까요?', send: '손목 기기(예시)가 건강 정보를 병원으로! 의사가 <b>실시간</b> 확인', video: '화상으로 <b>진료·상담</b>! 거리가 멀어도 괜찮아요', edu: '건강 관리 <b>교육</b>도 원격으로 받아요' },
+    var: { _0: '▶ 경기 장면을 눌러 보세요. 골이 인정될까요?', play: '골! 그런데 패스 순간 <b>반칙(오프사이드)</b>이었을까? 눈으로는 판단이 어려워요', var: '<b>카메라 영상</b>을 되돌려 패스 순간을 분석 → 정확한 판정!<br>판정 정확도 93.0% → 98.8%', new: '새 장면! 경기가 끝나면 📹 VAR 판독' } };
+  function load(k){ K = k; S = { t: 0 }; const C = CASE[k]; C.init(S); el.f.textContent = C.field; el.ds.textContent = WSD[k][0]; el.nm.textContent = WSD[k][1]; el.nm.classList.remove('on'); simBtns(el.bt, C.btns, a => { C.act(S, a); const m = MSC[k][a] !== undefined ? MSC[k][a] : MSC[k]._0; setMsg(el.ms, m); }); setMsg(el.ms, MSC[k]._0); }
+  el.nm.addEventListener('click', () => { if (el.nm.classList.toggle('on')) SND.ok(); });
   cv.addEventListener('click', e => { const C = CASE[K]; if (!C.click) return; const r = cv.getBoundingClientRect(); C.click(S, (e.clientX - r.left) * W / r.width, (e.clientY - r.top) * H / r.height); });
   bindTabs('csTabs', load);
   runLoop(cv, now => { const dt = Math.min(.05, (now - (last || now)) / 1000); last = now; S.t += dt; CASE[K].draw(c, S, dt, now); });
@@ -1637,8 +1632,9 @@ const XB = '<span class="xb">교과서 밖 보충</span>';
 })();
 // ---------- D2-4 학문 분야 시뮬레이션 (p.28~29) ----------
 (() => {
-  const cv = $('fdCv'); if (!cv) return; const c = cv.getContext('2d'), W = 780, H = 418;
-  const el = { f: $('fdField'), pg: $('fdPage'), pl: $('fdPlain'), bt: $('fdBtns'), ms: $('fdMsg') };
+  const cv = $('fdCv'); if (!cv) return;
+  const TXT = (c, s, x, y, o = {}) => TXT_(c, s, x, y, Object.assign({}, o, { s: BIG(o.s || 20) })); const c = cv.getContext('2d'), W = 780, H = 418;
+  const el = { nm: $('fdName'), pg: $('fdPage'), ds: $('fdDesc'), bt: $('fdBtns'), ms: $('fdMsg') };
   let K = 'hum', S = {}, last = 0;
   const pp = s => `<span class="pp">${s}</span>`;
   const F = {};
@@ -1751,7 +1747,14 @@ const XB = '<span class="xb">교과서 밖 보충</span>';
       const steps = ['촬영', '배경 지우기', '배경 합성', '불길 효과']; steps.forEach((s, i) => { const x = 220 + i * 136; RR(c, x, 6, 126, 26, 6); c.fillStyle = i < st ? '#B85E00' : 'rgba(255,255,255,.85)'; c.fill(); TXT(c, `${i + 1} ${s}`, x + 60, 19, { s: 13, w: 900, c: i < st ? '#FFFFFF' : '#1B2230' }); });
     } };
 
-  function load(k){ K = k; S = { t: 0 }; const C = F[k]; C.init(S); el.f.textContent = C.field; el.pg.textContent = C.page; setMsg(el.pl, C.plain); simBtns(el.bt, C.btns, a => { const m = C.act(S, a); if (m) setMsg(el.ms, m); }); setMsg(el.ms, C.msg0); }
+  const WSF = { hum: ['언어 번역 프로그램, 수어 번역 소프트웨어', '인문'], soc: ['디지털 유산을 활용한 문화재 복원', '사회'], sci: ['시뮬레이션을 활용한 기후 변화 예측', '과학'], art: ['컴퓨터 그래픽을 활용한 영상 특수 효과', '예술'] };
+  const MSF = {
+    hum: { _0: '외국 가게에서 말이 안 통해요! 버튼을 눌러 봐요', voice: '말을 알아듣고 → <b>번역</b>하고 → 다른 언어로 말해 줘요. 간판 글자도 번역!', sign: '말을 <b>수어 3D 영상</b>으로 실시간 번역 (손동작은 예시)' },
+    soc: { _0: '오래된 성문이 무너진다면, 원래 모습을 어떻게 알까요?', scan: '레이저 <b>3D 스캐너</b>로 모양을 점 데이터로 저장해요', fire: '화재로 일부가 사라졌어요… 😢', fix: '저장해 둔 <b>3D 스캔 데이터</b>로 원래 모습 그대로 복원!', noscan: '❌ 스캔 데이터가 없어요! 먼저 📡 미리 3D 스캔부터', holo: '홀로그램으로 실물처럼 보여 줘요 = <b>디지털 유산</b>' },
+    sci: { _0: '“100년 뒤에는 얼마나 더울까?” 어떻게 실험할까요?', exp: '직접 실험하려면 수십 년! <b>시간과 비용</b>이 너무 많이 들어요', run: '<b>시뮬레이션</b>으로 수십 년 뒤를 몇 초 만에 예측! (예시 화면)', hi: '조건을 바꿔 다시 실행 → 결과 <b>비교</b>! (예시)', lo: '조건을 바꿔 다시 실행 → 결과 <b>비교</b>! (예시)' },
+    art: { _0: '불타는 건물 앞 액션 장면! 진짜 불을 지를까요? 🎬 촬영부터', shoot: '배우는 안전한 촬영장, <b>초록 배경</b> 앞에서 연기해요', key: '컴퓨터가 초록색만 지워요 ✂️ ' + XB, comp: '<b>컴퓨터 그래픽</b> 배경을 합성해요', fx: '불길 효과까지! 위험한 장면을 <b>안전하게</b> 재현', cmp: '왼쪽 촬영장 → 오른쪽 완성 화면!' } };
+  function load(k){ K = k; S = { t: 0 }; const C = F[k]; C.init(S); el.pg.textContent = C.page; el.ds.textContent = WSF[k][0]; el.nm.textContent = WSF[k][1]; el.nm.classList.remove('on'); simBtns(el.bt, C.btns, a => { const r = C.act(S, a); const kk = r && r.startsWith('❌') ? 'noscan' : a; setMsg(el.ms, MSF[k][kk] !== undefined ? MSF[k][kk] : MSF[k]._0); }); setMsg(el.ms, MSF[k]._0); }
+  el.nm.addEventListener('click', () => { if (el.nm.classList.toggle('on')) SND.ok(); });
   bindTabs('fdTabs', load);
   runLoop(cv, now => { const dt = Math.min(.05, (now - (last || now)) / 1000); last = now; S.t += dt; F[K].draw(c, S, dt, now); });
   load('hum');
