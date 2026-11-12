@@ -405,7 +405,17 @@ table.cmpt td .bl{min-width:9em}
 .cover{background:#3B2A5C}
 .cover h1{font-size:60px}
 </style>
-<style>table.cmpt th{font-size:inherit} table.cmpt tbody th{font-size:21px}</style></head>
+<style>table.cmpt th{font-size:inherit} table.cmpt tbody th{font-size:21px}</style><style>
+.simtag{font-size:16px;font-weight:900;color:#fff;background:#7B3FA0;border-radius:999px;padding:4px 12px}
+.sbar{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.sbar button{font:inherit;font-size:18px;font-weight:900;padding:6px 14px;border-radius:999px;border:2.5px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer}
+.sbar button.on{background:var(--ink);color:#fff}
+.sbar button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.simcv{display:block;margin-top:10px;border-radius:12px;border:2px solid var(--line)}
+.scap{margin-top:8px;font-size:20px;font-weight:600;line-height:1.5;background:var(--f-grey);border-radius:10px;padding:8px 14px}
+.scap:empty{display:none}
+</style>
+</head>
 <body>
 <div class="stage" id="stage">
 
@@ -553,6 +563,14 @@ table.cmpt td .bl{min-width:9em}
   </tbody></table>
 </section>
 
+<section class="slide s1" data-t="시뮬레이션: 성장 비교">
+  <div class="hd"><span class="tag">01 소프트웨어 스타트업의 이해</span><span class="pref">교과서 p.178</span><span class="simtag">🎬 시뮬레이션</span></div>
+  <h2 class="tt">분식집 창업 vs 배달 앱 스타트업, 어떻게 자랄까?</h2>
+  <div class="sbar" id="sbGrow"><button data-a="r">▶ 다시 재생</button></div>
+  <canvas id="cvGrow" width="1192" height="380" style="width:1080px;height:344px" class="simcv"></canvas>
+  <div class="scap" id="cpGrow">창업: 규모가 작거나 중소규모의 사업 · 스타트업: <b>초기에는 작지만 성장가능성이 높은</b> 사업, 불확실한 환경 속에서 시작 (p.178) <span class="xb2">교과서 밖 보충 · 모형 그래프</span></div>
+</section>
+
 <section class="slide s1" data-t="소프트웨어 스타트업이란?">
   <div class="hd"><span class="tag">01 소프트웨어 스타트업의 이해</span><span class="pref">교과서 p.179</span><button class="all">모두 보기</button></div>
   <h2 class="tt">소프트웨어 스타트업이란?</h2>
@@ -565,6 +583,14 @@ table.cmpt td .bl{min-width:9em}
     <div class="tile" style="font-size:22px;background:var(--f-blue)"><h4>🌏 ② 글로벌 시장 개척</h4><b class="bl" tabindex="0">지리적 제한</b> 없이 전 세계로 배포·판매 가능 → 글로벌 시장 개척에 용이<div class="mini">📌 예: <b>앱 마켓</b>에 올리면 다른 나라 사람도 바로 내려받음 <span class="xb2">교과서 밖 보충</span></div></div>
   </div>
   <p class="lead" style="margin-top:10px">📖 1994년 미국의 Erran Carmel이 소프트웨어 스타트업이라는 개념을 처음 연구 논문에 도입 <span class="pp">p.179 날개</span></p>
+</section>
+
+<section class="slide s1" data-t="시뮬레이션: SW 스타트업의 장점">
+  <div class="hd"><span class="tag">01 소프트웨어 스타트업의 이해</span><span class="pref">교과서 p.179</span><span class="simtag">🎬 시뮬레이션</span></div>
+  <h2 class="tt">소프트웨어 스타트업이 좋은 점, 눈으로 보기</h2>
+  <div class="sbar" id="sbAdv"><button data-a="fix" data-tab="1" class="on">⚡ ① 빠른 시장 대응</button><button data-a="global" data-tab="1">🌏 ② 글로벌 시장 개척</button></div>
+  <canvas id="cvAdv" width="1192" height="380" style="width:1080px;height:344px" class="simcv"></canvas>
+  <div class="scap" id="cpAdv"></div>
 </section>
 
 <section class="slide s1" data-t="10대 도전 과제 (1)">
@@ -581,6 +607,14 @@ table.cmpt td .bl{min-width:9em}
   
   <p class="lead">아직 충분히 검증되지 않은 시장의 요구를 파악하고 충족시키는 제품을 개발하기 때문에, 창업 초기에 <b>기술적·재정적·시장적</b> 도전 과제를 많이 만나요.</p>
   <div class="rvg" style="grid-template-columns:repeat(5,1fr)"><button class="rv" style="min-height:250px"><b>🧭 초심 유지</b><span style="font-size:21px">다양한 이해관계자들의 요구와 기대에도 불구하고, 기업의 초심과 비전 유지</span></button><button class="rv" style="min-height:250px"><b>🎁 고객 가치 실현</b><span style="font-size:21px">가치를 제공하기 위한 적절한 비즈니스 전략 정의</span></button><button class="rv" style="min-height:250px"><b>🎯 틈새시장 공략</b><span style="font-size:21px">새로운 제품에 대한 위험을 기꺼이 감수하려는 사용자의 특정 요구에 초점<em class="note">📌 평소 불편하거나 개선하고 싶던 점에서 아이디어를 찾을 수 있음</em></span></button><button class="rv" style="min-height:250px"><b>🧪 최초 사용 가능한 제품</b><span style="font-size:21px">비즈니스 개념에 실패할 수 있는 위험성 존재</span></button><button class="rv" style="min-height:250px"><b>⏰ 업무 과중</b><span style="font-size:21px">제한된 시간과 자원 내에서 다양한 업무와 프로젝트 수행</span></button></div>
+</section>
+
+<section class="slide s1" data-t="시뮬레이션: 스타트업 생존">
+  <div class="hd"><span class="tag">01 소프트웨어 스타트업의 이해</span><span class="pref">교과서 p.179 · p.186</span><span class="simtag">🎬 시뮬레이션</span></div>
+  <h2 class="tt">스타트업 생존 시뮬레이터 · 도전 과제를 넘어라!</h2>
+  <div class="sbar" id="sbSurv"><button data-a="A">▶ 시나리오 A: 그냥 두기</button><button data-a="B">▶ 시나리오 B: 도전 과제 해결</button><button data-a="run">⏯ 시작/멈춤</button><button data-a="inv">💰 초기 자금 조달</button><button data-a="paid">🧾 최초 유료 고객 확보</button><button data-a="upd">🔧 기술 변화에 맞춰 업데이트</button><button data-a="reset">↺ 처음</button></div>
+  <canvas id="cvSurv" width="1192" height="400" style="width:920px;height:309px" class="simcv"></canvas>
+  <div class="scap" id="cpSurv">도전 과제: <b>초기 자금 조달 · 최초 유료 고객 확보 · 기술 불확실성 심화 · 손익 분기점 돌파</b> (p.179) / 실패 이유 1위: <b>현금 소진</b> (p.186) <span class="xb2">교과서 밖 보충 · 숫자는 예시</span></div>
 </section>
 
 <section class="slide s1" data-t="보충: 소프트웨어 창업이 중요한 이유">
@@ -659,6 +693,14 @@ table.cmpt td .bl{min-width:9em}
   </div>
 </section>
 
+<section class="slide s1" data-t="시뮬레이션: 동네 중고 거래">
+  <div class="hd"><span class="tag">02 사례 및 분석</span><span class="pref">교과서 p.184</span><span class="simtag">🎬 시뮬레이션</span></div>
+  <h2 class="tt">왜 ‘가까운 동네’에서만 거래하게 했을까?</h2>
+  <div class="sbar" id="sbNb"><button data-a="near" data-tab="1" class="on">📍 동네 반경만</button><button data-a="far" data-tab="1">🌐 반경 제한 없음</button><button data-a="ai">🤖 AI 검수 켜기/끄기</button></div>
+  <canvas id="cvNb" width="1192" height="380" style="width:1080px;height:344px" class="simcv"></canvas>
+  <div class="scap" id="cpNb"></div>
+</section>
+
 <section class="slide s1" data-t="실패 사례">
   <div class="hd"><span class="tag">02 사례 및 분석</span><span class="pref">교과서 p.185</span><a class="vid" href="http://a.to/25hVKEm" target="_blank" rel="noopener" title="실패 이유 영상 (교과서 QR 영상)">▶ 실패 이유 영상</a><button class="all">모두 보기</button></div>
   <h2 class="tt">실패 사례 · 2000년대 인기 SNS ○○</h2>
@@ -673,6 +715,14 @@ table.cmpt td .bl{min-width:9em}
     <div class="tile" style="font-size:22px;background:var(--f-red)"><h4>② <b class="bl" tabindex="0">환경 변화</b></h4>스마트폰 대중화 → 굳이 PC로 접속해 로그인해야 하는 서비스는 외면</div>
     <div class="tile" style="font-size:22px;background:var(--f-red)"><h4>③ <b class="bl" tabindex="0">창업 멤버 부재</b></h4>기업의 본질을 잘 아는 창업 멤버들이 떠나고 전혀 다른 서비스로 관심이 멀어짐</div>
   </div>
+</section>
+
+<section class="slide s1" data-t="시뮬레이션: SNS의 쇠퇴">
+  <div class="hd"><span class="tag">02 사례 및 분석</span><span class="pref">교과서 p.185</span><span class="simtag">🎬 시뮬레이션</span></div>
+  <h2 class="tt">인기 SNS의 이용자는 어디로 갔을까?</h2>
+  <div class="sbar" id="sbSns"><button data-a="r">▶ 다시 재생</button></div>
+  <canvas id="cvSns" width="1192" height="400" style="width:1080px;height:362px" class="simcv"></canvas>
+  <div class="scap" id="cpSns">실패 요인: 다른 SNS의 등장 · <b>스마트폰 대중화</b>(모바일 환경 변화) 대응 미흡 · 창업 멤버 이탈 (p.185) <span class="xb2">교과서 밖 보충 · 모형 애니메이션</span></div>
 </section>
 
 <section class="slide s1" data-t="보충: 스타트업이 실패하는 이유">
@@ -885,6 +935,283 @@ function bubble(c, x, y, w, h, fill, stroke){ RR(c, x - w / 2, y - h, w, h, 14);
 stage.querySelectorAll('.rv').forEach(b => b.addEventListener('click', () => { if (b.classList.toggle('on')) SND.pop(); }));
 stage.querySelectorAll('.slide').forEach(sl => { const a = sl.querySelector('.all'); if (a) a.addEventListener('click', () => { const on = a.getAttribute('aria-pressed') === 'true'; sl.querySelectorAll('.rv').forEach(x => x.classList.toggle('on', on)); const tl = sl.querySelector('.tl'); if (tl) tl.classList.toggle('go', on); }); });
 const tlBtn = $('tlBtn'); if (tlBtn) tlBtn.addEventListener('click', () => { const tl = $('tl5'); tl.classList.remove('go'); void tl.offsetWidth; tl.classList.add('go'); SND.ok(); });
+
+// ================= Ⅴ단원 시뮬레이션 =================
+const EMO = s => `${s}px "Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji",sans-serif`;
+const EM = (c, e, x, y, s = 32) => { c.font = EMO(s); c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(e, x, y); };
+const LBL = (c, s, x, y, o = {}) => { const fs = o.s || 17; c.font = FNT(900, fs); const w = c.measureText(s).width + 18, h = fs + 14; RR(c, x - (o.left ? 0 : w / 2), y - h / 2, w, h, 8); c.fillStyle = o.bg || '#fff'; c.fill(); c.lineWidth = 2; c.strokeStyle = o.bd || '#1B2230'; c.stroke(); TXT(c, s, x + (o.left ? w / 2 : 0), y + 1, { s: fs, w: 900, c: o.c || '#1B2230' }); };
+const PK = (c, x, y, col = '#FFD23F') => { RR(c, x - 7, y - 7, 14, 14, 3); c.fillStyle = col; c.fill(); c.lineWidth = 1.5; c.strokeStyle = '#1B2230'; c.stroke(); };
+const lp = (a, b, k) => a + (b - a) * k, cl = (v, a, b) => Math.max(a, Math.min(b, v));
+const ez = k => k < 0 ? 0 : k > 1 ? 1 : k * k * (3 - 2 * k);
+function simBind(id, fn){ const box = $(id); if (!box) return; box.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { if (b.dataset.tab) box.querySelectorAll('[data-tab]').forEach(x => x.classList.toggle('on', x === b)); SND.pop(); fn(b.dataset.a, b); })); }
+const cap = (id, h) => { const e = $(id); if (e && e.innerHTML !== h) e.innerHTML = h; };
+const XBT = ' <span class="xb2">교과서 밖 보충</span>';
+
+// ---------- A. 창업 vs 스타트업 성장 곡선 ----------
+(() => {
+  const cv = $('cvGrow'); if (!cv) return; const c = cv.getContext('2d'), W = 1192, H = 400; let t0 = performance.now();
+  const X0 = 60, X1 = 1060, Y0 = 350, Y1 = 40, M = 36, MAX = 160;
+  const shop = m => 34 * (1 - Math.exp(-m / 3));
+  const app = m => Math.max(1, 3 + m * 0.25 + Math.sin(m * 1.4) * (m < 14 ? 2.2 : 0) + 140 / (1 + Math.exp(-(m - 24) / 2.4)) - 140 / (1 + Math.exp(24 / 2.4)));
+  const X = m => X0 + (X1 - X0) * m / M, Y = v => Y0 - (Y0 - Y1) * v / MAX;
+  simBind('sbGrow', () => { t0 = performance.now(); });
+  runLoop(cv, now => {
+    const mm = cl((now - t0) / 1000 * 3.6, 0, M);
+    c.clearRect(0, 0, W, H); BOX(c, 0, 0, W, H, '#FFFFFF');
+    c.strokeStyle = '#1B2230'; c.lineWidth = 2.5; c.beginPath(); c.moveTo(X0, Y1 - 10); c.lineTo(X0, Y0); c.lineTo(X1 + 20, Y0); c.stroke();
+    TXT(c, '손님(사용자) 수 ↑', X0 + 8, Y1 - 12, { s: 17, a: 'left', w: 900 }); TXT(c, '시간 →', X1 + 30, Y0 + 6, { s: 17, a: 'left', w: 900 });
+    for (let m = 0; m <= M; m += 6) TXT(c, m ? `${m}개월` : '시작', X(m), Y0 + 22, { s: 15, w: 700 });
+    const line = (f, col, wd) => { c.strokeStyle = col; c.lineWidth = wd; c.lineJoin = 'round'; c.beginPath(); for (let m = 0; m <= mm; m += 0.2) { const p = [X(m), Y(f(m))]; m ? c.lineTo(...p) : c.moveTo(...p); } c.stroke(); };
+    line(shop, '#7A8296', 6); line(app, '#2350C8', 7);
+    EM(c, '🏪', X(mm) + 22, Y(shop(mm)) - 4, 30); EM(c, '📱', X(mm) + 22, Y(app(mm)) - 4, 30);
+    const note = (m, s, x, y, col) => { if (mm < m) return; c.globalAlpha = ez((mm - m) / 1.5); LBL(c, s, x, y, { s: 17, bd: col, c: col }); c.globalAlpha = 1; };
+    note(4, '🏪 분식집: 금방 동네 손님이 생겨 안정 · 규모는 작게 유지', X(13), Y(78), '#3A4256');
+    note(7, '📱 배달 앱: 처음엔 작고, 시장 반응을 몰라 시행착오', X(10), Y(52), '#2350C8');
+    note(19, '✅ 사업성 입증!', X(20) - 70, Y(app(20)) - 10, '#137A3A');
+    note(27, '🚀 빠르게 성장', X(28) - 90, Y(app(28)), '#2350C8');
+    RR(c, 230, 20, 330, 44, 10); c.fillStyle = '#F3F5F9'; c.fill(); BOX(c, 244, 39, 26, 6, '#7A8296'); TXT(c, '창업(분식집)', 276, 42, { s: 16, a: 'left', w: 800 }); BOX(c, 396, 39, 26, 6, '#2350C8'); TXT(c, '스타트업(앱)', 428, 42, { s: 16, a: 'left', w: 800 }); TXT(c, '모형 그래프', 1180, 392, { s: 14, w: 800, c: '#B85E00', a: 'right' });
+  });
+})();
+
+// ---------- B. 소프트웨어 스타트업의 장점 ----------
+(() => {
+  const cv = $('cvAdv'); if (!cv) return; const c = cv.getContext('2d'), W = 1192, H = 400; let mode = 'fix', t0 = performance.now();
+  const CAP = { fix: '⚡ <b>빠른 시장 대응</b>: 물건은 고치려면 회수하고 다시 만들어야 하지만, 소프트웨어는 <b>업데이트</b>만 보내면 바로 수정·개선돼요. (p.179)' + XBT,
+    global: '🌏 <b>글로벌 시장 개척</b>: 가게는 동네 손님에게만 팔 수 있지만, 소프트웨어는 <b>지리적 제한 없이</b> 전 세계에 배포·판매할 수 있어요. (p.179)' + XBT };
+  simBind('sbAdv', a => { mode = a; t0 = performance.now(); cap('cpAdv', CAP[a]); }); cap('cpAdv', CAP.fix);
+  const BL = [[180, 150, 150, 80], [330, 120, 90, 60], [560, 140, 120, 70], [640, 260, 70, 45], [900, 150, 110, 70], [980, 290, 80, 45], [300, 270, 70, 70]];
+  const SP = []; let s = 7; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  while (SP.length < 90) { const b = BL[Math.floor(rnd() * BL.length)], a = rnd() * 6.283, r = Math.sqrt(rnd()); SP.push([b[0] + Math.cos(a) * b[2] * r * .9, b[1] + Math.sin(a) * b[3] * r * .9]); }
+  const KR = [905, 150];
+  runLoop(cv, now => {
+    const t = Math.max(0, (now - t0) / 1000); c.clearRect(0, 0, W, H); BOX(c, 0, 0, W, H, '#FFFFFF');
+    if (mode === 'fix') {
+      const panel = (x, title, col) => { RR(c, x, 8, 580, 384, 14); c.fillStyle = col; c.fill(); TXT(c, title, x + 290, 34, { s: 22, w: 900 }); };
+      panel(8, '📦 물건(하드웨어)에 결함이 있다면?', '#F3F5F9'); panel(604, '📱 소프트웨어에 오류가 있다면?', '#E6EDFC');
+      // 왼쪽: 공장-트럭-집
+      EM(c, '🏭', 80, 200, 64); [0, 1, 2].forEach(i => EM(c, '🏠', 500, 110 + i * 100, 46));
+      const cyc = t % 12, days = Math.min(30, Math.floor(cyc / 9 * 30));
+      const tx = cyc < 3 ? lp(140, 440, ez(cyc / 3)) : cyc < 6 ? lp(440, 140, ez((cyc - 3) / 3)) : cyc < 9 ? lp(140, 440, ez((cyc - 6) / 3)) : 440;
+      EM(c, '🚚', tx, 330, 46); LBL(c, cyc < 3 ? '① 결함 제품 회수하러 출발' : cyc < 6 ? '② 회수해서 공장으로' : cyc < 9 ? '③ 다시 만들어 배송' : '④ 교체 완료', 296, 270, { s: 17 });
+      LBL(c, `⏱ ${days}일째`, 296, 80, { s: 24, bg: '#FDEBEA', bd: '#D0261E', c: '#D0261E' });
+      // 오른쪽: 개발자-업데이트-폰
+      EM(c, '🧑‍💻', 680, 200, 60); [0, 1, 2].forEach(i => { EM(c, '📱', 1100, 110 + i * 100, 46); });
+      const k = t % 6;
+      if (k < 1.5) LBL(c, '① 버그 신고 접수', 890, 80, { s: 17 }); else if (k < 3) LBL(c, '② 코드 수정', 890, 80, { s: 17 }); else LBL(c, '③ 업데이트 배포!', 890, 80, { s: 17, bg: '#E3F5E8', bd: '#137A3A', c: '#137A3A' });
+      if (k < 1.5) { const q = ez(k / 1.5); PK(c, lp(1080, 720, q), lp(210, 200, q), '#FF6B6B'); }
+      if (k >= 3) [0, 1, 2].forEach(i => { const q = ez((k - 3 - i * .2) / 1.2); if (q > 0 && q < 1) PK(c, lp(730, 1080, q), lp(200, 110 + i * 100, q)); if (q >= 1) TXT(c, '✔ 최신 버전', 1100, 150 + i * 100, { s: 15, w: 900, c: '#137A3A' }); });
+      LBL(c, `⏱ ${k < 3 ? '오늘' : '1일 안에'}`, 890, 360, { s: 24, bg: '#E3F5E8', bd: '#137A3A', c: '#137A3A' });
+    } else {
+      RR(c, 8, 8, 300, 384, 14); c.fillStyle = '#F3F5F9'; c.fill(); TXT(c, '🏪 동네 가게', 158, 36, { s: 22, w: 900 });
+      c.fillStyle = 'rgba(122,130,150,.18)'; c.beginPath(); c.arc(158, 210, 110, 0, 7); c.fill(); EM(c, '🏪', 158, 210, 50);
+      for (let i = 0; i < 6; i++) { const a = i * 1.05 + t * .3; EM(c, '🙂', 158 + Math.cos(a) * 80, 210 + Math.sin(a) * 80, 24); }
+      TXT(c, '걸어올 수 있는 손님만', 158, 350, { s: 18, w: 900 });
+      c.save(); c.translate(320, 0);
+      RR(c, 0, 8, 864, 384, 14); c.fillStyle = '#E6F2FF'; c.fill();
+      c.fillStyle = '#CFE3D0'; BL.forEach(b => { c.beginPath(); c.ellipse(b[0] * .82, b[1] + 20, b[2] * .82, b[3], 0, 0, 7); c.fill(); });
+      const n = Math.min(SP.length, Math.floor(t * 9));
+      for (let i = 0; i < n; i++) { const p = SP[i], q = ez((t * 9 - i) / 6), x = lp(KR[0] * .82, p[0] * .82, q), y = lp(KR[1] + 20, p[1] + 20, q); c.fillStyle = '#2350C8'; c.beginPath(); c.arc(x, y, 5, 0, 7); c.fill(); }
+      EM(c, '🇰🇷', KR[0] * .82, KR[1] + 20, 28); TXT(c, '📲 앱 마켓에 출시!', 160, 36, { s: 20, w: 900 }); TXT(c, '세계 지도(모형)', 790, 370, { s: 14, w: 800, c: '#B85E00' });
+      LBL(c, `내려받은 나라·지역 ${Math.min(90, n)}곳`, 640, 40, { s: 20, bg: '#fff', bd: '#2350C8', c: '#2350C8' });
+      c.restore();
+    }
+  });
+})();
+
+// ---------- C. 스타트업 생존 시뮬레이터 ----------
+(() => {
+  const cv = $('cvSurv'); if (!cv) return; const c = cv.getContext('2d'), W = 1192, H = 400;
+  let S, last = 0, acc = 0;
+  const reset = () => { S = { m: 0, cash: 30000, users: 300, paid: false, inv: false, upd: -99, run: false, hist: [], log: [], over: '', be: 0, auto: null, shock: 0 }; };
+  reset();
+  const COST = 4000, MAXM = 30;
+  const log = (s, col) => { S.log.unshift([s, col]); S.log = S.log.slice(0, 4); };
+  function month(){
+    S.m++; const g = S.users < 20000 ? 0.22 : 0.08; S.users = Math.round(S.users * (1 + g));
+    if (S.m === 9) { if (S.m - S.upd > 4) { S.users = Math.round(S.users * 0.45); S.shock = performance.now(); log('📉 9개월: 새 기술 등장! 업데이트를 안 해서 사용자 급감', '#D0261E'); SND.no(); } else log('📉 9개월: 새 기술 등장 → 미리 업데이트해서 버텼어요', '#137A3A'); }
+    const rev = S.paid ? Math.round(S.users * 0.2) : 0; S.cash += rev - COST; S.hist.push([rev, COST]);
+    if (!S.be && rev >= COST) { S.be = S.m; log(`⚖️ ${S.m}개월: 손익 분기점 돌파!`, '#137A3A'); SND.fan(); confetti(); }
+    if (S.cash < 0) { S.over = 'fail'; S.run = false; log(`💸 ${S.m}개월: 현금 소진… 스타트업 실패`, '#D0261E'); SND.no(); }
+    else if (S.m >= MAXM) { S.over = 'ok'; S.run = false; }
+  }
+  const act = a => {
+    if (a === 'reset') { reset(); return; }
+    if (a === 'A') { reset(); S.run = true; S.auto = {}; return; }
+    if (a === 'B') { reset(); S.run = true; S.auto = { 1: 'inv', 3: 'paid', 7: 'upd' }; return; }
+    if (S.over) return;
+    if (a === 'run') { S.run = !S.run; return; }
+    if (a === 'inv' && !S.inv) { S.inv = true; S.cash += 70000; log(`💰 ${S.m}개월: 초기 자금 조달(투자 7억 원 유치)`, '#2350C8'); SND.ok(); }
+    if (a === 'paid' && !S.paid) { S.paid = true; log(`🧾 ${S.m}개월: 최초 유료 고객 확보 → 매출 시작`, '#2350C8'); SND.ok(); }
+    if (a === 'upd') { S.upd = S.m; log(`🔧 ${S.m}개월: 새 기술에 맞춰 업데이트`, '#2350C8'); }
+    if (a === 'A') { reset(); S.run = true; S.auto = {}; }
+    if (a === 'B') { reset(); S.run = true; S.auto = { 1: 'inv', 3: 'paid', 7: 'upd' }; }
+  };
+  simBind('sbSurv', act);
+  runLoop(cv, now => {
+    const dt = Math.min(.1, (now - (last || now)) / 1000); last = now;
+    if (S.run) { acc += dt; if (acc > .45) { acc = 0; month(); if (S.auto && S.auto[S.m]) act(S.auto[S.m]); } }
+    c.clearRect(0, 0, W, H); BOX(c, 0, 0, W, H, '#fff');
+    // 현금 게이지
+    RR(c, 10, 10, 250, 380, 14); c.fillStyle = '#F3F5F9'; c.fill(); TXT(c, '💰 남은 현금', 135, 36, { s: 21, w: 900 });
+    const cash = Math.max(0, S.cash), hh = Math.min(260, cash / 100000 * 260); RR(c, 85, 60, 100, 270, 10); c.fillStyle = '#E3E7F1'; c.fill();
+    BOX(c, 85, 330 - hh, 100, hh, cash < 12000 ? '#D0261E' : '#137A3A'); TXT(c, `${(S.cash / 10000).toFixed(1)}억 원`, 135, 356, { s: 22, w: 900, c: S.cash < 12000 ? '#D0261E' : '#1B2230' });
+    TXT(c, `매달 비용 0.4억`, 135, 380, { s: 15, w: 800 });
+    // 차트
+    const X0 = 320, X1 = 860, Y0 = 300, Y1 = 60, MX = 8000, X = m => X0 + (X1 - X0) * m / MAXM, Y = v => Y0 - (Y0 - Y1) * Math.min(v, MX) / MX;
+    TXT(c, `📅 ${S.m}개월 · 👥 사용자 ${S.users.toLocaleString()}명`, 590, 26, { s: 21, w: 900 });
+    c.strokeStyle = '#1B2230'; c.lineWidth = 2; c.beginPath(); c.moveTo(X0, Y1); c.lineTo(X0, Y0); c.lineTo(X1, Y0); c.stroke();
+    TXT(c, '한 달 매출 vs 비용', X0 + 6, Y1 - 12, { s: 16, w: 900, a: 'left' });
+    const ln = (i, col) => { c.strokeStyle = col; c.lineWidth = 5; c.beginPath(); S.hist.forEach((h, k) => { const p = [X(k + 1), Y(h[i])]; k ? c.lineTo(...p) : c.moveTo(...p); }); c.stroke(); };
+    ln(1, '#D0261E'); ln(0, '#137A3A');
+    TXT(c, '— 비용', X1 - 120, Y0 + 26, { s: 16, w: 900, c: '#D0261E', a: 'left' }); TXT(c, '— 매출', X1 - 230, Y0 + 26, { s: 16, w: 900, c: '#137A3A', a: 'left' });
+    if (S.be) { const x = X(S.be); c.setLineDash([6, 6]); c.strokeStyle = '#137A3A'; c.beginPath(); c.moveTo(x, Y1); c.lineTo(x, Y0); c.stroke(); c.setLineDash([]); LBL(c, '⚖️ 손익 분기점', x, Y1 + 20, { s: 16, bd: '#137A3A', c: '#137A3A' }); }
+    if (S.shock && now - S.shock < 1500) LBL(c, '📉 기술 변화!', X(9), 160, { s: 20, bg: '#FDEBEA', bd: '#D0261E', c: '#D0261E' });
+    // 기록
+    RR(c, 880, 10, 302, 380, 14); c.fillStyle = '#F3F5F9'; c.fill(); TXT(c, '📋 일어난 일', 1031, 36, { s: 20, w: 900 });
+    S.log.forEach((l, i) => { c.font = FNT(800, 16); const words = l[0]; const y = 70 + i * 74; RR(c, 892, y - 6, 278, 64, 8); c.fillStyle = '#fff'; c.fill(); wrap(words, 902, y + 14, 260, 22, l[1]); });
+    if (S.over) { c.fillStyle = 'rgba(255,255,255,.85)'; c.fillRect(270, 120, 600, 160); LBL(c, S.over === 'fail' ? '💸 현금 소진 — 실패 이유 1위 (p.186)' : `🎉 ${MAXM}개월 생존!${S.be ? ' 손익 분기점 돌파 성공' : ''}`, 590, 200, { s: 26, bg: S.over === 'fail' ? '#FDEBEA' : '#E3F5E8', bd: S.over === 'fail' ? '#D0261E' : '#137A3A', c: S.over === 'fail' ? '#D0261E' : '#137A3A' }); }
+  });
+  function wrap(s, x, y, w, lh, col){ c.font = FNT(800, 16); c.fillStyle = col; c.textAlign = 'left'; c.textBaseline = 'middle'; let line = '', yy = y; for (const ch of s) { if (c.measureText(line + ch).width > w) { c.fillText(line, x, yy); line = ch; yy += lh; } else line += ch; } c.fillText(line, x, yy); }
+})();
+
+// ---------- D. 동네 중고 거래 ----------
+(() => {
+  const cv = $('cvNb'); if (!cv) return; const c = cv.getContext('2d'), W = 1192, H = 400; let mode = 'near', ai = false, t0 = performance.now();
+  let s = 11; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  const ITEMS = ['🚲', '📚', '🧸', '🎧', '👟', '🪑', '🎮', '🍳', '⚽', '🎸', '🖥', '🧥'];
+  const HS = []; for (let i = 0; i < 26; i++) { const a = rnd() * 6.283, r = 40 + rnd() * 330; HS.push({ x: 420 + Math.cos(a) * r * 1.15, y: 200 + Math.sin(a) * r * .5, it: ITEMS[i % ITEMS.length], d: r }); }
+  const CAP = { near: '📍 집에서 가까운 <b>동네 이웃</b>끼리만 연결 → 직접 만나 거래하니 <b>안심</b>되고, 무료 나눔·도움 요청 같은 <b>동네 생활 문화</b>가 생겨요. (p.184)',
+    far: '🌐 반경 제한이 없으면 처음 보는 먼 곳의 사람과 택배로 거래 → 소비자 간 거래(C2C)의 가장 큰 문제인 <b>불안감</b>이 커져요. (p.184)', ai: '🤖 <b>인공지능</b>이 부적절한 글을 찾아 지우고, 채팅·후기·<b>매너 지표</b>로 믿을 수 있는 거래를 도와요. (p.184)' };
+  simBind('sbNb', a => { if (a === 'ai') { ai = !ai; t0 = performance.now(); cap('cpNb', ai ? CAP.ai : CAP[mode]); return; } mode = a; t0 = performance.now(); cap('cpNb', CAP[a]); }); cap('cpNb', CAP.near);
+  runLoop(cv, now => {
+    const t = Math.max(0, (now - t0) / 1000); c.clearRect(0, 0, W, H); BOX(c, 0, 0, W, H, '#EAF4E4');
+    c.strokeStyle = '#FFFFFF'; c.lineWidth = 10; for (let x = 40; x < 860; x += 140) { c.beginPath(); c.moveTo(x, 0); c.lineTo(x, H); c.stroke(); } for (let y = 30; y < H; y += 110) { c.beginPath(); c.moveTo(0, y); c.lineTo(860, y); c.stroke(); }
+    const R = 170;
+    if (mode === 'near') { c.fillStyle = 'rgba(35,80,200,.12)'; c.beginPath(); c.ellipse(420, 200, R * 1.15, R * .5 * 1.15, 0, 0, 7); c.fill(); c.strokeStyle = '#2350C8'; c.lineWidth = 3; c.setLineDash([10, 8]); c.stroke(); c.setLineDash([]); LBL(c, '반경 6km (교사용 교과서 예시)', 420, 40, { s: 16, bd: '#2350C8', c: '#2350C8' }); }
+    HS.forEach((h, i) => {
+      const inside = h.d <= R, show = mode === 'far' || inside;
+      c.globalAlpha = show ? 1 : .25; EM(c, '🏠', h.x, h.y, 26); EM(c, h.it, h.x + 18, h.y - 16, 18); c.globalAlpha = 1;
+      if (show && (t * 2 + i) % 9 < 4) { const k = ez(((t * 2 + i) % 9) / 2); c.strokeStyle = inside ? '#137A3A' : '#B85E00'; c.lineWidth = 3; c.beginPath(); c.moveTo(420, 200); c.lineTo(lp(420, h.x, k), lp(200, h.y, k)); c.stroke(); if (k >= 1) EM(c, inside ? '🤝' : '📦', (420 + h.x) / 2, (200 + h.y) / 2, 22); if (k >= 1 && !inside) EM(c, '😟', h.x - 20, h.y - 18, 20); }
+    });
+    EM(c, '🏡', 420, 200, 40); LBL(c, '나', 420, 236, { s: 15 });
+    RR(c, 880, 10, 302, 380, 14); c.fillStyle = '#fff'; c.fill(); TXT(c, ai ? '🤖 AI 검수 중' : '📱 동네 중고 거래 앱', 1031, 38, { s: 21, w: 900 });
+    const posts = [['🚲 자전거 팝니다', 1], ['📚 문제집 무료 나눔', 1], ['💸 선입금만 받아요!!', 0], ['🧸 인형 나눔해요', 1], ['🔗 수상한 링크 클릭', 0]];
+    posts.forEach((p, i) => { const y = 74 + i * 62; const bad = !p[1], gone = ai && bad && t > 0.8 + i * .2; c.globalAlpha = gone ? Math.max(0.15, 1 - (t - 0.8 - i * .2) * 1.5) : 1; RR(c, 894, y, 274, 50, 8); c.fillStyle = bad && ai ? '#FDEBEA' : '#F3F5F9'; c.fill(); TXT(c, p[0], 906, y + 25, { s: 17, a: 'left', w: 800 }); c.globalAlpha = 1; if (gone) TXT(c, '🚫 삭제', 1150, y + 25, { s: 16, w: 900, c: '#D0261E', a: 'right' }); else if (p[1]) TXT(c, `매너 ${36 + i * 3}.5°`, 1160, y + 25, { s: 14, w: 800, c: '#137A3A', a: 'right' }); });
+  });
+})();
+
+// ---------- E. SNS 실패: PC에서 모바일로 ----------
+(() => {
+  const cv = $('cvSns'); if (!cv) return; const c = cv.getContext('2d'), W = 1192, H = 400; let t0 = performance.now();
+  const N = 60; let s = 5; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647; const U = Array.from({ length: N }, () => [rnd(), rnd(), rnd()]);
+  const ST = [['① 2000년대 초', '미니홈피·일촌으로 인기 절정!', '#2350C8'], ['② 2000년대 후반', '다른 SNS 등장 → 이용자 감소', '#B85E00'], ['③ 스마트폰 대중화', '굳이 PC로 접속·로그인? → 반응이 시들', '#D0261E'], ['④ 창업 멤버 이탈', '기존과 다른 서비스 → 관심이 멀어짐', '#7B3FA0']];
+  simBind('sbSns', () => { t0 = performance.now(); });
+  runLoop(cv, now => {
+    const t = (now - t0) / 1000, st = Math.min(3, Math.floor(t / 3.2)), k = cl(t / 12.8, 0, 1);
+    c.clearRect(0, 0, W, H); BOX(c, 0, 0, W, H, '#fff');
+    ST.forEach((v, i) => { const x = 20 + i * 292; RR(c, x, 10, 280, 70, 10); c.fillStyle = i === st ? v[2] : '#F3F5F9'; c.fill(); TXT(c, v[0], x + 140, 32, { s: 18, w: 900, c: i === st ? '#fff' : '#1B2230' }); TXT(c, v[1], x + 140, 60, { s: 15, w: 800, c: i === st ? '#fff' : '#1B2230' }); });
+    // PC
+    RR(c, 60, 120, 300, 200, 12); c.fillStyle = '#1B2230'; c.fill(); BOX(c, 72, 132, 276, 166, '#FFE9F0'); BOX(c, 190, 320, 40, 30, '#1B2230'); BOX(c, 150, 348, 120, 10, '#1B2230');
+    TXT(c, '🏠 미니홈피', 210, 160, { s: 20, w: 900 }); TXT(c, '일촌 · 방명록 · 사진첩', 210, 192, { s: 15, w: 800 });
+    // 폰
+    RR(c, 880, 110, 150, 260, 22); c.fillStyle = '#1B2230'; c.fill(); BOX(c, 892, 130, 126, 220, '#E6EDFC'); ['💬', '📸', '👍'].forEach((e, i) => EM(c, e, 955, 175 + i * 60, 36)); TXT(c, '다른 SNS 앱', 955, 390, { s: 16, w: 900 });
+    const moved = st === 0 ? 0 : st === 1 ? .3 : st === 2 ? .75 : .92;
+    U.forEach((u, i) => { const go = u[2] < moved, kk = go ? ez(cl((t - (st === 1 ? 3.2 : st === 2 ? 6.4 : 9.6) + u[0] * 1.5) / 1.5, 0, 1)) : 0, fin = go && u[2] < (st === 1 ? 0 : st === 2 ? .3 : .75) ? 1 : kk;
+      const x = lp(90 + u[0] * 240, 650 + u[0] * 200, fin), y = lp(215 + u[1] * 80, 140 + u[1] * 220, fin); EM(c, '🙂', x, y, 20); });
+    const pc = Math.round(N * (1 - moved)); LBL(c, `미니홈피 이용자 ${pc}명 / ${N}명`, 210, 380, { s: 18, bg: pc > 30 ? '#E6EDFC' : '#FDEBEA', bd: pc > 30 ? '#2350C8' : '#D0261E', c: pc > 30 ? '#2350C8' : '#D0261E' });
+    TXT(c, '모형 애니메이션', 1170, 392, { s: 13, w: 800, c: '#B85E00', a: 'right' });
+  });
+})();
+
+// ---------- F. 브레인스토밍 보드 ----------
+(() => {
+  const cv = $('cvBs'); if (!cv) return; const c = cv.getContext('2d'), W = 1192, H = 400; let ph = 0, t0 = performance.now();
+  const IDEAS = [['사진 찍어 분리배출 안내', 7], ['분리배출 퀴즈 게임', 4], ['재활용 포인트 적립', 6], ['수거 요일 알림', 3], ['쓰레기 종류별 색깔 아이콘', 5], ['SNS 환경 캠페인', 2], ['분리수거함 위치 지도', 2], ['반별 분리배출 랭킹', 4]];
+  const COL = ['#FFE58A', '#BDE7FF', '#FFC9D6', '#C8F2C2'];
+  const CAP = ['① 토론을 유도할 <b>질문</b>을 정해요.', '② 질문의 답을 종이에 적되, <b>한 장에 하나의 아이디어</b>만! 적은 뒤 옆 사람에게 돌려 봐요. (5~15분 반복)', '③ 모든 아이디어를 <b>칠판</b>에 붙이고 간단히 설명해요.', '④ 우선순위를 정하기 위해 <b>투표</b>할 수도 있어요. (p.192)'];
+  simBind('sbBs', a => { ph = +a; t0 = performance.now(); cap('cpBs', CAP[ph] + (ph ? XBT.replace('교과서 밖 보충', '아이디어는 예시') : '')); }); cap('cpBs', CAP[0]);
+  runLoop(cv, now => {
+    const t = Math.max(0, (now - t0) / 1000); c.clearRect(0, 0, W, H); BOX(c, 0, 0, W, H, '#fff');
+    RR(c, 300, 8, 592, 52, 10); c.fillStyle = '#1B2230'; c.fill(); TXT(c, '❓ 우리 학교 분리배출 문제를 해결할 앱 아이디어는?', 596, 34, { s: 20, w: 900, c: '#fff' });
+    if (ph === 0) { ['🙋', '🙋‍♀️', '🧑', '👩'].forEach((e, i) => EM(c, e, 230 + i * 245, 250, 60)); RR(c, 470, 200, 250, 100, 10); c.fillStyle = '#8B5A2B'; c.fill(); TXT(c, '테이블 · 종이 준비', 595, 250, { s: 18, w: 900, c: '#fff' }); return; }
+    if (ph === 1) { ['🙋', '🙋‍♀️', '🧑', '👩'].forEach((e, i) => EM(c, e, 160 + i * 280, 360, 46));
+      const n = Math.min(IDEAS.length, Math.floor(t * 1.4)); for (let i = 0; i < n; i++) { const p = i % 4, k = ez(cl((t * 1.4 - i) / 1.2, 0, 1)); const x = 160 + p * 280 + (Math.floor(i / 4) ? 50 : -30), y = lp(330, 120 + Math.floor(i / 4) * 100, k); note(x, y, IDEAS[i][0], COL[p], 200); }
+      return; }
+    IDEAS.forEach((d, i) => { const x = 160 + (i % 4) * 290, y = 120 + Math.floor(i / 4) * 140; note(x, y, d[0], COL[i % 4], 250);
+      if (ph === 3) { const v = Math.min(d[1], Math.floor(t * 3)); for (let j = 0; j < v; j++) { c.fillStyle = '#D0261E'; c.beginPath(); c.arc(x - 100 + j * 18, y + 48, 7, 0, 7); c.fill(); } if (t > 3 && d[1] >= 5) { c.strokeStyle = '#137A3A'; c.lineWidth = 4; RR(c, x - 128, y - 42, 256, 104, 10); c.stroke(); TXT(c, '⭐', x + 112, y - 30, { s: 22 }); } } });
+    if (ph === 3 && t > 3) LBL(c, '🏆 득표가 많은 아이디어부터 우선 개발!', 596, 385, { s: 18, bg: '#E3F5E8', bd: '#137A3A', c: '#137A3A' });
+  });
+  function note(x, y, s, col, w){ c.save(); c.translate(x, y); c.rotate(((x + y) % 7 - 3) * .01); RR(c, -w / 2, -36, w, 72, 6); c.fillStyle = col; c.fill(); c.strokeStyle = 'rgba(0,0,0,.2)'; c.lineWidth = 1.5; c.stroke(); TXT(c, s, 0, 0, { s: s.length > 12 ? 16 : 18, w: 900 }); c.restore(); }
+})();
+
+// ---------- G. 분리배출 AI 분류기 ----------
+(() => {
+  const cv = $('cvAi'); if (!cv) return; const c = cv.getContext('2d'), W = 1192, H = 400; let mode = 'good', t0 = performance.now();
+  const CL = ['plastic', 'paper', 'metal', 'glass'], BIN = { plastic: '#2F7BEA', paper: '#E0A800', metal: '#7A8296', glass: '#1E9E6A' };
+  const ITEMS = [{ e: '🧴', n: '플라스틱 병', t: 'plastic' }, { e: '📦', n: '종이 상자', t: 'paper' }, { e: '🥫', n: '캔', t: 'metal' }, { e: '🍾', n: '초록 유리병', t: 'glass', tricky: true }, { e: '📰', n: '신문지', t: 'paper' }];
+  const prob = (it) => { const base = { plastic: .02, paper: .02, metal: .02, glass: .02 }; if (mode === 'bad' && it.tricky) return { plastic: .58137, paper: .03, metal: .05, glass: .33863 }; base[it.t] = it.tricky ? .9361827411 : .9734158826; const rest = (1 - base[it.t]) / 3; CL.forEach(k => { if (k !== it.t) base[k] = rest; }); return base; };
+  const CAP = { good: '종류별 이미지를 <b>골고루(각 5장씩)</b> 학습 → 사진을 넣으면 분류 결과와 <b>신뢰도</b>를 함께 알려 줘요. 신뢰도 0.9734… × 100 → 소수점 반올림 → <b>97</b>% (p.194~195)',
+    bad: '갈색 유리병 사진만 학습시켰다면? <b>초록 유리병</b>을 플라스틱으로 잘못 분류해요. 데이터가 <b>편향</b>되면 결과도 틀려요! (p.193 “유리병 색깔에 따라 인식 결과에 차이”)' };
+  simBind('sbAi', a => { mode = a; t0 = performance.now(); cap('cpAi', CAP[a]); }); cap('cpAi', CAP.good);
+  runLoop(cv, now => {
+    const t = Math.max(0, (now - t0) / 1000); c.clearRect(0, 0, W, H); BOX(c, 0, 0, W, H, '#fff');
+    BOX(c, 20, 250, 700, 26, '#56607A'); for (let x = 20 + (t * 60) % 40; x < 720; x += 40) BOX(c, x, 254, 20, 18, '#7A8296');
+    RR(c, 300, 60, 120, 70, 12); c.fillStyle = '#1B2230'; c.fill(); EM(c, '📷', 360, 95, 36); TXT(c, 'AI 카메라', 360, 150, { s: 16, w: 900 });
+    CL.forEach((k, i) => { const x = 790 + i * 100; RR(c, x - 40, 280, 80, 100, 8); c.fillStyle = BIN[k]; c.fill(); TXT(c, k, x, 360, { s: 16, w: 900, c: '#fff' }); EM(c, '🗑', x, 312, 30); });
+    const per = 3.2, i = Math.floor(t / per) % ITEMS.length, k = (t % per) / per, it = ITEMS[i], p = prob(it), top = CL.reduce((a, b) => p[a] > p[b] ? a : b);
+    let x, y; if (k < .35) { x = lp(40, 360, k / .35); y = 228; } else if (k < .6) { x = 360; y = 228; } else { const q = (k - .6) / .4, bx = 790 + CL.indexOf(top) * 100; x = lp(360, bx, q); y = lp(228, 300, q) - Math.sin(q * 3.14) * 80; }
+    EM(c, it.e, x, y, 50);
+    if (k >= .35 && k < .6) { c.strokeStyle = 'rgba(255,59,59,.8)'; c.lineWidth = 3; c.beginPath(); c.moveTo(360, 130); c.lineTo(330, 210); c.moveTo(360, 130); c.lineTo(390, 210); c.stroke(); }
+    RR(c, 20, 10, 250, 220, 12); c.fillStyle = '#F3F5F9'; c.fill(); TXT(c, `입력: ${it.n}`, 145, 34, { s: 18, w: 900 });
+    if (k >= .4) CL.forEach((kk, j) => { const y2 = 70 + j * 40, w = p[kk] * 130; TXT(c, kk, 34, y2, { s: 16, w: 800, a: 'left' }); BOX(c, 110, y2 - 10, 130, 20, '#E3E7F1'); BOX(c, 110, y2 - 10, w, 20, kk === top ? (kk === it.t ? '#137A3A' : '#D0261E') : '#9AA3B5'); });
+    if (k >= .5) { const conf = Math.round(p[top] * 100), ok = top === it.t; RR(c, 460, 20, 300, 150, 12); c.fillStyle = ok ? '#E3F5E8' : '#FDEBEA'; c.fill(); c.strokeStyle = ok ? '#137A3A' : '#D0261E'; c.lineWidth = 3; c.stroke();
+      TXT(c, `분류 결과: ${top}`, 610, 52, { s: 22, w: 900, c: ok ? '#137A3A' : '#D0261E' }); TXT(c, `${p[top].toFixed(10)} × 100`, 610, 88, { s: 17, w: 800 }); TXT(c, `→ 신뢰도 ${conf}%`, 610, 120, { s: 24, w: 900 }); TXT(c, ok ? '✔ 맞았어요' : '✘ 틀렸어요! (정답: ' + it.t + ')', 610, 152, { s: 17, w: 900, c: ok ? '#137A3A' : '#D0261E' }); }
+  });
+})();
+
+// ---------- H. 주차 가디언즈 ----------
+(() => {
+  const cv = $('cvPk'); if (!cv) return; const c = cv.getContext('2d'), W = 1192, H = 400; let who = 'car', ver = 1, t0 = performance.now(), cnt = 0, fired = false;
+  const CAP = { 1: '버전 1: 초음파 센서에 무엇이든 <b>감지</b>되면 바로 경고음 → 불법 주정차를 막을 수 있지만…', 2: '버전 2(개선): <b>주차 시간</b>을 감지해 <b>3초 이상 머무르면</b> 경고 → 지나가는 사람에게는 울리지 않아요. (p.199 개선 사항)' };
+  simBind('sbPk', a => { if (a === 'v1' || a === 'v2') { ver = +a[1]; cap('cpPk', CAP[ver] + ' <span class="xb2 te">교사용 교과서 예시</span>'); } else who = a; t0 = performance.now(); fired = false; });
+  cap('cpPk', CAP[1] + ' <span class="xb2 te">교사용 교과서 예시</span>');
+  runLoop(cv, now => {
+    const t = Math.max(0, (now - t0) / 1000); c.clearRect(0, 0, W, H); BOX(c, 0, 0, W, H, '#DCEBD2');
+    BOX(c, 0, 230, W, 120, '#4A4F5C'); for (let x = 0; x < W; x += 60) BOX(c, x, 288, 34, 5, '#F2C200');
+    BOX(c, 440, 232, 300, 54, 'rgba(208,38,30,.25)'); c.strokeStyle = '#D0261E'; c.lineWidth = 3; c.setLineDash([10, 6]); c.strokeRect(440, 232, 300, 54); c.setLineDash([]); TXT(c, '불법 주정차 금지 구역', 590, 258, { s: 17, w: 900, c: '#fff' });
+    RR(c, 60, 40, 260, 170, 10); c.fillStyle = '#F5EBDD'; c.fill(); EM(c, '🏫', 190, 110, 70); TXT(c, '학교 정문 · 등하교 길', 190, 180, { s: 17, w: 900 });
+    BOX(c, 586, 120, 8, 110, '#56607A'); RR(c, 520, 60, 140, 66, 8); c.fillStyle = '#fff'; c.fill(); c.strokeStyle = '#D0261E'; c.lineWidth = 4; c.stroke(); TXT(c, '🚫 주정차 금지', 590, 93, { s: 18, w: 900, c: '#D0261E' });
+    RR(c, 600, 150, 46, 30, 6); c.fillStyle = '#1B2230'; c.fill(); TXT(c, '센서', 623, 165, { s: 13, w: 900, c: '#fff' }); EM(c, '🔊', 560, 165, 26);
+    let x, stay = 0; if (who === 'car') { x = Math.min(590, -100 + t * 260); stay = x >= 590 ? t - 690 / 260 : 0; } else { x = -60 + t * 160; stay = Math.abs(x - 590) < 120 ? 0.5 : 0; }
+    const inZone = x > 450 && x < 730;
+    if (inZone) { for (let i = 0; i < 3; i++) { const r = ((now / 300 + i / 3) % 1) * 70; c.strokeStyle = `rgba(80,190,255,${1 - r / 70})`; c.lineWidth = 3; c.beginPath(); c.arc(623, 180, r + 10, 0.3, 2.8); c.stroke(); } }
+    const alarm = inZone && (ver === 1 || stay >= 3);
+    if (who === 'car') EM(c, '🚗', x, 262, 70); else EM(c, '🚶', x, 250, 54);
+    if (alarm) { if (!fired) { fired = true; cnt++; SND.no(); } say(c, '“이곳은 주정차 금지 구역입니다!”', 590, 40); }
+    if (ver === 2 && inZone && who === 'car' && stay < 3) LBL(c, `머문 시간 ${Math.max(0, stay).toFixed(1)}초`, 590, 360, { s: 18 });
+    if (ver === 1 && who === 'walk' && alarm) LBL(c, '😖 사람이 지나가도 울려요! (오작동)', 590, 370, { s: 18, bg: '#FDEBEA', bd: '#D0261E', c: '#D0261E' });
+    if (ver === 2 && who === 'walk' && inZone) LBL(c, '🙂 사람은 금방 지나가서 경고 없음', 590, 370, { s: 18, bg: '#E3F5E8', bd: '#137A3A', c: '#137A3A' });
+    RR(c, 900, 30, 270, 180, 12); c.fillStyle = '#fff'; c.fill(); TXT(c, '📊 감지 빈도 기록', 1035, 58, { s: 19, w: 900 }); TXT(c, `경고 ${cnt}회`, 1035, 110, { s: 34, w: 900, c: '#D0261E' }); TXT(c, ver === 1 ? '버전 1: 무엇이든 감지' : '버전 2: 3초 이상 머물면', 1035, 160, { s: 16, w: 900 }); TXT(c, '→ 문제 개선 여부 파악', 1035, 188, { s: 15, w: 800 });
+  });
+  function say(c, s, x, y){ c.font = FNT(900, 19); const w = c.measureText(s).width + 26; RR(c, 700 - w / 2, 6, w, 44, 12); c.fillStyle = '#FFF3C4'; c.fill(); c.strokeStyle = '#D0261E'; c.lineWidth = 3; c.stroke(); TXT(c, s, 700, 28, { s: 19, w: 900, c: '#D0261E' }); }
+})();
+
+// ---------- I. SaaS: 구매 vs 구독 ----------
+(() => {
+  const cv = $('cvSaas'); if (!cv) return; const c = cv.getContext('2d'), W = 1192, H = 400; let t0 = performance.now();
+  simBind('sbSaas', () => { t0 = performance.now(); });
+  runLoop(cv, now => {
+    const m = cl(Math.floor((now - t0) / 1000 * 2), 0, 24); c.clearRect(0, 0, W, H); BOX(c, 0, 0, W, H, '#fff');
+    TXT(c, `📅 ${m}개월째`, 596, 26, { s: 24, w: 900 });
+    const col = (x, title, sub, val, color, extra) => { RR(c, x, 50, 360, 340, 14); c.fillStyle = '#F3F5F9'; c.fill(); TXT(c, title, x + 180, 78, { s: 21, w: 900 }); TXT(c, sub, x + 180, 106, { s: 15, w: 800 });
+      const h = Math.min(170, val / 130 * 170); BOX(c, x + 130, 330 - h, 100, h, color); TXT(c, `누적 ${val}만 원`, x + 180, 318 - h, { s: 20, w: 900 }); BOX(c, x + 100, 330, 160, 4, '#1B2230'); if (extra) extra(x); };
+    const buy = 60 + (m >= 12 ? 60 : 0), sub = m * 3, use = [0, 1, 1, 4, 1, 0, 5, 5, 1, 0, 1, 4, 1, 1, 0, 4, 5, 1, 1, 0, 1, 4, 1, 1, 0].slice(0, m + 1).reduce((a, b) => a + b, 0);
+    col(20, '💿 한 번에 구매', '처음에 한꺼번에 · 새 버전은 다시 구매', buy, '#7A8296', x => { TXT(c, m >= 12 ? '버전 2.0 (다시 구매)' : '버전 1.0', x + 180, 360, { s: 16, w: 900 }); });
+    col(416, '☁️ 구독형 (SaaS)', '매달 일정 금액 · 클라우드로 실시간 이용', sub, '#2350C8', x => { TXT(c, '✨ 항상 최신 버전', x + 180, 360, { s: 16, w: 900, c: '#2350C8' }); });
+    col(812, '📊 쓴 만큼 내기', '사용한 양만큼만 지불', use, '#137A3A', x => { TXT(c, '쓸 때만 비용', x + 180, 360, { s: 16, w: 900, c: '#137A3A' }); });
+    TXT(c, '금액은 예시', 1170, 392, { s: 13, w: 800, c: '#B85E00', a: 'right' });
+  });
+})();
 
 // 활동 타이머
 stage.querySelectorAll('.timer').forEach(t => {
