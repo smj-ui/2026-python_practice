@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ⅴ단원 가치를 창출하는 SW</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<style>
+/* 16:9 슬라이드를 화면에 맞춰 확대. 빔프로젝터용: 회색 글씨 없이 진한 글씨, 큰 글자. 빈칸·카드를 눌러 정답을 하나씩 공개. */
+:root{
+  --bg:#D9DEE8; --paper:#FFFFFF; --ink:#1B2230; --sub:#2B3242; --line:#C9D1DF;
+  --blue:#2350C8; --teal:#0A7F72; --orange:#B85E00; --pen:#D0261E; --green:#137A3A;
+  --f-blue:#E6EDFC; --f-teal:#DFF3EF; --f-orange:#FFF0DC; --f-grey:#EEF1F5; --f-red:#FDEBEA; --f-green:#E3F5E8;
+  --font:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  color-scheme:light;
+}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);overflow:hidden;word-break:keep-all}
+.stage{position:absolute;left:50%;top:50%;width:1280px;height:720px;transform-origin:center;background:var(--paper);border-radius:10px;overflow:hidden;box-shadow:0 18px 50px rgba(27,34,48,.25)}
+.slide{position:absolute;inset:0 0 56px;padding:28px 44px 0;box-sizing:border-box}
+.slide[hidden]{display:none!important}
+.hd{display:flex;align-items:center;gap:12px;min-height:34px}
+.tag{display:inline-block;font-size:17px;font-weight:700;color:#fff;padding:5px 14px;border-radius:4px;background:var(--blue)}
+.s2 .tag{background:var(--teal)} .s3 .tag{background:var(--orange)} .s0 .tag{background:var(--ink)}
+.ws{margin-left:auto;font-size:18px;font-weight:900;color:var(--pen);border:2.5px solid var(--pen);border-radius:6px;padding:4px 12px;background:var(--f-red);display:flex;align-items:center;gap:6px}
+.pref{font-size:20px;font-weight:900;color:var(--ink);border:2.5px solid var(--ink);border-radius:6px;padding:3px 12px;background:#FFF3C4}
+.pp{font-size:18px;font-weight:900;color:var(--ink);background:#FFF3C4;border-radius:4px;padding:1px 8px;margin-left:8px;white-space:nowrap}
+.vid{font:inherit;font-size:17px;font-weight:900;color:#fff;background:#C4302B;border-radius:999px;padding:5px 14px;text-decoration:none;white-space:nowrap}
+.vid:focus-visible,.tool:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.tool{font:inherit;font-size:16px;font-weight:900;color:var(--ink);background:#FFF3C4;border:2px solid #E0B400;border-radius:999px;padding:6px 14px;cursor:pointer}
+.ov{position:absolute;inset:0;background:rgba(15,20,32,.72);display:grid;place-items:center;z-index:50}
+.ov[hidden]{display:none}
+.panel{background:#fff;border-radius:16px;padding:26px 32px;min-width:620px;max-width:1100px;box-shadow:0 20px 60px rgba(0,0,0,.4);position:relative}
+.panel h3{margin:0 0 14px;font-size:30px}
+.panel .x{position:absolute;right:18px;top:14px;font:inherit;font-size:22px;font-weight:900;border:2px solid var(--line);background:#fff;border-radius:999px;width:42px;height:42px;cursor:pointer}
+.pk-num{font-size:200px;font-weight:900;line-height:1;text-align:center;color:var(--blue);margin:10px 0 6px;font-variant-numeric:tabular-nums}
+.pk-num.done{color:var(--pen);animation:pop .5s ease}
+@keyframes pop{0%{transform:scale(.6)}60%{transform:scale(1.15)}100%{transform:scale(1)}}
+.pk-row{display:flex;align-items:center;gap:12px;font-size:20px;flex-wrap:wrap;justify-content:center}
+.pk-row input[type=number]{font:inherit;font-size:22px;width:80px;padding:4px 8px;border:2px solid var(--line);border-radius:8px}
+.big-btn{font:inherit;font-size:26px;font-weight:900;color:#fff;background:var(--pen);border:0;border-radius:999px;padding:12px 40px;cursor:pointer}
+.sm-btn{font:inherit;font-size:17px;font-weight:700;border:2px solid var(--ink);background:#fff;color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer}
+.pk-used{margin-top:12px;font-size:18px;text-align:center;min-height:26px}
+.teams{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.team{border-radius:14px;padding:14px;text-align:center;border:3px solid var(--line)}
+.team h4{margin:0;font-size:24px}
+.team .sc{font-size:72px;font-weight:900;line-height:1.1;font-variant-numeric:tabular-nums}
+.team .bt{display:flex;gap:10px;justify-content:center}
+.team .bt button{font:inherit;font-size:24px;font-weight:900;width:64px;height:48px;border-radius:12px;border:2px solid var(--ink);background:#fff;cursor:pointer}
+.team.lead{border-color:#E0B400;box-shadow:0 0 0 4px #FFE58A}
+.confetti{position:absolute;inset:0;pointer-events:none;z-index:60}
+.chip{font:inherit;display:inline-flex;align-items:center;justify-content:center;min-height:62px;padding:8px 14px;border-radius:12px;border:2.5px solid var(--line);background:#fff;font-size:22px;font-weight:700;cursor:pointer;color:var(--ink)}
+.chip.on{border-color:var(--teal);background:var(--f-teal)}
+.chip.on::before{content:'✔ ';color:var(--teal)}
+.counter{font-size:30px;font-weight:900;color:var(--teal)}
+.pred{display:grid;align-content:center;justify-items:center;gap:6px;min-height:118px}
+.pred .k{font-size:18px}
+.card.on.yes{border-color:var(--green);background:var(--f-green)} .card .k.yes{background:var(--green)}
+.card.on.part{border-color:var(--orange);background:var(--f-orange)} .card .k.part{background:var(--orange)}
+.card.on.not{border-color:#56607A;background:var(--f-grey)} .card .k.not{background:#3A4256}
+.card .cn{color:var(--blue);font-weight:900;margin-right:2px}
+.xb{font-size:15px;font-weight:900;background:#FFF3C4;border:1.5px solid #E0B400;border-radius:4px;padding:0 6px;white-space:nowrap}
+.card .xtra{position:absolute;top:-11px;right:10px;border:1.5px solid #E0B400;font-size:13px;font-weight:900;background:#FFF3C4;color:#1B2230;border-radius:4px;padding:1px 6px}
+.sm-wrap{display:grid;grid-template-columns:330px 830px;gap:18px;margin-top:10px;align-items:start}
+.sm-phone{position:relative;width:310px;height:482px;border-radius:40px;background:#111827;padding:12px;box-sizing:border-box;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.sm-phone.buzz{animation:buzz .1s 8}
+@keyframes buzz{25%{transform:translateX(-4px) rotate(-1deg)}75%{transform:translateX(4px) rotate(1deg)}}
+.sm-notch{position:absolute;left:50%;top:12px;transform:translateX(-50%);width:90px;height:22px;background:#111827;border-radius:0 0 14px 14px;z-index:3;display:grid;place-items:center}
+.sm-notch i{width:9px;height:9px;border-radius:50%;background:#3B4766;display:block}
+.sm-notch i.on{background:#3CFF6B;box-shadow:0 0 12px #3CFF6B}
+.sm-status{position:absolute;left:22px;right:22px;top:14px;display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:#fff;z-index:4}
+.sm-status span{background:rgba(17,24,39,.85);border-radius:8px;padding:1px 7px}
+.sm-screen{position:relative;width:100%;height:100%;border-radius:30px;overflow:hidden;background:linear-gradient(160deg,#3B5BDB,#8E5BD6);color:#1B2230}
+.sm-lock{color:#fff;text-align:center;padding-top:64px}
+.sm-big{font-size:64px;font-weight:900;line-height:1}
+.sm-date{font-size:17px;margin-top:6px}
+.sm-noti{position:absolute;left:10px;right:10px;top:160px;background:rgba(255,255,255,.96);border-radius:16px;padding:10px 12px;font-size:15px;line-height:1.45;animation:notiIn .4s both}
+@keyframes notiIn{from{transform:translateY(-40px);opacity:0}to{transform:none;opacity:1}}
+.sm-app{position:absolute;inset:0;background:#F2F4F8;display:flex;flex-direction:column}
+.sm-hd{padding:42px 14px 10px;background:#fff;font-weight:900;font-size:17px;border-bottom:1px solid #DDE2EA}
+.sm-msgs{padding:14px 12px}
+.sm-bub{background:#E6E9EF;border-radius:4px 16px 16px 16px;padding:10px 12px;font-size:15px;line-height:1.5;max-width:240px}
+.sm-link{color:#2350C8;font-weight:700;word-break:break-all;border-radius:4px}
+.sm-tm{font-size:12px;margin-top:4px;color:#3A4256}
+.sm-url{padding:42px 14px 8px;background:#fff;font-size:14px;border-bottom:1px solid #DDE2EA}
+.sm-web{display:grid;justify-items:center;gap:12px;padding:30px 16px;text-align:center}
+.sm-logo{font-size:22px;font-weight:900;color:#B85E00}
+.sm-web p{margin:0;font-size:17px;line-height:1.5}
+.sm-inst{font:inherit;font-size:17px;font-weight:900;color:#fff;background:#2350C8;border:0;border-radius:10px;padding:10px 30px}
+.sm-link.pressed,.sm-allow.pressed{background:#FFE58A}
+.sm-inst.pressed{background:#1A3C99}
+.sm-bar{width:200px;height:10px;border-radius:5px;background:#DDE2EA;overflow:hidden}
+.sm-bar i{display:block;height:100%;width:0;background:#2350C8;transition:width 1.5s}
+.sm-bar.go i{width:100%}
+.sm-dim{position:absolute;inset:0;background:rgba(0,0,0,.45);display:grid;place-items:center;animation:notiIn .25s both}
+.sm-dlg{width:240px;background:#fff;border-radius:18px;padding:16px;text-align:center;display:grid;gap:10px;font-size:16px;line-height:1.45}
+.sm-dic{font-size:34px}
+.sm-dbt{display:flex;justify-content:space-around;font-weight:900;font-size:16px}
+.sm-dbt span{padding:6px 12px;border-radius:8px}
+.sm-allow{color:#2350C8}
+.sm-busy{display:grid;justify-items:center;gap:10px;margin-top:120px;font-size:18px}
+.sm-spin{width:50px;height:50px;border-radius:50%;border:6px solid #DDE2EA;border-top-color:#2350C8;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.sm-finger{position:absolute;left:140px;top:300px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.6);border:3px solid rgba(27,34,48,.7);opacity:0;transition:left .5s,top .5s,opacity .2s,transform .15s;z-index:5;pointer-events:none}
+.sm-finger.show{opacity:1}
+.sm-finger.tap{transform:scale(.7);background:rgba(255,229,138,.9)}
+.sm-nar{display:flex;align-items:center;gap:12px;margin-top:10px;background:#1B2230;color:#fff;border-radius:12px;padding:10px 16px;min-height:54px}
+.sm-nar b{font-size:18px;color:#FFE58A;white-space:nowrap}
+.sm-nar span{flex:1;font-size:24px;font-weight:700;line-height:1.35}
+.xr{background:#F4F6FA;border-radius:12px;padding:8px;display:grid;justify-items:center;align-content:start}
+.xr .hw rect{fill:#2B3656;stroke:#56607A;stroke-width:2;transition:fill .2s}
+.xr .hw text{fill:#E3E7F1;font-size:15px;font-weight:700;text-anchor:middle;font-family:"Noto Sans KR","Malgun Gothic",sans-serif}
+.xr .hw.on rect{fill:#D0261E;stroke:#FFE58A;stroke-width:3}
+.xr-cap{font-size:18px;margin-top:4px;text-align:center}
+.code{background:#0F1730;border-radius:12px;padding:12px 14px;font-family:Consolas,"D2Coding","Malgun Gothic",monospace;color:#E3E7F1;display:grid;gap:6px}
+.code .cm{color:#7CE07C;font-size:17px}
+.code .ln{font-size:20px;padding:5px 8px;border-radius:6px;display:flex;gap:12px;transition:background .2s}
+.code .ln i{font-style:normal;color:#8C97B5;width:18px}
+.code .ln.done{color:#FFB3B3}
+.code .ln.on{background:#D0261E;color:#fff}
+.mw-out{margin-top:8px;background:var(--f-red);border-radius:10px;padding:10px 14px;font-size:20px;line-height:1.5;min-height:64px}
+.cmp{background:var(--f-grey);border-radius:12px;padding:12px 14px;display:grid;gap:8px;align-content:start}
+.cmp-t{font-size:20px;line-height:1.4}
+.cmp table{border-collapse:collapse;width:100%;font-size:18px}
+.cmp th{font-size:16px;padding:5px 4px;background:#fff}
+.cmp td{padding:3px 4px;border-top:1px solid var(--line);text-align:center}
+.cmp td:first-child{text-align:left}
+.cmp td small{display:block;font-size:14px}
+.cmp p{margin:0;font-size:17px;line-height:1.45}
+.cmp .bl.ox{font-size:22px}
+.phone{position:relative;width:300px;height:460px;margin:0 auto;border-radius:36px;background:#1B2230;padding:14px;box-sizing:border-box;transition:box-shadow .3s}
+.phone.hack{box-shadow:0 0 0 5px #D0261E,0 0 28px rgba(208,38,30,.6);animation:shake .4s 2}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.phone .cam{position:absolute;left:50%;top:6px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:#56607A}
+.phone .cam.on{background:#3CFF6B;box-shadow:0 0 10px #3CFF6B}
+.phone .scr{width:100%;height:100%;border-radius:24px;background:#EEF3FB;overflow:hidden;font-size:16px;line-height:1.45;color:#1B2230;display:flex;flex-direction:column}
+.mz-time{font-size:46px;font-weight:900;text-align:center;margin-top:26px}
+.mz-noti{margin:16px 12px;background:#fff;border-radius:12px;padding:10px 12px;font-size:15px;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.mz-apps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:10px 16px;font-size:30px;text-align:center}
+.mz-head{background:#2350C8;color:#fff;font-weight:900;padding:10px 14px;font-size:17px}
+.mz-head.hk{background:#D0261E}
+.mz-sms{margin:14px 12px;background:#fff;border-radius:14px;padding:12px;font-size:16px}
+.mz-link{color:#2350C8;font-weight:700;word-break:break-all}
+.mz-link.tap{background:#FFE58A}
+.mz-inst{display:grid;justify-items:center;gap:8px;margin-top:40px;padding:0 16px;text-align:center}
+.mz-ic{font-size:54px}
+.mz-bar{width:200px;height:12px;border-radius:6px;background:#C9D1DF;overflow:hidden}
+.mz-bar i{display:block;height:100%;width:0;background:#2350C8;transition:width 1.6s linear}
+.mz-cmd{margin:8px 10px;padding:0;list-style:none;display:grid;gap:5px}
+.mz-cmd li{background:#FDEBEA;border:2px solid #D0261E;border-radius:10px;padding:4px 10px;font-weight:700;font-size:16px;display:flex;gap:8px;align-items:center;animation:jobIn .3s both}
+.mz-end{position:absolute;left:24px;right:24px;bottom:24px;background:#1B2230;box-shadow:0 4px 14px rgba(0,0,0,.4);animation:jobIn .4s both;color:#fff;border-radius:12px;padding:10px;font-size:15px;text-align:center}
+.mz-end b{color:#FFE58A}
+.mzrow{display:grid;grid-template-columns:150px 1fr 190px;gap:12px;align-items:center;background:var(--f-grey);border-radius:10px;padding:9px 14px;font-size:19px;line-height:1.45}
+.mzk{color:#fff;font-size:18px;text-align:center;border-radius:6px;padding:4px 6px}
+.mzrow .bl{font-size:20px;font-weight:900}
+.prog{font:inherit;text-align:left;border:2.5px solid var(--line);background:#fff;border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--ink);font-size:19px}
+.prog b{font-size:20px}
+.prog ol{margin:4px 0 0;padding-left:24px;display:grid;grid-template-columns:1fr 1fr;column-gap:16px;font-size:17px}
+.prog li.on{color:var(--pen);font-weight:900}
+.prog.run{border-color:var(--blue);background:var(--f-blue)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tabs button{font:inherit;font-size:19px;font-weight:700;padding:7px 16px;border-radius:999px;border:2.5px solid var(--line);background:#fff;color:var(--ink);cursor:pointer}
+.tabs button[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.cook{display:grid;gap:4px;justify-items:center;text-align:center}
+.cook h4{margin:0;font-size:24px}.cook p{margin:0;font-size:19px}
+.ck-ic{font-size:42px;line-height:1}
+.ck-eq{font-size:20px;margin-top:4px}
+.flips{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.flip{font:inherit;position:relative;height:190px;border:0;padding:0;background:none;cursor:pointer;perspective:900px;color:var(--ink)}
+.flip>div{position:absolute;inset:0;border-radius:12px;padding:12px 16px;box-sizing:border-box;display:grid;align-content:start;gap:6px;text-align:left;backface-visibility:hidden;transition:transform .5s;border:2.5px solid var(--line)}
+.flip .fr{background:#F4F6FA}
+.flip .bk{background:#FFFFFF;border-color:var(--green);transform:rotateY(180deg)}
+.flip.on .fr{transform:rotateY(-180deg)} .flip.on .bk{transform:rotateY(0)}
+.flip p{margin:0;font-size:20px;line-height:1.45}
+.flip .fld{justify-self:start;color:#fff;font-size:18px;padding:2px 12px;border-radius:6px}
+.flip .q{font-size:17px;font-weight:900;color:var(--blue)}
+.flip .sw{font-size:18px;font-weight:900;color:var(--green)}
+.factors{display:grid;gap:8px;align-content:start}
+.factors button{font:inherit;font-size:21px;font-weight:700;text-align:left;padding:12px 16px;border-radius:10px;border:2.5px solid var(--line);background:#fff;color:var(--ink);cursor:pointer}
+.factors button[aria-pressed=true]{border-color:var(--blue);background:var(--f-blue)}
+.step{display:grid;grid-template-columns:36px 1fr;gap:10px;align-items:center;background:var(--f-teal);border-radius:10px;padding:9px 14px;font-size:21px;line-height:1.45}
+.step>b{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--teal);color:#fff;font-size:18px}
+.sdg{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;align-content:start}
+.sdg button{font:inherit;color:#fff;border:0;border-radius:8px;min-height:106px;padding:8px;text-align:left;display:grid;align-content:start;gap:4px;cursor:pointer}
+.sdg button b{font-size:30px;line-height:1}.sdg button span{font-size:16px;font-weight:700;line-height:1.3}
+.sdg button.sel{outline:5px solid var(--ink);outline-offset:2px}
+.probs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.probs button{font:inherit;font-size:23px;font-weight:700;border-radius:12px;border:2.5px solid var(--line);background:#fff;color:var(--ink);padding:12px;cursor:pointer;line-height:1.35}
+.probs button[aria-pressed=true]{border-color:var(--teal);background:var(--f-teal)}
+.probs .pi{display:block;font-size:40px}
+.flow3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:14px}
+.flow3>div{position:relative;border-radius:12px;background:#F4F6FA;border:2.5px dashed var(--line);padding:12px 16px;min-height:140px;transition:all .3s}
+.flow3>div.on{background:#fff;border:2.5px solid var(--teal)}
+.flow3>div+div::before{content:'→';position:absolute;left:-26px;top:50%;transform:translateY(-50%);font-size:26px;font-weight:900;color:var(--teal)}
+.flow3 small{font-size:18px;font-weight:900;color:var(--teal)}
+.flow3 p{margin:6px 0 0;font-size:21px;line-height:1.5}
+.towns{display:grid;gap:8px;align-content:start}
+.towns button{font:inherit;text-align:left;border:2.5px solid var(--line);background:#fff;border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--ink);display:grid;gap:4px}
+.towns button b{font-size:19px}.towns button .bl{justify-self:start;font-size:19px;font-weight:900}
+.towns button[aria-pressed=true]{border-color:var(--teal);background:var(--f-teal)}
+.job{border:3px solid;border-radius:10px;padding:8px 12px;background:#fff;display:grid;gap:3px;font-size:18px;line-height:1.4;animation:jobIn .5s both}
+.job b{font-size:20px}
+@keyframes jobIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.simgrid{display:grid;grid-template-columns:780px 1fr;gap:12px;margin-top:8px}
+.simgrid canvas{width:780px;border-radius:10px;display:block;cursor:pointer}
+.simside{display:flex;flex-direction:column;gap:9px;padding:12px 14px;overflow:hidden}
+.simbtns{display:flex;flex-wrap:wrap;gap:7px}
+.simbtns button{font:inherit;font-size:16px;font-weight:900;padding:5px 10px;border-radius:10px;border:2.5px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer}
+.simbtns button.on{background:var(--ink);color:#fff}
+.simbtns button.pro{border-color:var(--blue);color:var(--blue)} .simbtns button.pro.on{background:var(--blue);color:#fff}
+.simbtns button.con{border-color:var(--pen);color:var(--pen)} .simbtns button.con.on{background:var(--pen);color:#fff}
+.simbtns button.gen{border-color:#56607A}
+.simbtns button:focus-visible,.nmbtn:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.simmsg{font-size:18px;line-height:1.45;color:var(--ink)}
+.simmsg.plain{font-size:16px;line-height:1.42;background:#fff;border-radius:8px;padding:6px 10px;border:2px solid var(--line)}
+.simmsg .pp{font-size:15px;margin-left:4px}
+.simmsg hr.sep{border:0;border-top:2px dashed var(--line);margin:7px 0}
+.trmsg{margin-top:8px;background:var(--f-orange);border-radius:10px;padding:7px 16px;font-size:19px;line-height:1.45;min-height:56px}
+.fsteps button{font-size:18px;padding:7px 14px}
+.trgrid{display:grid;grid-template-columns:740px 1fr;gap:12px;margin-top:8px}
+.trgrid canvas{width:740px;height:372px;border-radius:12px;display:block}
+.trcards{display:grid;grid-template-rows:auto repeat(4,1fr);gap:7px;height:372px}
+.trc{font:inherit;display:grid;grid-template-columns:48px 1fr auto;grid-template-rows:auto auto;align-items:center;column-gap:10px;text-align:left;border:3px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:4px 12px;cursor:pointer;min-height:0}
+.trc .sym{grid-row:1/3;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:26px;background:var(--f-grey);color:var(--ink)}
+.trc .nm{font-size:19px;font-weight:900;line-height:1.25;white-space:nowrap}
+.trc .sw{font-size:15px;font-weight:900;padding:2px 10px;border-radius:999px;background:var(--f-grey)}
+.trc .ef{grid-column:2/4;font-size:16px;font-weight:700;margin-top:2px}
+.trc.on{border-color:var(--orange);background:var(--f-orange)}
+.trc.on .sym{background:var(--orange);color:#fff}
+.trc.on .sw{background:var(--orange);color:#fff}
+.trc:focus-visible,.trpc button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.trpc{display:grid;grid-template-columns:1fr 1.4fr;gap:12px;margin-top:10px}
+.pc{display:flex;align-items:center;gap:12px;border-radius:12px;padding:10px 16px;border:3px solid}
+.pc.pro{background:var(--f-blue);border-color:var(--blue)} .pc.con{background:var(--f-red);border-color:var(--pen)}
+.pc .hdp{font-size:19px;white-space:nowrap} .pc.pro .hdp{color:var(--blue)} .pc.con .hdp{color:var(--pen)}
+.pc .tx{font-size:22px;font-weight:700;flex:1;line-height:1.35}
+.pc button{font:inherit;font-size:16px;font-weight:900;border-radius:999px;padding:6px 12px;border:2.5px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer;white-space:nowrap}
+.pc button.on{background:var(--ink);color:#fff}
+.bigtabs button{font-size:20px;padding:6px 16px}
+.wsbox{display:flex;flex-direction:column;gap:8px;background:#FFFDF3;border:3px solid #E0B400;border-radius:12px;padding:10px 14px;overflow:hidden}
+.wsh{font-size:20px;font-weight:900;color:#8A6A00}
+.wsq{display:flex;align-items:flex-start;gap:10px;font-size:21px;font-weight:800;line-height:1.38;background:#fff;border:2px solid var(--line);border-radius:10px;padding:8px 10px}
+.wsa{font-size:22px;font-weight:900;display:flex;align-items:center;gap:8px}
+.wsbl{font:inherit;font-size:23px;font-weight:900;min-width:150px;padding:4px 14px;border:0;border-bottom:4px solid var(--pen);background:var(--f-red);color:transparent;border-radius:6px 6px 0 0;cursor:pointer}
+.wsbl.on{color:var(--pen);background:#fff}
+.wsbl:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.wsbogi{font-size:17px;font-weight:800;color:var(--ink)}
+.simbtns.big button{font-size:17px;padding:6px 11px}
+.simmsg.big{font-size:19px;font-weight:600;line-height:1.42}
+.trhd{font-size:18px;font-weight:900;color:#8A6A00}
+.nmrow{display:flex;align-items:center;gap:10px}
+.fldb{font-size:21px;color:#fff;background:var(--orange);padding:3px 14px;border-radius:8px;white-space:nowrap}
+.nmbtn{font:inherit;font-size:18px;font-weight:900;border:2.5px dashed var(--pen);background:var(--f-red);color:var(--pen);border-radius:10px;padding:5px 12px;cursor:pointer}
+.nmbtn.on{border-style:solid;background:#fff}
+.ws.listen{color:var(--ink);border-color:var(--line);background:var(--f-grey)}
+.all{font:inherit;font-size:16px;font-weight:700;padding:6px 14px;border-radius:999px;border:2px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer}
+.all[aria-pressed=true]{background:var(--ink);color:#fff}
+h2.tt{margin:12px 0 0;font-size:40px;font-weight:900;letter-spacing:-.5px}
+.lead{margin:8px 0 0;font-size:22px;font-weight:500;color:var(--sub)}
+/* 빈칸 */
+.bl{display:inline-block;min-width:3.2em;padding:0 10px;margin:0 3px;border-bottom:3px solid var(--pen);color:transparent;cursor:pointer;border-radius:4px 4px 0 0;background:var(--f-red);text-align:center;line-height:1.35;transition:background .15s}
+.bl.on{color:var(--pen);background:transparent}
+.bl:focus-visible,.card:focus-visible,.opt:focus-visible,.all:focus-visible,.nav button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+/* 카드 */
+.cards{display:grid;gap:14px}
+.card{font:inherit;position:relative;display:grid;align-content:center;justify-items:center;gap:8px;min-height:132px;padding:12px;border:2.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font-size:28px;font-weight:700;cursor:pointer;text-align:center;line-height:1.35}
+.card .k{font-size:18px;font-weight:900;padding:3px 12px;border-radius:999px;color:#fff;visibility:hidden}
+.card.on .k{visibility:visible}
+.card.on.hw,.card.on.pos{border-color:var(--blue);background:var(--f-blue)} .card .k.hw,.card .k.pos{background:var(--blue)}
+.card.on.sw{border-color:var(--teal);background:var(--f-teal)} .card .k.sw{background:var(--teal)}
+.card.on.neg{border-color:var(--pen);background:var(--f-red)} .card .k.neg{background:var(--pen)}
+.card.on.gen{border-color:#56607A;background:var(--f-grey)} .card .k.gen{background:#3A4256}
+.card.on.fus{border-color:var(--orange);background:var(--f-orange)} .card .k.fus{background:var(--orange)}
+.bl.ox{min-width:2.2em;font-weight:900}
+.bl.ox.on.o{color:var(--green)} .bl.ox.on.x{color:var(--pen)}
+.timer{font:inherit;font-size:22px;font-weight:900;padding:6px 18px;border-radius:999px;border:2.5px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer;font-variant-numeric:tabular-nums}
+.timer.run{background:var(--ink);color:#fff} .timer.end{background:var(--pen);border-color:var(--pen);color:#fff}
+.day{position:absolute;right:80px;top:70px;font-size:26px;font-weight:900;color:#fff;border:3px solid #fff;border-radius:8px;padding:6px 18px}
+/* 공통 상자 */
+.box{border-radius:10px;padding:18px 22px;background:var(--f-grey);font-size:24px;line-height:1.7}
+.s1 .box.c{background:var(--f-blue)} .s2 .box.c{background:var(--f-teal)} .s3 .box.c{background:var(--f-orange)}
+.row{display:grid;align-items:center;gap:16px;padding:13px 20px;border-radius:10px;background:var(--f-grey);font-size:24px;line-height:1.45}
+.row b.n{font-size:20px;font-weight:900;color:#fff;background:var(--ink);border-radius:6px;padding:2px 10px;justify-self:start}
+.grid{display:grid;gap:12px}
+.tile{border-radius:10px;background:var(--f-grey);padding:16px 20px;font-size:23px;line-height:1.5}
+.tile h4{margin:0 0 6px;font-size:24px}
+.ex{font-size:19px;color:var(--sub);font-weight:500}
+/* 표지 */
+.cover{background:var(--ink);color:#fff;padding:70px 80px}
+.cover .kicker{margin-top:100px;font-size:24px;color:#E3E7F1;font-weight:500}
+.cover h1{margin:16px 0 0;font-size:68px;font-weight:900;line-height:1.2;letter-spacing:-1px}
+.cover .sub{margin-top:40px;font-size:22px;color:#E3E7F1}
+.cover .chips{display:flex;gap:10px}
+.cover .chips span{font-size:17px;font-weight:700;padding:6px 14px;border-radius:4px}
+.cover .tb{position:absolute;left:80px;bottom:60px;font-size:18px;color:#C9CFDD}
+/* 문제 화면 스타일(미사용) */
+.qn{font-size:30px;font-weight:900;line-height:1.4;margin:14px 0 0}
+.qn em{font-style:normal;color:var(--pen)}
+.qbox{margin:12px 0 0;border:2px solid var(--ink);border-radius:8px;padding:10px 18px;font-size:21px;line-height:1.6}
+.opts{display:grid;gap:8px;margin-top:14px}
+.opts.row5{grid-template-columns:repeat(5,1fr);gap:12px}
+.opts.row5 .opt{grid-template-columns:auto auto 26px;justify-content:center;gap:6px;font-size:24px;padding:12px 6px;white-space:nowrap}
+.opt{font:inherit;display:grid;grid-template-columns:40px 1fr 40px;align-items:center;text-align:left;gap:8px;padding:9px 16px;border:2.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font-size:22px;font-weight:500;line-height:1.4;cursor:pointer}
+.opt .no{font-size:26px;font-weight:900}
+.opt .mk{font-size:26px;font-weight:900;text-align:center}
+.opt.ok{border-color:var(--green);background:var(--f-green)} .opt.ok .mk{color:var(--green)}
+.opt.no-{border-color:var(--pen);background:var(--f-red)} .opt.no- .mk{color:var(--pen)} .opt.no- .tx{text-decoration:line-through;text-decoration-thickness:2px}
+.exp{margin-top:12px;border-radius:10px;background:var(--f-green);border:2.5px solid var(--green);padding:10px 18px;font-size:20px;line-height:1.55}
+.exp b{color:var(--green)}
+.exp[hidden]{display:none}
+.qtools{display:flex;gap:10px;margin-left:12px}
+/* 네비 */
+.nav{position:absolute;left:0;right:0;bottom:0;height:56px;display:flex;align-items:center;gap:12px;padding:0 44px;border-top:1px solid var(--line);background:#F5F7FA}
+.nav button{font:inherit;font-size:16px;font-weight:700;color:var(--ink);background:#fff;border:2px solid var(--line);border-radius:999px;padding:6px 16px;cursor:pointer}
+.nav button:disabled{opacity:.35;cursor:default}
+.dots{flex:1;display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
+.dots i{width:11px;height:11px;border-radius:50%;background:var(--line);cursor:pointer}
+.dots i.q{box-shadow:inset 0 0 0 2px var(--pen)}
+.dots i.on{background:var(--ink)}
+.pg{font-size:16px;font-weight:700;min-width:64px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+<style>
+.s1 .tag{background:var(--blue)}
+h3.sh{margin:14px 0 8px;font-size:24px;font-weight:900}
+.tile h4 small{font-size:15px;font-weight:700}
+.exl{display:inline-block;font-size:14px;font-weight:900;color:#7A4B00;background:#FFF3C4;border:1.5px solid #E0B400;border-radius:999px;padding:1px 8px;vertical-align:middle;margin-left:4px}
+.rvg{display:grid;gap:10px;margin-top:12px}
+.rv{font:inherit;display:flex;flex-direction:column;justify-content:center;gap:8px;text-align:left;border:2.5px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);padding:12px 14px;cursor:pointer}
+.rv b{font-size:21px;font-weight:900;line-height:1.3}
+.rv span{font-size:18px;font-weight:600;line-height:1.45;visibility:hidden}
+.rv::after{content:'눌러서 설명 보기 ▾';font-size:14px;font-weight:800;color:var(--blue)}
+.rv.on{border-color:var(--blue);background:var(--f-blue)} .rv.on span{visibility:visible} .rv.on::after{content:none}
+.s3 .rv.on{border-color:var(--orange);background:var(--f-orange)}
+.rv:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.bars{display:grid;gap:7px;margin-top:6px}
+.br{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;font-size:17px;font-weight:700}
+.br .bn{min-width:60px} .br .bt{height:22px;background:#EEF1F5;border-radius:4px;overflow:hidden} .br .bt i{display:block;height:100%;border-radius:4px}
+.br b{font-size:17px;min-width:44px;text-align:right}
+.swot{display:grid;grid-template-columns:80px 1fr 1fr;gap:8px;margin-top:12px;align-items:stretch}
+.swot .ax{text-align:center;font-size:19px} .swot .ay{display:grid;place-items:center;font-size:19px;text-align:center;background:var(--f-grey);border-radius:8px}
+.sq{border-radius:12px;color:#fff;font-size:28px;font-weight:900;padding:10px 16px;display:flex;flex-direction:column;gap:4px}
+.sq small{font-size:17px;font-weight:700;line-height:1.4}
+.sq.s{background:#2FA84F} .sq.w{background:#E5484D} .sq.o{background:#E0457B} .sq.t{background:#4A63C8}
+.card.on.s{border-color:#2FA84F;background:#E3F5E8} .card .k.s{background:#2FA84F}
+.card.on.w{border-color:#E5484D;background:#FDEBEA} .card .k.w{background:#E5484D}
+.card.on.o{border-color:#E0457B;background:#FCE7F3} .card .k.o{background:#E0457B}
+.card.on.t{border-color:#4A63C8;background:#E6EDFC} .card .k.t{background:#4A63C8}
+.card.on.s1c{border-color:var(--blue);background:var(--f-blue)} .card .k.s1c{background:var(--blue)}
+.card.on.s2c{border-color:var(--teal);background:var(--f-teal)} .card .k.s2c{background:var(--teal)}
+.card.on.s3c{border-color:var(--orange);background:var(--f-orange)} .card .k.s3c{background:var(--orange)}
+.card small{font-size:17px;font-weight:600;line-height:1.4}
+.flow{display:flex;align-items:center;gap:8px;font-size:22px;font-weight:900;flex-wrap:wrap}
+.flow i{font-style:normal;font-size:26px;color:var(--orange)}
+.comic{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.comic .cb{background:#fff;border:2.5px solid var(--ink);border-radius:14px;padding:10px 12px;font-size:19px;font-weight:700;line-height:1.45}
+.comic .cb:nth-child(1){background:#F1E8FB} .comic .cb:nth-child(2){background:#FFF8D6} .comic .cb:nth-child(3){background:#E3F5E8} .comic .cb:nth-child(4){background:#E6EDFC}
+table.tb5{width:100%;border-collapse:collapse;margin-top:10px;font-size:19px}
+table.tb5 th,table.tb5 td{border:2px solid var(--line);padding:6px 10px;line-height:1.4;text-align:left;vertical-align:middle}
+table.tb5 th{background:var(--f-grey);font-weight:900;white-space:nowrap}
+table.tb5 thead th{background:var(--ink);color:#fff}
+table.tb5 td:first-child{font-weight:900}
+.cover{background:#3B2A5C}
+.dots{gap:4px} .dots i{width:9px;height:9px}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+<section class="slide cover" data-t="표지">
+  <div class="chips"><span style="background:#6A4C93">소프트웨어와 생활</span><span style="background:#3A4256">Ⅴ단원</span></div>
+  <div class="kicker">Ⅴ. 가치를 창출하는</div>
+  <h1>소프트웨어</h1>
+  <div class="sub">① 소프트웨어 스타트업 &nbsp;·&nbsp; ② 소프트웨어 스타트업 프로젝트</div>
+  <div class="tb">교과서 p.174~205</div>
+</section>
+
+<section class="slide s0" data-t="단원 길잡이">
+  <div class="hd"><span class="tag">Ⅴ단원</span><span class="pref">교과서 p.175</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">오늘부터 배울 것</h2>
+  
+  <div class="box" style="margin-top:14px;font-size:24px">이 단원에서는 소프트웨어 스타트업 사례를 탐색하고, 창의적인 아이디어를 바탕으로 사회에 기여할 수 있는 소프트웨어 개발 프로젝트를 수행할 수 있는 능력과 태도를 기릅니다.</div>
+  <h3 class="sh">핵심 아이디어</h3>
+  <div class="grid" style="gap:10px">
+    <div class="row" style="grid-template-columns:auto 1fr;background:var(--f-blue)"><b class="n" style="background:var(--blue)">1</b><span>소프트웨어 스타트업은 <b class="bl" tabindex="0">창의적인 아이디어</b>를 실제로 구현하고, <b class="bl" tabindex="0">사회적·경제적 가치</b>를 창출한다.</span></div>
+    <div class="row" style="grid-template-columns:auto 1fr;background:var(--f-orange)"><b class="n" style="background:var(--orange)">2</b><span>소프트웨어 스타트업 프로젝트는 <b class="bl" tabindex="0">윤리적</b>이고 <b class="bl" tabindex="0">협력적</b>인 문제 해결 과정이 필요하다.</span></div>
+  </div>
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:12px;margin-top:16px">
+    <div class="tile"><h4 style="color:var(--blue)">1. 소프트웨어 스타트업</h4>01 소프트웨어 스타트업의 이해 <span class="pp">p.177</span><br>02 소프트웨어 스타트업 사례 및 분석 <span class="pp">p.183</span></div>
+    <div class="tile"><h4 style="color:var(--orange)">2. 소프트웨어 스타트업 프로젝트</h4>01 소프트웨어 스타트업 프로젝트 수행 <span class="pp">p.191</span><br>02 소프트웨어의 가치 평가 <span class="pp">p.196</span></div>
+  </div>
+</section>
+
+<section class="slide s1" data-t="생각 열기: 성공 비결">
+  <div class="hd"><span class="tag">생각 열기</span><span class="pref">교과서 p.176</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">소프트웨어 스타트업의 성공 비결은?</h2>
+  
+  <div class="grid" style="grid-template-columns:1.15fr 1fr;gap:16px;margin-top:12px">
+    <div class="box" style="font-size:21px;line-height:1.65">○○업체는 음성 통화, 텍스트 채팅 및 온라인 커뮤니티 플랫폼을 제공하며, 주로 <b>게이머들을 위한 음성 채팅</b> 및 소셜 플랫폼으로 많이 알려져 있다. 각종 e스포츠 게이머들에게서 대중화되었으며, 한국에서도 여러 게임 커뮤니티에서 널리 사용되고 있는 메신저이다.</div>
+    <div class="tile" style="font-size:21px"><h4>○○업체의 주요 성공 요인</h4>
+      ① <b class="bl" tabindex="0">사용자 중심</b>의 제품 개발<br>② 친숙한 <b class="bl" tabindex="0">인터페이스</b>와 사용 편의성<br>③ 빠른 <b class="bl" tabindex="0">시장 대응</b>과 기능 추가<br>④ 마케팅 및 <b class="bl" tabindex="0">커뮤니케이션</b>
+      <p style="margin:8px 0 0">→ 게이머 커뮤니티를 넘어서 다양한 사용자들에게 서비스를 제공하는 성공적인 소프트웨어 스타트업으로 성장!</p></div>
+  </div>
+  <div class="qbox" style="font-size:22px;margin-top:14px"><b>생각 열기</b> 소프트웨어 스타트업 회사의 성공 요소와 실패 요소는 무엇일까?</div>
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:12px;margin-top:10px">
+    <div class="row" style="grid-template-columns:auto 1fr;background:var(--f-blue);font-size:20px"><b style="color:var(--blue)">성공 요소</b><b class="bl" tabindex="0">사용자 중심의 설계, 빠른 시장 대응, 효율적인 자원 관리, 독창성 및 차별화</b></div>
+    <div class="row" style="grid-template-columns:auto 1fr;background:var(--f-red);font-size:20px"><b style="color:var(--pen)">실패 요소</b><b class="bl" tabindex="0">시장 조사 부족, 리더십 부족, 재정관리 미흡, 기술적 결함</b></div>
+  </div>
+</section>
+
+<section class="slide s1" data-t="창업의 개념">
+  <div class="hd"><span class="tag">01 소프트웨어 스타트업의 이해</span><span class="pref">교과서 p.177</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">창업이란 무엇일까?</h2>
+  
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:14px;margin-top:12px">
+    <div class="tile" style="background:var(--f-blue)"><h4>🏠 차고에서 시작한 □□업체</h4>미국의 전자상거래 및 클라우드 컴퓨팅 서비스 기업</div>
+    <div class="tile" style="background:var(--f-blue)"><h4>👥 직원 17명으로 시작한 △△업체</h4>중국의 전자상거래 기업</div>
+  </div>
+  <p class="lead" style="font-size:21px;margin-top:8px">많은 글로벌 기업들이 처음에는 작은 스타트업으로 시작했어요 → 경쟁력을 갖춘 스타트업이 <b>경제 성장의 주요 동력</b>으로 급부상</p>
+  <div class="box c" style="margin-top:12px;font-size:24px;line-height:1.8"><b>창업</b>이란? <b class="bl" tabindex="0">새로운 사업</b>을 시작하는 것으로, 개인이나 집단이 <b class="bl" tabindex="0">사업 기회</b>를 포착하여 <b class="bl" tabindex="0">사업 목표</b>를 설정하고 이에 따른 <b class="bl" tabindex="0">자본, 노동력, 설비</b>를 확보하여 사업을 시작하는 것</div>
+  <div class="grid" style="grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px">
+    <div class="tile" style="font-size:19px"><h4>창업이 하는 일 ①</h4>새로운 제품·서비스·기술로 새로운 가치 창출 → <b class="bl" tabindex="0">일자리 창출</b>과 <b class="bl" tabindex="0">경제 성장</b>에 기여</div>
+    <div class="tile" style="font-size:19px"><h4>창업이 하는 일 ②</h4>새로운 아이디어와 기술의 플랫폼 제공 → <b class="bl" tabindex="0">혁신</b>과 기술 발전 촉진, 사회적 문제 해결 → <b class="bl" tabindex="0">사회적 가치</b> 창출</div>
+    <div class="tile" style="font-size:19px"><h4>창업가는?</h4>사업 아이디어를 찾아내어 현실로 구현하고, 자금을 조달·운영하여 사업을 성공적으로 키우기 위해 다양한 경험과 기술을 동원</div>
+  </div>
+</section>
+
+<section class="slide s1" data-t="스타트업의 개념">
+  <div class="hd"><span class="tag">01 소프트웨어 스타트업의 이해</span><span class="pref">교과서 p.178</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">스타트업이란 무엇일까?</h2>
+  
+  <div class="box c" style="margin-top:12px;font-size:21px;line-height:1.8"><b>스타트업(start-up)</b>이란? 일반적으로 이전에는 존재하지 않았던 <b class="bl" tabindex="0">혁신적 기술과 아이디어</b>를 보유한 <b class="bl" tabindex="0">신생 벤처 기업</b><br><span style="font-size:18px">현재 창업을 시작하고 있는 회사이며, 음식점이나 카페와 같은 일반 업종과 달리 <b class="bl" tabindex="0">첨단 기술</b>을 기반으로 창업해 빠르게 성장하는 기업</span></div>
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
+    <div class="tile" style="font-size:17px"><h4>목표</h4>기존의 것들을 혁신적인 방식으로 개선하거나 새로운 제품이나 서비스를 만들어 내는 것<br>· <b>새로움</b> = 이제껏 알려지지 않았던 발견 + 이미 존재하는 기술의 <b>응용 또는 적용</b>까지 포함</div>
+    <div class="tile" style="font-size:17px"><h4>경영의 핵심</h4>불확실한 환경과 제한된 자원으로 경영 → 시장 반응 데이터·경험이 부족해 예측하기 힘든 환경에서 시작 → 결국 이러한 <b class="bl" tabindex="0">어려움을 극복하며 성장</b>하는 것</div>
+  </div>
+  <div class="grid" style="grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px">
+    <div class="tile" style="font-size:15px;background:var(--f-grey)"><h4>💡 스타트업</h4>2000년 이후 미국 실리콘밸리의 창업 열풍으로 창업에 관심이 높아지면서 벤처 기업이라는 용어 대신 사용</div>
+    <div class="tile" style="font-size:15px;background:var(--f-grey)"><h4>💡 벤처 기업</h4>아이디어와 기술을 바탕으로 다소 위험을 감소하면서 고수익과 고성장을 추구하는 중소기업</div>
+    <div class="tile" style="font-size:15px;background:var(--f-grey)"><h4>💡 스타트업의 예시</h4>· 우버(차량 공유 서비스로 도입해 교통 서비스 혁신)<br>· 스포티파이(음악 스트리밍 서비스로 음악 소비 방식 변화)</div>
+  </div>
+</section>
+
+<section class="slide s1" data-t="한국 스타트업 생태계">
+  <div class="hd"><span class="tag">01 소프트웨어 스타트업의 이해</span><span class="pref">교과서 p.178</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">20년간 급성장한 한국 스타트업 생태계</h2>
+  
+  <div class="grid" style="grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px">
+    <div class="tile"><h4>급증한 신설 법인 개수 <small>(단위: 개)</small></h4><div class="bars"><div class="br"><span class="bn">2000년</span><span class="bt"><i style="width:49.8%;background:#2350C8"></i></span><b>6만 1456</b></div><div class="br"><span class="bn">2008년</span><span class="bt"><i style="width:45.3%;background:#2350C8"></i></span><b>5만 855</b></div><div class="br"><span class="bn">2016년</span><span class="bt"><i style="width:78.0%;background:#2350C8"></i></span><b>9만 6155</b></div><div class="br"><span class="bn">2020년</span><span class="bt"><i style="width:100.0%;background:#2350C8"></i></span><b>12만 3305</b></div></div></div>
+    <div class="tile"><h4>투자액도 껑충</h4><div class="bars"><div class="br"><span class="bn">2000년</span><span class="bt"><i style="width:45.8%;background:#137A3A"></i></span><b>1조 9705</b></div><div class="br"><span class="bn">2008년</span><span class="bt"><i style="width:16.8%;background:#137A3A"></i></span><b>7247</b></div><div class="br"><span class="bn">2016년</span><span class="bt"><i style="width:50.0%;background:#137A3A"></i></span><b>2조 1503</b></div><div class="br"><span class="bn">2020년</span><span class="bt"><i style="width:100.0%;background:#137A3A"></i></span><b>4조 3045</b></div></div></div>
+    <div class="tile"><h4>유니콘 기업도 늘어 <small>(단위: 개)</small></h4><div class="bars"><div class="br"><span class="bn">2016년</span><span class="bt"><i style="width:15.4%;background:#7B3FA0"></i></span><b>2</b></div><div class="br"><span class="bn">2017년</span><span class="bt"><i style="width:23.1%;background:#7B3FA0"></i></span><b>3</b></div><div class="br"><span class="bn">2018년</span><span class="bt"><i style="width:46.2%;background:#7B3FA0"></i></span><b>6</b></div><div class="br"><span class="bn">2019년</span><span class="bt"><i style="width:76.9%;background:#7B3FA0"></i></span><b>10</b></div><div class="br"><span class="bn">2020년</span><span class="bt"><i style="width:100.0%;background:#7B3FA0"></i></span><b>13</b></div></div></div>
+  </div>
+  <p class="lead" style="margin-top:6px">그림 Ⅴ-2 20년간 급성장한 한국 스타트업 생태계 (자료: 창업진흥원)</p>
+  <div class="box c" style="margin-top:12px;font-size:24px">🦄 <b>유니콘 기업</b>이란? 기업 가치가 <b class="bl" tabindex="0">10억 달러</b> 이상인 비상장 스타트업 기업을 가리키는 말로서, 성공적인 스타트업을 상징하는 용어</div>
+</section>
+
+<section class="slide s1" data-t="창업과 스타트업의 차이">
+  <div class="hd"><span class="tag">01 소프트웨어 스타트업의 이해</span><span class="pref">교과서 p.178</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">창업과 스타트업, 무엇이 다를까?</h2>
+  
+  <p class="lead" style="margin-top:4px">흔히 같은 개념이라고 혼동하지만, 엄연히 다른 것으로 확실히 구분해야 해요. 카드를 눌러 어느 쪽인지 확인!</p>
+  <div class="cards" style="grid-template-columns:repeat(5,1fr);margin-top:14px"><button class="card gen" style="min-height:104px;font-size:21px">사업을 시작하는 과정<span class="k gen">창업</span></button><button class="card fus" style="min-height:104px;font-size:21px">새로운 아이디어를 시작하는 과정<span class="k fus">스타트업</span></button><button class="card gen" style="min-height:104px;font-size:21px">규모가 작거나 중소규모의 사업<span class="k gen">창업</span></button><button class="card fus" style="min-height:104px;font-size:21px">초기에는 작지만 성장가능성이 높은 사업<span class="k fus">스타트업</span></button><button class="card gen" style="min-height:104px;font-size:21px">자본금을 구성하는 것이 중요<span class="k gen">창업</span></button><button class="card fus" style="min-height:104px;font-size:21px">아이디어와 실행력이 중요<span class="k fus">스타트업</span></button><button class="card gen" style="min-height:104px;font-size:21px">경험이나 기술력 필요<span class="k gen">창업</span></button><button class="card fus" style="min-height:104px;font-size:21px">기술력과 창의성 필요<span class="k fus">스타트업</span></button><button class="card gen" style="min-height:104px;font-size:21px">일정한 경쟁 상황에서 시작<span class="k gen">창업</span></button><button class="card fus" style="min-height:104px;font-size:21px">불확실한 환경 속에서 시작<span class="k fus">스타트업</span></button></div>
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
+    <div class="row" style="grid-template-columns:auto 1fr;font-size:20px"><b>창업</b><span>개인 사업자로 등록하거나 법인을 설립하는 <b class="bl" tabindex="0">정식 사업</b></span></div>
+    <div class="row" style="grid-template-columns:auto 1fr;font-size:20px;background:var(--f-orange)"><b>스타트업</b><span>아이디어로 창업을 시작하는 단계부터 <b class="bl" tabindex="0">사업성 입증·성장</b>까지 전 과정, 빠르게 성장, 인터넷·기술 분야에 많음</span></div>
+  </div>
+</section>
+
+<section class="slide s1" data-t="소프트웨어 스타트업의 개념">
+  <div class="hd"><span class="tag">01 소프트웨어 스타트업의 이해</span><span class="pref">교과서 p.179</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">소프트웨어 스타트업이란?</h2>
+  
+  <p class="lead" style="margin-top:6px">소프트웨어 스타트업은 기술 변화에 적응해 나가며 기존 산업을 융합시키는 창조적 창업의 주역 → 기존의 기업들에게 자극을 주며 새로운 혁신을 불러일으키고 있어요.</p>
+  <div class="box c" style="margin-top:12px;font-size:25px;line-height:1.8"><b>소프트웨어 스타트업</b>이란? 주로 <b class="bl" tabindex="0">소프트웨어 제품이나 서비스</b>를 개발하고 판매하여 특정한 문제를 해결하거나 <b class="bl" tabindex="0">시장의 요구</b>를 충족하는 기업</div>
+  <h3 class="sh">다른 스타트업 업종에 비해 좋은 점</h3>
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:12px">
+    <div class="tile" style="background:var(--f-blue)"><h4>① 빠른 시장 대응</h4>상대적으로 쉽게 <b class="bl" tabindex="0">수정과 개선</b>이 가능한 서비스 → 빠르게 변화하는 시장에 유연하게 대응</div>
+    <div class="tile" style="background:var(--f-blue)"><h4>② 글로벌 시장 개척</h4><b class="bl" tabindex="0">지리적 제한</b> 없이 전 세계적으로 배포 및 판매 가능 → 글로벌 시장 개척에 용이</div>
+  </div>
+  <div class="tile" style="margin-top:12px;font-size:19px;background:var(--f-grey)">💡 <b>소프트웨어 스타트업(software start-up)</b> 1994년 미국의 Erran Carmel이 처음 소프트웨어 스타트업이라는 개념을 연구 논문에 도입하였으며, 이후 여러 연구자들이 소프트웨어 스타트업에 대한 정의를 내놓기 시작했다.</div>
+</section>
+
+<section class="slide s1" data-t="소프트웨어 스타트업 10대 도전 과제">
+  <div class="hd"><span class="tag">01 소프트웨어 스타트업의 이해</span><span class="pref">교과서 p.179</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">소프트웨어 스타트업 10대 도전 과제 (그림 Ⅴ-3) · 눌러서 설명 보기</h2>
+  
+  <p class="lead" style="margin-top:4px">아직 충분히 검증되지 않은 시장의 요구를 파악하고 충족시키는 제품을 개발 → 창업 초기에 <b>기술적, 재정적, 시장적</b> 도전 과제에 직면하는 경우가 많아요.</p>
+  <div class="rvg" style="grid-template-columns:repeat(5,1fr)"><button class="rv" style="min-height:128px"><b>기술 불확실성 심화</b><span>끊임없이 변화하는 기술 환경에 대한 지속적인 적응 필요</span></button><button class="rv" style="min-height:128px"><b>최초 유료 고객 확보</b><span>제품의 가치를 인식하고 구매하도록 고객을 설득하는 과정</span></button><button class="rv" style="min-height:128px"><b>초기 자금 조달</b><span>필수적인 재정 자원 확보의 필요성</span></button><button class="rv" style="min-height:128px"><b>손익 분기점 돌파</b><span>지속 가능한 사업을 위한 수익과 손실 균형 조정 필요</span></button><button class="rv" style="min-height:128px"><b>기업가적 팀 구축</b><span>예상치 못한 사건에 대한 평가 및 대응 능력을 갖춘 팀 구성 및 동기 부여</span></button><button class="rv" style="min-height:128px"><b>초심 유지</b><span>다양한 이해관계자들의 요구와 기대에도 불구하고, 기업의 초심과 비전 유지</span></button><button class="rv" style="min-height:128px"><b>고객 가치 실현</b><span>가치를 제공하기 위한 적절한 비즈니스 전략 정의</span></button><button class="rv" style="min-height:128px"><b>틈새시장 공략</b><span>새로운 제품에 대한 위험을 기꺼이 감수하려는 사용자의 특정 요구에 초점</span></button><button class="rv" style="min-height:128px"><b>최초 사용 가능한 제품</b><span>비즈니스 개념에 실패할 수 있는 위험성 존재</span></button><button class="rv" style="min-height:128px"><b>업무 과중</b><span>제한된 시간과 자원 내에서 다양한 업무와 프로젝트 수행</span></button></div>
+  <div class="grid" style="grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px">
+    <div class="tile" style="font-size:17px;padding:10px 14px">· <b>기술 불확실성 심화</b>: 기술의 변화와 발전에 따라 사업에 큰 영향 (예: 스마트폰의 발전이 앱 기반 스타트업에 미친 영향)</div>
+    <div class="tile" style="font-size:17px;padding:10px 14px">· <b>초기 자금 조달</b>: 창업 자금을 조달하는 방법으로는 투자자 확보, 크라우드펀딩 등이 존재할 수 있음</div>
+    <div class="tile" style="font-size:17px;padding:10px 14px">· <b>틈새시장 공략</b>: 평소 불편하거나 개선하고 싶다고 느낀 점을 토대로 문제를 해결할 제품 아이디어를 구상할 수 있음</div>
+  </div>
+</section>
+
+<section class="slide s1" data-t="보충: 소프트웨어 창업이 중요한 이유">
+  <div class="hd"><span class="tag">보충 학습</span><span class="pref">교과서 p.180</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">소프트웨어 창업이 중요한 이유 · 눌러서 설명 보기</h2>
+  
+  <p class="lead" style="margin-top:4px">소프트웨어 창업은 혁신, 경제적 기여, 글로벌 시장 진출, 비용 효율성, 빠른 시장 반응성 등 매우 중요한 역할을 수행하고 있어요.</p>
+  <div class="rvg" style="grid-template-columns:repeat(4,1fr)"><button class="rv" style="min-height:150px"><b>혁신과 기술 발전</b><span>새로운 아이디어와 기술을 적용하는 플랫폼 제공 → 다양한 산업에 혁신, 기술 발전과 연결</span></button><button class="rv" style="min-height:150px"><b>경제적 활성화</b><span>새로운 비즈니스 기회 → 경제 활성화 촉진, 일자리 창출, 새로운 시장 형성으로 지역·국가 경제에 긍정적 영향</span></button><button class="rv" style="min-height:150px"><b>글로벌 시장 개척</b><span>소프트웨어는 전 세계에 쉽게 배포 → 글로벌 시장에서 경쟁력 있는 제품·서비스를 판매하는 기회</span></button><button class="rv" style="min-height:150px"><b>디지털 전환과 기업 생존력</b><span>디지털 전환이 필수인 현대 기업 환경 → 디지털 시대에 발맞추어 경쟁력을 유지하고 성장하도록 도와줌</span></button><button class="rv" style="min-height:150px"><b>빠른 시장 진입과 수정 용이성</b><span>개발·배포에 상대적으로 적은 시간 → 빠른 시장 진입, 피드백을 수용하여 신속하게 수정·개선</span></button><button class="rv" style="min-height:150px"><b>새로운 비즈니스 모델과 서비스 혁신</b><span>새로운 비즈니스 모델을 실험하는 플랫폼 → 기존 산업에 혁신, 소비자와 기업 간의 관계 변화</span></button><button class="rv" style="min-height:150px"><b>비용 효율성</b><span>물리적 자원이나 재고 관리 등의 문제에서 자유로움 → 생산성 향상, 비용 절감, 초기 투자 대비 높은 수익</span></button></div>
+  <p class="lead" style="margin-top:8px">출처: 매일경제, 2021. 07. 21. 일부 각색 (교과서 p.180)</p>
+</section>
+
+<section class="slide s1" data-t="탐구 활동 1: 일상생활 속 SW 스타트업 서비스">
+  <div class="hd"><span class="tag">SW 탐구 활동 1 · 개인</span><span class="pref">교과서 p.181</span><button class="timer" data-s="300">⏱ 5:00</button></div>
+  <h2 class="tt">일상생활 속 소프트웨어 스타트업 서비스 활용하기</h2>
+  
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:14px;margin-top:12px">
+    <div class="tile" style="font-size:20px"><h4>① 인공지능 기반 서비스를 제공하는 소프트웨어 스타트업</h4>
+      <b>제공하는 서비스 및 특징</b> 다양한 AI 기능을 포털 서비스 형태로 제공하는 플랫폼. 대화 생성, 문서 요약, 소스 코드 작성, 이미지 생성, 글쓰기 등 다양한 텍스트 생성 도구를 제공, GPT-4를 활용한 서비스를 무료로 제공<br>
+      <b>일상생활 속 활용 방안</b> 문서 작성(계획서, 보고서 등을 빠르고 효율적으로), 콘텐츠 제작(창의적이고 매력적인 글, 블로그·SNS 콘텐츠)</div>
+    <div class="tile" style="font-size:20px"><h4>② 스포티파이 <span class="exl">예시 (교사용 교과서)</span></h4>
+      <b>제공하는 서비스</b> 음악 및 팟캐스트 스트리밍(무료·프리미엄 구독), 청취 이력을 분석한 개인화된 음악 추천, 스마트폰·태블릿·컴퓨터·스마트 TV 등 언제 어디서나<br>
+      <b>활용 방안</b> 운동 스타일에 맞는 음악, 집중을 돕는 클래식·자연의 소리, 기분 전환·편안한 분위기</div>
+  </div>
+  <div class="qbox" style="font-size:21px;margin-top:12px"><b>③ 우리 삶에 미치는 영향</b> 예: 배달 산업이 발전하여 이전보다 편리하게 주문하는 등 생활 방식에 변화 · 메시징 앱과 소셜 미디어 → 소통의 간소화, 의사소통 방식의 혁신 · 사물 인터넷 → 가정용 기기의 스마트화</div>
+</section>
+
+<section class="slide s1" data-t="탐구 활동 2: 생활 속 문제 개선하기">
+  <div class="hd"><span class="tag">SW 탐구 활동 2 · 모둠</span><span class="pref">교과서 p.182</span><button class="timer" data-s="600">⏱ 10:00</button></div>
+  <h2 class="tt">소프트웨어 스타트업으로 생활 속 문제 개선하기</h2>
+  
+  <p class="lead" style="font-size:19px;margin-top:4px">소프트웨어 스타트업은 일상생활의 불편함을 해소하는 혁신적인 서비스를 제공해요. 3~5인 모둠으로 생활 속 불편함을 문제로 선정해 봐요.</p>
+  <div class="grid" style="grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px">
+    <div class="tile" style="font-size:17px"><h4>① 나의 의견 <span class="exl">예시 (교사용 교과서)</span></h4>이동 수업이 있을 때마다 에어컨을 켜고 끄는 것이 번거로움 / 고교학점제로 매번 선택 과목 시간표와 장소를 확인하고 이동하는 것이 번거로움</div>
+    <div class="tile" style="font-size:17px"><h4>+ 모둠원들의 의견</h4>더운 날에는 체육 수업 종료 시간에 맞춰 교실 에어컨이 미리 작동되면 좋겠음 / 특별실을 이동하는 수업에서도 장소 변경을 매번 확인하는 것이 번거로울 때가 있음</div>
+    <div class="tile" style="font-size:17px;background:var(--f-green)"><h4>= 결정한 문제</h4>이동 수업 시간과 온도에 맞춰 작동되는 스케줄 에어컨이 필요함 / 선택과목의 시간표와 장소를 개인별로 확인할 수 있는 프로그램이 필요함</div>
+  </div>
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+    <div class="tile" style="font-size:17px"><h4>② 개선 방안 토의</h4>에어컨에 타이머와 온도 설정 기능은 있으나 날짜 설정 기능이 없으므로 추가하기로 함 · 개인별 선택과목 시간표가 출력되는 앱 · 교사별 수업 장소가 함께 출력 · 교사가 수업 장소를 실시간 변경하면 학생이 확인</div>
+    <div class="tile" style="font-size:17px"><h4>③ 서비스: 에어컨 작동 스케줄 서비스 / 시간표 알리미</h4><b>사용처</b> 이동 수업 시간에 맞춰 실내 온도 조절이 필요한 교실 · <b>설명</b> 설정한 일시에 쾌적한 온도가 유지되도록 작동 / 교사가 장소를 변경해 두면 학생들이 실시간으로 확인</div>
+  </div>
+  <div class="qbox" style="font-size:17px;margin-top:10px"><b>④ 발표 예</b> 현재 문제: 많은 고등학생이 수업 시간표, 과제 마감일, 동아리 활동, 시험 일정 등을 기억하고 관리하기 쉽지 않음 · 주요 기능: 시간표 관리, 알림, 일정 동기화, 할 일 목록, 그룹 일정 공유 · 기대 효과: 시간 관리 향상, 스트레스 감소, 성적 향상</div>
+</section>
+
+<section class="slide s1" data-t="성공 사례 ① 음식 및 배달">
+  <div class="hd"><span class="tag">02 사례 및 분석</span><span class="pref">교과서 p.183</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">성공 사례 ① 음식 및 배달 서비스 분야</h2>
+  
+  <p class="lead" style="margin-top:4px">성공한 소프트웨어 스타트업의 사례로 <b>사업 개요, 스타트업 기획 방법, 운영 시 고려 사항, 주요 성공 요인</b>을 분석해 봐요.</p>
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:12px;margin-top:10px">
+    <div class="tile" style="font-size:19px;background:var(--f-orange)"><h4>📋 사업 개요</h4>한국의 대표적인 배달 서비스 플랫폼. 전단지 앱 서비스로 시작하여 배달 산업에 입문, 현재 배달 앱 업계 선도. 세분화된 배달 음식 카테고리로 원하는 배달 음식점 업체를 찾거나 현재 위치 중심 인근 배달 음식점 정보 확인·주문</div>
+    <div class="tile" style="font-size:19px;background:var(--f-teal)"><h4>💡 스타트업 기획 방법</h4>스마트폰 보급의 대중화에 맞춰 전통적인 전화 기반 배달 서비스를 사용자 친화적인 앱으로 혁신. 주요 이용자인 젊은층이 공감할 수 있는 캐릭터, 글씨체 등을 사용하여 차별화 → 초기부터 <b>사용자 중심의 서비스 제공, 차별화</b></div>
+    <div class="tile" style="font-size:19px;background:var(--f-blue)"><h4>⚙️ 운영 시 고려 사항</h4>수평적 조직 구조 강조, 젊은 감성의 세부 자율적 조직 문화 선도, 기업답게 운영 방침이나 시스템 등도 차별화. ‘규율 위의 자율, 스타보다 팀워크, 진지함과 위트, 열심만큼 성과’라는 4대 핵심 가치. 직급 없이 이름과 사진으로만 게시된 직원 소개</div>
+    <div class="tile" style="font-size:19px;background:var(--f-green)"><h4>🏆 주요 성공 요인</h4>독특한 정서가 담긴 디자인, 직접 발로 뛰며 모은 배달 점포 데이터로 앱스토어 다운로드 1위, 적극적인 마케팅으로 인지도를 높이는 공격적 전략 → 대규모 투자 유치. 젊은층의 공감을 이끈 효과적인 마케팅, 다양한 플랫폼 전략</div>
+  </div>
+</section>
+
+<section class="slide s1" data-t="성공 사례 ② 중고 거래">
+  <div class="hd"><span class="tag">02 사례 및 분석</span><span class="pref">교과서 p.184</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">성공 사례 ② 중고 거래 및 온라인 마켓 플레이스</h2>
+  
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
+    <div class="tile" style="font-size:19px;background:var(--f-orange)"><h4>📋 사업 개요</h4>△△기업의 직원들만 사용할 수 있는 사내 중고 게시판 형태로 시작 → 지역 주민들로부터 물품 직거래를 위해 이용이 가능한지 문의 → 지역 중심 중고 거래 스마트폰 앱 개발. 다른 서비스와 달리 안전성과 이용자 간의 커뮤니티 형성 등을 통해 신뢰도를 높임. 소비자 간 거래(<b>C2C</b>; Consumer to Consumer)의 가장 큰 문제인 <b>불안감</b> 해소가 사업의 중심</div>
+    <div class="tile" style="font-size:19px;background:var(--f-teal)"><h4>💡 스타트업 기획 방법</h4>‘가까운 거리에 있는 이들을 직접 만나 거래하도록 연결해 주면 중고 거래의 문제점들을 크게 해소할 수 있겠다’는 목적으로 시작. 중고 거래 시장의 판도를 완전히 바꿈. 돈 받고 팔던 방식에서 벗어나 무료 나눔 활동, 가까운 지역 사람들에게 도움 요청·도움 → 동네 생활 문화 확산</div>
+    <div class="tile" style="font-size:19px;background:var(--f-blue)"><h4>⚙️ 운영 시 고려 사항</h4>크게 <b>고객 유치, 활성화, 수익화, 유지, 추천</b>을 기반. 지역 기반 이용자를 모아 신뢰도 높은 거래와 서비스 제공 → 신규 가입자 증가. 수익은 광고를 통해 발생시켜 이용자의 부담 없이, 지역 주민 간 소통으로 자발적 참여 유도</div>
+    <div class="tile" style="font-size:19px;background:var(--f-green)"><h4>🏆 주요 성공 요인</h4>소비자들의 목소리에 귀 기울여 다양한 서비스 제공. <b>인공지능</b>으로 부적절한 콘텐츠를 검수·삭제하여 피로도 감소, 계좌번호·예금주 같은 개인 정보 불편함 해소를 위해 간편 결제 서비스 도입. 채팅, 후기, 매너 지표 등으로 신뢰할 수 있는 거래 지원</div>
+  </div>
+</section>
+
+<section class="slide s1" data-t="실패 사례">
+  <div class="hd"><span class="tag">02 사례 및 분석</span><span class="pref">교과서 p.185</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">실패 사례 · SNS ○○</h2>
+  
+  <p class="lead" style="margin-top:4px">2000년대 국내에서 큰 인기를 얻었지만 타 기업과의 경쟁에서 밀려 서비스를 중단한 △△업체의 사례를 분석해 봐요.</p>
+  <div class="grid" style="grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:10px">
+    <div class="tile" style="font-size:19px;background:var(--f-orange)"><h4>📋 사업 개요</h4>△△업체가 2000년대 초에 출시한 ○○은 당시 한국에서 혁신적인 <b>SNS</b>로 인기. 개인 홈페이지(미니홈피), 사진첩, 다이어리, 게시판, 방명록 등 가상 커뮤니티 공간 제공. 다양한 장식과 미니룸으로 홈페이지를 자신의 취향에 맞게 꾸밈 → 당시 한국 인터넷 인구의 대부분을 사용자로</div>
+    <div class="tile" style="font-size:19px;background:var(--f-teal)"><h4>💡 스타트업 기획 방법</h4>실명제 인간관계 기반의 가상 사회, 신뢰 기반의 정보 공유를 컨셉으로 사람과 사람 사이의 친분 관계를 형성하고 도와주는 인터넷 커뮤니티의 대표 주자. 아바타와 개인 홈페이지로 자신을 표현, 일촌 맺기로 열람 제한 → 신뢰 기반 커뮤니티</div>
+    <div class="tile" style="font-size:19px;background:var(--f-red)"><h4>⚠️ 실패 요인 및 현황</h4>① 2000년대 후반 등장한 다른 SNS로 이용자 수 감소<br>② 스마트폰 대중화, 모바일로 쉽게 나만의 공간 → 굳이 PC로 접속해 로그인해야 하는 ○○에 대한 반응 시들<br>③ 기업의 본질을 잘 아는 창업 멤버들이 각자의 길로 → 기존과 다른 서비스로 관심 멀어짐</div>
+  </div>
+  <div class="box c" style="margin-top:12px;font-size:23px">실패 사례 정리: <b class="bl" tabindex="0">제한적인 관계 형성</b>, <b class="bl" tabindex="0">환경 변화</b> 대응 미흡 및 <b class="bl" tabindex="0">창업 멤버 부재</b> 등 <span class="pp">p.203 대단원 정리</span></div>
+</section>
+
+<section class="slide s1" data-t="보충: 스타트업이 실패하는 이유">
+  <div class="hd"><span class="tag">보충 학습</span><span class="pref">교과서 p.186</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">스타트업이 실패하는 이유 (12가지)</h2>
+  
+  <p class="lead" style="margin-top:4px">한 시장 조사 기관에서 실패한 스타트업 111개사에 대한 사후 분석을 통해 스타트업이 실패하는 가장 큰 원인 12가지를 발표했어요.</p>
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:16px;margin-top:10px">
+    <div class="tile"><div class="bars"><div class="br"><span class="bn">현금소진/신규자본 조달 실패</span><span class="bt"><i style="width:100.0%;background:#A0522D"></i></span><b>38%</b></div><div class="br"><span class="bn">시장에서 필요로 하지 않음</span><span class="bt"><i style="width:92.1%;background:#A0522D"></i></span><b>35%</b></div><div class="br"><span class="bn">경쟁에서 밀림</span><span class="bt"><i style="width:52.6%;background:#A0522D"></i></span><b>20%</b></div><div class="br"><span class="bn">결함있는 비즈니스 모델</span><span class="bt"><i style="width:50.0%;background:#A0522D"></i></span><b>19%</b></div><div class="br"><span class="bn">규제/법적문제</span><span class="bt"><i style="width:47.4%;background:#A0522D"></i></span><b>18%</b></div><div class="br"><span class="bn">가격/비용문제</span><span class="bt"><i style="width:39.5%;background:#A0522D"></i></span><b>15%</b></div></div></div>
+    <div class="tile"><div class="bars"><div class="br"><span class="bn">적합하지 않은 팀</span><span class="bt"><i style="width:36.8%;background:#A0522D"></i></span><b>14%</b></div><div class="br"><span class="bn">잘못된 제품 타이밍</span><span class="bt"><i style="width:26.3%;background:#A0522D"></i></span><b>10%</b></div><div class="br"><span class="bn">불량품</span><span class="bt"><i style="width:21.1%;background:#A0522D"></i></span><b>8%</b></div><div class="br"><span class="bn">팀과 투자자 간의 불화</span><span class="bt"><i style="width:18.4%;background:#A0522D"></i></span><b>7%</b></div><div class="br"><span class="bn">잘못된 피봇</span><span class="bt"><i style="width:15.8%;background:#A0522D"></i></span><b>6%</b></div><div class="br"><span class="bn">지쳐버림/열정 식음</span><span class="bt"><i style="width:13.2%;background:#A0522D"></i></span><b>5%</b></div></div></div>
+  </div>
+  <p class="lead" style="margin-top:6px">스타트업이 실패하는 주요 이유들(복수응답, %) · 자료: CB Insights(2021) The Top Reasons Why Startups Fail</p>
+  <div class="qbox" style="font-size:22px;margin-top:10px">이 밖에도 잘못된 제품 타이밍, 낮은 품질, 팀 또는 투자자와의 불화 등도 실패의 원인으로 선정되었어요. 다음 장에서 1~7위를 자세히 봐요!</div>
+</section>
+
+<section class="slide s1" data-t="보충: 실패 이유 1~7위">
+  <div class="hd"><span class="tag">보충 학습</span><span class="pref">교과서 p.186</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">스타트업이 실패하는 이유 1~7위 · 눌러서 설명 보기</h2>
+  <div class="rvg" style="grid-template-columns:repeat(4,1fr)"><button class="rv" style="min-height:168px"><b>1위 현금 소진/신규 자본 조달 실패</b><span>스타트업에서 돈과 시간은 매우 중요한 요소. 현금의 흐름에 대한 계획을 잘 관리하고, 멤버 중 이에 대해 잘 알고 있는 구성원이 있어야 함</span></button><button class="rv" style="min-height:168px"><b>2위 시장이 원하지 않는 제품</b><span>시장의 요구보다는 창업자의 개인적인 관심사에 초점 → 시장의 수요와 고객의 필요를 충족시키는 것이 중요</span></button><button class="rv" style="min-height:168px"><b>3위 경쟁에서 밀림</b><span>한 아이디어가 뜨거워지거나 시장의 검증을 받게 되면 많은 경쟁자들이 진입. 경쟁에 집착하는 것도 좋지 않지만, 무시하는 것은 실패의 지름길</span></button><button class="rv" style="min-height:168px"><b>4위 결함 있는 비즈니스 모델</b><span>미흡하거나 실행 불가능한 비즈니스 모델. 예: 센서로 데이터를 수집하는 개념으로 투자를 받았지만, 실행 가능한 서비스로 바꾸지 못하고 수익화하지 못함</span></button><button class="rv" style="min-height:168px"><b>5위 규제/법적 문제</b><span>단순한 아이디어에서 발전하지만, 폐업시킬 수도 있는 법적 복잡성의 문제. 예: 다양한 음악 관련 스타트업의 실패 이유는 법적 분쟁으로 인한 높은 비용</span></button><button class="rv" style="min-height:168px"><b>6위 가격/비용 문제</b><span>비용을 충당할 만큼 높으면서도 고객을 끌어들일 만큼 낮은 제품 가격을 매기는 것이 어려워 문 닫은 사례가 15%</span></button><button class="rv" style="min-height:168px"><b>7위 적합하지 않은 팀</b><span>회사가 주요 직원을 고용하지 못함. 다양한 기술을 가진 사람들로 구성된 팀이 회사의 성공에 중요한 역할</span></button></div><p class="lead" style="margin-top:8px">참고 자료: 世大時報, 2022. 02. 15. 일부 각색 (교과서 p.186)</p>
+</section>
+
+<section class="slide s1" data-t="SWOT 분석">
+  <div class="hd"><span class="tag">SW 탐구 활동 3 · 개인</span><span class="pref">교과서 p.187</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">SWOT 분석이란?</h2>
+  
+  <div class="box c" style="margin-top:12px;font-size:24px;line-height:1.75"><b>SWOT 분석</b>이란? <b class="bl" tabindex="0">강점(Strength)</b>, <b class="bl" tabindex="0">약점(Weakness)</b>, <b class="bl" tabindex="0">기회(Opportunity)</b>, <b class="bl" tabindex="0">위협(Threat)</b>을 기본으로 하여 내부 환경에서 발견되는 장단점, 외부 환경에서 발견되는 긍정적인 기회 요인과 위협 요인들을 분석하여 사업을 분석하는 방법</div>
+  <div class="swot">
+    <span></span><b class="ax">긍정적 측면</b><b class="ax">부정적 측면</b>
+    <b class="ay">내부<br>환경</b><div class="sq s">S 강점<small>다른 투자 자산과 비교하여 소비자로부터 강점으로 인식되는 것은 무엇인지</small></div><div class="sq w">W 약점<small>다른 투자 자산과 비교하여 소비자로부터 약점으로 인식되는 것은 무엇인지</small></div>
+    <b class="ay">외부<br>환경</b><div class="sq o">O 기회<small>외부 환경, 금융 시장과 관련하여 유리한 기회 요인은 무엇인지</small></div><div class="sq t">T 위협<small>외부 환경, 금융 시장과 관련하여 불리한 위협 요인은 무엇인지</small></div>
+  </div>
+  <p class="lead" style="margin-top:8px">SWOT 분석은 기업 전략을 수립하는 데 기초 자료로 사용 → 내부 요인과 외부 요인을 체계적으로 분석하여 문제 해결 및 기회 포착이 가능</p>
+</section>
+
+<section class="slide s1" data-t="SWOT 분석해 보기: 배달 업체">
+  <div class="hd"><span class="tag">SW 탐구 활동 3 · 개인</span><span class="pref">교과서 p.187</span><button class="tool qp">🎲 누가 답할까?</button><button class="all">모두 보기</button></div>
+  <h2 class="tt">SWOT 분석해 보기 · 어디에 들어갈까?</h2>
+  
+  <p class="lead" style="margin-top:4px">성공 사례로 소개된 배달 업체(p.183)를 SWOT 기법으로 분석해 봐요. 카드를 누르면 S·W·O·T 중 어디인지 나와요!</p>
+  <div class="cards" style="grid-template-columns:repeat(2,1fr);margin-top:14px"><button class="card s" style="min-height:170px;font-size:21px">이용자의 만족도, 의견 기록을 통해 다른 이용자에게 신뢰를 주어 질 높은 서비스가 이루어진다.<br><small>광범위한 가맹점 네트워크: 다양한 음식점과 카페, 배달 가능한 모든 업소</small><span class="k s">S 강점 (내부·긍정)</span></button><button class="card w" style="min-height:170px;font-size:21px">자동 위치 설정에 문제가 있으면 다른 지역의 정보를 가져와 불편을 초래할 수 있다.<br><small>높은 수수료: 다른 배달 서비스에 비해 상대적으로 높은 수수료</small><span class="k w">W 약점 (내부·부정)</span></button><button class="card o" style="min-height:170px;font-size:21px">기존 종이 광고지에서 차별화된 앱을 기획하여 새로운 배달 문화를 형성하였다.<br><small>전자 결제 시스템의 보급: 스마트폰으로 간편하게 결제하는 시대</small><span class="k o">O 기회 (외부·긍정)</span></button><button class="card t" style="min-height:170px;font-size:21px">유사 서비스 업체들이 시장에 많이 진입하였다.<br><small>정부의 규제: 배달 애플리케이션들의 수수료에 대한 규제 강화 추세</small><span class="k t">T 위협 (외부·부정)</span></button></div>
+</section>
+
+<section class="slide s1" data-t="탐색 활동 4: 사례 분석">
+  <div class="hd"><span class="tag">SW 탐색 활동 4 · 모둠</span><span class="pref">교과서 p.188</span><button class="timer" data-s="600">⏱ 10:00</button></div>
+  <h2 class="tt">소프트웨어 스타트업 사례 분석하기 (1)</h2>
+  
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:14px;margin-top:12px">
+    <div class="tile" style="font-size:19px;background:var(--f-blue)"><h4>① 성공 사례: 당근마켓 <span class="exl">예시 (교사용 교과서)</span></h4>
+      <b>기업 이름/소개</b> 지역 기반 중고거래 플랫폼, 이웃 간 직거래에 중점. 2015년 ‘판교장터’로 시작해 근래 국내 중고거래 앱 중 가장 인기 있는 서비스 중 하나<br>
+      <b>사업 현황</b> 2016년 5월 ‘당근마켓’으로 명칭 변경, 투자 유치와 서비스 확장으로 더 큰 성장 목표<br>
+      <b>성공 요인</b> 이용자의 집에서 최대 6km 반경으로 한정해 거래 안정성 향상, 지역 간 커뮤니티 형성. 머신러닝으로 문제 글을 자동 탐지, 사기 방지 알고리즘</div>
+    <div class="tile" style="font-size:19px;background:var(--f-red)"><h4>② 실패 사례: 야후(Yahoo) <span class="exl">예시 (교사용 교과서)</span></h4>
+      <b>기업 이름/소개</b> 디렉토리, 이메일, 개인 홈페이지 등을 통합한 포털 사이트를 운영하는 미국의 웹 포털 회사<br>
+      <b>사업 현황</b> 1990년대 후반~2000년대 중반 다양한 국가에서 독보적 시장 점유율. 2000년대 중반 구글의 부상으로 점유율 급격히 하락, 2012년 국내에서 1000억 원 이상의 손실을 내며 철수<br>
+      <b>실패 요인</b> CEO의 경영자 경험 부족 및 경영자의 부족한 부분을 채워줄 인적 자원의 부재, 구글과의 경쟁에서 패배, 스마트폰 시장에 대한 참여가 소극적</div>
+  </div>
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:12px;margin-top:10px">
+    <div class="tile" style="font-size:18px"><b>성공 사례 분석 가이드라인</b> · 어떤 문제를 해결하고자 했는가? · 어떤 차별화된 전략을 사용했는가? · 주된 성공 요인은 무엇인가?</div>
+    <div class="tile" style="font-size:18px"><b>실패 사례 분석 가이드라인</b> · 어떤 이유로 실패했는가? · 실패를 극복하기 위해 어떤 방안을 사용할 수 있었는가? · 실패에서 배울 수 있는 점은?</div>
+  </div>
+</section>
+
+<section class="slide s1" data-t="탐색 활동 4: 모둠 발표">
+  <div class="hd"><span class="tag">SW 탐색 활동 4 · 모둠</span><span class="pref">교과서 p.189</span><button class="tool qs">🏆 점수판</button></div>
+  <h2 class="tt">모둠별 분석 발표 · 성공을 위한 방법 정리하기</h2>
+  
+  <table class="tb5"><thead><tr><th>모둠</th><th>성공 사례</th><th>성공 요인</th><th>실패 사례</th><th>실패 요인</th></tr></thead><tbody>
+    <tr><td>A</td><td><b>넷플릭스</b>(Netflix)</td><td>고객들의 영상 콘텐츠 이용 패턴 분석 및 빅데이터를 활용한 선호 콘텐츠 추천</td><td><b>메쉬코리아</b>(배달대행 부릉)</td><td>외부 자금에 과도하게 의존하여 감당할 수 없는 수준으로 사업을 진행하는 등 무리한 경영 지속</td></tr>
+    <tr><td>B</td><td><b>깃허브</b>(Github)</td><td>다양한 기능을 오픈소스 소프트웨어 플랫폼에 접목 → 개발자의 참여 및 협업 동기 강화, 자유로운 개발과 공유의 가치 증대</td><td><b>테라노스</b>(혈액 진단)</td><td>비현실적 목표를 설정하였으며, 거짓으로 마케팅 및 홍보</td></tr>
+    <tr><td>C</td><td><b>토스</b>(Toss)</td><td>금융 업무를 보는 데 많은 시간을 소비하지 않도록 간편 송금 서비스 제공 등 소비자의 입장에서 불편한 점을 개선</td><td><b>풀러스</b>(라이드셰어링)</td><td>기존 택시업계의 견제와 정부의 규제로 인해 서비스 종료</td></tr></tbody></table>
+  <p class="lead" style="margin-top:4px"><span class="exl">예시 (교사용 교과서)</span></p>
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:12px;margin-top:8px">
+    <div class="tile" style="font-size:19px;background:var(--f-blue)"><h4>성공한 기업들이 스타트업을 기획한 방법은?</h4>· 기존의 서비스와 차별을 둔 새로운 플랫폼 기획<br>· 자신만의 독자적인 차별화로 소비자 만족<br>· 독자적인 고객층을 끌어낼 수 있는 타깃 마케팅</div>
+    <div class="tile" style="font-size:19px;background:var(--f-orange)"><h4>성공을 위해 운영 시 고려해야 할 사항은?</h4>· 아이디어와 시장 분석: 사용자의 문제를 해결할 수 있는 아이디어를 찾고, 시장 가능성 검토<br>· 사용자 중심 디자인: 직관적이고 편리한 화면 제공</div>
+  </div>
+</section>
+
+<section class="slide s3" data-t="생각 열기: 어떤 가치를 만들까?">
+  <div class="hd"><span class="tag">2. 소프트웨어 스타트업 프로젝트</span><span class="pref">교과서 p.190</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">소프트웨어 스타트업은 어떤 가치를 만들어 낼까?</h2>
+  
+  <p class="lead" style="margin-top:4px">소프트웨어 창업은 다양한 분야에서 혁신과 가치를 창출해 왔어요.</p>
+  <div class="grid" style="grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px">
+    <div class="tile" style="font-size:19px"><h4>마이크로소프트</h4>1975년 빌 게이츠와 폴 앨런 창업 → 개인용 컴퓨터 시장 개척</div>
+    <div class="tile" style="font-size:19px"><h4>구글</h4>1998년 래리 페이지와 세르게이 브린 창업 → 검색 기술과 클라우드 컴퓨팅 등에서 혁신</div>
+    <div class="tile" style="font-size:19px"><h4>애플</h4>스티브 잡스와 스티브 워즈니악 창업 → 혁신적인 스마트폰 개발</div>
+    <div class="tile" style="font-size:19px"><h4>스페이스X</h4>일론 머스크 → 자율주행 자동차와 우주 인터넷망을 포함한 혁신적인 사업 아이디어로 지속 가능한 인류의 미래 모색</div>
+  </div>
+  <p class="lead" style="margin-top:8px">이 외에도 수많은 소프트웨어 스타트업들이 다양한 분야에서 새로운 가치를 창출하며 전 세계인의 일상생활에 큰 영향을 미치고 있어요.</p>
+  <div class="qbox" style="font-size:22px;margin-top:12px"><b>생각 열기</b> 소프트웨어 스타트업 프로젝트는 어떤 과정을 거쳐 이루어질까?</div>
+  <div class="flow" style="margin-top:12px"><b class="bl" tabindex="0">사용자 요구 분석 및 주제 선정</b><i>→</i><b class="bl" tabindex="0">해결 아이디어 구상</b><i>→</i><b class="bl" tabindex="0">소프트웨어 설계 및 제작</b><i>→</i><b class="bl" tabindex="0">소프트웨어 평가</b></div>
+</section>
+
+<section class="slide s3" data-t="프로젝트 수행 과정">
+  <div class="hd"><span class="tag">01 프로젝트 수행</span><span class="pref">교과서 p.191</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">소프트웨어 스타트업 프로젝트의 수행 과정</h2>
+  
+  <p class="lead" style="margin-top:4px">소프트웨어 스타트업 프로젝트는 서비스를 이용할 사용자 분석에서부터 실제 소프트웨어를 제작하고 평가하는 데까지 일련의 과정을 거쳐 이루어져요.</p>
+  <div class="cards" style="grid-template-columns:repeat(4,1fr);margin-top:14px"><button class="card fus" style="min-height:230px;font-size:24px">① 사용자 요구 분석 및 주제 선정<span class="k fus">문제 제기, 사용 대상자 선정, 적합한 주제 선정</span></button><button class="card fus" style="min-height:230px;font-size:24px">② 해결 아이디어 구상<span class="k fus">아이디어 회의, 구현 기능 계획, 비용 예측, 마케팅 전략 구상</span></button><button class="card fus" style="min-height:230px;font-size:24px">③ 소프트웨어 설계 및 제작<span class="k fus">디자인 설계, 프로그래밍</span></button><button class="card fus" style="min-height:230px;font-size:24px">④ 소프트웨어 평가<span class="k fus">테스트 및 배포, 정확도 측정, 피드백 수집 및 개선사항 반영</span></button></div>
+  <p class="lead" style="margin-top:10px">카드를 눌러 각 단계에서 하는 일을 확인해요.</p>
+</section>
+
+<section class="slide s3" data-t="(1) 사용자 요구 분석 및 주제 선정">
+  <div class="hd"><span class="tag">02 설계와 구현</span><span class="pref">교과서 p.191</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">(1) 사용자 요구 분석 및 주제 선정</h2>
+  
+  <div class="box c" style="margin-top:12px;font-size:24px;line-height:1.75">소프트웨어 스타트업 개발의 실질적인 <b class="bl" tabindex="0">첫 단계</b>로 사용자의 요구 및 필요에 대하여 <b class="bl" tabindex="0">공감</b>하고 이를 바탕으로 사업의 <b class="bl" tabindex="0">핵심 주제</b>를 선정하는 과정<br><span style="font-size:21px">→ 서비스를 제공받게 될 당사자와의 <b class="bl" tabindex="0">설문, 인터뷰</b> 등의 방법을 많이 활용</span></div>
+  <h3 class="sh">예: 쓰레기 분리배출</h3>
+  <div class="comic"><div class="cb">😕 페트병 뚜껑은 어떻게 분리배출 하는 게 맞는걸까?</div><div class="cb">💡 그러게, 쓰레기 종류에 따라 배출하는 방법을 알려주는 앱이 있으면 편하겠다.</div><div class="cb">🙋 그럼 우리가 올바른 재활용 분리배출 방법을 안내해 주는 프로그램을 만들어 볼까?</div><div class="cb">📋 그래! 우리 학교 학생들을 위한 프로그램이니까 친구들에게도 어떤 기능이 더 필요할지 물어보자.</div></div>
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:12px;margin-top:10px">
+    <div class="tile" style="font-size:18px"><b>사용자 요구 분석</b> ‘안전’이라는 핵심 문제를 인식하고, 불법주정차로 인한 문제의 심각성에 공감하기 (p.198 제안서 예와 연결) <span class="exl">예시 (교사용 교과서)</span></div>
+    <div class="tile" style="font-size:18px"><b>주제 선정</b> 주차 위반 감지 시스템의 사회적 가치를 이해하고, 소프트웨어 활용이 문제 해결에 어떻게 기여할 수 있는지 설명하기 <span class="exl">예시 (교사용 교과서)</span></div>
+  </div>
+</section>
+
+<section class="slide s3" data-t="(2) 해결 아이디어 구상">
+  <div class="hd"><span class="tag">02 설계와 구현</span><span class="pref">교과서 p.192</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">(2) 해결 아이디어 구상</h2>
+  
+  <div class="box c" style="margin-top:12px;font-size:23px;line-height:1.75">사용자의 요구에 맞추어 사업 주제를 선정하였다면, 이를 소프트웨어로 해결할 방안을 구상하는 단계<br>· 회사의 개발 여건 및 기술적 능력, 소요 시간 등을 고려하여 <b class="bl" tabindex="0">브레인스토밍</b> 등의 과정을 통해 아이디어 회의<br>· 어떤 기능을 제공해야 하는지 판단, 개발에 필요한 <b class="bl" tabindex="0">비용</b>도 포함<br>· 해당 소프트웨어를 어떤 방법으로 홍보할지 <b class="bl" tabindex="0">마케팅 전략</b>을 구상하는 단계까지 포함</div>
+  <h3 class="sh">예: 쓰레기 분리배출</h3>
+  <div class="comic"><div class="cb">🤔 어떤 소프트웨어를 만들지 구체적으로 생각해 보자.</div><div class="cb">♻️ 촬영한 쓰레기를 분류해서 알맞은 분리배출 방법을 안내해 주는 기능은 어때?</div><div class="cb">📷 이미지 인식 기술을 활용해서 만들어 보자. 홍보는 어떻게 하면 좋을까?</div><div class="cb">📣 SNS에 쓰레기 문제 관련 글을 올리거나 환경 보호 캠페인을 하면 도움이 될 것 같아.</div></div>
+  <div class="tile" style="margin-top:10px;font-size:18px"><b>해결 아이디어 구상</b> <span class="exl">예시 (교사용 교과서)</span> · 기술 구상: 센서와 데이터를 활용한 구체적인 기술 아이디어를 학생들 수준에 맞게 설명 · 제품 구현: 아두이노와 센서의 역할을 구체적으로 설명, 환경적 요인을 고려한 설계 중요성 강조 · 홍보: 지역 사회와 소셜미디어를 활용한 홍보 방법</div>
+</section>
+
+<section class="slide s3" data-t="보충: 브레인스토밍">
+  <div class="hd"><span class="tag">보충 학습</span><span class="pref">교과서 p.192</span><button class="timer" data-s="600">⏱ 10:00</button><button class="all">모두 보기</button></div>
+  <h2 class="tt">브레인스토밍이란?</h2>
+  
+  <div class="box c" style="margin-top:12px;font-size:23px;line-height:1.7"><b>브레인스토밍(Brainstorming)</b>이란? 창의적인 아이디어를 생산하기 위한 학습 도구이자 회의 기법. <b class="bl" tabindex="0">집단적 창의적 발상 기법</b>으로 집단에 소속된 인원들이 <b class="bl" tabindex="0">자발적</b>으로 자연스럽게 제시된 아이디어 목록을 통해서 특정한 문제에 대한 해답을 찾고자 노력하는 것</div>
+  <h3 class="sh">브레인스토밍의 과정</h3>
+  <div class="cards" style="grid-template-columns:repeat(4,1fr);margin-top:14px"><button class="card gen" style="min-height:112px;font-size:19px">① 관련자 모두가 참여하는 회의 소집<span class="k gen">1</span></button><button class="card gen" style="min-height:112px;font-size:19px">② 경험 많은 사람을 회의 주재자로 선정<span class="k gen">2</span></button><button class="card gen" style="min-height:112px;font-size:19px">③ 테이블에 참석자를 배석시키고 종이 준비<span class="k gen">3</span></button><button class="card gen" style="min-height:112px;font-size:19px">④ 토론을 유도할 질문을 정함<span class="k gen">4</span></button><button class="card gen" style="min-height:112px;font-size:19px">⑤ 질문에 대하여 답을 종이에 적되, 한 장에 하나의 아이디어만 적은 후 참석자에게 돌려 봄<span class="k gen">5</span></button><button class="card gen" style="min-height:112px;font-size:19px">⑥ 5번 단계를 5~15분간 반복<span class="k gen">6</span></button><button class="card gen" style="min-height:112px;font-size:19px">⑦ 간단한 설명<span class="k gen">7</span></button><button class="card gen" style="min-height:112px;font-size:19px">⑧ 모든 아이디어를 칠판에 적은 후 우선순위를 정하기 위하여 투표를 할 수도 있음<span class="k gen">8</span></button></div>
+</section>
+
+<section class="slide s3" data-t="(3) 소프트웨어 설계 및 제작">
+  <div class="hd"><span class="tag">02 설계와 구현</span><span class="pref">교과서 p.193</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">(3) 소프트웨어 설계 및 제작</h2>
+  
+  <div class="box c" style="margin-top:12px;font-size:21px;line-height:1.75">어떤 소프트웨어를 개발할 것인지 결정하였다면 이를 상세히 설계하고 실제로 제작하는 단계<br>· 사용자 요구 분석 단계에서 규명된 필수 기능들의 구체적인 구현 방법을 명시하는 단계<br>· 관심이 <b class="bl" tabindex="0">무엇을(What)</b>으로부터 <b class="bl" tabindex="0">어떻게(How)</b>로 바뀌며, 앞으로 구현할 소프트웨어의 청사진이 보이게 됨<br>· 개발 완료 시점까지의 <b class="bl" tabindex="0">상세 일정 계획</b>이 포함되어야 함</div>
+  <h3 class="sh">예: 쓰레기 분리배출</h3>
+  <div class="comic"><div class="cb">🧑‍💻 프로그램을 어떻게 개발하면 좋을까?</div><div class="cb">🧩 엔트리의 이미지 분류 기능을 활용해서 만들어 보자.</div><div class="cb">📸 쓰레기 분리가 주된 기능이니 먼저 쓰레기를 촬영하고, 분리배출 항목을 판별한 뒤, 항목에 맞는 분리배출 방법을 안내하도록 제작하면 될 것 같아.</div><div class="cb">🎨 쓰레기 종류에 따라 색상이나 아이콘으로 구분해서 직관적으로 분리배출을 할 수 있게 디자인 해 보자.</div></div>
+  <div class="tile" style="margin-top:10px;font-size:16px"><b>소프트웨어 설계 계획</b> <span class="exl">예시 (교사용 교과서)</span> · 디자인 설계: 하드웨어와 소프트웨어의 연결성을 이해시키고, 간단한 설계도를 그리도록 지도 · 알고리즘 설계: 문제를 해결하기 위한 처리 과정을 단계별로 이해 · 프로그램 구현: 실행 계획의 순서를 명확히 하여 실현 가능한 단계를 스스로 작성</div>
+</section>
+
+<section class="slide s3" data-t="(4) 소프트웨어 평가">
+  <div class="hd"><span class="tag">02 설계와 구현</span><span class="pref">교과서 p.193</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">(4) 소프트웨어 평가</h2>
+  
+  <div class="box c" style="margin-top:12px;font-size:24px;line-height:1.75">제작한 소프트웨어는 본래 설정한 <b class="bl" tabindex="0">기준에 부합</b>하게 작동하는지, 사용자가 이용할 때 <b class="bl" tabindex="0">불편한 점</b>은 없는지 등의 <b class="bl" tabindex="0">피드백</b>을 수집하고 이를 평가하여 개선해 나가야 함</div>
+  <h3 class="sh">예: 쓰레기 분리배출</h3>
+  <div class="comic"><div class="cb">✅ 우리가 만든 프로그램이 잘 작동하는지 확인해 보자.</div><div class="cb">🧴 유리병의 색깔에 따라 인식 결과에 차이가 있는 것 같아.</div><div class="cb">🙋 또 다른 오류나 불편한 점이 없는지 다른 친구들한테도 물어볼까?</div><div class="cb">📊 좋아! 사용자의 피드백을 수집해서 평가해 보자.</div></div>
+  <div class="tile" style="margin-top:10px;font-size:19px">평가할 점: 프로그래밍으로 해결 가능한 주제를 스스로 선정하였는지, 창의적인 문제 해결 아이디어를 고안하였는지, 문제해결에 적합한 알고리즘을 설계하고 프로그램으로 구현하였는지 등을 종합적으로 평가 (교사용 교과서 지도 내용)</div>
+</section>
+
+<section class="slide s3" data-t="실습 활동 5: 쓰레기 분리 배출 프로그램">
+  <div class="hd"><span class="tag">SW 실습 활동 5 · 개인</span><span class="pref">교과서 p.194~195</span></div>
+  <h2 class="tt">쓰레기 분리 배출 프로그램 제작하기 (엔트리 이미지 분류)</h2>
+  
+  <p class="lead" style="font-size:20px;margin-top:4px">엔트리의 이미지 분류 기능을 활용하여 쓰레기 분리 배출 프로그램을 제작해 봐요. (참고 영상: 플라스틱 쓰레기만 ‘쏙쏙’…재활용 구별하는 AI 로봇, SBS 뉴스)</p>
+  <div class="grid" style="grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px">
+    <div class="tile" style="font-size:17px;background:var(--f-blue)"><h4>① 쓰레기 종류별 이미지 수집</h4>캐글(kaggle)에 로그인 → Datasets → ‘garbage’ 검색 → ‘Garbage Classification (12 classes)’ → glass, metal, paper, plastic 중 원하는 이미지를 각각 5장씩 다운로드해 서로 다른 폴더에 저장</div>
+    <div class="tile" style="font-size:17px;background:var(--f-teal)"><h4>② 이미지 분류 모델 학습</h4>엔트리(playentry.org) 로그인 → [만들기]-[작품 만들기] → [인공지능] 블록-[인공지능 모델 학습하기]-[새로 만들기]-[분류: 이미지]-[학습하기] → 모델 제목(분리 배출), 클래스명(plastic, paper, metal, glass) 입력, 이미지 업로드 후 [모델 학습하기]</div>
+    <div class="tile" style="font-size:17px;background:var(--f-orange)"><h4>③ 이미지 분류 프로그램 제작</h4>입력받은 이미지(직접 촬영 또는 업로드)를 분류하여 그 결과를 <b>신뢰도</b>와 함께 출력. 신뢰도는 소수점 이하 열 자리 이상의 소수 → 0~100까지의 정수로 나타내기 위해 100을 곱한 뒤 ‘소수점 반올림값’ 계산</div>
+    <div class="tile" style="font-size:17px;background:var(--f-green)"><h4>④ 프로그램 실행 및 개선</h4>분리 배출이 필요한 쓰레기의 사진을 업로드하여 잘 분류되는지 확인 → 직접 사용해 보고 추가하거나 개선이 필요한 부분을 수정하여 나만의 분리 배출 프로그램 완성</div>
+  </div>
+  <div class="tile" style="margin-top:10px;font-size:17px;background:var(--f-grey)">💡 kaggle 로그인이 불가하면 google에 ‘imageye’ 확장 프로그램을 추가하여 여러 종류의 쓰레기 이미지를 다운로드 · 분류가 잘 되지 않으면 수집 과정에서 편향된 데이터를 수집하지 않았는지, 데이터 양이 적절한지 다시 확인 · 엔트리 외에 ML4Kids(머신러닝 포 키즈), 티처블 머신 등도 활용 가능</div>
+</section>
+
+<section class="slide s3" data-t="가치 평가: 사회적 관점">
+  <div class="hd"><span class="tag">02 소프트웨어의 가치 평가</span><span class="pref">교과서 p.196</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">사회적 관점에서의 평가</h2>
+  
+  <div class="box c" style="margin-top:12px;font-size:23px;line-height:1.75">소프트웨어의 가치를 <b>사회적</b>으로 평가한다는 것은 소프트웨어 기술이 사회 전반에 미치는 영향을 이해하고, 그 영향이 어떻게 사회적 가치를 형성하고 영향을 미치는지를 평가하는 것<br>→ 사회적 문제 해결을 비롯하여 <b class="bl" tabindex="0">사회적·경제적 가치</b>와 <b class="bl" tabindex="0">환경적 영향</b> 등이 포함</div>
+  <h3 class="sh">사회적 관점의 평가 요소 (그림 Ⅴ-4)</h3>
+  <div class="rvg" style="grid-template-columns:repeat(4,1fr)"><button class="rv" style="min-height:170px"><b>사회적 문제 해결</b><span>소프트웨어가 사용자, 조직 및 사회에 미치는 영향을 판단하여 사회적 문제들을 해결하는 데 기여하는지 평가</span></button><button class="rv" style="min-height:170px"><b>사회적 가치</b><span>소프트웨어가 해결하고자 하는 사회 문제의 중요성을 파악하고, 이를 바탕으로 사회에 어떤 가치를 제공하는지 평가</span></button><button class="rv" style="min-height:170px"><b>경제적 가치</b><span>소프트웨어가 사용자에게 경제적인 가치를 제공하는지 평가</span></button><button class="rv" style="min-height:170px"><b>환경적 영향</b><span>소프트웨어의 사용이 환경에 미치는 영향을 평가</span></button></div>
+</section>
+
+<section class="slide s3" data-t="가치 평가: 기능적 관점">
+  <div class="hd"><span class="tag">02 소프트웨어의 가치 평가</span><span class="pref">교과서 p.196</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">기능적 관점에서의 평가</h2>
+  
+  <div class="box c" style="margin-top:12px;font-size:23px;line-height:1.75">소프트웨어의 가치를 <b>기능적</b>으로 평가한다는 것은 주로 소프트웨어의 <b class="bl" tabindex="0">기능, 성능, 안정성, 사용자 경험</b> 등과 같은 기술적인 측면을 중심으로 평가하는 것<br>→ 사용자나 기업의 요구를 충족시키고 효과적으로 동작하는 데에 초점</div>
+  <h3 class="sh">기능적 관점의 평가 요소 (그림 Ⅴ-5)</h3>
+  <div class="rvg" style="grid-template-columns:repeat(5,1fr)"><button class="rv" style="min-height:190px"><b>기능성</b><span>소프트웨어가 제공하는 기능이 사용자의 요구사항을 충족시키고, 목표를 달성하는 데 효과적인지를 평가</span></button><button class="rv" style="min-height:190px"><b>성능</b><span>소프트웨어의 성능을 측정하여, 빠르고 안정적으로 동작하는지 확인</span></button><button class="rv" style="min-height:190px"><b>신뢰성</b><span>소프트웨어가 예상된 대로 동작하는 정도를 측정하여, 오류가 발생하지 않고 안정적으로 동작하는지를 확인</span></button><button class="rv" style="min-height:190px"><b>사용성</b><span>소프트웨어를 사용하는 사용자들이 만족하는 정도를 측정하여, 사용하기 쉽고 직관적인지를 확인</span></button><button class="rv" style="min-height:190px"><b>호환성</b><span>소프트웨어가 다양한 플랫폼과 환경에서 작동 가능하며, 다른 소프트웨어와의 호환성이 좋은지를 평가</span></button></div>
+</section>
+
+<section class="slide s3" data-t="가치 평가: 윤리적 관점">
+  <div class="hd"><span class="tag">02 소프트웨어의 가치 평가</span><span class="pref">교과서 p.197</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">윤리적 관점에서의 평가</h2>
+  
+  <div class="box c" style="margin-top:12px;font-size:22px;line-height:1.7">소프트웨어 가치를 <b>윤리적</b>으로 평가한다는 것은 소프트웨어가 사용자, 사회, 환경 등에 미치는 영향을 <b class="bl" tabindex="0">도덕적인 측면</b>에서 고려하고, 정의된 윤리적 원칙과 규범에 따라서 평가하는 것<br>· 소프트웨어가 가지는 특정한 기능과 효과뿐만 아니라, 그 사용과 영향이 도덕적인 원칙을 준수하고 사회적으로 적절한지를 고려<br>· 도덕적인 원칙을 지키며 개발되고 사용되는지를 확인하는 데에 중요, 기업·정부·사용자 간의 <b class="bl" tabindex="0">협력</b>이 필요</div>
+  <h3 class="sh">윤리적 관점의 평가 요소 (그림 Ⅴ-6)</h3>
+  <div class="rvg" style="grid-template-columns:repeat(4,1fr)"><button class="rv" style="min-height:150px"><b>개인 정보 보호</b><span>소프트웨어에서 사용자의 개인 정보를 수집, 처리할 때 안전하게 보호되었는지 확인</span></button><button class="rv" style="min-height:150px"><b>공공의 이익</b><span>소프트웨어가 공공의 이익을 위해 사용되었는지 평가</span></button><button class="rv" style="min-height:150px"><b>지속 가능성</b><span>개발한 소프트웨어가 환경, 경제, 사회 및 기술적 측면에서 지속 가능한 방식으로 수행되었는지를 판단</span></button><button class="rv" style="min-height:150px"><b>악의적 사용 방지</b><span>소프트웨어에서 다루는 데이터가 제대로 보호되고 관리될 수 있는지 판단</span></button></div>
+</section>
+
+<section class="slide s3" data-t="평가 요소 분류하기">
+  <div class="hd"><span class="tag">02 소프트웨어의 가치 평가</span><span class="pref">교과서 p.196~197</span><button class="tool qp">🎲 누가 답할까?</button><button class="tool qs">🏆 점수판</button><button class="all">모두 보기</button></div>
+  <h2 class="tt">이 평가 요소는 어느 관점일까?</h2>
+  <div class="cards" style="grid-template-columns:repeat(5,1fr);margin-top:14px"><button class="card s1c" style="min-height:100px;font-size:24px">사회적 문제 해결<span class="k s1c">사회적</span></button><button class="card s2c" style="min-height:100px;font-size:24px">신뢰성<span class="k s2c">기능적</span></button><button class="card s3c" style="min-height:100px;font-size:24px">개인 정보 보호<span class="k s3c">윤리적</span></button><button class="card s1c" style="min-height:100px;font-size:24px">경제적 가치<span class="k s1c">사회적</span></button><button class="card s2c" style="min-height:100px;font-size:24px">호환성<span class="k s2c">기능적</span></button><button class="card s3c" style="min-height:100px;font-size:24px">공공의 이익<span class="k s3c">윤리적</span></button><button class="card s2c" style="min-height:100px;font-size:24px">성능<span class="k s2c">기능적</span></button><button class="card s1c" style="min-height:100px;font-size:24px">환경적 영향<span class="k s1c">사회적</span></button><button class="card s3c" style="min-height:100px;font-size:24px">악의적 사용 방지<span class="k s3c">윤리적</span></button><button class="card s2c" style="min-height:100px;font-size:24px">사용성<span class="k s2c">기능적</span></button><button class="card s1c" style="min-height:100px;font-size:24px">사회적 가치<span class="k s1c">사회적</span></button><button class="card s3c" style="min-height:100px;font-size:24px">지속 가능성<span class="k s3c">윤리적</span></button><button class="card s2c" style="min-height:100px;font-size:24px">기능성<span class="k s2c">기능적</span></button></div><p class="lead" style="margin-top:10px">사회적 4개 · 기능적 5개 · 윤리적 4개 (교과서 p.203 대단원 정리)</p>
+</section>
+
+<section class="slide s3" data-t="사례 읽기: 가치 평가 사례">
+  <div class="hd"><span class="tag">사례 읽기</span><span class="pref">교과서 p.197</span></div>
+  <h2 class="tt">소프트웨어의 가치 평가 사례</h2>
+  
+  <div class="grid" style="gap:12px;margin-top:12px">
+    <div class="tile" style="font-size:18px;background:var(--f-blue)"><h4>사회적 관점에서 우수한 소프트웨어 사례 · 의료 AI 솔루션 기업 메디컬○○○ <small>(2020년 과학기술정보통신부 5월 우수 사례 선정)</small></h4>· 고성능 의료 영상 처리 기술을 기반으로 의학 기술에 IT 기술을 접목한 인공지능(AI) 기술을 기반으로, 3D 프린팅, 가상/증강 현실 서비스 제공<br>· 자사 기술을 발전시켜 사회 문제(코로나19)를 해결하기 위한 대응 솔루션을 신속하게 개발·무료 배포 → 국가적 위기 상황에서 기업의 사회적 가치 실현</div>
+    <div class="tile" style="font-size:18px;background:var(--f-teal)"><h4>기능적 관점에서 우수한 소프트웨어 사례 · AI 데이터 플랫폼 기업 ○○○에이아이 <small>(2020년 과학기술정보통신부 표창 수상)</small></h4>· AI 개발에 필요한 데이터 작업의 자동화·효율화를 돕는 플랫폼으로 데이터 오토 레이블링, 데이터 품질관리, 통계 분석 등의 서비스 제공<br>· 정확도 99.3%, 기존 작업 대비 최대 10배 시간 단축 등 기업 핵심 기술인 오토 레이블링 기술을 기반으로 한 데이터 구축·컨설팅 서비스 제공</div>
+    <div class="tile" style="font-size:18px;background:var(--f-orange)"><h4>윤리적 관점에서 우수한 소프트웨어 사례 · 개방형 OS 플랫폼 기업 ○○의 △△구름 OS</h4>· 클라우드 업무 환경에 최적화되어 있고 개인 및 가정용 제품은 무료로 사용이 가능<br>· 누구나 사용할 수 있는 공개용 소프트웨어이며 연구, 개발, 사업화가 가능하도록 소스 코드를 공개함<br>· 정부와 기업에서는 OS 업그레이드, 컴퓨터 교체 등으로 소요되는 예산을 절감하는 효과를 거둘 수 있음</div>
+  </div>
+</section>
+
+<section class="slide s3" data-t="탐구 활동 6: 스타트업 제안서">
+  <div class="hd"><span class="tag">SW 탐구 활동 6 · 모둠</span><span class="pref">교과서 p.198</span><button class="timer" data-s="900">⏱ 15:00</button></div>
+  <h2 class="tt">스타트업 제안서 작성하기 (1)</h2>
+  
+  <p class="lead" style="margin-top:4px">모둠별로 소프트웨어 스타트업 프로젝트를 구상한 뒤, 온라인 공유 문서 작성 프로그램(구글 문서 등)으로 스타트업 제안서를 작성해 봐요. <span class="exl">예시 (교사용 교과서)</span></p>
+  <table class="tb5" style="font-size:20px"><tbody>
+    <tr><th>회사명</th><td colspan="2"><b>주차 가디언즈</b> · 모둠 구성: CEO(총괄, 일정 책정 및 발표), 디자이너(로고, UI/UX 디자인), 개발자(아이디어 수집), 서기(제안서 작성)</td></tr>
+    <tr><th>회사 소개</th><td colspan="2">경영 목표 및 비전: 기술 혁신을 통해 실생활 문제를 해결하고, 고객 만족을 극대화하여 사회적 가치를 창출하는 회사</td></tr>
+    <tr><th rowspan="2">사용자 요구 분석</th><td>해결할 사회적 문제</td><td>문제 제기: 학교 앞에 불법주정차로 인해 등하교 시간 혼잡 / 문제 이유: 학생들의 등하교 안전 보장</td></tr>
+    <tr><td>사용 대상자 선정</td><td>불법주정차 문제를 겪고 있는 학교 / 이유: 불법주정차 문제와 직접적인 연관성이 있기 때문</td></tr>
+    <tr><th rowspan="2">주제 선정</th><td>문제 해결 방안</td><td>아두이노를 활용하여 주차 위반을 감지하는 프로그램을 개발하여 표지판과 함께 부착</td></tr>
+    <tr><td>주제 선정 및 이유</td><td>주차위반 감지 시스템 개발 / 소프트웨어를 활용해 불법주정차를 줄여 등하교 문제 해결</td></tr>
+  </tbody></table>
+</section>
+
+<section class="slide s3" data-t="탐구 활동 6: 스타트업 제안서 (2)">
+  <div class="hd"><span class="tag">SW 탐구 활동 6 · 모둠</span><span class="pref">교과서 p.198</span><button class="timer" data-s="900">⏱ 15:00</button></div>
+  <h2 class="tt">스타트업 제안서 작성하기 (2)</h2>
+  
+  <p class="lead" style="margin-top:4px">주차 가디언즈 제안서 이어서 · 해결 아이디어 구상과 소프트웨어 설계 계획 <span class="exl">예시 (교사용 교과서)</span></p>
+  <table class="tb5" style="font-size:20px"><tbody>
+    <tr><th rowspan="3">해결 아이디어 구상</th><td>기술 구상</td><td>필요한 데이터: 불법주정차 구간 위치 및 설치 장소 / 적용할 기술: 피지컬 컴퓨팅을 활용한 불법 차량 감지 및 경고 음성 재생</td></tr>
+    <tr><td>제품 구현</td><td>불법주정차 구역 내에 차량이 감지되면 경고 음성이 재생 / 비용: 아두이노 보드, 센서, 표지판 제작 비용, 날씨</td></tr>
+    <tr><td>홍보</td><td>지역 신문이나 학교 소셜미디어를 활용해 해당 제품을 사용하여 얻은 이점을 바탕으로 캠페인 진행</td></tr>
+    <tr><th rowspan="2">소프트웨어 설계 계획</th><td>알고리즘 설계</td><td>아두이노의 초음파 센서와 스피커를 활용해 불법 주정차 차량을 감지하고 스피커로 경고음 출력, 감지 빈도를 분석하여 문제 개선 여부 파악</td></tr>
+    <tr><td>프로그램 구현 계획</td><td>경고 문구 적힌 표지판 제작 → 아두이노 회로 설계 → 아두이노 보드에 프로그래밍하여 업로드 → 표지판에 부착 → 불법주정차 구역에 설치 → 감지 빈도 분석 → 수요자 피드백 반영</td></tr>
+  </tbody></table>
+</section>
+
+<section class="slide s3" data-t="탐구 활동 7: 가치 평가서">
+  <div class="hd"><span class="tag">SW 탐구 활동 7 · 모둠</span><span class="pref">교과서 p.199</span></div>
+  <h2 class="tt">소프트웨어 스타트업 프로젝트 가치 평가서 작성하기</h2>
+  
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:14px;margin-top:12px">
+    <div class="tile" style="font-size:19px"><h4>① 자기 평가지 (총점 50점, 항목별 10점)</h4>1. 우리 모둠이 선정한 문제가 프로그래밍으로 해결 가능한 주제인가?<br>2. 창의적인 아이디어를 활용해 문제를 해결하였는가?<br>3. 문제 해결에 적합한 알고리즘을 설계하고 프로그램으로 구현하였는가?<br>4. 사용 대상자에 알맞은 주제를 선정하였는가?<br>5. 사회적, 기능적, 윤리적 관점에서 해당 소프트웨어의 가치는 어떠한가?</div>
+    <div class="tile" style="font-size:19px"><h4>① 동료 평가지 (해당 학생명 쓰기)</h4>1. 과제 활동을 하는 동안 모둠을 흥미 있고 즐겁게 이끌어 나간 학생은?<br>2. 과제 활동이 마무리될 때까지 성실하게 활동을 진행한 학생은?<br>3. 과제 활동을 하는 동안 적극 참여하며 창의적인 아이디어를 제공한 학생은?<br>4. 어려운 과제가 있을 때 이를 자발적으로 맡은 학생은?<br>5. 다양한 의견을 조율하고 타협하여 합리적으로 조정해 준 학생은?</div>
+  </div>
+  <div class="qbox" style="font-size:21px;margin-top:12px"><b>② 평가 결과를 토대로 개선할 사항 정리</b> <span class="exl">예시 (교사용 교과서)</span><br>주차 위반 감지를 위한 센서가 민감하여 자동차가 아닌 물체나 사람이 인식되어도 소리가 자주 출력되는 현상이 발생 → 이러한 문제점을 해결하기 위해 무게를 감지하거나, 주차 시간을 감지하는 기능을 추가하여 개선할 수 있음</div>
+</section>
+
+<section class="slide s0" data-t="SW로 달라진 세상: SaaS">
+  <div class="hd"><span class="tag">SW로 달라진 세상</span><span class="pref">교과서 p.200</span></div>
+  <h2 class="tt">소프트웨어 시장을 통째로 바꾸는 SaaS</h2>
+  
+  <div class="grid" style="grid-template-columns:1.2fr 1fr;gap:16px;margin-top:12px">
+    <div>
+      <div class="box c" style="font-size:22px;line-height:1.7"><b>SaaS</b>는 서비스형 소프트웨어(Software as a Service), 즉 <b class="bl" tabindex="0">구독형 소프트웨어</b>. 매달 일정 금액의 사용료를 내고 클라우드를 통해 소프트웨어를 실시간으로 이용 → 한 번에 구매하는 것이 아니라 필요할 때마다 돈을 내면서 사용, 매월 지불할 수도 있고 사용한 양만큼만 지불할 수도 있음</div>
+      <div class="tile" style="font-size:19px;margin-top:10px">· 기술력은 있지만 마케팅이나 판매 부분에 약했던 한국 스타트업에 큰 기회 (예: 기업 대상 채팅 및 영상 대화 서비스를 SaaS 형태로 제공하는 센드버드 → 딜리버리히어로, 레딧, 넥슨, 엔씨소프트, 국민은행 등이 사용)<br>· 예전엔 회사가 직접 소프트웨어를 만들었지만, 이제는 외부의 SaaS 제품을 사용하는 것이 더 효율적이고 비용도 절약<br>· 하드웨어를 세계에 수출하던 한국이 SaaS 열풍을 타고 소프트웨어 강국으로 발돋움할 수 있음</div>
+    </div>
+    <div class="tile"><h4>SaaS 시장 규모 <small>(단위: 억 달러)</small></h4><div class="bars"><div class="br"><span class="bn">2014년</span><span class="bt"><i style="width:21.9%;background:#137A3A"></i></span><b>530</b></div><div class="br"><span class="bn">2016년</span><span class="bt"><i style="width:33.5%;background:#137A3A"></i></span><b>810</b></div><div class="br"><span class="bn">2018년</span><span class="bt"><i style="width:50.4%;background:#137A3A"></i></span><b>1220</b></div><div class="br"><span class="bn">2020년</span><span class="bt"><i style="width:67.8%;background:#137A3A"></i></span><b>1640</b></div><div class="br"><span class="bn">2022년</span><span class="bt"><i style="width:86.8%;background:#137A3A"></i></span><b>2100</b></div><div class="br"><span class="bn">2023년</span><span class="bt"><i style="width:100.0%;background:#137A3A"></i></span><b>2420</b></div></div><p style="margin:6px 0 0;font-size:16px">※2020년 이후는 추정치 · 출처: 조선일보, 2021. 05. 03.</p></div>
+  </div>
+</section>
+
+<section class="slide s0" data-t="SW가 여는 미래 직업: 프로덕트 매니저">
+  <div class="hd"><span class="tag">SW가 여는 미래 직업</span><span class="pref">교과서 p.201</span></div>
+  <h2 class="tt">SW가 여는 미래 직업 · 프로덕트 매니저</h2>
+  
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
+    <div class="tile" style="font-size:19px"><h4>① 어떤 일을 하나요?</h4>제품과 관련된 연구, 과제 선택, 개발 추진 등 제품 관리 활동을 하는 전문가. IT 업계에서는 서비스의 모든 기능을 프로덕트로 정의, 개선해야 할 문제점을 찾아내고 해결하기 위한 서비스 기능 출시까지 전체 프로세스를 관리</div>
+    <div class="tile" style="font-size:19px"><h4>② 관련 직업은 어떤 것들이 있나요?</h4>UX/UI 디자이너(제품의 사용성과 상품성을 높임), 데이터 분석가(데이터를 분석해 인사이트 제공), 소프트웨어 개발자(정의한 요구 사항에 따라 제품 개발)</div>
+    <div class="tile" style="font-size:19px"><h4>③ 어느 분야에서 활동하나요? ④ 어디에서 일할 수 있나요?</h4>IT, 소비재, 헬스케어, 금융, 교육 등 다양한 산업 분야 · 대기업, 중소기업, 스타트업, 컨설팅 회사, 비영리 조직 등</div>
+    <div class="tile" style="font-size:19px"><h4>⑤ 어떤 능력이 필요한가요? ⑥ 미래 전망은?</h4>커뮤니케이션 능력, 협상력, 분석적 사고력, 창의적인 문제 해결 능력, 팀 관리 및 리더십, 사용자 중심의 사고방식 · 디지털화와 기술 발전으로 더욱 중요 → 직업적 전망 매우 밝음</div>
+  </div>
+</section>
+
+<section class="slide s0" data-t="이노베이션 리더: 리누스 토발즈">
+  <div class="hd"><span class="tag">이노베이션 리더</span><span class="pref">교과서 p.202</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">오픈 소스의 아버지, 리누스 토발즈</h2>
+  
+  <div class="box" style="margin-top:12px;font-size:30px;font-weight:900;text-align:center">“말은 쉽지, 코드를 보여줘.”</div>
+  <p class="lead" style="margin-top:8px">리누스 토발즈(LINUS TORVALDS)는 현대 컴퓨팅과 오픈 소스 운동의 중심 인물로, 리눅스 운영체제와 깃(Git) 버전 관리 시스템의 창시자예요.</p>
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:12px;margin-top:10px">
+    <div class="tile" style="font-size:19px"><h4>리눅스 운영체제의 탄생</h4>대학 시절 자체 운영체제 개발을 결심 → 그의 이름을 따서 명명한 리눅스는 누구나 자유롭게 사용하고 수정할 수 있는 <b class="bl" tabindex="0">오픈 소스</b> 운영체제로 성장</div>
+    <div class="tile" style="font-size:19px"><h4>오픈 소스 운동의 선구자</h4>소프트웨어 개발 과정을 공개하고, 세계 각지의 개발자들이 자유롭게 기여할 수 있는 환경 조성 → 개발 문화에 혁신적인 변화</div>
+    <div class="tile" style="font-size:19px"><h4>깃(Git) 버전 관리 시스템의 개발</h4>리눅스 개발 중 효율적인 <b class="bl" tabindex="0">버전 관리</b> 시스템의 필요성 → 직접 깃을 개발, 대규모 프로젝트 협업과 소스 코드 관리 방식을 혁신</div>
+    <div class="tile" style="font-size:19px"><h4>지속적인 영향</h4>협력, 공유, 혁신을 강조하며 기술 발전에 있어 중요한 혁신가로 자리매김</div>
+  </div>
+</section>
+
+<section class="slide oxq s0" data-t="OX 퀴즈"><div class="hd"><span class="tag">단원 정리</span><span class="pref">교과서 p.177~197</span><button class="all">모두 보기</button><button class="tool qp">🎲 누가 답할까?</button><button class="tool qs">🏆 점수판</button></div><h2 class="tt" style="font-size:34px">Ⅴ단원 스피드 OX 퀴즈</h2><div class="grid" style="margin-top:10px;gap:6px"><div class="row" style="grid-template-columns:36px 1fr 80px 280px;padding:4px 14px;font-size:20px;line-height:1.35"><b>1</b><span>스타트업은 이전에는 존재하지 않았던 혁신적 기술과 아이디어를 보유한 신생 벤처 기업이다.</span><span class="pp" style="justify-self:center">p.178</span><b class="bl ox o" tabindex="0">O</b></div><div class="row" style="grid-template-columns:36px 1fr 80px 280px;padding:4px 14px;font-size:20px;line-height:1.35"><b>2</b><span>창업과 스타트업은 같은 개념이므로 구분할 필요가 없다.</span><span class="pp" style="justify-self:center">p.178</span><b class="bl ox x" tabindex="0">X → 확실히 구분</b></div><div class="row" style="grid-template-columns:36px 1fr 80px 280px;padding:4px 14px;font-size:20px;line-height:1.35"><b>3</b><span>유니콘 기업은 기업 가치가 10억 달러 이상인 비상장 스타트업이다.</span><span class="pp" style="justify-self:center">p.178</span><b class="bl ox o" tabindex="0">O</b></div><div class="row" style="grid-template-columns:36px 1fr 80px 280px;padding:4px 14px;font-size:20px;line-height:1.35"><b>4</b><span>소프트웨어 스타트업은 지리적 제한 때문에 글로벌 시장 개척이 어렵다.</span><span class="pp" style="justify-self:center">p.179</span><b class="bl ox x" tabindex="0">X → 제한 없이 배포</b></div><div class="row" style="grid-template-columns:36px 1fr 80px 280px;padding:4px 14px;font-size:20px;line-height:1.35"><b>5</b><span>스타트업 실패 이유 1위는 현금 소진/신규 자본 조달 실패이다.</span><span class="pp" style="justify-self:center">p.186</span><b class="bl ox o" tabindex="0">O</b></div><div class="row" style="grid-template-columns:36px 1fr 80px 280px;padding:4px 14px;font-size:20px;line-height:1.35"><b>6</b><span>SWOT 분석에서 기회(O)와 위협(T)은 내부 환경 요인이다.</span><span class="pp" style="justify-self:center">p.187</span><b class="bl ox x" tabindex="0">X → 외부 환경</b></div><div class="row" style="grid-template-columns:36px 1fr 80px 280px;padding:4px 14px;font-size:20px;line-height:1.35"><b>7</b><span>프로젝트의 첫 단계는 사용자 요구 분석 및 주제 선정이다.</span><span class="pp" style="justify-self:center">p.191</span><b class="bl ox o" tabindex="0">O</b></div><div class="row" style="grid-template-columns:36px 1fr 80px 280px;padding:4px 14px;font-size:20px;line-height:1.35"><b>8</b><span>설계 단계에서는 관심이 ‘어떻게(How)’에서 ‘무엇을(What)’로 바뀐다.</span><span class="pp" style="justify-self:center">p.193</span><b class="bl ox x" tabindex="0">X → What에서 How로</b></div><div class="row" style="grid-template-columns:36px 1fr 80px 280px;padding:4px 14px;font-size:20px;line-height:1.35"><b>9</b><span>사용성은 윤리적 관점의 평가 요소이다.</span><span class="pp" style="justify-self:center">p.196</span><b class="bl ox x" tabindex="0">X → 기능적 관점</b></div><div class="row" style="grid-template-columns:36px 1fr 80px 280px;padding:4px 14px;font-size:20px;line-height:1.35"><b>10</b><span>개인 정보 보호는 윤리적 관점의 평가 요소이다.</span><span class="pp" style="justify-self:center">p.197</span><b class="bl ox o" tabindex="0">O</b></div></div></section>
+
+<section class="slide s0" data-t="대단원 정리">
+  <div class="hd"><span class="tag">대단원 정리</span><span class="pref">교과서 p.203</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">대단원 정리</h2>
+  
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:14px;margin-top:10px;font-size:19px;line-height:1.6">
+    <div class="tile" style="font-size:19px"><h4 style="color:var(--blue)">1. 소프트웨어 스타트업</h4>
+      · <b>창업</b> 새로운 사업을 시작하는 것, <b class="bl" tabindex="0">사업 기회</b>를 포착하여 사업 목표를 설정하고 자본·노동력·설비를 확보<br>
+      · <b>스타트업</b> 이전에는 존재하지 않았던 혁신적 기술과 아이디어를 보유한 <b class="bl" tabindex="0">신생 벤처 기업</b><br>
+      · <b>소프트웨어 스타트업</b> 주로 소프트웨어 제품이나 서비스를 개발·판매하여 특정한 문제나 <b class="bl" tabindex="0">시장의 요구</b>를 해결하는 기업<br>
+      · <b>도전 과제</b> 기술 불확실성 심화, 최초 유료 고객 확보, <b class="bl" tabindex="0">초기 자금 조달</b>, 손익 분기점 돌파, 기업가적 팀 구축 등<br>
+      · <b>성공 사례 1</b> 적극적인 마케팅, 대규모 투자 자금 유치, 다양한 플랫폼 전략 등<br>
+      · <b>성공 사례 2</b> 지속적으로 다양한 서비스 제공(이용자의 피로도 및 불편함 최소화, 신뢰할 수 있는 거래 지원)<br>
+      · <b>실패 사례</b> 제한적인 관계 형성, <b class="bl" tabindex="0">환경 변화</b> 대응 미흡 및 창업 멤버 부재 등</div>
+    <div class="tile" style="font-size:19px"><h4 style="color:var(--orange)">2. 소프트웨어 스타트업 프로젝트</h4>
+      · <b>사용자 요구 분석 및 주제 선정</b> 문제 제기, 사용 대상자 선정, 적합한 주제 선정<br>
+      · <b>해결 아이디어 구안</b> 아이디어 회의, 구현 기능 계획, <b class="bl" tabindex="0">비용 예측</b>, 마케팅 전략 구상<br>
+      · <b>소프트웨어 설계 및 제작</b> 디자인 설계, <b class="bl" tabindex="0">프로그래밍</b><br>
+      · <b>소프트웨어 평가</b> 테스트 및 배포, 정확도 측정, <b class="bl" tabindex="0">피드백 수집</b> 및 개선사항 반영<br>
+      · <b>사회적 관점</b> 사회적 문제 해결, 사회적 가치, 경제적 가치, <b class="bl" tabindex="0">환경적 영향</b><br>
+      · <b>기능적 관점</b> 기능성, 성능, <b class="bl" tabindex="0">신뢰성</b>, 사용성, 호환성<br>
+      · <b>윤리적 관점</b> <b class="bl" tabindex="0">개인 정보 보호</b>, 지속 가능성, 공공의 이익, 악의적 사용 방지</div>
+  </div>
+</section>
+<nav class="nav" aria-label="슬라이드 이동">
+  <button id="prev">← 이전</button>
+  <div class="dots" id="dots"></div>
+  <span class="pg" id="pg"></span>
+  <button id="next">다음 →</button>
+  <button class="tool" id="pickBtn">🎲 발표자 뽑기</button>
+  <button class="tool" id="scoreBtn">🏆 모둠 점수판</button>
+</nav>
+<div class="ov" id="pickOv" hidden><div class="panel" style="min-width:680px">
+  <button class="x" data-close>✕</button>
+  <h3>🎲 오늘의 발표자는?</h3>
+  <div class="pk-num" id="pkNum">?</div>
+  <div class="pk-row"><label>우리 반 인원 <input type="number" id="pkN" min="2" max="40" value="30"> 명</label>
+    <label><input type="checkbox" id="pkNoRe" checked> 뽑힌 번호 다시 안 나오기</label></div>
+  <div class="pk-row" style="margin-top:16px"><button class="big-btn" id="pkGo">뽑기!</button><button class="sm-btn" id="pkReset">처음부터</button></div>
+  <div class="pk-used" id="pkUsed"></div>
+</div></div>
+<div class="ov" id="scoreOv" hidden><div class="panel" style="min-width:960px">
+  <button class="x" data-close>✕</button>
+  <h3>🏆 모둠 점수판</h3>
+  <div class="pk-row" style="justify-content:flex-start;margin-bottom:14px"><label>모둠 수 <input type="number" id="tmN" min="2" max="9" value="6"></label><button class="sm-btn" id="tmReset">점수 초기화</button><button class="sm-btn" id="tmWin">🎉 1등 발표</button></div>
+  <div class="teams" id="teams"></div>
+</div></div>
+<canvas class="confetti" id="confetti" width="1280" height="720"></canvas>
+</div>
+
+
+<script>
+(() => {
+const N = ['①', '②', '③', '④', '⑤'];
+const $ = id => document.getElementById(id);
+const stage = $('stage');
+const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const PEN = '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21l3.8-1 11-11-2.8-2.8-11 11L3 21zM16.5 4.5l2.8 2.8 1.4-1.4a1 1 0 000-1.4l-1.4-1.4a1 1 0 00-1.4 0l-1.4 1.4z" fill="currentColor"/></svg>';
+
+stage.querySelectorAll('.ws').forEach(w => { if (!w.classList.contains('listen')) w.insertAdjacentHTML('afterbegin', PEN); });
+
+// 빈칸: 누르면 하나씩 공개
+stage.querySelectorAll('.bl').forEach(b => {
+  b.setAttribute('role', 'button');
+  const tog = () => { const on = b.classList.toggle('on'); if (on) { if (b.classList.contains('ox')) (b.classList.contains('o') ? SND.ok : SND.no)(); else SND.pop(); } };
+  b.addEventListener('click', tog);
+  b.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); tog(); } });
+});
+stage.querySelectorAll('.card').forEach(c => c.addEventListener('click', () => { if (c.classList.toggle('on')) SND.pop(); }));
+stage.querySelectorAll('.slide').forEach(sl => {
+  const a = sl.querySelector('.all:not(.ans):not(.reset)'); if (!a) return;
+  a.setAttribute('aria-pressed', 'false');
+  a.addEventListener('click', () => {
+    const on = a.getAttribute('aria-pressed') !== 'true';
+    sl.querySelectorAll('.bl,.card').forEach(x => x.classList.toggle('on', on));
+    a.setAttribute('aria-pressed', on); a.textContent = on ? '모두 가리기' : '모두 보기';
+  });
+});
+
+
+// ---------- 효과음 ----------
+let AC = null;
+const tone = (f, d = 0.12, type = 'sine', v = 0.18, at = 0) => { try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); const t = AC.currentTime + at, o = AC.createOscillator(), g = AC.createGain(); o.type = type; o.frequency.setValueAtTime(f, t); g.gain.setValueAtTime(v, t); g.gain.exponentialRampToValueAtTime(0.001, t + d); o.connect(g).connect(AC.destination); o.start(t); o.stop(t + d + 0.02); } catch (e) {} };
+const SND = { pop: () => tone(660, 0.08, 'triangle', 0.12), ok: () => { tone(784, 0.12, 'triangle'); tone(1047, 0.22, 'triangle', 0.18, 0.1); }, no: () => { tone(220, 0.25, 'sawtooth', 0.12); }, tick: () => tone(1200, 0.03, 'square', 0.05), fan: () => [523, 659, 784, 1047].forEach((f, i) => tone(f, 0.25, 'triangle', 0.16, i * 0.11)) };
+// ---------- 색종이 ----------
+const cf = $('confetti'), cx = cf.getContext('2d'); let parts = [], cfOn = false;
+function confetti(){ const C = ['#2350C8', '#D0261E', '#0A7F72', '#E0B400', '#B85E00']; for (let i = 0; i < 160; i++) parts.push({ x: 640 + (Math.random() - .5) * 300, y: 300, vx: (Math.random() - .5) * 16, vy: -Math.random() * 14 - 4, s: 6 + Math.random() * 8, c: C[i % 5], r: Math.random() * 6, life: 120 + Math.random() * 60 }); if (!cfOn) { cfOn = true; requestAnimationFrame(cfLoop); } }
+function cfLoop(){ cx.clearRect(0, 0, 1280, 720); parts.forEach(p => { p.x += p.vx; p.y += p.vy; p.vy += 0.35; p.vx *= 0.99; p.r += 0.1; p.life--; cx.save(); cx.translate(p.x, p.y); cx.rotate(p.r); cx.fillStyle = p.c; cx.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); cx.restore(); }); parts = parts.filter(p => p.life > 0 && p.y < 760); if (parts.length) requestAnimationFrame(cfLoop); else { cfOn = false; cx.clearRect(0, 0, 1280, 720); } }
+// ---------- 저장(이 브라우저에서만) ----------
+const LS = { get(k, d) { try { const v = localStorage.getItem('sw1-' + k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem('sw1-' + k, JSON.stringify(v)); } catch (e) {} } };
+// ---------- 오버레이 ----------
+const openOv = id => { $(id).hidden = false; }, closeOv = el => { el.closest('.ov').hidden = true; };
+stage.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => closeOv(b)));
+stage.querySelectorAll('.ov').forEach(o => o.addEventListener('click', e => { if (e.target === o) o.hidden = true; }));
+// ---------- 발표자 뽑기 ----------
+let used = LS.get('used', []), spinning = false;
+$('pkN').value = LS.get('n', 30);
+const showUsed = () => { $('pkUsed').textContent = used.length ? '뽑힌 번호: ' + used.join(', ') : ''; };
+showUsed();
+$('pickBtn').addEventListener('click', () => openOv('pickOv'));
+$('pkN').addEventListener('change', () => LS.set('n', +$('pkN').value));
+$('pkReset').addEventListener('click', () => { used = []; LS.set('used', used); showUsed(); $('pkNum').textContent = '?'; $('pkNum').classList.remove('done'); });
+$('pkGo').addEventListener('click', () => {
+  if (spinning) return;
+  const n = Math.max(2, Math.min(40, +$('pkN').value || 30));
+  let pool = []; for (let i = 1; i <= n; i++) if (!$('pkNoRe').checked || !used.includes(i)) pool.push(i);
+  if (!pool.length) { $('pkNum').textContent = '끝!'; return; }
+  const pick = pool[Math.floor(Math.random() * pool.length)];
+  spinning = true; $('pkNum').classList.remove('done');
+  let k = 0, delay = 40;
+  const step = () => {
+    $('pkNum').textContent = pool[Math.floor(Math.random() * pool.length)]; SND.tick();
+    k++; delay *= 1.09;
+    if (delay < 380) setTimeout(step, delay);
+    else { $('pkNum').textContent = pick + '번'; $('pkNum').classList.add('done'); SND.fan(); confetti(); used.push(pick); LS.set('used', used); showUsed(); spinning = false; }
+  };
+  step();
+});
+// ---------- 모둠 점수판 ----------
+const TC = ['#E6EDFC', '#DFF3EF', '#FFF0DC', '#FDEBEA', '#F1E8FB', '#FFF8D6', '#E3F5E8', '#EEF1F5', '#FCE7F3'];
+let scores = LS.get('scores', [0, 0, 0, 0, 0, 0]);
+$('tmN').value = scores.length;
+function drawTeams(){
+  const mx = Math.max(...scores);
+  $('teams').innerHTML = scores.map((v, i) => `<div class="team${v === mx && v > 0 ? ' lead' : ''}" style="background:${TC[i]}"><h4>${i + 1}모둠</h4><div class="sc">${v}</div><div class="bt"><button data-t="${i}" data-d="-1" aria-label="${i + 1}모둠 1점 빼기">−</button><button data-t="${i}" data-d="1" aria-label="${i + 1}모둠 1점 더하기">+</button></div></div>`).join('');
+  $('teams').querySelectorAll('button').forEach(b => b.addEventListener('click', () => { const i = +b.dataset.t, d = +b.dataset.d; scores[i] = Math.max(0, scores[i] + d); d > 0 ? SND.ok() : SND.no(); LS.set('scores', scores); drawTeams(); }));
+}
+drawTeams();
+$('scoreBtn').addEventListener('click', () => openOv('scoreOv'));
+$('tmN').addEventListener('change', () => { const n = Math.max(2, Math.min(9, +$('tmN').value || 6)); scores = Array.from({ length: n }, (_, i) => scores[i] || 0); LS.set('scores', scores); drawTeams(); });
+$('tmReset').addEventListener('click', () => { scores = scores.map(() => 0); LS.set('scores', scores); drawTeams(); });
+$('tmWin').addEventListener('click', () => { const mx = Math.max(...scores); if (mx <= 0) return; SND.fan(); confetti(); });
+// ---------- 생각 열기: 소프트웨어 찾기 ----------
+const chipsEl = [...stage.querySelectorAll('.chip')];
+chipsEl.forEach(c => c.addEventListener('click', () => { c.classList.toggle('on'); SND.pop(); const n = chipsEl.filter(x => x.classList.contains('on')).length; $('swCount').textContent = `발견한 소프트웨어 ${n}개` + (n === chipsEl.length ? ' 🎉' : ''); if (n === chipsEl.length) confetti(); }));
+stage.querySelectorAll('.qp').forEach(b => b.addEventListener('click', () => openOv('pickOv'))); stage.querySelectorAll('.qs').forEach(b => b.addEventListener('click', () => openOv('scoreOv')));
+addEventListener('keydown', e => { if (e.key === 'Escape') stage.querySelectorAll('.ov').forEach(o => o.hidden = true); });
+
+// ================= 1차시 시뮬레이션 =================
+const FNT = (w, s) => `${w} ${s}px "Noto Sans KR","Malgun Gothic",sans-serif`;
+const RR = (c, x, y, w, h, r) => { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); };
+const BOX = (c, x, y, w, h, col) => { c.fillStyle = col; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); };
+const TXT = (c, s, x, y, o = {}) => { c.font = FNT(o.w || 700, o.s || 20); c.fillStyle = o.c || '#1B2230'; c.textAlign = o.a || 'center'; c.textBaseline = o.b || 'middle'; c.fillText(s, x, y); };
+function runLoop(cv, draw){ const sl = cv.closest('.slide'); let on = false, raf = 0; const tick = t => { if (!on) return; draw(t); raf = requestAnimationFrame(tick); }; sl.addEventListener('show', () => { if (!on) { on = true; raf = requestAnimationFrame(tick); } }); sl.addEventListener('hide', () => { on = false; cancelAnimationFrame(raf); }); }
+function bubble(c, x, y, w, h, fill, stroke){ RR(c, x - w / 2, y - h, w, h, 14); c.fillStyle = fill; c.fill(); c.lineWidth = 3; c.strokeStyle = stroke; c.stroke(); c.beginPath(); c.moveTo(x - 12, y - 1); c.lineTo(x, y + 16); c.lineTo(x + 12, y - 1); c.closePath(); c.fillStyle = fill; c.fill(); c.beginPath(); c.moveTo(x - 12, y); c.lineTo(x, y + 16); c.lineTo(x + 12, y); c.stroke(); }
+
+// Ⅴ단원: 눌러서 설명 보기
+stage.querySelectorAll('.rv').forEach(b => b.addEventListener('click', () => { if (b.classList.toggle('on')) SND.pop(); }));
+stage.querySelectorAll('.slide').forEach(sl => { const a = sl.querySelector('.all'); if (a) a.addEventListener('click', () => { const on = a.getAttribute('aria-pressed') === 'true'; sl.querySelectorAll('.rv').forEach(x => x.classList.toggle('on', on)); }); });
+
+// 활동 타이머
+stage.querySelectorAll('.timer').forEach(t => {
+  const total = +t.dataset.s; let left = total, id = null;
+  const show = () => { t.textContent = '⏱ ' + Math.floor(left / 60) + ':' + String(left % 60).padStart(2, '0'); };
+  t.addEventListener('click', () => {
+    if (id) { clearInterval(id); id = null; t.classList.remove('run'); return; }
+    if (left <= 0) { left = total; t.classList.remove('end'); show(); return; }
+    t.classList.add('run');
+    id = setInterval(() => { left--; show(); if (left <= 0) { clearInterval(id); id = null; t.classList.remove('run'); t.classList.add('end'); t.textContent = '⏱ 끝!'; } }, 1000);
+  });
+});
+const slides = [...stage.querySelectorAll('.slide')];
+let cur = 0;
+function go(i){
+  const prev = cur;
+  cur = Math.max(0, Math.min(slides.length - 1, i));
+  slides.forEach((s, j) => s.hidden = j !== cur);
+  if (prev !== cur || !go.ok) { if (go.ok) slides[prev].dispatchEvent(new Event('hide')); slides[cur].dispatchEvent(new Event('show')); go.ok = true; }
+  if (slides[cur]._fit) slides[cur]._fit();
+  $('dots').querySelectorAll('i').forEach((d, j) => d.classList.toggle('on', j === cur));
+  $('pg').textContent = `${cur + 1} / ${slides.length}`;
+  $('prev').disabled = cur === 0; $('next').disabled = cur === slides.length - 1;
+  try { history.replaceState(null, '', '#' + (cur + 1)); } catch (e) {}
+}
+$('dots').innerHTML = slides.map((s, j) => `<i class="${s.classList.contains('oxq') ? 'q' : ''}" title="${j + 1}. ${s.dataset.t}" data-i="${j}"></i>`).join('');
+$('dots').querySelectorAll('i').forEach(d => d.addEventListener('click', () => go(+d.dataset.i)));
+$('prev').addEventListener('click', () => go(cur - 1)); $('next').addEventListener('click', () => go(cur + 1));
+addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || [...stage.querySelectorAll('.ov')].some(o => !o.hidden)) return;
+  if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); go(cur + 1); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(cur - 1); }
+});
+function fit(){ const k = Math.min((innerWidth - 16) / 1280, (innerHeight - 16) / 720); stage.style.transform = `translate(-50%,-50%) scale(${k})`; }
+addEventListener('resize', fit); fit();
+const h = parseInt(location.hash.slice(1)); go(h > 0 ? h - 1 : 0);
+})();
+</script>
+
+</body>
+</html>
