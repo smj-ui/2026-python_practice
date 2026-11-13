@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ⅴ단원 2차시 스타트업 프로젝트 (재구성)</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<style>
+/* 16:9 슬라이드를 화면에 맞춰 확대. 빔프로젝터용: 회색 글씨 없이 진한 글씨, 큰 글자. 빈칸·카드를 눌러 정답을 하나씩 공개. */
+:root{
+  --bg:#D9DEE8; --paper:#FFFFFF; --ink:#1B2230; --sub:#2B3242; --line:#C9D1DF;
+  --blue:#2350C8; --teal:#0A7F72; --orange:#B85E00; --pen:#D0261E; --green:#137A3A;
+  --f-blue:#E6EDFC; --f-teal:#DFF3EF; --f-orange:#FFF0DC; --f-grey:#EEF1F5; --f-red:#FDEBEA; --f-green:#E3F5E8;
+  --font:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  color-scheme:light;
+}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);overflow:hidden;word-break:keep-all}
+.stage{position:absolute;left:50%;top:50%;width:1280px;height:720px;transform-origin:center;background:var(--paper);border-radius:10px;overflow:hidden;box-shadow:0 18px 50px rgba(27,34,48,.25)}
+.slide{position:absolute;inset:0 0 56px;padding:28px 44px 0;box-sizing:border-box}
+.slide[hidden]{display:none!important}
+.hd{display:flex;align-items:center;gap:12px;min-height:34px}
+.tag{display:inline-block;font-size:17px;font-weight:700;color:#fff;padding:5px 14px;border-radius:4px;background:var(--blue)}
+.s2 .tag{background:var(--teal)} .s3 .tag{background:var(--orange)} .s0 .tag{background:var(--ink)}
+.ws{margin-left:auto;font-size:18px;font-weight:900;color:var(--pen);border:2.5px solid var(--pen);border-radius:6px;padding:4px 12px;background:var(--f-red);display:flex;align-items:center;gap:6px}
+.pref{font-size:20px;font-weight:900;color:var(--ink);border:2.5px solid var(--ink);border-radius:6px;padding:3px 12px;background:#FFF3C4}
+.pp{font-size:18px;font-weight:900;color:var(--ink);background:#FFF3C4;border-radius:4px;padding:1px 8px;margin-left:8px;white-space:nowrap}
+.vid{font:inherit;font-size:17px;font-weight:900;color:#fff;background:#C4302B;border-radius:999px;padding:5px 14px;text-decoration:none;white-space:nowrap}
+.vid:focus-visible,.tool:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.tool{font:inherit;font-size:16px;font-weight:900;color:var(--ink);background:#FFF3C4;border:2px solid #E0B400;border-radius:999px;padding:6px 14px;cursor:pointer}
+.ov{position:absolute;inset:0;background:rgba(15,20,32,.72);display:grid;place-items:center;z-index:50}
+.ov[hidden]{display:none}
+.panel{background:#fff;border-radius:16px;padding:26px 32px;min-width:620px;max-width:1100px;box-shadow:0 20px 60px rgba(0,0,0,.4);position:relative}
+.panel h3{margin:0 0 14px;font-size:30px}
+.panel .x{position:absolute;right:18px;top:14px;font:inherit;font-size:22px;font-weight:900;border:2px solid var(--line);background:#fff;border-radius:999px;width:42px;height:42px;cursor:pointer}
+.pk-num{font-size:200px;font-weight:900;line-height:1;text-align:center;color:var(--blue);margin:10px 0 6px;font-variant-numeric:tabular-nums}
+.pk-num.done{color:var(--pen);animation:pop .5s ease}
+@keyframes pop{0%{transform:scale(.6)}60%{transform:scale(1.15)}100%{transform:scale(1)}}
+.pk-row{display:flex;align-items:center;gap:12px;font-size:20px;flex-wrap:wrap;justify-content:center}
+.pk-row input[type=number]{font:inherit;font-size:22px;width:80px;padding:4px 8px;border:2px solid var(--line);border-radius:8px}
+.big-btn{font:inherit;font-size:26px;font-weight:900;color:#fff;background:var(--pen);border:0;border-radius:999px;padding:12px 40px;cursor:pointer}
+.sm-btn{font:inherit;font-size:17px;font-weight:700;border:2px solid var(--ink);background:#fff;color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer}
+.pk-used{margin-top:12px;font-size:18px;text-align:center;min-height:26px}
+.teams{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.team{border-radius:14px;padding:14px;text-align:center;border:3px solid var(--line)}
+.team h4{margin:0;font-size:24px}
+.team .sc{font-size:72px;font-weight:900;line-height:1.1;font-variant-numeric:tabular-nums}
+.team .bt{display:flex;gap:10px;justify-content:center}
+.team .bt button{font:inherit;font-size:24px;font-weight:900;width:64px;height:48px;border-radius:12px;border:2px solid var(--ink);background:#fff;cursor:pointer}
+.team.lead{border-color:#E0B400;box-shadow:0 0 0 4px #FFE58A}
+.confetti{position:absolute;inset:0;pointer-events:none;z-index:60}
+.chip{font:inherit;display:inline-flex;align-items:center;justify-content:center;min-height:62px;padding:8px 14px;border-radius:12px;border:2.5px solid var(--line);background:#fff;font-size:22px;font-weight:700;cursor:pointer;color:var(--ink)}
+.chip.on{border-color:var(--teal);background:var(--f-teal)}
+.chip.on::before{content:'✔ ';color:var(--teal)}
+.counter{font-size:30px;font-weight:900;color:var(--teal)}
+.pred{display:grid;align-content:center;justify-items:center;gap:6px;min-height:118px}
+.pred .k{font-size:18px}
+.card.on.yes{border-color:var(--green);background:var(--f-green)} .card .k.yes{background:var(--green)}
+.card.on.part{border-color:var(--orange);background:var(--f-orange)} .card .k.part{background:var(--orange)}
+.card.on.not{border-color:#56607A;background:var(--f-grey)} .card .k.not{background:#3A4256}
+.card .cn{color:var(--blue);font-weight:900;margin-right:2px}
+.xb{font-size:15px;font-weight:900;background:#FFF3C4;border:1.5px solid #E0B400;border-radius:4px;padding:0 6px;white-space:nowrap}
+.card .xtra{position:absolute;top:-11px;right:10px;border:1.5px solid #E0B400;font-size:13px;font-weight:900;background:#FFF3C4;color:#1B2230;border-radius:4px;padding:1px 6px}
+.sm-wrap{display:grid;grid-template-columns:330px 830px;gap:18px;margin-top:10px;align-items:start}
+.sm-phone{position:relative;width:310px;height:482px;border-radius:40px;background:#111827;padding:12px;box-sizing:border-box;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.sm-phone.buzz{animation:buzz .1s 8}
+@keyframes buzz{25%{transform:translateX(-4px) rotate(-1deg)}75%{transform:translateX(4px) rotate(1deg)}}
+.sm-notch{position:absolute;left:50%;top:12px;transform:translateX(-50%);width:90px;height:22px;background:#111827;border-radius:0 0 14px 14px;z-index:3;display:grid;place-items:center}
+.sm-notch i{width:9px;height:9px;border-radius:50%;background:#3B4766;display:block}
+.sm-notch i.on{background:#3CFF6B;box-shadow:0 0 12px #3CFF6B}
+.sm-status{position:absolute;left:22px;right:22px;top:14px;display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:#fff;z-index:4}
+.sm-status span{background:rgba(17,24,39,.85);border-radius:8px;padding:1px 7px}
+.sm-screen{position:relative;width:100%;height:100%;border-radius:30px;overflow:hidden;background:linear-gradient(160deg,#3B5BDB,#8E5BD6);color:#1B2230}
+.sm-lock{color:#fff;text-align:center;padding-top:64px}
+.sm-big{font-size:64px;font-weight:900;line-height:1}
+.sm-date{font-size:17px;margin-top:6px}
+.sm-noti{position:absolute;left:10px;right:10px;top:160px;background:rgba(255,255,255,.96);border-radius:16px;padding:10px 12px;font-size:15px;line-height:1.45;animation:notiIn .4s both}
+@keyframes notiIn{from{transform:translateY(-40px);opacity:0}to{transform:none;opacity:1}}
+.sm-app{position:absolute;inset:0;background:#F2F4F8;display:flex;flex-direction:column}
+.sm-hd{padding:42px 14px 10px;background:#fff;font-weight:900;font-size:17px;border-bottom:1px solid #DDE2EA}
+.sm-msgs{padding:14px 12px}
+.sm-bub{background:#E6E9EF;border-radius:4px 16px 16px 16px;padding:10px 12px;font-size:15px;line-height:1.5;max-width:240px}
+.sm-link{color:#2350C8;font-weight:700;word-break:break-all;border-radius:4px}
+.sm-tm{font-size:12px;margin-top:4px;color:#3A4256}
+.sm-url{padding:42px 14px 8px;background:#fff;font-size:14px;border-bottom:1px solid #DDE2EA}
+.sm-web{display:grid;justify-items:center;gap:12px;padding:30px 16px;text-align:center}
+.sm-logo{font-size:22px;font-weight:900;color:#B85E00}
+.sm-web p{margin:0;font-size:17px;line-height:1.5}
+.sm-inst{font:inherit;font-size:17px;font-weight:900;color:#fff;background:#2350C8;border:0;border-radius:10px;padding:10px 30px}
+.sm-link.pressed,.sm-allow.pressed{background:#FFE58A}
+.sm-inst.pressed{background:#1A3C99}
+.sm-bar{width:200px;height:10px;border-radius:5px;background:#DDE2EA;overflow:hidden}
+.sm-bar i{display:block;height:100%;width:0;background:#2350C8;transition:width 1.5s}
+.sm-bar.go i{width:100%}
+.sm-dim{position:absolute;inset:0;background:rgba(0,0,0,.45);display:grid;place-items:center;animation:notiIn .25s both}
+.sm-dlg{width:240px;background:#fff;border-radius:18px;padding:16px;text-align:center;display:grid;gap:10px;font-size:16px;line-height:1.45}
+.sm-dic{font-size:34px}
+.sm-dbt{display:flex;justify-content:space-around;font-weight:900;font-size:16px}
+.sm-dbt span{padding:6px 12px;border-radius:8px}
+.sm-allow{color:#2350C8}
+.sm-busy{display:grid;justify-items:center;gap:10px;margin-top:120px;font-size:18px}
+.sm-spin{width:50px;height:50px;border-radius:50%;border:6px solid #DDE2EA;border-top-color:#2350C8;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.sm-finger{position:absolute;left:140px;top:300px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.6);border:3px solid rgba(27,34,48,.7);opacity:0;transition:left .5s,top .5s,opacity .2s,transform .15s;z-index:5;pointer-events:none}
+.sm-finger.show{opacity:1}
+.sm-finger.tap{transform:scale(.7);background:rgba(255,229,138,.9)}
+.sm-nar{display:flex;align-items:center;gap:12px;margin-top:10px;background:#1B2230;color:#fff;border-radius:12px;padding:10px 16px;min-height:54px}
+.sm-nar b{font-size:18px;color:#FFE58A;white-space:nowrap}
+.sm-nar span{flex:1;font-size:24px;font-weight:700;line-height:1.35}
+.xr{background:#F4F6FA;border-radius:12px;padding:8px;display:grid;justify-items:center;align-content:start}
+.xr .hw rect{fill:#2B3656;stroke:#56607A;stroke-width:2;transition:fill .2s}
+.xr .hw text{fill:#E3E7F1;font-size:15px;font-weight:700;text-anchor:middle;font-family:"Noto Sans KR","Malgun Gothic",sans-serif}
+.xr .hw.on rect{fill:#D0261E;stroke:#FFE58A;stroke-width:3}
+.xr-cap{font-size:18px;margin-top:4px;text-align:center}
+.code{background:#0F1730;border-radius:12px;padding:12px 14px;font-family:Consolas,"D2Coding","Malgun Gothic",monospace;color:#E3E7F1;display:grid;gap:6px}
+.code .cm{color:#7CE07C;font-size:17px}
+.code .ln{font-size:20px;padding:5px 8px;border-radius:6px;display:flex;gap:12px;transition:background .2s}
+.code .ln i{font-style:normal;color:#8C97B5;width:18px}
+.code .ln.done{color:#FFB3B3}
+.code .ln.on{background:#D0261E;color:#fff}
+.mw-out{margin-top:8px;background:var(--f-red);border-radius:10px;padding:10px 14px;font-size:20px;line-height:1.5;min-height:64px}
+.cmp{background:var(--f-grey);border-radius:12px;padding:12px 14px;display:grid;gap:8px;align-content:start}
+.cmp-t{font-size:20px;line-height:1.4}
+.cmp table{border-collapse:collapse;width:100%;font-size:18px}
+.cmp th{font-size:16px;padding:5px 4px;background:#fff}
+.cmp td{padding:3px 4px;border-top:1px solid var(--line);text-align:center}
+.cmp td:first-child{text-align:left}
+.cmp td small{display:block;font-size:14px}
+.cmp p{margin:0;font-size:17px;line-height:1.45}
+.cmp .bl.ox{font-size:22px}
+.phone{position:relative;width:300px;height:460px;margin:0 auto;border-radius:36px;background:#1B2230;padding:14px;box-sizing:border-box;transition:box-shadow .3s}
+.phone.hack{box-shadow:0 0 0 5px #D0261E,0 0 28px rgba(208,38,30,.6);animation:shake .4s 2}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.phone .cam{position:absolute;left:50%;top:6px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:#56607A}
+.phone .cam.on{background:#3CFF6B;box-shadow:0 0 10px #3CFF6B}
+.phone .scr{width:100%;height:100%;border-radius:24px;background:#EEF3FB;overflow:hidden;font-size:16px;line-height:1.45;color:#1B2230;display:flex;flex-direction:column}
+.mz-time{font-size:46px;font-weight:900;text-align:center;margin-top:26px}
+.mz-noti{margin:16px 12px;background:#fff;border-radius:12px;padding:10px 12px;font-size:15px;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.mz-apps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:10px 16px;font-size:30px;text-align:center}
+.mz-head{background:#2350C8;color:#fff;font-weight:900;padding:10px 14px;font-size:17px}
+.mz-head.hk{background:#D0261E}
+.mz-sms{margin:14px 12px;background:#fff;border-radius:14px;padding:12px;font-size:16px}
+.mz-link{color:#2350C8;font-weight:700;word-break:break-all}
+.mz-link.tap{background:#FFE58A}
+.mz-inst{display:grid;justify-items:center;gap:8px;margin-top:40px;padding:0 16px;text-align:center}
+.mz-ic{font-size:54px}
+.mz-bar{width:200px;height:12px;border-radius:6px;background:#C9D1DF;overflow:hidden}
+.mz-bar i{display:block;height:100%;width:0;background:#2350C8;transition:width 1.6s linear}
+.mz-cmd{margin:8px 10px;padding:0;list-style:none;display:grid;gap:5px}
+.mz-cmd li{background:#FDEBEA;border:2px solid #D0261E;border-radius:10px;padding:4px 10px;font-weight:700;font-size:16px;display:flex;gap:8px;align-items:center;animation:jobIn .3s both}
+.mz-end{position:absolute;left:24px;right:24px;bottom:24px;background:#1B2230;box-shadow:0 4px 14px rgba(0,0,0,.4);animation:jobIn .4s both;color:#fff;border-radius:12px;padding:10px;font-size:15px;text-align:center}
+.mz-end b{color:#FFE58A}
+.mzrow{display:grid;grid-template-columns:150px 1fr 190px;gap:12px;align-items:center;background:var(--f-grey);border-radius:10px;padding:9px 14px;font-size:19px;line-height:1.45}
+.mzk{color:#fff;font-size:18px;text-align:center;border-radius:6px;padding:4px 6px}
+.mzrow .bl{font-size:20px;font-weight:900}
+.prog{font:inherit;text-align:left;border:2.5px solid var(--line);background:#fff;border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--ink);font-size:19px}
+.prog b{font-size:20px}
+.prog ol{margin:4px 0 0;padding-left:24px;display:grid;grid-template-columns:1fr 1fr;column-gap:16px;font-size:17px}
+.prog li.on{color:var(--pen);font-weight:900}
+.prog.run{border-color:var(--blue);background:var(--f-blue)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tabs button{font:inherit;font-size:19px;font-weight:700;padding:7px 16px;border-radius:999px;border:2.5px solid var(--line);background:#fff;color:var(--ink);cursor:pointer}
+.tabs button[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.cook{display:grid;gap:4px;justify-items:center;text-align:center}
+.cook h4{margin:0;font-size:24px}.cook p{margin:0;font-size:19px}
+.ck-ic{font-size:42px;line-height:1}
+.ck-eq{font-size:20px;margin-top:4px}
+.flips{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.flip{font:inherit;position:relative;height:190px;border:0;padding:0;background:none;cursor:pointer;perspective:900px;color:var(--ink)}
+.flip>div{position:absolute;inset:0;border-radius:12px;padding:12px 16px;box-sizing:border-box;display:grid;align-content:start;gap:6px;text-align:left;backface-visibility:hidden;transition:transform .5s;border:2.5px solid var(--line)}
+.flip .fr{background:#F4F6FA}
+.flip .bk{background:#FFFFFF;border-color:var(--green);transform:rotateY(180deg)}
+.flip.on .fr{transform:rotateY(-180deg)} .flip.on .bk{transform:rotateY(0)}
+.flip p{margin:0;font-size:20px;line-height:1.45}
+.flip .fld{justify-self:start;color:#fff;font-size:18px;padding:2px 12px;border-radius:6px}
+.flip .q{font-size:17px;font-weight:900;color:var(--blue)}
+.flip .sw{font-size:18px;font-weight:900;color:var(--green)}
+.factors{display:grid;gap:8px;align-content:start}
+.factors button{font:inherit;font-size:21px;font-weight:700;text-align:left;padding:12px 16px;border-radius:10px;border:2.5px solid var(--line);background:#fff;color:var(--ink);cursor:pointer}
+.factors button[aria-pressed=true]{border-color:var(--blue);background:var(--f-blue)}
+.step{display:grid;grid-template-columns:36px 1fr;gap:10px;align-items:center;background:var(--f-teal);border-radius:10px;padding:9px 14px;font-size:21px;line-height:1.45}
+.step>b{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--teal);color:#fff;font-size:18px}
+.sdg{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;align-content:start}
+.sdg button{font:inherit;color:#fff;border:0;border-radius:8px;min-height:106px;padding:8px;text-align:left;display:grid;align-content:start;gap:4px;cursor:pointer}
+.sdg button b{font-size:30px;line-height:1}.sdg button span{font-size:16px;font-weight:700;line-height:1.3}
+.sdg button.sel{outline:5px solid var(--ink);outline-offset:2px}
+.probs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.probs button{font:inherit;font-size:23px;font-weight:700;border-radius:12px;border:2.5px solid var(--line);background:#fff;color:var(--ink);padding:12px;cursor:pointer;line-height:1.35}
+.probs button[aria-pressed=true]{border-color:var(--teal);background:var(--f-teal)}
+.probs .pi{display:block;font-size:40px}
+.flow3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:14px}
+.flow3>div{position:relative;border-radius:12px;background:#F4F6FA;border:2.5px dashed var(--line);padding:12px 16px;min-height:140px;transition:all .3s}
+.flow3>div.on{background:#fff;border:2.5px solid var(--teal)}
+.flow3>div+div::before{content:'→';position:absolute;left:-26px;top:50%;transform:translateY(-50%);font-size:26px;font-weight:900;color:var(--teal)}
+.flow3 small{font-size:18px;font-weight:900;color:var(--teal)}
+.flow3 p{margin:6px 0 0;font-size:21px;line-height:1.5}
+.towns{display:grid;gap:8px;align-content:start}
+.towns button{font:inherit;text-align:left;border:2.5px solid var(--line);background:#fff;border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--ink);display:grid;gap:4px}
+.towns button b{font-size:19px}.towns button .bl{justify-self:start;font-size:19px;font-weight:900}
+.towns button[aria-pressed=true]{border-color:var(--teal);background:var(--f-teal)}
+.job{border:3px solid;border-radius:10px;padding:8px 12px;background:#fff;display:grid;gap:3px;font-size:18px;line-height:1.4;animation:jobIn .5s both}
+.job b{font-size:20px}
+@keyframes jobIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.simgrid{display:grid;grid-template-columns:780px 1fr;gap:12px;margin-top:8px}
+.simgrid canvas{width:780px;border-radius:10px;display:block;cursor:pointer}
+.simside{display:flex;flex-direction:column;gap:9px;padding:12px 14px;overflow:hidden}
+.simbtns{display:flex;flex-wrap:wrap;gap:7px}
+.simbtns button{font:inherit;font-size:16px;font-weight:900;padding:5px 10px;border-radius:10px;border:2.5px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer}
+.simbtns button.on{background:var(--ink);color:#fff}
+.simbtns button.pro{border-color:var(--blue);color:var(--blue)} .simbtns button.pro.on{background:var(--blue);color:#fff}
+.simbtns button.con{border-color:var(--pen);color:var(--pen)} .simbtns button.con.on{background:var(--pen);color:#fff}
+.simbtns button.gen{border-color:#56607A}
+.simbtns button:focus-visible,.nmbtn:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.simmsg{font-size:18px;line-height:1.45;color:var(--ink)}
+.simmsg.plain{font-size:16px;line-height:1.42;background:#fff;border-radius:8px;padding:6px 10px;border:2px solid var(--line)}
+.simmsg .pp{font-size:15px;margin-left:4px}
+.simmsg hr.sep{border:0;border-top:2px dashed var(--line);margin:7px 0}
+.trmsg{margin-top:8px;background:var(--f-orange);border-radius:10px;padding:7px 16px;font-size:19px;line-height:1.45;min-height:56px}
+.fsteps button{font-size:18px;padding:7px 14px}
+.trgrid{display:grid;grid-template-columns:740px 1fr;gap:12px;margin-top:8px}
+.trgrid canvas{width:740px;height:372px;border-radius:12px;display:block}
+.trcards{display:grid;grid-template-rows:auto repeat(4,1fr);gap:7px;height:372px}
+.trc{font:inherit;display:grid;grid-template-columns:48px 1fr auto;grid-template-rows:auto auto;align-items:center;column-gap:10px;text-align:left;border:3px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:4px 12px;cursor:pointer;min-height:0}
+.trc .sym{grid-row:1/3;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:26px;background:var(--f-grey);color:var(--ink)}
+.trc .nm{font-size:19px;font-weight:900;line-height:1.25;white-space:nowrap}
+.trc .sw{font-size:15px;font-weight:900;padding:2px 10px;border-radius:999px;background:var(--f-grey)}
+.trc .ef{grid-column:2/4;font-size:16px;font-weight:700;margin-top:2px}
+.trc.on{border-color:var(--orange);background:var(--f-orange)}
+.trc.on .sym{background:var(--orange);color:#fff}
+.trc.on .sw{background:var(--orange);color:#fff}
+.trc:focus-visible,.trpc button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.trpc{display:grid;grid-template-columns:1fr 1.4fr;gap:12px;margin-top:10px}
+.pc{display:flex;align-items:center;gap:12px;border-radius:12px;padding:10px 16px;border:3px solid}
+.pc.pro{background:var(--f-blue);border-color:var(--blue)} .pc.con{background:var(--f-red);border-color:var(--pen)}
+.pc .hdp{font-size:19px;white-space:nowrap} .pc.pro .hdp{color:var(--blue)} .pc.con .hdp{color:var(--pen)}
+.pc .tx{font-size:22px;font-weight:700;flex:1;line-height:1.35}
+.pc button{font:inherit;font-size:16px;font-weight:900;border-radius:999px;padding:6px 12px;border:2.5px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer;white-space:nowrap}
+.pc button.on{background:var(--ink);color:#fff}
+.bigtabs button{font-size:20px;padding:6px 16px}
+.wsbox{display:flex;flex-direction:column;gap:8px;background:#FFFDF3;border:3px solid #E0B400;border-radius:12px;padding:10px 14px;overflow:hidden}
+.wsh{font-size:20px;font-weight:900;color:#8A6A00}
+.wsq{display:flex;align-items:flex-start;gap:10px;font-size:21px;font-weight:800;line-height:1.38;background:#fff;border:2px solid var(--line);border-radius:10px;padding:8px 10px}
+.wsa{font-size:22px;font-weight:900;display:flex;align-items:center;gap:8px}
+.wsbl{font:inherit;font-size:23px;font-weight:900;min-width:150px;padding:4px 14px;border:0;border-bottom:4px solid var(--pen);background:var(--f-red);color:transparent;border-radius:6px 6px 0 0;cursor:pointer}
+.wsbl.on{color:var(--pen);background:#fff}
+.wsbl:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.wsbogi{font-size:17px;font-weight:800;color:var(--ink)}
+.simbtns.big button{font-size:17px;padding:6px 11px}
+.simmsg.big{font-size:19px;font-weight:600;line-height:1.42}
+.trhd{font-size:18px;font-weight:900;color:#8A6A00}
+.nmrow{display:flex;align-items:center;gap:10px}
+.fldb{font-size:21px;color:#fff;background:var(--orange);padding:3px 14px;border-radius:8px;white-space:nowrap}
+.nmbtn{font:inherit;font-size:18px;font-weight:900;border:2.5px dashed var(--pen);background:var(--f-red);color:var(--pen);border-radius:10px;padding:5px 12px;cursor:pointer}
+.nmbtn.on{border-style:solid;background:#fff}
+.ws.listen{color:var(--ink);border-color:var(--line);background:var(--f-grey)}
+.all{font:inherit;font-size:16px;font-weight:700;padding:6px 14px;border-radius:999px;border:2px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer}
+.all[aria-pressed=true]{background:var(--ink);color:#fff}
+h2.tt{margin:12px 0 0;font-size:40px;font-weight:900;letter-spacing:-.5px}
+.lead{margin:8px 0 0;font-size:22px;font-weight:500;color:var(--sub)}
+/* 빈칸 */
+.bl{display:inline-block;min-width:3.2em;padding:0 10px;margin:0 3px;border-bottom:3px solid var(--pen);color:transparent;cursor:pointer;border-radius:4px 4px 0 0;background:var(--f-red);text-align:center;line-height:1.35;transition:background .15s}
+.bl.on{color:var(--pen);background:transparent}
+.bl:focus-visible,.card:focus-visible,.opt:focus-visible,.all:focus-visible,.nav button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+/* 카드 */
+.cards{display:grid;gap:14px}
+.card{font:inherit;position:relative;display:grid;align-content:center;justify-items:center;gap:8px;min-height:132px;padding:12px;border:2.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font-size:28px;font-weight:700;cursor:pointer;text-align:center;line-height:1.35}
+.card .k{font-size:18px;font-weight:900;padding:3px 12px;border-radius:999px;color:#fff;visibility:hidden}
+.card.on .k{visibility:visible}
+.card.on.hw,.card.on.pos{border-color:var(--blue);background:var(--f-blue)} .card .k.hw,.card .k.pos{background:var(--blue)}
+.card.on.sw{border-color:var(--teal);background:var(--f-teal)} .card .k.sw{background:var(--teal)}
+.card.on.neg{border-color:var(--pen);background:var(--f-red)} .card .k.neg{background:var(--pen)}
+.card.on.gen{border-color:#56607A;background:var(--f-grey)} .card .k.gen{background:#3A4256}
+.card.on.fus{border-color:var(--orange);background:var(--f-orange)} .card .k.fus{background:var(--orange)}
+.bl.ox{min-width:2.2em;font-weight:900}
+.bl.ox.on.o{color:var(--green)} .bl.ox.on.x{color:var(--pen)}
+.timer{font:inherit;font-size:22px;font-weight:900;padding:6px 18px;border-radius:999px;border:2.5px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer;font-variant-numeric:tabular-nums}
+.timer.run{background:var(--ink);color:#fff} .timer.end{background:var(--pen);border-color:var(--pen);color:#fff}
+.day{position:absolute;right:80px;top:70px;font-size:26px;font-weight:900;color:#fff;border:3px solid #fff;border-radius:8px;padding:6px 18px}
+/* 공통 상자 */
+.box{border-radius:10px;padding:18px 22px;background:var(--f-grey);font-size:24px;line-height:1.7}
+.s1 .box.c{background:var(--f-blue)} .s2 .box.c{background:var(--f-teal)} .s3 .box.c{background:var(--f-orange)}
+.row{display:grid;align-items:center;gap:16px;padding:13px 20px;border-radius:10px;background:var(--f-grey);font-size:24px;line-height:1.45}
+.row b.n{font-size:20px;font-weight:900;color:#fff;background:var(--ink);border-radius:6px;padding:2px 10px;justify-self:start}
+.grid{display:grid;gap:12px}
+.tile{border-radius:10px;background:var(--f-grey);padding:16px 20px;font-size:23px;line-height:1.5}
+.tile h4{margin:0 0 6px;font-size:24px}
+.ex{font-size:19px;color:var(--sub);font-weight:500}
+/* 표지 */
+.cover{background:var(--ink);color:#fff;padding:70px 80px}
+.cover .kicker{margin-top:100px;font-size:24px;color:#E3E7F1;font-weight:500}
+.cover h1{margin:16px 0 0;font-size:68px;font-weight:900;line-height:1.2;letter-spacing:-1px}
+.cover .sub{margin-top:40px;font-size:22px;color:#E3E7F1}
+.cover .chips{display:flex;gap:10px}
+.cover .chips span{font-size:17px;font-weight:700;padding:6px 14px;border-radius:4px}
+.cover .tb{position:absolute;left:80px;bottom:60px;font-size:18px;color:#C9CFDD}
+/* 문제 화면 스타일(미사용) */
+.qn{font-size:30px;font-weight:900;line-height:1.4;margin:14px 0 0}
+.qn em{font-style:normal;color:var(--pen)}
+.qbox{margin:12px 0 0;border:2px solid var(--ink);border-radius:8px;padding:10px 18px;font-size:21px;line-height:1.6}
+.opts{display:grid;gap:8px;margin-top:14px}
+.opts.row5{grid-template-columns:repeat(5,1fr);gap:12px}
+.opts.row5 .opt{grid-template-columns:auto auto 26px;justify-content:center;gap:6px;font-size:24px;padding:12px 6px;white-space:nowrap}
+.opt{font:inherit;display:grid;grid-template-columns:40px 1fr 40px;align-items:center;text-align:left;gap:8px;padding:9px 16px;border:2.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font-size:22px;font-weight:500;line-height:1.4;cursor:pointer}
+.opt .no{font-size:26px;font-weight:900}
+.opt .mk{font-size:26px;font-weight:900;text-align:center}
+.opt.ok{border-color:var(--green);background:var(--f-green)} .opt.ok .mk{color:var(--green)}
+.opt.no-{border-color:var(--pen);background:var(--f-red)} .opt.no- .mk{color:var(--pen)} .opt.no- .tx{text-decoration:line-through;text-decoration-thickness:2px}
+.exp{margin-top:12px;border-radius:10px;background:var(--f-green);border:2.5px solid var(--green);padding:10px 18px;font-size:20px;line-height:1.55}
+.exp b{color:var(--green)}
+.exp[hidden]{display:none}
+.qtools{display:flex;gap:10px;margin-left:12px}
+/* 네비 */
+.nav{position:absolute;left:0;right:0;bottom:0;height:56px;display:flex;align-items:center;gap:12px;padding:0 44px;border-top:1px solid var(--line);background:#F5F7FA}
+.nav button{font:inherit;font-size:16px;font-weight:700;color:var(--ink);background:#fff;border:2px solid var(--line);border-radius:999px;padding:6px 16px;cursor:pointer}
+.nav button:disabled{opacity:.35;cursor:default}
+.dots{flex:1;display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
+.dots i{width:11px;height:11px;border-radius:50%;background:var(--line);cursor:pointer}
+.dots i.q{box-shadow:inset 0 0 0 2px var(--pen)}
+.dots i.on{background:var(--ink)}
+.pg{font-size:16px;font-weight:700;min-width:64px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+<style>
+.s1 .tag{background:var(--blue)}
+.tt{font-size:36px}
+.lead{font-size:22px;color:var(--ink)}
+h3.sh{margin:14px 0 8px;font-size:25px;font-weight:900}
+.tile h4 small{font-size:16px;font-weight:700}
+.xb2{display:inline-block;font-size:15px;font-weight:900;color:#7A4B00;background:#FFF3C4;border:1.5px solid #E0B400;border-radius:999px;padding:1px 9px;vertical-align:middle;white-space:nowrap}
+.xb2.te{color:#1F4E9E;background:#E6EDFC;border-color:#7FA2E8}
+.defb{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;background:var(--f-blue);border:3px solid var(--blue);border-radius:14px;padding:14px 18px;margin-top:12px;line-height:1.65;font-weight:600}
+.s3 .defb{background:var(--f-orange);border-color:var(--orange)} .s0 .defb{background:var(--f-grey);border-color:var(--ink)}
+.defb .term{font-size:26px;font-weight:900;color:#fff;background:var(--blue);border-radius:10px;padding:10px 14px;text-align:center;line-height:1.25;min-width:120px}
+.defb .term small{font-size:17px}
+.s3 .defb .term{background:var(--orange)} .s0 .defb .term{background:var(--ink)}
+.easy{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;background:#FFF8D6;border:2.5px solid #E0B400;border-radius:12px;padding:12px 16px;margin-top:12px;font-size:22px;line-height:1.6;font-weight:600}
+.easy>b{white-space:nowrap;color:#7A4B00}
+.exb{background:#E3F5E8;border:2.5px solid var(--green);border-radius:12px;padding:10px 16px;margin-top:12px;font-size:21px;line-height:1.6}
+.exb>b{color:var(--green);font-size:22px} .exb>div{font-weight:600;margin-top:4px}
+.mini{margin-top:8px;font-size:19px;background:#fff;border-radius:8px;padding:6px 10px;font-weight:600}
+.rvg{display:grid;gap:10px;margin-top:12px}
+.rv{font:inherit;display:flex;flex-direction:column;justify-content:flex-start;gap:8px;text-align:left;border:2.5px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);padding:14px 16px;cursor:pointer}
+.rv b{font-size:23px;font-weight:900;line-height:1.3}
+.rv span{font-weight:600;line-height:1.5;visibility:hidden}
+.rv span .note{display:block;font-style:normal;margin-top:6px;font-size:18px;color:var(--green);font-weight:800}
+.rv::after{content:'눌러서 보기 ▾';font-size:16px;font-weight:800;color:var(--blue);margin-top:auto}
+.rv.on{border-color:var(--blue);background:var(--f-blue)} .rv.on span{visibility:visible} .rv.on::after{content:none}
+.s3 .rv.on{border-color:var(--orange);background:var(--f-orange)}
+.rv:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.bars{display:grid;gap:8px;margin-top:6px}
+.br{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;font-size:18px;font-weight:700}
+.br .bn{min-width:64px} .br .bt{height:24px;background:#EEF1F5;border-radius:4px;overflow:hidden} .br .bt i{display:block;height:100%;border-radius:4px}
+.br b{font-size:18px;min-width:48px;text-align:right}
+.steps{display:flex;align-items:stretch;gap:8px;margin-top:12px}
+.steps>i{font-style:normal;font-size:26px;align-self:center;color:var(--orange)}
+.st{flex:1;border:3px solid var(--line);border-radius:12px;background:#fff;padding:10px 12px;display:flex;flex-direction:column;gap:4px}
+.st b{font-size:21px;font-weight:900;line-height:1.3} .st span{font-size:18px;font-weight:600;line-height:1.4}
+.st span:empty{display:none}
+.st.on{border-color:var(--orange);background:var(--orange)} .st.on b{color:#fff}
+.s1 .st.on{border-color:var(--blue);background:var(--blue)}
+table.cmpt{width:100%;border-collapse:separate;border-spacing:0 6px;margin-top:8px;font-size:23px}
+table.cmpt th,table.cmpt td{padding:10px 14px;text-align:left;vertical-align:middle;line-height:1.45;background:var(--f-grey)}
+table.cmpt thead th{background:var(--ink);color:#fff;font-size:22px}
+table.cmpt thead th.c1{background:#56607A} table.cmpt thead th.c2{background:var(--blue)}
+.s3 table.cmptt thead th.c2{background:var(--orange)}
+table.cmpt tbody th{white-space:nowrap;font-weight:900;border-radius:8px 0 0 8px;width:1%}
+table.cmpt td{background:#fff;border:2px solid var(--line)}
+table.cmpt td .bl{min-width:9em}
+.tl{margin-top:16px;display:grid;gap:8px}
+.tlr{display:grid;grid-template-columns:120px repeat(4,1fr);gap:8px;align-items:center}
+.tls{background:var(--f-grey);border-radius:10px;padding:8px;text-align:center;font-size:20px;line-height:1.3} .tls small{display:block;font-size:15px;font-weight:700}
+.tll{font-size:21px;text-align:center;border-radius:8px;padding:6px;color:#fff} .tll.c1{background:#56607A} .tll.c2{background:var(--blue)}
+.tlb{height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:900;color:#fff;transform-origin:left;transform:scaleX(0);transition:transform 1s ease}
+.tlb.c1{background:#56607A} .tlb.c2{background:var(--blue);transition-delay:.6s}
+.tl.go .tlb{transform:scaleX(1)}
+.frame{display:flex;gap:10px;margin-top:10px} .frame span{flex:1;text-align:center;font-size:21px;font-weight:900;background:var(--ink);color:#fff;border-radius:999px;padding:8px}
+.tile.cs{font-size:21px;line-height:1.6}
+.swot{display:grid;grid-template-columns:96px 1fr 1fr;gap:8px;margin-top:12px}
+.swot .ax{text-align:center;font-size:21px} .swot .ay{display:grid;place-items:center;font-size:20px;text-align:center;background:var(--f-grey);border-radius:8px}
+.sq{border-radius:12px;color:#fff;font-size:30px;font-weight:900;padding:10px 16px;display:flex;flex-direction:column;gap:4px}
+.sq small{font-size:20px;font-weight:700;line-height:1.4}
+.sq.s{background:#24873E} .sq.w{background:#C93A3F} .sq.o{background:#B8336A} .sq.t{background:#3B54B8}
+.card small{font-size:19px;font-weight:600;line-height:1.4}
+.card.on.s{border-color:#24873E;background:#E3F5E8} .card .k.s{background:#24873E}
+.card.on.w{border-color:#C93A3F;background:#FDEBEA} .card .k.w{background:#C93A3F}
+.card.on.o{border-color:#B8336A;background:#FCE7F3} .card .k.o{background:#B8336A}
+.card.on.t{border-color:#3B54B8;background:#E6EDFC} .card .k.t{background:#3B54B8}
+.card.on.s1c{border-color:var(--blue);background:var(--f-blue)} .card .k.s1c{background:var(--blue)}
+.card.on.s2c{border-color:var(--teal);background:var(--f-teal)} .card .k.s2c{background:var(--teal)}
+.card.on.s3c{border-color:var(--orange);background:var(--f-orange)} .card .k.s3c{background:var(--orange)}
+.flow{display:flex;align-items:center;gap:8px;font-size:23px;font-weight:900;flex-wrap:wrap}
+.flow i{font-style:normal;font-size:26px;color:var(--orange)}
+.comic{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+.comic .cb{position:relative;background:#fff;border:2.5px solid var(--ink);border-radius:16px;padding:12px 14px;font-size:20px;font-weight:700;line-height:1.45}
+.comic .who{display:block;font-size:15px;font-weight:900;color:#fff;background:var(--ink);border-radius:999px;padding:1px 10px;width:max-content;margin-bottom:6px}
+.comic .cb:nth-child(1){background:#F1E8FB} .comic .cb:nth-child(2){background:#FFF8D6} .comic .cb:nth-child(3){background:#E3F5E8} .comic .cb:nth-child(4){background:#E6EDFC}
+.bs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.bs>div{background:#fff;border:2.5px solid var(--line);border-radius:12px;padding:10px 12px;font-size:20px;font-weight:700;line-height:1.4;display:flex;gap:10px;align-items:flex-start}
+.bs b{flex:none;width:34px;height:34px;border-radius:50%;background:var(--orange);color:#fff;display:grid;place-items:center;font-size:19px}
+.wh{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;background:var(--f-orange);border-radius:12px;padding:12px}
+.wh .w1,.wh .w2{font-size:26px;font-weight:900;text-align:center;border-radius:12px;padding:10px 16px;color:#fff;background:#56607A}
+.wh .w2{background:var(--orange)} .wh i{font-style:normal;font-size:30px}
+.wh p{flex-basis:100%;margin:0;text-align:center;font-size:20px;font-weight:700}
+.cover{background:#3B2A5C}
+.cover h1{font-size:60px}
+</style>
+<style>table.cmpt th{font-size:inherit} table.cmpt tbody th{font-size:21px}</style><style>
+.simtag{font-size:16px;font-weight:900;color:#fff;background:#7B3FA0;border-radius:999px;padding:4px 12px}
+.sbar{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.sbar button{font:inherit;font-size:18px;font-weight:900;padding:6px 14px;border-radius:999px;border:2.5px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer}
+.sbar button.on{background:var(--ink);color:#fff}
+.sbar button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.simcv{display:block;margin-top:10px;border-radius:12px;border:2px solid var(--line)}
+.scap{margin-top:8px;font-size:20px;font-weight:600;line-height:1.5;background:var(--f-grey);border-radius:10px;padding:8px 14px}
+.scap:empty{display:none}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+<section class="slide cover" data-t="표지">
+  <div class="chips"><span style="background:#6A4C93">소프트웨어와 생활</span><span style="background:#3A4256">Ⅴ단원</span></div>
+  <div class="day">2 / 2차시</div>
+  <div class="kicker">Ⅴ. 가치를 창출하는 소프트웨어</div>
+  <h1>2. 소프트웨어<br>스타트업 프로젝트</h1>
+  <div class="sub">프로젝트 수행 과정 · 사용자 요구 분석과 페르소나 · 브레인스토밍 · 소프트웨어의 가치 평가</div>
+  <div class="tb">교과서 p.190~203</div>
+</section>
+
+<section class="slide s3" data-t="학습 목표">
+  <div class="hd"><span class="tag">2차시</span><span class="pref">교과서 p.190</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">오늘 배울 것</h2>
+  
+  <div class="grid" style="gap:12px;margin-top:16px">
+    <div class="row" style="grid-template-columns:auto 1fr;background:var(--f-orange);font-size:25px"><b class="n" style="background:var(--orange)">1</b><span>소프트웨어 스타트업 프로젝트의 <b>수행 과정</b>을 이해하고, 사용자 요구를 분석하여 아이디어를 구안한다.</span></div>
+    <div class="row" style="grid-template-columns:auto 1fr;background:var(--f-orange);font-size:25px"><b class="n" style="background:var(--orange)">2</b><span>스타트업 프로젝트에 적합한 소프트웨어를 <b>협력적으로 설계하고 구현</b>한다.</span></div>
+    <div class="row" style="grid-template-columns:auto 1fr;background:var(--f-orange);font-size:25px"><b class="n" style="background:var(--orange)">3</b><span>개발한 소프트웨어의 가치를 <b>사회적, 기능적, 윤리적</b> 관점에서 평가한다.</span></div>
+  </div>
+  <h3 class="sh">지난 시간 떠올리기</h3>
+  <div class="box" style="font-size:24px">스타트업 = 혁신적 기술과 아이디어를 보유한 <b class="bl" tabindex="0">신생 벤처 기업</b> · 소프트웨어 스타트업 = 소프트웨어 제품이나 서비스로 특정한 문제나 <b class="bl" tabindex="0">시장의 요구</b>를 해결하는 기업</div>
+</section>
+
+<section class="slide s3" data-t="프로젝트 수행 과정">
+  <div class="hd"><span class="tag">01 프로젝트 수행</span><span class="pref">교과서 p.191</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">소프트웨어 스타트업 프로젝트의 수행 과정</h2>
+  
+  <p class="lead">서비스를 이용할 사용자 분석부터 실제 소프트웨어를 만들고 평가하기까지 일련의 과정을 거쳐요.</p>
+  <div class="steps"><div class="st"><b>① 사용자 요구 분석 및 주제 선정</b><span>문제 제기, 사용 대상자 선정, 적합한 주제 선정</span></div><i>➜</i><div class="st"><b>② 해결 아이디어 구상</b><span>아이디어 회의, 구현 기능 계획, 비용 예측, 마케팅 전략 구상</span></div><i>➜</i><div class="st"><b>③ 소프트웨어 설계 및 제작</b><span>디자인 설계, 프로그래밍</span></div><i>➜</i><div class="st"><b>④ 소프트웨어 평가</b><span>테스트 및 배포, 정확도 측정, 피드백 수집 및 개선사항 반영</span></div></div>
+  <div class="easy"><b>💬 쉽게 말하면</b><div>① 누가 무엇 때문에 불편한지 알아내고 → ② 어떻게 해결할지 아이디어를 내고 → ③ 실제로 만들고 → ④ 써 보게 하고 고쳐요. 이번 시간 내내 ‘쓰레기 분리배출 앱’ 예시로 따라가 볼게요.</div></div>
+</section>
+
+<section class="slide s3" data-t="시뮬레이션: 프로젝트 순환">
+  <div class="hd"><span class="tag">01 프로젝트 수행</span><span class="pref">교과서 p.191 · p.193</span><span class="simtag">🎬 시뮬레이션</span></div>
+  <h2 class="tt">평가에서 문제가 나오면? 앞 단계로 돌아가 고쳐요!</h2>
+  <div class="sbar" id="sbCyc"><button data-a="r">▶ 다시 재생</button></div>
+  <canvas id="cvCyc" width="1192" height="400" style="width:1060px;height:356px" class="simcv"></canvas>
+  <div class="scap" id="cpCyc">④ 소프트웨어 평가: 피드백을 수집하고 평가하여 <b>개선해 나가야</b> 해요 (p.193) · 테스트 및 배포, 정확도 측정, 피드백 수집 및 <b>개선사항 반영</b> (p.191) <span class="xb2">교과서 밖 보충 · 모형 애니메이션</span></div>
+</section>
+
+<section class="slide s3" data-t="(1) 사용자 요구 분석 및 주제 선정">
+  <div class="hd"><span class="tag">02 설계와 구현</span><span class="pref">교과서 p.191</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">(1) 사용자 요구 분석 및 주제 선정</h2>
+  
+  <div class="steps"><div class="st on"><b>① 사용자 요구 분석 및 주제 선정</b><span></span></div><i>➜</i><div class="st"><b>② 해결 아이디어 구상</b><span></span></div><i>➜</i><div class="st"><b>③ 소프트웨어 설계 및 제작</b><span></span></div><i>➜</i><div class="st"><b>④ 소프트웨어 평가</b><span></span></div></div>
+  <div class="defb" style="font-size:22px"><span class="term">사용자 요구<br>분석</span><div>소프트웨어 스타트업 개발의 실질적인 <b class="bl" tabindex="0">첫 단계</b>. 사용자의 요구와 필요에 <b class="bl" tabindex="0">공감</b>하고, 이를 바탕으로 사업의 <b class="bl" tabindex="0">핵심 주제</b>를 선정하는 과정 → 서비스를 받을 당사자와의 <b class="bl" tabindex="0">설문, 인터뷰</b> 등을 많이 활용</div></div>
+  <div class="comic"><div class="cb"><span class="who">학생 1</span>페트병 뚜껑은 어떻게 분리배출 하는 게 맞는 걸까?</div><div class="cb"><span class="who">학생 2</span>쓰레기 종류에 따라 배출 방법을 알려 주는 앱이 있으면 편하겠다.</div><div class="cb"><span class="who">학생 3</span>그럼 우리가 올바른 분리배출 방법을 안내하는 프로그램을 만들어 볼까?</div><div class="cb"><span class="who">학생 4</span>우리 학교 학생들을 위한 거니까, 친구들에게 어떤 기능이 더 필요할지 물어보자.</div></div>
+</section>
+
+<section class="slide s3" data-t="페르소나">
+  <div class="hd"><span class="tag">02 설계와 구현</span><span class="pref">교과서 p.191</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">페르소나 · 사용자를 한 사람처럼 그려 보기</h2>
+  
+  <div class="defb" style="font-size:22px"><span class="term">페르소나<br><small>persona</small></span><div>우리 서비스를 쓸 사용자들의 특징을 모아 만든 <b class="bl" tabindex="0">가상의 대표 사용자</b>. 설문·인터뷰로 알아낸 내용을 한 사람의 모습으로 정리해요. <span class="xb2">교과서 밖 보충</span></div></div>
+  <div class="grid" style="grid-template-columns:1.1fr 1fr;gap:14px;margin-top:12px">
+    <div class="tile" style="font-size:21px;line-height:1.65;background:var(--f-orange)"><h4>👧 예시 · 분리배출 앱의 페르소나 <small>(가상 인물)</small></h4>
+      · <b>이름·나이</b> 이서윤, 고등학교 1학년<br>· <b>상황</b> 급식 후 우유팩·플라스틱 컵을 버릴 때마다 어디에 넣을지 헷갈림<br>· <b>불편한 점</b> 쉬는 시간이 짧아 빨리 버리고 싶은데 안내문이 너무 길다<br>· <b>바라는 점</b> 사진만 찍으면 바로 알려 주면 좋겠다<br>· <b>한마디</b> “이거 씻어서 버려야 해?”</div>
+    <div class="tile" style="font-size:21px;line-height:1.7"><h4>💡 왜 만들까?</h4>· ‘모든 학생’ 대신 ‘한 사람’을 떠올리면 <b class="bl" tabindex="0">필요한 기능</b>이 분명해져요<br>· 개발자가 편한 대로가 아니라 <b class="bl" tabindex="0">사용자 입장</b>에서 생각하게 돼요<br>· 팀원들이 같은 사용자를 떠올리며 의견을 맞출 수 있어요</div>
+  </div>
+</section>
+
+<section class="slide s3" data-t="(2) 해결 아이디어 구상">
+  <div class="hd"><span class="tag">02 설계와 구현</span><span class="pref">교과서 p.192</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">(2) 해결 아이디어 구상</h2>
+  
+  <div class="steps"><div class="st"><b>① 사용자 요구 분석 및 주제 선정</b><span></span></div><i>➜</i><div class="st on"><b>② 해결 아이디어 구상</b><span></span></div><i>➜</i><div class="st"><b>③ 소프트웨어 설계 및 제작</b><span></span></div><i>➜</i><div class="st"><b>④ 소프트웨어 평가</b><span></span></div></div>
+  <div class="tile" style="font-size:22px;margin-top:10px;line-height:1.7"><h4>사업 주제를 정했다면, 소프트웨어로 해결할 방안을 구상하는 단계</h4>· 회사의 개발 여건, 기술적 능력, 소요 시간 등을 고려해 <b class="bl" tabindex="0">브레인스토밍</b> 등으로 아이디어 회의<br>· 어떤 <b class="bl" tabindex="0">기능</b>을 제공할지 판단하고, 개발에 필요한 <b class="bl" tabindex="0">비용</b>도 포함<br>· 어떤 방법으로 홍보할지 <b class="bl" tabindex="0">마케팅 전략</b>을 구상하는 것까지 포함</div>
+  <div class="comic"><div class="cb"><span class="who">학생 1</span>어떤 소프트웨어를 만들지 구체적으로 생각해 보자.</div><div class="cb"><span class="who">학생 2</span>촬영한 쓰레기를 분류해서 알맞은 분리배출 방법을 안내해 주는 기능은 어때?</div><div class="cb"><span class="who">학생 3</span>이미지 인식 기술을 활용해서 만들어 보자. 홍보는 어떻게 하면 좋을까?</div><div class="cb"><span class="who">학생 4</span>SNS에 쓰레기 문제 관련 글을 올리거나 환경 보호 캠페인을 하면 도움이 될 것 같아.</div></div>
+</section>
+
+<section class="slide s3" data-t="보충: 브레인스토밍">
+  <div class="hd"><span class="tag">보충 학습</span><span class="pref">교과서 p.192</span><button class="timer" data-s="600">⏱ 10:00</button><button class="all">모두 보기</button></div>
+  <h2 class="tt">브레인스토밍이란?</h2>
+  
+  <div class="defb" style="font-size:22px"><span class="term">브레인스토밍</span><div>창의적인 아이디어를 생산하기 위한 회의 기법. <b class="bl" tabindex="0">집단적 창의적 발상 기법</b>으로, 집단의 구성원들이 <b class="bl" tabindex="0">자발적</b>으로 제시한 아이디어 목록을 통해 특정한 문제의 해답을 찾는 것</div></div>
+  <h3 class="sh">브레인스토밍의 과정</h3>
+  <div class="bs">
+    <div><b>1</b>관련자 모두가 참여하는 회의 소집</div><div><b>2</b>경험 많은 사람을 회의 주재자로 선정</div><div><b>3</b>테이블에 참석자를 배석시키고 종이 준비</div><div><b>4</b>토론을 유도할 질문을 정함</div>
+    <div><b>5</b><span>질문의 답을 종이에 적되, <u>한 장에 하나의 아이디어</u>만 적어 참석자에게 돌려 봄</span></div><div><b>6</b>5번 단계를 5~15분간 반복</div><div><b>7</b>간단한 설명</div><div><b>8</b>모든 아이디어를 칠판에 적고, 우선순위를 정하기 위해 투표할 수도 있음</div>
+  </div>
+</section>
+
+<section class="slide s3" data-t="브레인스토밍 4원칙">
+  <div class="hd"><span class="tag">보충 학습</span><span class="pref">교과서 p.192</span><button class="tool qp">🎲 누가 답할까?</button><button class="all">모두 보기</button></div>
+  <h2 class="tt">브레인스토밍의 4가지 원칙</h2>
+  
+  <div class="grid" style="grid-template-columns:repeat(4,1fr);gap:12px;margin-top:8px">
+    <div class="tile" style="font-size:21px;background:var(--f-red)"><h4>🚫 <b class="bl" tabindex="0">비판 금지</b></h4>회의 중에는 어떤 아이디어도 바로 평가하거나 비판하지 않아요</div>
+    <div class="tile" style="font-size:21px;background:var(--f-orange)"><h4>🎈 <b class="bl" tabindex="0">자유분방</b></h4>엉뚱한 생각도 환영! 고정관념에서 벗어나 자유롭게 말해요</div>
+    <div class="tile" style="font-size:21px;background:var(--f-blue)"><h4>📦 <b class="bl" tabindex="0">질보다 양</b></h4>처음에는 좋은 아이디어보다 많은 아이디어를 먼저 모아요</div>
+    <div class="tile" style="font-size:21px;background:var(--f-green)"><h4>🔗 <b class="bl" tabindex="0">결합과 개선</b></h4>다른 사람의 아이디어를 합치거나 고쳐서 더 좋게 만들어요</div>
+  </div>
+  <h3 class="sh">이 말은 어떤 원칙과 관련 있을까? 카드를 눌러 확인해요</h3>
+  <div class="cards" style="grid-template-columns:repeat(4,1fr);margin-top:14px"><button class="card w" style="min-height:100px;font-size:22px">“에이, 그건 별로야.”<span class="k w">🚫 비판 금지를 어김</span></button><button class="card o" style="min-height:100px;font-size:22px">“말도 안 돼 보여도 일단 적어 보자!”<span class="k o">🎈 자유분방</span></button><button class="card t" style="min-height:100px;font-size:22px">“5분 안에 20개 써 보자!”<span class="k t">📦 질보다 양</span></button><button class="card s" style="min-height:100px;font-size:22px">“네 알림 아이디어에 지도를 붙이면?”<span class="k s">🔗 결합과 개선</span></button></div>
+  <p class="lead" style="margin-top:8px">알렉스 오스본이 제안한 원칙 <span class="xb2">교과서 밖 보충</span> · 교사용 교과서 p.192: “비판 없이 다양한 아이디어를 수용하는 환경을 조성한다”</p>
+</section>
+
+<section class="slide s3" data-t="시뮬레이션: 브레인스토밍">
+  <div class="hd"><span class="tag">보충 학습</span><span class="pref">교과서 p.192</span><span class="simtag">🎬 시뮬레이션</span></div>
+  <h2 class="tt">브레인스토밍, 이렇게 진행돼요</h2>
+  <div class="sbar" id="sbBs"><button data-a="0" data-tab="1" class="on">① 질문 정하기</button><button data-a="1" data-tab="1">② 한 장에 하나씩</button><button data-a="2" data-tab="1">③ 칠판에 붙이기</button><button data-a="3" data-tab="1">④ 투표하기</button></div>
+  <canvas id="cvBs" width="1192" height="400" style="width:1080px;height:362px" class="simcv"></canvas>
+  <div class="scap" id="cpBs"></div>
+</section>
+
+<section class="slide s3" data-t="(3) 소프트웨어 설계 및 제작">
+  <div class="hd"><span class="tag">02 설계와 구현</span><span class="pref">교과서 p.193</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">(3) 소프트웨어 설계 및 제작</h2>
+  
+  <div class="steps"><div class="st"><b>① 사용자 요구 분석 및 주제 선정</b><span></span></div><i>➜</i><div class="st"><b>② 해결 아이디어 구상</b><span></span></div><i>➜</i><div class="st on"><b>③ 소프트웨어 설계 및 제작</b><span></span></div><i>➜</i><div class="st"><b>④ 소프트웨어 평가</b><span></span></div></div>
+  <div class="grid" style="grid-template-columns:1.2fr 1fr;gap:12px;margin-top:10px">
+    <div class="tile" style="font-size:20px;line-height:1.55"><h4>무엇을 만들지 정했다면, 상세히 설계하고 실제로 제작하는 단계</h4>· 사용자 요구 분석에서 정한 필수 기능들의 <b>구체적인 구현 방법</b>을 명시<br>· 앞으로 구현할 소프트웨어의 <b>청사진</b>이 보이게 됨<br>· 개발 완료 시점까지의 <b class="bl" tabindex="0">상세 일정 계획</b>이 포함되어야 함</div>
+    <div class="wh"><div class="w1">❓ 무엇을<br><small>What</small></div><i>➜</i><div class="w2">🛠 어떻게<br><small>How</small></div><p>관심이 <b class="bl" tabindex="0">무엇을(What)</b>에서 <b class="bl" tabindex="0">어떻게(How)</b>로 바뀌어요</p></div>
+  </div>
+  <h3 class="sh">소프트웨어 설계 계획 3가지 <span class="pp">교사용 교과서 p.193 · p.198</span></h3>
+  <div class="grid" style="grid-template-columns:repeat(3,1fr);gap:12px">
+    <div class="tile" style="font-size:20px;background:var(--f-blue)"><h4>🎨 <b class="bl" tabindex="0">디자인 설계</b></h4>로고·화면 등 간단한 설계도 그리기</div>
+    <div class="tile" style="font-size:20px;background:var(--f-teal)"><h4>🧩 <b class="bl" tabindex="0">알고리즘 설계</b></h4>문제를 해결하는 처리 과정을 단계별로 정하기</div>
+    <div class="tile" style="font-size:20px;background:var(--f-orange)"><h4>💻 <b class="bl" tabindex="0">프로그램 구현</b></h4>실행 계획 순서대로 프로그래밍하고 피드백 반영</div>
+  </div>
+</section>
+
+<section class="slide s3" data-t="(4) 소프트웨어 평가">
+  <div class="hd"><span class="tag">02 설계와 구현</span><span class="pref">교과서 p.193</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">(4) 소프트웨어 평가</h2>
+  
+  <div class="steps"><div class="st"><b>① 사용자 요구 분석 및 주제 선정</b><span></span></div><i>➜</i><div class="st"><b>② 해결 아이디어 구상</b><span></span></div><i>➜</i><div class="st"><b>③ 소프트웨어 설계 및 제작</b><span></span></div><i>➜</i><div class="st on"><b>④ 소프트웨어 평가</b><span></span></div></div>
+  <div class="defb" style="font-size:23px"><span class="term">소프트웨어<br>평가</span><div>제작한 소프트웨어가 본래 설정한 <b class="bl" tabindex="0">기준에 부합</b>하게 작동하는지, 사용자가 이용할 때 <b class="bl" tabindex="0">불편한 점</b>은 없는지 등의 <b class="bl" tabindex="0">피드백</b>을 수집하고 평가하여 개선해 나가는 것</div></div>
+  <div class="comic"><div class="cb"><span class="who">학생 1</span>우리가 만든 프로그램이 잘 작동하는지 확인해 보자.</div><div class="cb"><span class="who">학생 2</span>유리병의 색깔에 따라 인식 결과에 차이가 있는 것 같아.</div><div class="cb"><span class="who">학생 3</span>또 다른 오류나 불편한 점이 없는지 다른 친구들한테도 물어볼까?</div><div class="cb"><span class="who">학생 4</span>좋아! 사용자의 피드백을 수집해서 평가해 보자.</div></div>
+</section>
+
+<section class="slide s3" data-t="가치 평가 세 관점">
+  <div class="hd"><span class="tag">02 소프트웨어의 가치 평가</span><span class="pref">교과서 p.196~197</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">소프트웨어의 가치 평가 · 세 가지 관점</h2>
+  
+  <p class="lead">만든 소프트웨어가 ‘좋은’ 소프트웨어인지 세 가지 관점으로 평가해요.</p>
+  <div class="grid" style="grid-template-columns:repeat(3,1fr);gap:14px;margin-top:12px">
+    <div class="tile" style="font-size:22px;background:var(--f-blue)"><h4>🌍 사회적 관점</h4>사회 전반에 어떤 영향을 미치고, 어떤 <b class="bl" tabindex="0">사회적 가치</b>를 만드는가?</div>
+    <div class="tile" style="font-size:22px;background:var(--f-teal)"><h4>⚙️ 기능적 관점</h4>기능, 성능, 안정성, 사용자 경험 등 <b class="bl" tabindex="0">기술적인 측면</b>이 좋은가?</div>
+    <div class="tile" style="font-size:22px;background:var(--f-orange)"><h4>⚖️ 윤리적 관점</h4><b class="bl" tabindex="0">도덕적인 원칙</b>을 지키고 사회적으로 적절한가?</div>
+  </div>
+  <div class="easy"><b>💬 쉽게 말하면</b><div>분리배출 앱이라면? 🌍 쓰레기 문제를 줄여 환경에 도움이 되나? / ⚙️ 사진을 정확하고 빠르게 분류하나? / ⚖️ 사용자가 찍은 사진(개인 정보)을 안전하게 다루나? <span class="xb2">교과서 밖 보충</span></div></div>
+</section>
+
+<section class="slide s3" data-t="사회적 관점">
+  <div class="hd"><span class="tag">02 소프트웨어의 가치 평가</span><span class="pref">교과서 p.196</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">🌍 사회적 관점에서의 평가</h2>
+  
+  <div class="defb" style="font-size:22px"><span class="term">사회적<br>관점</span><div>소프트웨어 기술이 <b class="bl" tabindex="0">사회 전반</b>에 미치는 영향을 이해하고, 그 영향이 어떻게 사회적 가치를 형성하는지 평가하는 것 → 사회적 문제 해결, <b class="bl" tabindex="0">사회적·경제적 가치</b>, <b class="bl" tabindex="0">환경적 영향</b> 등이 포함</div></div>
+  <h3 class="sh">평가 요소 4가지 (그림 Ⅴ-4)</h3>
+  <div class="rvg" style="grid-template-columns:repeat(4,1fr)"><button class="rv" style="min-height:200px"><b>사회적 문제 해결</b><span style="font-size:21px">소프트웨어가 사용자, 조직, 사회에 미치는 영향을 판단하여 사회적 문제를 해결하는 데 기여하는지 평가</span></button><button class="rv" style="min-height:200px"><b>사회적 가치</b><span style="font-size:21px">소프트웨어가 해결하려는 사회 문제의 중요성을 파악하고, 사회에 어떤 가치를 제공하는지 평가</span></button><button class="rv" style="min-height:200px"><b>경제적 가치</b><span style="font-size:21px">소프트웨어가 사용자에게 경제적인 가치를 제공하는지 평가</span></button><button class="rv" style="min-height:200px"><b>환경적 영향</b><span style="font-size:21px">소프트웨어의 사용이 환경에 미치는 영향을 평가</span></button></div>
+</section>
+
+<section class="slide s3" data-t="기능적 관점">
+  <div class="hd"><span class="tag">02 소프트웨어의 가치 평가</span><span class="pref">교과서 p.196</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">⚙️ 기능적 관점에서의 평가</h2>
+  
+  <div class="defb" style="font-size:22px"><span class="term">기능적<br>관점</span><div>주로 소프트웨어의 <b class="bl" tabindex="0">기능, 성능, 안정성, 사용자 경험</b> 등 기술적인 측면을 중심으로 평가하는 것 → 사용자나 기업의 요구를 충족하고 효과적으로 동작하는 데 초점</div></div>
+  <h3 class="sh">평가 요소 5가지 (그림 Ⅴ-5)</h3>
+  <div class="rvg" style="grid-template-columns:repeat(5,1fr)"><button class="rv" style="min-height:210px"><b>기능성</b><span style="font-size:21px">제공하는 기능이 사용자의 요구사항을 충족하고, 목표를 달성하는 데 효과적인지</span></button><button class="rv" style="min-height:210px"><b>성능</b><span style="font-size:21px">성능을 측정하여, 빠르고 안정적으로 동작하는지</span></button><button class="rv" style="min-height:210px"><b>신뢰성</b><span style="font-size:21px">예상된 대로 동작하는 정도를 측정하여, 오류 없이 안정적으로 동작하는지</span></button><button class="rv" style="min-height:210px"><b>사용성</b><span style="font-size:21px">사용자들이 만족하는 정도를 측정하여, 사용하기 쉽고 직관적인지</span></button><button class="rv" style="min-height:210px"><b>호환성</b><span style="font-size:21px">다양한 플랫폼과 환경에서 작동하며, 다른 소프트웨어와의 호환성이 좋은지</span></button></div>
+</section>
+
+<section class="slide s3" data-t="윤리적 관점">
+  <div class="hd"><span class="tag">02 소프트웨어의 가치 평가</span><span class="pref">교과서 p.197</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">⚖️ 윤리적 관점에서의 평가</h2>
+  
+  <div class="defb" style="font-size:22px"><span class="term">윤리적<br>관점</span><div>소프트웨어가 사용자, 사회, 환경 등에 미치는 영향을 <b class="bl" tabindex="0">도덕적인 측면</b>에서 고려하고, 정의된 윤리적 원칙과 규범에 따라 평가하는 것 → 기업, 정부, 사용자 간의 <b class="bl" tabindex="0">협력</b>이 필요</div></div>
+  <h3 class="sh">평가 요소 4가지 (그림 Ⅴ-6)</h3>
+  <div class="rvg" style="grid-template-columns:repeat(4,1fr)"><button class="rv" style="min-height:200px"><b>개인 정보 보호</b><span style="font-size:21px">사용자의 개인 정보를 수집·처리할 때 안전하게 보호되었는지 확인</span></button><button class="rv" style="min-height:200px"><b>공공의 이익</b><span style="font-size:21px">소프트웨어가 공공의 이익을 위해 사용되었는지 평가</span></button><button class="rv" style="min-height:200px"><b>지속 가능성</b><span style="font-size:21px">환경, 경제, 사회 및 기술적 측면에서 지속 가능한 방식으로 수행되었는지 판단</span></button><button class="rv" style="min-height:200px"><b>악의적 사용 방지</b><span style="font-size:21px">소프트웨어에서 다루는 데이터가 제대로 보호되고 관리될 수 있는지 판단</span></button></div>
+</section>
+
+<section class="slide s3" data-t="평가 요소 분류하기">
+  <div class="hd"><span class="tag">02 소프트웨어의 가치 평가</span><span class="pref">교과서 p.196~197</span><button class="tool qp">🎲 누가 답할까?</button><button class="tool qs">🏆 점수판</button><button class="all">모두 보기</button></div>
+  <h2 class="tt">이 평가 요소는 어느 관점일까?</h2>
+  <div class="cards" style="grid-template-columns:repeat(5,1fr);margin-top:14px"><button class="card s1c" style="min-height:110px;font-size:26px">사회적 문제 해결<span class="k s1c">🌍 사회적</span></button><button class="card s2c" style="min-height:110px;font-size:26px">신뢰성<span class="k s2c">⚙️ 기능적</span></button><button class="card s3c" style="min-height:110px;font-size:26px">개인 정보 보호<span class="k s3c">⚖️ 윤리적</span></button><button class="card s1c" style="min-height:110px;font-size:26px">경제적 가치<span class="k s1c">🌍 사회적</span></button><button class="card s2c" style="min-height:110px;font-size:26px">호환성<span class="k s2c">⚙️ 기능적</span></button><button class="card s3c" style="min-height:110px;font-size:26px">공공의 이익<span class="k s3c">⚖️ 윤리적</span></button><button class="card s2c" style="min-height:110px;font-size:26px">성능<span class="k s2c">⚙️ 기능적</span></button><button class="card s1c" style="min-height:110px;font-size:26px">환경적 영향<span class="k s1c">🌍 사회적</span></button><button class="card s3c" style="min-height:110px;font-size:26px">악의적 사용 방지<span class="k s3c">⚖️ 윤리적</span></button><button class="card s2c" style="min-height:110px;font-size:26px">사용성<span class="k s2c">⚙️ 기능적</span></button><button class="card s1c" style="min-height:110px;font-size:26px">사회적 가치<span class="k s1c">🌍 사회적</span></button><button class="card s3c" style="min-height:110px;font-size:26px">지속 가능성<span class="k s3c">⚖️ 윤리적</span></button><button class="card s2c" style="min-height:110px;font-size:26px">기능성<span class="k s2c">⚙️ 기능적</span></button></div><p class="lead" style="margin-top:10px">🌍 사회적 4개 · ⚙️ 기능적 5개 · ⚖️ 윤리적 4개 (교과서 p.203)</p>
+</section>
+
+<section class="slide oxq s0" data-t="2차시 OX 퀴즈"><div class="hd"><span class="tag">정리</span><span class="pref">교과서 p.191~197</span><button class="all">모두 보기</button><button class="tool qp">🎲 누가 답할까?</button><button class="tool qs">🏆 점수판</button></div><h2 class="tt">2차시 OX 퀴즈</h2><p class="lead">맞으면 O, 틀리면 X! 손으로 표시한 뒤 하나씩 확인해요.</p><div class="grid" style="margin-top:10px;gap:8px"><div class="row" style="grid-template-columns:40px 1fr 90px 300px;padding:8px 16px;font-size:23px;line-height:1.35"><b>1</b><span>프로젝트는 사용자 요구 분석 및 주제 선정 → 해결 아이디어 구상 → 설계 및 제작 → 평가 순서로 진행된다.</span><span class="pp" style="justify-self:center">p.191</span><b class="bl ox o" tabindex="0">O</b></div><div class="row" style="grid-template-columns:40px 1fr 90px 300px;padding:8px 16px;font-size:23px;line-height:1.35"><b>2</b><span>페르소나는 실제 사용자 한 명의 개인 정보를 그대로 옮겨 적은 것이다.</span><span class="pp" style="justify-self:center">보충</span><b class="bl ox x" tabindex="0">X → 가상의 대표 사용자</b></div><div class="row" style="grid-template-columns:40px 1fr 90px 300px;padding:8px 16px;font-size:23px;line-height:1.35"><b>3</b><span>브레인스토밍 중에는 나온 아이디어를 바로바로 평가해 걸러 낸다.</span><span class="pp" style="justify-self:center">보충</span><b class="bl ox x" tabindex="0">X → 비판 금지</b></div><div class="row" style="grid-template-columns:40px 1fr 90px 300px;padding:8px 16px;font-size:23px;line-height:1.35"><b>4</b><span>해결 아이디어 구상 단계에는 홍보(마케팅) 전략 구상도 포함된다.</span><span class="pp" style="justify-self:center">p.192</span><b class="bl ox o" tabindex="0">O</b></div><div class="row" style="grid-template-columns:40px 1fr 90px 300px;padding:8px 16px;font-size:23px;line-height:1.35"><b>5</b><span>사용성은 윤리적 관점의 평가 요소이다.</span><span class="pp" style="justify-self:center">p.196</span><b class="bl ox x" tabindex="0">X → 기능적 관점</b></div><div class="row" style="grid-template-columns:40px 1fr 90px 300px;padding:8px 16px;font-size:23px;line-height:1.35"><b>6</b><span>평가에서 찾은 불편한 점은 피드백으로 모아 소프트웨어를 개선하는 데 쓴다.</span><span class="pp" style="justify-self:center">p.193</span><b class="bl ox o" tabindex="0">O</b></div></div></section>
+
+<section class="slide s0" data-t="대단원 정리">
+  <div class="hd"><span class="tag">대단원 정리</span><span class="pref">교과서 p.203</span><button class="all">모두 보기</button></div>
+  <h2 class="tt">Ⅴ단원 대단원 정리</h2>
+  
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:14px;margin-top:8px">
+    <div class="tile" style="font-size:20px;line-height:1.75"><h4 style="color:var(--blue)">1. 소프트웨어 스타트업</h4>
+      · <b>스타트업</b> 혁신적 기술과 아이디어를 보유한 <b class="bl" tabindex="0">신생 벤처 기업</b><br>
+      · <b>용어</b> 벤처 기업(위험 감수·고성장 중소기업), 유니콘 기업(가치 <b class="bl" tabindex="0">10억 달러</b> 이상)<br>
+      · <b>SW 스타트업</b> SW 제품·서비스로 특정한 문제나 <b class="bl" tabindex="0">시장의 요구</b>를 해결<br>
+      · <b>좋은 점</b> 빠른 수정·개선, 글로벌 배포, 재고 부담 없음 → <b class="bl" tabindex="0">한계비용</b> ≈ 0<br>
+      · <b>MVP</b> 핵심 기능만 담은 첫 제품으로 시장 반응 확인<br>
+      · <b>실패</b> 경쟁, <b class="bl" tabindex="0">환경 변화</b> 대응 미흡, 창업 멤버 이탈이 겹침</div>
+    <div class="tile" style="font-size:20px;line-height:1.75"><h4 style="color:var(--orange)">2. 소프트웨어 스타트업 프로젝트</h4>
+      · 사용자 요구 분석 및 주제 선정 ➜ 해결 아이디어 구상 ➜ 설계 및 제작 ➜ <b class="bl" tabindex="0">소프트웨어 평가</b> (피드백으로 개선, 반복)<br>
+      · <b>요구 분석</b> 설문·인터뷰, <b class="bl" tabindex="0">페르소나</b>(가상의 대표 사용자)<br>
+      · <b>브레인스토밍</b> 비판 금지, 자유분방, 질보다 양, 결합과 개선<br>
+      · <b>설계</b> 디자인 설계, <b class="bl" tabindex="0">알고리즘 설계</b>, 프로그램 구현<br>
+      · 🌍 <b>사회적</b> 사회적 문제 해결, 사회적·경제적 가치, 환경적 영향<br>
+      · ⚙️ <b>기능적</b> 기능성, 성능, 신뢰성, 사용성, <b class="bl" tabindex="0">호환성</b><br>
+      · ⚖️ <b>윤리적</b> <b class="bl" tabindex="0">개인 정보 보호</b>, 지속 가능성, 공공의 이익, 악의적 사용 방지</div>
+  </div>
+</section>
+<nav class="nav" aria-label="슬라이드 이동">
+  <button id="prev">← 이전</button>
+  <div class="dots" id="dots"></div>
+  <span class="pg" id="pg"></span>
+  <button id="next">다음 →</button>
+  <button class="tool" id="pickBtn">🎲 발표자 뽑기</button>
+  <button class="tool" id="scoreBtn">🏆 모둠 점수판</button>
+</nav>
+<div class="ov" id="pickOv" hidden><div class="panel" style="min-width:680px">
+  <button class="x" data-close>✕</button>
+  <h3>🎲 오늘의 발표자는?</h3>
+  <div class="pk-num" id="pkNum">?</div>
+  <div class="pk-row"><label>우리 반 인원 <input type="number" id="pkN" min="2" max="40" value="30"> 명</label>
+    <label><input type="checkbox" id="pkNoRe" checked> 뽑힌 번호 다시 안 나오기</label></div>
+  <div class="pk-row" style="margin-top:16px"><button class="big-btn" id="pkGo">뽑기!</button><button class="sm-btn" id="pkReset">처음부터</button></div>
+  <div class="pk-used" id="pkUsed"></div>
+</div></div>
+<div class="ov" id="scoreOv" hidden><div class="panel" style="min-width:960px">
+  <button class="x" data-close>✕</button>
+  <h3>🏆 모둠 점수판</h3>
+  <div class="pk-row" style="justify-content:flex-start;margin-bottom:14px"><label>모둠 수 <input type="number" id="tmN" min="2" max="9" value="6"></label><button class="sm-btn" id="tmReset">점수 초기화</button><button class="sm-btn" id="tmWin">🎉 1등 발표</button></div>
+  <div class="teams" id="teams"></div>
+</div></div>
+<canvas class="confetti" id="confetti" width="1280" height="720"></canvas>
+</div>
+
+
+<script>
+(() => {
+const N = ['①', '②', '③', '④', '⑤'];
+const $ = id => document.getElementById(id);
+const stage = $('stage');
+const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const PEN = '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21l3.8-1 11-11-2.8-2.8-11 11L3 21zM16.5 4.5l2.8 2.8 1.4-1.4a1 1 0 000-1.4l-1.4-1.4a1 1 0 00-1.4 0l-1.4 1.4z" fill="currentColor"/></svg>';
+
+stage.querySelectorAll('.ws').forEach(w => { if (!w.classList.contains('listen')) w.insertAdjacentHTML('afterbegin', PEN); });
+
+// 빈칸: 누르면 하나씩 공개
+stage.querySelectorAll('.bl').forEach(b => {
+  b.setAttribute('role', 'button');
+  const tog = () => { const on = b.classList.toggle('on'); if (on) { if (b.classList.contains('ox')) (b.classList.contains('o') ? SND.ok : SND.no)(); else SND.pop(); } };
+  b.addEventListener('click', tog);
+  b.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); tog(); } });
+});
+stage.querySelectorAll('.card').forEach(c => c.addEventListener('click', () => { if (c.classList.toggle('on')) SND.pop(); }));
+stage.querySelectorAll('.slide').forEach(sl => {
+  const a = sl.querySelector('.all:not(.ans):not(.reset)'); if (!a) return;
+  a.setAttribute('aria-pressed', 'false');
+  a.addEventListener('click', () => {
+    const on = a.getAttribute('aria-pressed') !== 'true';
+    sl.querySelectorAll('.bl,.card').forEach(x => x.classList.toggle('on', on));
+    a.setAttribute('aria-pressed', on); a.textContent = on ? '모두 가리기' : '모두 보기';
+  });
+});
+
+
+// ---------- 효과음 ----------
+let AC = null;
+const tone = (f, d = 0.12, type = 'sine', v = 0.18, at = 0) => { try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); const t = AC.currentTime + at, o = AC.createOscillator(), g = AC.createGain(); o.type = type; o.frequency.setValueAtTime(f, t); g.gain.setValueAtTime(v, t); g.gain.exponentialRampToValueAtTime(0.001, t + d); o.connect(g).connect(AC.destination); o.start(t); o.stop(t + d + 0.02); } catch (e) {} };
+const SND = { pop: () => tone(660, 0.08, 'triangle', 0.12), ok: () => { tone(784, 0.12, 'triangle'); tone(1047, 0.22, 'triangle', 0.18, 0.1); }, no: () => { tone(220, 0.25, 'sawtooth', 0.12); }, tick: () => tone(1200, 0.03, 'square', 0.05), fan: () => [523, 659, 784, 1047].forEach((f, i) => tone(f, 0.25, 'triangle', 0.16, i * 0.11)) };
+// ---------- 색종이 ----------
+const cf = $('confetti'), cx = cf.getContext('2d'); let parts = [], cfOn = false;
+function confetti(){ const C = ['#2350C8', '#D0261E', '#0A7F72', '#E0B400', '#B85E00']; for (let i = 0; i < 160; i++) parts.push({ x: 640 + (Math.random() - .5) * 300, y: 300, vx: (Math.random() - .5) * 16, vy: -Math.random() * 14 - 4, s: 6 + Math.random() * 8, c: C[i % 5], r: Math.random() * 6, life: 120 + Math.random() * 60 }); if (!cfOn) { cfOn = true; requestAnimationFrame(cfLoop); } }
+function cfLoop(){ cx.clearRect(0, 0, 1280, 720); parts.forEach(p => { p.x += p.vx; p.y += p.vy; p.vy += 0.35; p.vx *= 0.99; p.r += 0.1; p.life--; cx.save(); cx.translate(p.x, p.y); cx.rotate(p.r); cx.fillStyle = p.c; cx.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); cx.restore(); }); parts = parts.filter(p => p.life > 0 && p.y < 760); if (parts.length) requestAnimationFrame(cfLoop); else { cfOn = false; cx.clearRect(0, 0, 1280, 720); } }
+// ---------- 저장(이 브라우저에서만) ----------
+const LS = { get(k, d) { try { const v = localStorage.getItem('sw1-' + k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem('sw1-' + k, JSON.stringify(v)); } catch (e) {} } };
+// ---------- 오버레이 ----------
+const openOv = id => { $(id).hidden = false; }, closeOv = el => { el.closest('.ov').hidden = true; };
+stage.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => closeOv(b)));
+stage.querySelectorAll('.ov').forEach(o => o.addEventListener('click', e => { if (e.target === o) o.hidden = true; }));
+// ---------- 발표자 뽑기 ----------
+let used = LS.get('used', []), spinning = false;
+$('pkN').value = LS.get('n', 30);
+const showUsed = () => { $('pkUsed').textContent = used.length ? '뽑힌 번호: ' + used.join(', ') : ''; };
+showUsed();
+$('pickBtn').addEventListener('click', () => openOv('pickOv'));
+$('pkN').addEventListener('change', () => LS.set('n', +$('pkN').value));
+$('pkReset').addEventListener('click', () => { used = []; LS.set('used', used); showUsed(); $('pkNum').textContent = '?'; $('pkNum').classList.remove('done'); });
+$('pkGo').addEventListener('click', () => {
+  if (spinning) return;
+  const n = Math.max(2, Math.min(40, +$('pkN').value || 30));
+  let pool = []; for (let i = 1; i <= n; i++) if (!$('pkNoRe').checked || !used.includes(i)) pool.push(i);
+  if (!pool.length) { $('pkNum').textContent = '끝!'; return; }
+  const pick = pool[Math.floor(Math.random() * pool.length)];
+  spinning = true; $('pkNum').classList.remove('done');
+  let k = 0, delay = 40;
+  const step = () => {
+    $('pkNum').textContent = pool[Math.floor(Math.random() * pool.length)]; SND.tick();
+    k++; delay *= 1.09;
+    if (delay < 380) setTimeout(step, delay);
+    else { $('pkNum').textContent = pick + '번'; $('pkNum').classList.add('done'); SND.fan(); confetti(); used.push(pick); LS.set('used', used); showUsed(); spinning = false; }
+  };
+  step();
+});
+// ---------- 모둠 점수판 ----------
+const TC = ['#E6EDFC', '#DFF3EF', '#FFF0DC', '#FDEBEA', '#F1E8FB', '#FFF8D6', '#E3F5E8', '#EEF1F5', '#FCE7F3'];
+let scores = LS.get('scores', [0, 0, 0, 0, 0, 0]);
+$('tmN').value = scores.length;
+function drawTeams(){
+  const mx = Math.max(...scores);
+  $('teams').innerHTML = scores.map((v, i) => `<div class="team${v === mx && v > 0 ? ' lead' : ''}" style="background:${TC[i]}"><h4>${i + 1}모둠</h4><div class="sc">${v}</div><div class="bt"><button data-t="${i}" data-d="-1" aria-label="${i + 1}모둠 1점 빼기">−</button><button data-t="${i}" data-d="1" aria-label="${i + 1}모둠 1점 더하기">+</button></div></div>`).join('');
+  $('teams').querySelectorAll('button').forEach(b => b.addEventListener('click', () => { const i = +b.dataset.t, d = +b.dataset.d; scores[i] = Math.max(0, scores[i] + d); d > 0 ? SND.ok() : SND.no(); LS.set('scores', scores); drawTeams(); }));
+}
+drawTeams();
+$('scoreBtn').addEventListener('click', () => openOv('scoreOv'));
+$('tmN').addEventListener('change', () => { const n = Math.max(2, Math.min(9, +$('tmN').value || 6)); scores = Array.from({ length: n }, (_, i) => scores[i] || 0); LS.set('scores', scores); drawTeams(); });
+$('tmReset').addEventListener('click', () => { scores = scores.map(() => 0); LS.set('scores', scores); drawTeams(); });
+$('tmWin').addEventListener('click', () => { const mx = Math.max(...scores); if (mx <= 0) return; SND.fan(); confetti(); });
+// ---------- 생각 열기: 소프트웨어 찾기 ----------
+const chipsEl = [...stage.querySelectorAll('.chip')];
+chipsEl.forEach(c => c.addEventListener('click', () => { c.classList.toggle('on'); SND.pop(); const n = chipsEl.filter(x => x.classList.contains('on')).length; $('swCount').textContent = `발견한 소프트웨어 ${n}개` + (n === chipsEl.length ? ' 🎉' : ''); if (n === chipsEl.length) confetti(); }));
+stage.querySelectorAll('.qp').forEach(b => b.addEventListener('click', () => openOv('pickOv'))); stage.querySelectorAll('.qs').forEach(b => b.addEventListener('click', () => openOv('scoreOv')));
+addEventListener('keydown', e => { if (e.key === 'Escape') stage.querySelectorAll('.ov').forEach(o => o.hidden = true); });
+
+// ================= 1차시 시뮬레이션 =================
+const FNT = (w, s) => `${w} ${s}px "Noto Sans KR","Malgun Gothic",sans-serif`;
+const RR = (c, x, y, w, h, r) => { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); };
+const BOX = (c, x, y, w, h, col) => { c.fillStyle = col; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); };
+const TXT = (c, s, x, y, o = {}) => { c.font = FNT(o.w || 700, o.s || 20); c.fillStyle = o.c || '#1B2230'; c.textAlign = o.a || 'center'; c.textBaseline = o.b || 'middle'; c.fillText(s, x, y); };
+function runLoop(cv, draw){ const sl = cv.closest('.slide'); let on = false, raf = 0; const tick = t => { if (!on) return; draw(t); raf = requestAnimationFrame(tick); }; sl.addEventListener('show', () => { if (!on) { on = true; raf = requestAnimationFrame(tick); } }); sl.addEventListener('hide', () => { on = false; cancelAnimationFrame(raf); }); }
+function bubble(c, x, y, w, h, fill, stroke){ RR(c, x - w / 2, y - h, w, h, 14); c.fillStyle = fill; c.fill(); c.lineWidth = 3; c.strokeStyle = stroke; c.stroke(); c.beginPath(); c.moveTo(x - 12, y - 1); c.lineTo(x, y + 16); c.lineTo(x + 12, y - 1); c.closePath(); c.fillStyle = fill; c.fill(); c.beginPath(); c.moveTo(x - 12, y); c.lineTo(x, y + 16); c.lineTo(x + 12, y); c.stroke(); }
+
+// Ⅴ단원: 눌러서 보기, 범위 타임라인
+stage.querySelectorAll('.rv').forEach(b => b.addEventListener('click', () => { if (b.classList.toggle('on')) SND.pop(); }));
+stage.querySelectorAll('.slide').forEach(sl => { const a = sl.querySelector('.all'); if (a) a.addEventListener('click', () => { const on = a.getAttribute('aria-pressed') === 'true'; sl.querySelectorAll('.rv').forEach(x => x.classList.toggle('on', on)); const tl = sl.querySelector('.tl'); if (tl) tl.classList.toggle('go', on); }); });
+const tlBtn = $('tlBtn'); if (tlBtn) tlBtn.addEventListener('click', () => { const tl = $('tl5'); tl.classList.remove('go'); void tl.offsetWidth; tl.classList.add('go'); SND.ok(); });
+
+// ================= Ⅴ단원 시뮬레이션 =================
+const EMO = s => `${s}px "Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji",sans-serif`;
+const EM = (c, e, x, y, s = 32) => { c.font = EMO(s); c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(e, x, y); };
+const LBL = (c, s, x, y, o = {}) => { const fs = o.s || 17; c.font = FNT(900, fs); const w = c.measureText(s).width + 18, h = fs + 14; RR(c, x - (o.left ? 0 : w / 2), y - h / 2, w, h, 8); c.fillStyle = o.bg || '#fff'; c.fill(); c.lineWidth = 2; c.strokeStyle = o.bd || '#1B2230'; c.stroke(); TXT(c, s, x + (o.left ? w / 2 : 0), y + 1, { s: fs, w: 900, c: o.c || '#1B2230' }); };
+const PK = (c, x, y, col = '#FFD23F') => { RR(c, x - 7, y - 7, 14, 14, 3); c.fillStyle = col; c.fill(); c.lineWidth = 1.5; c.strokeStyle = '#1B2230'; c.stroke(); };
+const lp = (a, b, k) => a + (b - a) * k, cl = (v, a, b) => Math.max(a, Math.min(b, v));
+const ez = k => k < 0 ? 0 : k > 1 ? 1 : k * k * (3 - 2 * k);
+function simBind(id, fn){ const box = $(id); if (!box) return; box.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { if (b.dataset.tab) box.querySelectorAll('[data-tab]').forEach(x => x.classList.toggle('on', x === b)); SND.pop(); fn(b.dataset.a, b); })); }
+const cap = (id, h) => { const e = $(id); if (e && e.innerHTML !== h) e.innerHTML = h; };
+const XBT = ' <span class="xb2">교과서 밖 보충</span>';
+
+// ---------- A. 창업 vs 스타트업 성장 곡선 ----------
+(() => {
+  const cv = $('cvGrow'); if (!cv) return; const c = cv.getContext('2d'), W = 1192, H = 400; let t0 = performance.now();
+  const X0 = 60, X1 = 1060, Y0 = 350, Y1 = 40, M = 36, MAX = 160;
+  const shop = m => 34 * (1 - Math.exp(-m / 3));
+  const app = m => Math.max(1, 3 + m * 0.25 + Math.sin(m * 1.4) * (m < 14 ? 2.2 : 0) + 140 / (1 + Math.exp(-(m - 24) / 2.4)) - 140 / (1 + Math.exp(24 / 2.4)));
+  const X = m => X0 + (X1 - X0) * m / M, Y = v => Y0 - (Y0 - Y1) * v / MAX;
+  simBind('sbGrow', () => { t0 = performance.now(); });
+  runLoop(cv, now => {
+    const mm = cl((now - t0) / 1000 * 3.6, 0, M);
+    c.clearRect(0, 0, W, H); BOX(c, 0, 0, W, H, '#FFFFFF');
+    c.strokeStyle = '#1B2230'; c.lineWidth = 2.5; c.beginPath(); c.moveTo(X0, Y1 - 10); c.lineTo(X0, Y0); c.lineTo(X1 + 20, Y0); c.stroke();
+    TXT(c, '손님(사용자) 수 ↑', X0 + 8, Y1 - 12, { s: 17, a: 'left', w: 900 }); TXT(c, '시간 →', X1 + 30, Y0 + 6, { s: 17, a: 'left', w: 900 });
+    for (let m = 0; m <= M; m += 6) TXT(c, m ? `${m}개월` : '시작', X(m), Y0 + 22, { s: 15, w: 700 });
+    const line = (f, col, wd) => { c.strokeStyle = col; c.lineWidth = wd; c.lineJoin = 'round'; c.beginPath(); for (let m = 0; m <= mm; m += 0.2) { const p = [X(m), Y(f(m))]; m ? c.lineTo(...p) : c.moveTo(...p); } c.stroke(); };
+    line(shop, '#7A8296', 6); line(app, '#2350C8', 7);
+    EM(c, '🏪', X(mm) + 22, Y(shop(mm)) - 4, 30); EM(c, '📱', X(mm) + 22, Y(app(mm)) - 4, 30);
+    const note = (m, s, x, y, col) => { if (mm < m) return; c.globalAlpha = ez((mm - m) / 1.5); LBL(c, s, x, y, { s: 17, bd: col, c: col }); c.globalAlpha = 1; };
+    note(4, '🏪 분식집: 금방 동네 손님이 생겨 안정 · 규모는 작게 유지', X(13), Y(78), '#3A4256');
+    note(7, '📱 배달 앱: 처음엔 작고, 시장 반응을 몰라 시행착오', X(10), Y(52), '#2350C8');
+    note(19, '✅ 사업성 입증!', X(20) - 70, Y(app(20)) - 10, '#137A3A');
+    note(27, '🚀 빠르게 성장', X(28) - 90, Y(app(28)), '#2350C8');
+    RR(c, 230, 20, 330, 44, 10); c.fillStyle = '#F3F5F9'; c.fill(); BOX(c, 244, 39, 26, 6, '#7A8296'); TXT(c, '창업(분식집)', 276, 42, { s: 16, a: 'left', w: 800 }); BOX(c, 396, 39, 26, 6, '#2350C8'); TXT(c, '스타트업(앱)', 428, 42, { s: 16, a: 'left', w: 800 }); TXT(c, '모형 그래프', 1180, 392, { s: 14, w: 800, c: '#B85E00', a: 'right' });
+  });
+})();
+
+// ---------- B. 소프트웨어 스타트업의 장점 ----------
+(() => {
+  const cv = $('cvAdv'); if (!cv) return; const c = cv.getContext('2d'), W = 1192, H = 400; let mode = 'fix', t0 = performance.now();
+  const CAP = { fix: '⚡ <b>빠른 시장 대응</b>: 물건은 고치려면 회수하고 다시 만들어야 하지만, 소프트웨어는 <b>업데이트</b>만 보내면 바로 수정·개선돼요. (p.179)' + XBT,
+    global: '🌏 <b>글로벌 시장 개척</b>: 가게는 동네 손님에게만 팔 수 있지만, 소프트웨어는 <b>지리적 제한 없이</b> 전 세계에 배포·판매할 수 있어요. (p.179)' + XBT };
+  simBind('sbAdv', a => { mode = a; t0 = performance.now(); cap('cpAdv', CAP[a]); }); cap('cpAdv', CAP.fix);
+  const BL = [[180, 150, 150, 80], [330, 120, 90, 60], [560, 140, 120, 70], [640, 260, 70, 45], [900, 150, 110, 70], [980, 290, 80, 45], [300, 270, 70, 70]];
+  const SP = []; let s = 7; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  while (SP.length < 90) { const b = BL[Math.floor(rnd() * BL.length)], a = rnd() * 6.283, r = Math.sqrt(rnd()); SP.push([b[0] + Math.cos(a) * b[2] * r * .9, b[1] + Math.sin(a) * b[3] * r * .9]); }
+  const KR = [905, 150];
+  runLoop(cv, now => {
+    const t = Math.max(0, (now - t0) / 1000); c.clearRect(0, 0, W, H); BOX(c, 0, 0, W, H, '#FFFFFF');
+    if (mode === 'fix') {
+      const panel = (x, title, col) => { RR(c, x, 8, 580, 384, 14); c.fillStyle = col; c.fill(); TXT(c, title, x + 290, 34, { s: 22, w: 900 }); };
+      panel(8, '📦 물건(하드웨어)에 결함이 있다면?', '#F3F5F9'); panel(604, '📱 소프트웨어에 오류가 있다면?', '#E6EDFC');
+      // 왼쪽: 공장-트럭-집
+      EM(c, '🏭', 80, 200, 64); [0, 1, 2].forEach(i => EM(c, '🏠', 500, 110 + i * 100, 46));
+      const cyc = t % 12, days = Math.min(30, Math.floor(cyc / 9 * 30));
+      const tx = cyc < 3 ? lp(140, 440, ez(cyc / 3)) : cyc < 6 ? lp(440, 140, ez((cyc - 3) / 3)) : cyc < 9 ? lp(140, 440, ez((cyc - 6) / 3)) : 440;
+      EM(c, '🚚', tx, 330, 46); LBL(c, cyc < 3 ? '① 결함 제품 회수하러 출발' : cyc < 6 ? '② 회수해서 공장으로' : cyc < 9 ? '③ 다시 만들어 배송' : '④ 교체 완료', 296, 270, { s: 17 });
+      LBL(c, `⏱ ${days}일째`, 296, 80, { s: 24, bg: '#FDEBEA', bd: '#D0261E', c: '#D0261E' });
+      // 오른쪽: 개발자-업데이트-폰
+      EM(c, '🧑‍💻', 680, 200, 60); [0, 1, 2].forEach(i => { EM(c, '📱', 1100, 110 + i * 100, 46); });
+      const k = t % 6;
+      if (k < 1.5) LBL(c, '① 버그 신고 접수', 890, 80, { s: 17 }); else if (k < 3) LBL(c, '② 코드 수정', 890, 80, { s: 17 }); else LBL(c, '③ 업데이트 배포!', 890, 80, { s: 17, bg: '#E3F5E8', bd: '#137A3A', c: '#137A3A' });
+      if (k < 1.5) { const q = ez(k / 1.5); PK(c, lp(1080, 720, q), lp(210, 200, q), '#FF6B6B'); }
+      if (k >= 3) [0, 1, 2].forEach(i => { const q = ez((k - 3 - i * .2) / 1.2); if (q > 0 && q < 1) PK(c, lp(730, 1080, q), lp(200, 110 + i * 100, q)); if (q >= 1) TXT(c, '✔ 최신 버전', 1100, 150 + i * 100, { s: 15, w: 900, c: '#137A3A' }); });
+      LBL(c, `⏱ ${k < 3 ? '오늘' : '1일 안에'}`, 890, 360, { s: 24, bg: '#E3F5E8', bd: '#137A3A', c: '#137A3A' });
+    } else {
+      RR(c, 8, 8, 300, 384, 14); c.fillStyle = '#F3F5F9'; c.fill(); TXT(c, '🏪 동네 가게', 158, 36, { s: 22, w: 900 });
+      c.fillStyle = 'rgba(122,130,150,.18)'; c.beginPath(); c.arc(158, 210, 110, 0, 7); c.fill(); EM(c, '🏪', 158, 210, 50);
+      for (let i = 0; i < 6; i++) { const a = i * 1.05 + t * .3; EM(c, '🙂', 158 + Math.cos(a) * 80, 210 + Math.sin(a) * 80, 24); }
+      TXT(c, '걸어올 수 있는 손님만', 158, 350, { s: 18, w: 900 });
+      c.save(); c.translate(320, 0);
+      RR(c, 0, 8, 864, 384, 14); c.fillStyle = '#E6F2FF'; c.fill();
+      c.fillStyle = '#CFE3D0'; BL.forEach(b => { c.beginPath(); c.ellipse(b[0] * .82, b[1] + 20, b[2] * .82, b[3], 0, 0, 7); c.fill(); });
+      const n = Math.min(SP.length, Math.floor(t * 9));
+      for (let i = 0; i < n; i++) { const p = SP[i], q = ez((t * 9 - i) / 6), x = lp(KR[0] * .82, p[0] * .82, q), y = lp(KR[1] + 20, p[1] + 20, q); c.fillStyle = '#2350C8'; c.beginPath(); c.arc(x, y, 5, 0, 7); c.fill(); }
+      EM(c, '🇰🇷', KR[0] * .82, KR[1] + 20, 28); TXT(c, '📲 앱 마켓에 출시!', 160, 36, { s: 20, w: 900 }); TXT(c, '세계 지도(모형)', 790, 370, { s: 14, w: 800, c: '#B85E00' });
+      LBL(c, `내려받은 나라·지역 ${Math.min(90, n)}곳`, 640, 40, { s: 20, bg: '#fff', bd: '#2350C8', c: '#2350C8' });
+      c.restore();
+    }
+  });
+})();
+
+// ---------- C. 스타트업 생존 시뮬레이터 ----------
+(() => {
+  const cv = $('cvSurv'); if (!cv) return; const c = cv.getContext('2d'), W = 1192, H = 400;
+  let S, last = 0, acc = 0;
+  const reset = () => { S = { m: 0, cash: 30000, users: 300, paid: false, inv: false, upd: -99, run: false, hist: [], log: [], over: '', be: 0, auto: null, shock: 0 }; };
+  reset();
+  const COST = 4000, MAXM = 30;
+  const log = (s, col) => { S.log.unshift([s, col]); S.log = S.log.slice(0, 4); };
+  function month(){
+    S.m++; const g = S.users < 20000 ? 0.22 : 0.08; S.users = Math.round(S.users * (1 + g));
+    if (S.m === 9) { if (S.m - S.upd > 4) { S.users = Math.round(S.users * 0.45); S.shock = performance.now(); log('📉 9개월: 새 기술 등장! 업데이트를 안 해서 사용자 급감', '#D0261E'); SND.no(); } else log('📉 9개월: 새 기술 등장 → 미리 업데이트해서 버텼어요', '#137A3A'); }
+    const rev = S.paid ? Math.round(S.users * 0.2) : 0; S.cash += rev - COST; S.hist.push([rev, COST]);
+    if (!S.be && rev >= COST) { S.be = S.m; log(`⚖️ ${S.m}개월: 손익 분기점 돌파!`, '#137A3A'); SND.fan(); confetti(); }
+    if (S.cash < 0) { S.over = 'fail'; S.run = false; log(`💸 ${S.m}개월: 현금 소진… 스타트업 실패`, '#D0261E'); SND.no(); }
+    else if (S.m >= MAXM) { S.over = 'ok'; S.run = false; }
+  }
+  const act = a => {
+    if (a === 'reset') { reset(); return; }
+    if (a === 'A') { reset(); S.run = true; S.auto = {}; return; }
+    if (a === 'B') { reset(); S.run = true; S.auto = { 1: 'inv', 3: 'paid', 7: 'upd' }; return; }
+    if (S.over) return;
+    if (a === 'run') { S.run = !S.run; return; }
+    if (a === 'inv' && !S.inv) { S.inv = true; S.cash += 70000; log(`💰 ${S.m}개월: 초기 자금 조달(투자 7억 원 유치)`, '#2350C8'); SND.ok(); }
+    if (a === 'paid' && !S.paid) { S.paid = true; log(`🧾 ${S.m}개월: 최초 유료 고객 확보 → 매출 시작`, '#2350C8'); SND.ok(); }
+    if (a === 'upd') { S.upd = S.m; log(`🔧 ${S.m}개월: 새 기술에 맞춰 업데이트`, '#2350C8'); }
+    if (a === 'A') { reset(); S.run = true; S.auto = {}; }
+    if (a === 'B') { reset(); S.run = true; S.auto = { 1: 'inv', 3: 'paid', 7: 'upd' }; }
+  };
+  simBind('sbSurv', act);
+  runLoop(cv, now => {
+    const dt = Math.min(.1, (now - (last || now)) / 1000); last = now;
+    if (S.run) { acc += dt; if (acc > .45) { acc = 0; month(); if (S.auto && S.auto[S.m]) act(S.auto[S.m]); } }
+    c.clearRect(0, 0, W, H); BOX(c, 0, 0, W, H, '#fff');
+    // 현금 게이지
+    RR(c, 10, 10, 250, 380, 14); c.fillStyle = '#F3F5F9'; c.fill(); TXT(c, '💰 남은 현금', 135, 36, { s: 21, w: 900 });
+    const cash = Math.max(0, S.cash), hh = Math.min(260, cash / 100000 * 260); RR(c, 85, 60, 100, 270, 10); c.fillStyle = '#E3E7F1'; c.fill();
+    BOX(c, 85, 330 - hh, 100, hh, cash < 12000 ? '#D0261E' : '#137A3A'); TXT(c, `${(S.cash / 10000).toFixed(1)}억 원`, 135, 356, { s: 22, w: 900, c: S.cash < 12000 ? '#D0261E' : '#1B2230' });
+    TXT(c, `매달 비용 0.4억`, 135, 380, { s: 15, w: 800 });
+    // 차트
+    const X0 = 320, X1 = 860, Y0 = 300, Y1 = 60, MX = 8000, X = m => X0 + (X1 - X0) * m / MAXM, Y = v => Y0 - (Y0 - Y1) * Math.min(v, MX) / MX;
+    TXT(c, `📅 ${S.m}개월 · 👥 사용자 ${S.users.toLocaleString()}명`, 590, 26, { s: 21, w: 900 });
+    c.strokeStyle = '#1B2230'; c.lineWidth = 2; c.beginPath(); c.moveTo(X0, Y1); c.lineTo(X0, Y0); c.lineTo(X1, Y0); c.stroke();
+    TXT(c, '한 달 매출 vs 비용', X0 + 6, Y1 - 12, { s: 16, w: 900, a: 'left' });
+    const ln = (i, col) => { c.strokeStyle = col; c.lineWidth = 5; c.beginPath(); S.hist.forEach((h, k) => { const p = [X(k + 1), Y(h[i])]; k ? c.lineTo(...p) : c.moveTo(...p); }); c.stroke(); };
+    ln(1, '#D0261E'); ln(0, '#137A3A');
+    TXT(c, '— 비용', X1 - 120, Y0 + 26, { s: 16, w: 900, c: '#D0261E', a: 'left' }); TXT(c, '— 매출', X1 - 230, Y0 + 26, { s: 16, w: 900, c: '#137A3A', a: 'left' });
+    if (S.be) { const x = X(S.be); c.setLineDash([6, 6]); c.strokeStyle = '#137A3A'; c.beginPath(); c.moveTo(x, Y1); c.lineTo(x, Y0); c.stroke(); c.setLineDash([]); LBL(c, '⚖️ 손익 분기점', x, Y1 + 20, { s: 16, bd: '#137A3A', c: '#137A3A' }); }
+    if (S.shock && now - S.shock < 1500) LBL(c, '📉 기술 변화!', X(9), 160, { s: 20, bg: '#FDEBEA', bd: '#D0261E', c: '#D0261E' });
+    // 기록
+    RR(c, 880, 10, 302, 380, 14); c.fillStyle = '#F3F5F9'; c.fill(); TXT(c, '📋 일어난 일', 1031, 36, { s: 20, w: 900 });
+    S.log.forEach((l, i) => { c.font = FNT(800, 16); const words = l[0]; const y = 70 + i * 74; RR(c, 892, y - 6, 278, 64, 8); c.fillStyle = '#fff'; c.fill(); wrap(words, 902, y + 14, 260, 22, l[1]); });
+    if (S.over) { c.fillStyle = 'rgba(255,255,255,.85)'; c.fillRect(270, 120, 600, 160); LBL(c, S.over === 'fail' ? '💸 현금 소진 — 실패 이유 1위 (p.186)' : `🎉 ${MAXM}개월 생존!${S.be ? ' 손익 분기점 돌파 성공' : ''}`, 590, 200, { s: 26, bg: S.over === 'fail' ? '#FDEBEA' : '#E3F5E8', bd: S.over === 'fail' ? '#D0261E' : '#137A3A', c: S.over === 'fail' ? '#D0261E' : '#137A3A' }); }
+  });
+  function wrap(s, x, y, w, lh, col){ c.font = FNT(800, 16); c.fillStyle = col; c.textAlign = 'left'; c.textBaseline = 'middle'; let line = '', yy = y; for (const ch of s) { if (c.measureText(line + ch).width > w) { c.fillText(line, x, yy); line = ch; yy += lh; } else line += ch; } c.fillText(line, x, yy); }
+})();
+
+// ---------- D. 동네 중고 거래 ----------
+(() => {
+  const cv = $('cvNb'); if (!cv) return; const c = cv.getContext('2d'), W = 1192, H = 400; let mode = 'near', ai = false, t0 = performance.now();
+  let s = 11; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  const ITEMS = ['🚲', '📚', '🧸', '🎧', '👟', '🪑', '🎮', '🍳', '⚽', '🎸', '🖥', '🧥'];
+  const HS = []; for (let i = 0; i < 26; i++) { const a = rnd() * 6.283, r = 40 + rnd() * 330; HS.push({ x: 420 + Math.cos(a) * r * 1.15, y: 200 + Math.sin(a) * r * .5, it: ITEMS[i % ITEMS.length], d: r }); }
+  const CAP = { near: '📍 집에서 가까운 <b>동네 이웃</b>끼리만 연결 → 직접 만나 거래하니 <b>안심</b>되고, 무료 나눔·도움 요청 같은 <b>동네 생활 문화</b>가 생겨요. (p.184)',
+    far: '🌐 반경 제한이 없으면 처음 보는 먼 곳의 사람과 택배로 거래 → 소비자 간 거래(C2C)의 가장 큰 문제인 <b>불안감</b>이 커져요. (p.184)', ai: '🤖 <b>인공지능</b>이 부적절한 글을 찾아 지우고, 채팅·후기·<b>매너 지표</b>로 믿을 수 있는 거래를 도와요. (p.184)' };
+  simBind('sbNb', a => { if (a === 'ai') { ai = !ai; t0 = performance.now(); cap('cpNb', ai ? CAP.ai : CAP[mode]); return; } mode = a; t0 = performance.now(); cap('cpNb', CAP[a]); }); cap('cpNb', CAP.near);
+  runLoop(cv, now => {
+    const t = Math.max(0, (now - t0) / 1000); c.clearRect(0, 0, W, H); BOX(c, 0, 0, W, H, '#EAF4E4');
+    c.strokeStyle = '#FFFFFF'; c.lineWidth = 10; for (let x = 40; x < 860; x += 140) { c.beginPath(); c.moveTo(x, 0); c.lineTo(x, H); c.stroke(); } for (let y = 30; y < H; y += 110) { c.beginPath(); c.moveTo(0, y); c.lineTo(860, y); c.stroke(); }
+    const R = 170;
+    if (mode === 'near') { c.fillStyle = 'rgba(35,80,200,.12)'; c.beginPath(); c.ellipse(420, 200, R * 1.15, R * .5 * 1.15, 0, 0, 7); c.fill(); c.strokeStyle = '#2350C8'; c.lineWidth = 3; c.setLineDash([10, 8]); c.stroke(); c.setLineDash([]); LBL(c, '반경 6km (교사용 교과서 예시)', 420, 40, { s: 16, bd: '#2350C8', c: '#2350C8' }); }
+    HS.forEach((h, i) => {
+      const inside = h.d <= R, show = mode === 'far' || inside;
+      c.globalAlpha = show ? 1 : .25; EM(c, '🏠', h.x, h.y, 26); EM(c, h.it, h.x + 18, h.y - 16, 18); c.globalAlpha = 1;
+      if (show && (t * 2 + i) % 9 < 4) { const k = ez(((t * 2 + i) % 9) / 2); c.strokeStyle = inside ? '#137A3A' : '#B85E00'; c.lineWidth = 3; c.beginPath(); c.moveTo(420, 200); c.lineTo(lp(420, h.x, k), lp(200, h.y, k)); c.stroke(); if (k >= 1) EM(c, inside ? '🤝' : '📦', (420 + h.x) / 2, (200 + h.y) / 2, 22); if (k >= 1 && !inside) EM(c, '😟', h.x - 20, h.y - 18, 20); }
+    });
+    EM(c, '🏡', 420, 200, 40); LBL(c, '나', 420, 236, { s: 15 });
+    RR(c, 880, 10, 302, 380, 14); c.fillStyle = '#fff'; c.fill(); TXT(c, ai ? '🤖 AI 검수 중' : '📱 동네 중고 거래 앱', 1031, 38, { s: 21, w: 900 });
+    const posts = [['🚲 자전거 팝니다', 1], ['📚 문제집 무료 나눔', 1], ['💸 선입금만 받아요!!', 0], ['🧸 인형 나눔해요', 1], ['🔗 수상한 링크 클릭', 0]];
+    posts.forEach((p, i) => { const y = 74 + i * 62; const bad = !p[1], gone = ai && bad && t > 0.8 + i * .2; c.globalAlpha = gone ? Math.max(0.15, 1 - (t - 0.8 - i * .2) * 1.5) : 1; RR(c, 894, y, 274, 50, 8); c.fillStyle = bad && ai ? '#FDEBEA' : '#F3F5F9'; c.fill(); TXT(c, p[0], 906, y + 25, { s: 17, a: 'left', w: 800 }); c.globalAlpha = 1; if (gone) TXT(c, '🚫 삭제', 1150, y + 25, { s: 16, w: 900, c: '#D0261E', a: 'right' }); else if (p[1]) TXT(c, `매너 ${36 + i * 3}.5°`, 1160, y + 25, { s: 14, w: 800, c: '#137A3A', a: 'right' }); });
+  });
+})();
+
+// ---------- E. SNS 실패: PC에서 모바일로 ----------
+(() => {
+  const cv = $('cvSns'); if (!cv) return; const c = cv.getContext('2d'), W = 1192, H = 400; let t0 = performance.now();
+  const N = 60; let s = 5; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647; const U = Array.from({ length: N }, () => [rnd(), rnd(), rnd()]);
+  const ST = [['① 2000년대 초', '미니홈피·일촌으로 인기 절정!', '#2350C8'], ['② 2000년대 후반', '다른 SNS 등장 → 이용자 감소', '#B85E00'], ['③ 스마트폰 대중화', '굳이 PC로 접속·로그인? → 반응이 시들', '#D0261E'], ['④ 창업 멤버 이탈', '기존과 다른 서비스 → 관심이 멀어짐', '#7B3FA0']];
+  simBind('sbSns', () => { t0 = performance.now(); });
+  runLoop(cv, now => {
+    const t = (now - t0) / 1000, st = Math.min(3, Math.floor(t / 3.2)), k = cl(t / 12.8, 0, 1);
+    c.clearRect(0, 0, W, H); BOX(c, 0, 0, W, H, '#fff');
+    ST.forEach((v, i) => { const x = 20 + i * 292; RR(c, x, 10, 280, 70, 10); c.fillStyle = i === st ? v[2] : '#F3F5F9'; c.fill(); TXT(c, v[0], x + 140, 32, { s: 18, w: 900, c: i === st ? '#fff' : '#1B2230' }); TXT(c, v[1], x + 140, 60, { s: 15, w: 800, c: i === st ? '#fff' : '#1B2230' }); });
+    // PC
+    RR(c, 60, 120, 300, 200, 12); c.fillStyle = '#1B2230'; c.fill(); BOX(c, 72, 132, 276, 166, '#FFE9F0'); BOX(c, 190, 320, 40, 30, '#1B2230'); BOX(c, 150, 348, 120, 10, '#1B2230');
+    TXT(c, '🏠 미니홈피', 210, 160, { s: 20, w: 900 }); TXT(c, '일촌 · 방명록 · 사진첩', 210, 192, { s: 15, w: 800 });
+    // 폰
+    RR(c, 880, 110, 150, 260, 22); c.fillStyle = '#1B2230'; c.fill(); BOX(c, 892, 130, 126, 220, '#E6EDFC'); ['💬', '📸', '👍'].forEach((e, i) => EM(c, e, 955, 175 + i * 60, 36)); TXT(c, '다른 SNS 앱', 955, 390, { s: 16, w: 900 });
+    const moved = st === 0 ? 0 : st === 1 ? .3 : st === 2 ? .75 : .92;
+    U.forEach((u, i) => { const go = u[2] < moved, kk = go ? ez(cl((t - (st === 1 ? 3.2 : st === 2 ? 6.4 : 9.6) + u[0] * 1.5) / 1.5, 0, 1)) : 0, fin = go && u[2] < (st === 1 ? 0 : st === 2 ? .3 : .75) ? 1 : kk;
+      const x = lp(90 + u[0] * 240, 650 + u[0] * 200, fin), y = lp(215 + u[1] * 80, 140 + u[1] * 220, fin); EM(c, '🙂', x, y, 20); });
+    const pc = Math.round(N * (1 - moved)); LBL(c, `미니홈피 이용자 ${pc}명 / ${N}명`, 210, 380, { s: 18, bg: pc > 30 ? '#E6EDFC' : '#FDEBEA', bd: pc > 30 ? '#2350C8' : '#D0261E', c: pc > 30 ? '#2350C8' : '#D0261E' });
+    TXT(c, '모형 애니메이션', 1170, 392, { s: 13, w: 800, c: '#B85E00', a: 'right' });
+  });
+})();
+
+// ---------- F. 브레인스토밍 보드 ----------
+(() => {
+  const cv = $('cvBs'); if (!cv) return; const c = cv.getContext('2d'), W = 1192, H = 400; let ph = 0, t0 = performance.now();
+  const IDEAS = [['사진 찍어 분리배출 안내', 7], ['분리배출 퀴즈 게임', 4], ['재활용 포인트 적립', 6], ['수거 요일 알림', 3], ['쓰레기 종류별 색깔 아이콘', 5], ['SNS 환경 캠페인', 2], ['분리수거함 위치 지도', 2], ['반별 분리배출 랭킹', 4]];
+  const COL = ['#FFE58A', '#BDE7FF', '#FFC9D6', '#C8F2C2'];
+  const CAP = ['① 토론을 유도할 <b>질문</b>을 정해요.', '② 질문의 답을 종이에 적되, <b>한 장에 하나의 아이디어</b>만! 적은 뒤 옆 사람에게 돌려 봐요. (5~15분 반복)', '③ 모든 아이디어를 <b>칠판</b>에 붙이고 간단히 설명해요.', '④ 우선순위를 정하기 위해 <b>투표</b>할 수도 있어요. (p.192)'];
+  simBind('sbBs', a => { ph = +a; t0 = performance.now(); cap('cpBs', CAP[ph] + (ph ? XBT.replace('교과서 밖 보충', '아이디어는 예시') : '')); }); cap('cpBs', CAP[0]);
+  runLoop(cv, now => {
+    const t = Math.max(0, (now - t0) / 1000); c.clearRect(0, 0, W, H); BOX(c, 0, 0, W, H, '#fff');
+    RR(c, 300, 8, 592, 52, 10); c.fillStyle = '#1B2230'; c.fill(); TXT(c, '❓ 우리 학교 분리배출 문제를 해결할 앱 아이디어는?', 596, 34, { s: 20, w: 900, c: '#fff' });
+    if (ph === 0) { ['🙋', '🙋‍♀️', '🧑', '👩'].forEach((e, i) => EM(c, e, 230 + i * 245, 250, 60)); RR(c, 470, 200, 250, 100, 10); c.fillStyle = '#8B5A2B'; c.fill(); TXT(c, '테이블 · 종이 준비', 595, 250, { s: 18, w: 900, c: '#fff' }); return; }
+    if (ph === 1) { ['🙋', '🙋‍♀️', '🧑', '👩'].forEach((e, i) => EM(c, e, 160 + i * 280, 360, 46));
+      const n = Math.min(IDEAS.length, Math.floor(t * 1.4)); for (let i = 0; i < n; i++) { const p = i % 4, k = ez(cl((t * 1.4 - i) / 1.2, 0, 1)); const x = 160 + p * 280 + (Math.floor(i / 4) ? 50 : -30), y = lp(330, 120 + Math.floor(i / 4) * 100, k); note(x, y, IDEAS[i][0], COL[p], 200); }
+      return; }
+    IDEAS.forEach((d, i) => { const x = 160 + (i % 4) * 290, y = 120 + Math.floor(i / 4) * 140; note(x, y, d[0], COL[i % 4], 250);
+      if (ph === 3) { const v = Math.min(d[1], Math.floor(t * 3)); for (let j = 0; j < v; j++) { c.fillStyle = '#D0261E'; c.beginPath(); c.arc(x - 100 + j * 18, y + 48, 7, 0, 7); c.fill(); } if (t > 3 && d[1] >= 5) { c.strokeStyle = '#137A3A'; c.lineWidth = 4; RR(c, x - 128, y - 42, 256, 104, 10); c.stroke(); TXT(c, '⭐', x + 112, y - 30, { s: 22 }); } } });
+    if (ph === 3 && t > 3) LBL(c, '🏆 득표가 많은 아이디어부터 우선 개발!', 596, 385, { s: 18, bg: '#E3F5E8', bd: '#137A3A', c: '#137A3A' });
+  });
+  function note(x, y, s, col, w){ c.save(); c.translate(x, y); c.rotate(((x + y) % 7 - 3) * .01); RR(c, -w / 2, -36, w, 72, 6); c.fillStyle = col; c.fill(); c.strokeStyle = 'rgba(0,0,0,.2)'; c.lineWidth = 1.5; c.stroke(); TXT(c, s, 0, 0, { s: s.length > 12 ? 16 : 18, w: 900 }); c.restore(); }
+})();
+
+// ---------- G. 분리배출 AI 분류기 ----------
+(() => {
+  const cv = $('cvAi'); if (!cv) return; const c = cv.getContext('2d'), W = 1192, H = 400; let mode = 'good', t0 = performance.now();
+  const CL = ['plastic', 'paper', 'metal', 'glass'], BIN = { plastic: '#2F7BEA', paper: '#E0A800', metal: '#7A8296', glass: '#1E9E6A' };
+  const ITEMS = [{ e: '🧴', n: '플라스틱 병', t: 'plastic' }, { e: '📦', n: '종이 상자', t: 'paper' }, { e: '🥫', n: '캔', t: 'metal' }, { e: '🍾', n: '초록 유리병', t: 'glass', tricky: true }, { e: '📰', n: '신문지', t: 'paper' }];
+  const prob = (it) => { const base = { plastic: .02, paper: .02, metal: .02, glass: .02 }; if (mode === 'bad' && it.tricky) return { plastic: .58137, paper: .03, metal: .05, glass: .33863 }; base[it.t] = it.tricky ? .9361827411 : .9734158826; const rest = (1 - base[it.t]) / 3; CL.forEach(k => { if (k !== it.t) base[k] = rest; }); return base; };
+  const CAP = { good: '종류별 이미지를 <b>골고루(각 5장씩)</b> 학습 → 사진을 넣으면 분류 결과와 <b>신뢰도</b>를 함께 알려 줘요. 신뢰도 0.9734… × 100 → 소수점 반올림 → <b>97</b>% (p.194~195)',
+    bad: '갈색 유리병 사진만 학습시켰다면? <b>초록 유리병</b>을 플라스틱으로 잘못 분류해요. 데이터가 <b>편향</b>되면 결과도 틀려요! (p.193 “유리병 색깔에 따라 인식 결과에 차이”)' };
+  simBind('sbAi', a => { mode = a; t0 = performance.now(); cap('cpAi', CAP[a]); }); cap('cpAi', CAP.good);
+  runLoop(cv, now => {
+    const t = Math.max(0, (now - t0) / 1000); c.clearRect(0, 0, W, H); BOX(c, 0, 0, W, H, '#fff');
+    BOX(c, 20, 250, 700, 26, '#56607A'); for (let x = 20 + (t * 60) % 40; x < 720; x += 40) BOX(c, x, 254, 20, 18, '#7A8296');
+    RR(c, 300, 60, 120, 70, 12); c.fillStyle = '#1B2230'; c.fill(); EM(c, '📷', 360, 95, 36); TXT(c, 'AI 카메라', 360, 150, { s: 16, w: 900 });
+    CL.forEach((k, i) => { const x = 790 + i * 100; RR(c, x - 40, 280, 80, 100, 8); c.fillStyle = BIN[k]; c.fill(); TXT(c, k, x, 360, { s: 16, w: 900, c: '#fff' }); EM(c, '🗑', x, 312, 30); });
+    const per = 3.2, i = Math.floor(t / per) % ITEMS.length, k = (t % per) / per, it = ITEMS[i], p = prob(it), top = CL.reduce((a, b) => p[a] > p[b] ? a : b);
+    let x, y; if (k < .35) { x = lp(40, 360, k / .35); y = 228; } else if (k < .6) { x = 360; y = 228; } else { const q = (k - .6) / .4, bx = 790 + CL.indexOf(top) * 100; x = lp(360, bx, q); y = lp(228, 300, q) - Math.sin(q * 3.14) * 80; }
+    EM(c, it.e, x, y, 50);
+    if (k >= .35 && k < .6) { c.strokeStyle = 'rgba(255,59,59,.8)'; c.lineWidth = 3; c.beginPath(); c.moveTo(360, 130); c.lineTo(330, 210); c.moveTo(360, 130); c.lineTo(390, 210); c.stroke(); }
+    RR(c, 20, 10, 250, 220, 12); c.fillStyle = '#F3F5F9'; c.fill(); TXT(c, `입력: ${it.n}`, 145, 34, { s: 18, w: 900 });
+    if (k >= .4) CL.forEach((kk, j) => { const y2 = 70 + j * 40, w = p[kk] * 130; TXT(c, kk, 34, y2, { s: 16, w: 800, a: 'left' }); BOX(c, 110, y2 - 10, 130, 20, '#E3E7F1'); BOX(c, 110, y2 - 10, w, 20, kk === top ? (kk === it.t ? '#137A3A' : '#D0261E') : '#9AA3B5'); });
+    if (k >= .5) { const conf = Math.round(p[top] * 100), ok = top === it.t; RR(c, 460, 20, 300, 150, 12); c.fillStyle = ok ? '#E3F5E8' : '#FDEBEA'; c.fill(); c.strokeStyle = ok ? '#137A3A' : '#D0261E'; c.lineWidth = 3; c.stroke();
+      TXT(c, `분류 결과: ${top}`, 610, 52, { s: 22, w: 900, c: ok ? '#137A3A' : '#D0261E' }); TXT(c, `${p[top].toFixed(10)} × 100`, 610, 88, { s: 17, w: 800 }); TXT(c, `→ 신뢰도 ${conf}%`, 610, 120, { s: 24, w: 900 }); TXT(c, ok ? '✔ 맞았어요' : '✘ 틀렸어요! (정답: ' + it.t + ')', 610, 152, { s: 17, w: 900, c: ok ? '#137A3A' : '#D0261E' }); }
+  });
+})();
+
+// ---------- H. 주차 가디언즈 ----------
+(() => {
+  const cv = $('cvPk'); if (!cv) return; const c = cv.getContext('2d'), W = 1192, H = 400; let who = 'car', ver = 1, t0 = performance.now(), cnt = 0, fired = false;
+  const CAP = { 1: '버전 1: 초음파 센서에 무엇이든 <b>감지</b>되면 바로 경고음 → 불법 주정차를 막을 수 있지만…', 2: '버전 2(개선): <b>주차 시간</b>을 감지해 <b>3초 이상 머무르면</b> 경고 → 지나가는 사람에게는 울리지 않아요. (p.199 개선 사항)' };
+  simBind('sbPk', a => { if (a === 'v1' || a === 'v2') { ver = +a[1]; cap('cpPk', CAP[ver] + ' <span class="xb2 te">교사용 교과서 예시</span>'); } else who = a; t0 = performance.now(); fired = false; });
+  cap('cpPk', CAP[1] + ' <span class="xb2 te">교사용 교과서 예시</span>');
+  runLoop(cv, now => {
+    const t = Math.max(0, (now - t0) / 1000); c.clearRect(0, 0, W, H); BOX(c, 0, 0, W, H, '#DCEBD2');
+    BOX(c, 0, 230, W, 120, '#4A4F5C'); for (let x = 0; x < W; x += 60) BOX(c, x, 288, 34, 5, '#F2C200');
+    BOX(c, 440, 232, 300, 54, 'rgba(208,38,30,.25)'); c.strokeStyle = '#D0261E'; c.lineWidth = 3; c.setLineDash([10, 6]); c.strokeRect(440, 232, 300, 54); c.setLineDash([]); TXT(c, '불법 주정차 금지 구역', 590, 258, { s: 17, w: 900, c: '#fff' });
+    RR(c, 60, 40, 260, 170, 10); c.fillStyle = '#F5EBDD'; c.fill(); EM(c, '🏫', 190, 110, 70); TXT(c, '학교 정문 · 등하교 길', 190, 180, { s: 17, w: 900 });
+    BOX(c, 586, 120, 8, 110, '#56607A'); RR(c, 520, 60, 140, 66, 8); c.fillStyle = '#fff'; c.fill(); c.strokeStyle = '#D0261E'; c.lineWidth = 4; c.stroke(); TXT(c, '🚫 주정차 금지', 590, 93, { s: 18, w: 900, c: '#D0261E' });
+    RR(c, 600, 150, 46, 30, 6); c.fillStyle = '#1B2230'; c.fill(); TXT(c, '센서', 623, 165, { s: 13, w: 900, c: '#fff' }); EM(c, '🔊', 560, 165, 26);
+    let x, stay = 0; if (who === 'car') { x = Math.min(590, -100 + t * 260); stay = x >= 590 ? t - 690 / 260 : 0; } else { x = -60 + t * 160; stay = Math.abs(x - 590) < 120 ? 0.5 : 0; }
+    const inZone = x > 450 && x < 730;
+    if (inZone) { for (let i = 0; i < 3; i++) { const r = ((now / 300 + i / 3) % 1) * 70; c.strokeStyle = `rgba(80,190,255,${1 - r / 70})`; c.lineWidth = 3; c.beginPath(); c.arc(623, 180, r + 10, 0.3, 2.8); c.stroke(); } }
+    const alarm = inZone && (ver === 1 || stay >= 3);
+    if (who === 'car') EM(c, '🚗', x, 262, 70); else EM(c, '🚶', x, 250, 54);
+    if (alarm) { if (!fired) { fired = true; cnt++; SND.no(); } say(c, '“이곳은 주정차 금지 구역입니다!”', 590, 40); }
+    if (ver === 2 && inZone && who === 'car' && stay < 3) LBL(c, `머문 시간 ${Math.max(0, stay).toFixed(1)}초`, 590, 360, { s: 18 });
+    if (ver === 1 && who === 'walk' && alarm) LBL(c, '😖 사람이 지나가도 울려요! (오작동)', 590, 370, { s: 18, bg: '#FDEBEA', bd: '#D0261E', c: '#D0261E' });
+    if (ver === 2 && who === 'walk' && inZone) LBL(c, '🙂 사람은 금방 지나가서 경고 없음', 590, 370, { s: 18, bg: '#E3F5E8', bd: '#137A3A', c: '#137A3A' });
+    RR(c, 900, 30, 270, 180, 12); c.fillStyle = '#fff'; c.fill(); TXT(c, '📊 감지 빈도 기록', 1035, 58, { s: 19, w: 900 }); TXT(c, `경고 ${cnt}회`, 1035, 110, { s: 34, w: 900, c: '#D0261E' }); TXT(c, ver === 1 ? '버전 1: 무엇이든 감지' : '버전 2: 3초 이상 머물면', 1035, 160, { s: 16, w: 900 }); TXT(c, '→ 문제 개선 여부 파악', 1035, 188, { s: 15, w: 800 });
+  });
+  function say(c, s, x, y){ c.font = FNT(900, 19); const w = c.measureText(s).width + 26; RR(c, 700 - w / 2, 6, w, 44, 12); c.fillStyle = '#FFF3C4'; c.fill(); c.strokeStyle = '#D0261E'; c.lineWidth = 3; c.stroke(); TXT(c, s, 700, 28, { s: 19, w: 900, c: '#D0261E' }); }
+})();
+
+// ---------- I. SaaS: 구매 vs 구독 ----------
+(() => {
+  const cv = $('cvSaas'); if (!cv) return; const c = cv.getContext('2d'), W = 1192, H = 400; let t0 = performance.now();
+  simBind('sbSaas', () => { t0 = performance.now(); });
+  runLoop(cv, now => {
+    const m = cl(Math.floor((now - t0) / 1000 * 2), 0, 24); c.clearRect(0, 0, W, H); BOX(c, 0, 0, W, H, '#fff');
+    TXT(c, `📅 ${m}개월째`, 596, 26, { s: 24, w: 900 });
+    const col = (x, title, sub, val, color, extra) => { RR(c, x, 50, 360, 340, 14); c.fillStyle = '#F3F5F9'; c.fill(); TXT(c, title, x + 180, 78, { s: 21, w: 900 }); TXT(c, sub, x + 180, 106, { s: 15, w: 800 });
+      const h = Math.min(170, val / 130 * 170); BOX(c, x + 130, 330 - h, 100, h, color); TXT(c, `누적 ${val}만 원`, x + 180, 318 - h, { s: 20, w: 900 }); BOX(c, x + 100, 330, 160, 4, '#1B2230'); if (extra) extra(x); };
+    const buy = 60 + (m >= 12 ? 60 : 0), sub = m * 3, use = [0, 1, 1, 4, 1, 0, 5, 5, 1, 0, 1, 4, 1, 1, 0, 4, 5, 1, 1, 0, 1, 4, 1, 1, 0].slice(0, m + 1).reduce((a, b) => a + b, 0);
+    col(20, '💿 한 번에 구매', '처음에 한꺼번에 · 새 버전은 다시 구매', buy, '#7A8296', x => { TXT(c, m >= 12 ? '버전 2.0 (다시 구매)' : '버전 1.0', x + 180, 360, { s: 16, w: 900 }); });
+    col(416, '☁️ 구독형 (SaaS)', '매달 일정 금액 · 클라우드로 실시간 이용', sub, '#2350C8', x => { TXT(c, '✨ 항상 최신 버전', x + 180, 360, { s: 16, w: 900, c: '#2350C8' }); });
+    col(812, '📊 쓴 만큼 내기', '사용한 양만큼만 지불', use, '#137A3A', x => { TXT(c, '쓸 때만 비용', x + 180, 360, { s: 16, w: 900, c: '#137A3A' }); });
+    TXT(c, '금액은 예시', 1170, 392, { s: 13, w: 800, c: '#B85E00', a: 'right' });
+  });
+})();
+
+// ================= Ⅴ단원 재구성판 추가 시뮬레이션 =================
+// ---------- G. 한계비용: 분식집 vs 앱 ----------
+(() => {
+  const cv = $('cvCost'); if (!cv) return; const c = cv.getContext('2d'), W = 1192, H = 400; let t0 = performance.now();
+  simBind('sbCost', () => { t0 = performance.now(); });
+  const X0 = 90, X1 = 760, Y0 = 340, Y1 = 50, MX = 50000, MY = 20000; // 만 원
+  const shop = n => 3000 + n * 0.3, app = n => 8000 + n * 0.002; // 만 원 (분식집: 매장 3000만 + 1인분 3000원 / 앱: 개발 8000만 + 1명 20원)
+  const X = n => X0 + (X1 - X0) * n / MX, Y = v => Y0 - (Y0 - Y1) * v / MY;
+  const won = v => v >= 10000 ? `${(v / 10000).toFixed(2)}억 원` : `${Math.round(v).toLocaleString()}만 원`;
+  runLoop(cv, now => {
+    const t = Math.max(0, (now - t0) / 1000), n = Math.round(MX * ez(cl((t - .5) / 9, 0, 1)));
+    c.clearRect(0, 0, W, H); BOX(c, 0, 0, W, H, '#fff');
+    c.strokeStyle = '#1B2230'; c.lineWidth = 2.5; c.beginPath(); c.moveTo(X0, Y1 - 12); c.lineTo(X0, Y0); c.lineTo(X1 + 16, Y0); c.stroke();
+    TXT(c, '총비용 ↑', X0 + 8, Y1 - 24, { s: 17, a: 'left', w: 900 }); TXT(c, '손님(사용자) 수 →', X1 + 16, Y0 + 40, { s: 16, a: 'right', w: 900 });
+    for (let k = 0; k <= MX; k += 10000) TXT(c, k ? `${k / 10000}만 명` : '0', X(k), Y0 + 18, { s: 14, w: 800 });
+    for (let v = 5000; v <= MY; v += 5000) { c.strokeStyle = '#E3E7F1'; c.lineWidth = 1; c.beginPath(); c.moveTo(X0, Y(v)); c.lineTo(X1, Y(v)); c.stroke(); TXT(c, `${v / 10000}억`, X0 - 8, Y(v), { s: 14, w: 800, a: 'right' }); }
+    const line = (f, col) => { c.strokeStyle = col; c.lineWidth = 6; c.lineJoin = 'round'; c.beginPath(); for (let k = 0; k <= n; k += 250) { const p = [X(k), Y(f(k))]; k ? c.lineTo(...p) : c.moveTo(...p); } c.stroke(); };
+    line(shop, '#B85E00'); line(app, '#2350C8');
+    EM(c, '🏪', X(n) + 20, Y(shop(n)) - 6, 30); EM(c, '📱', X(n) + 20, Y(app(n)) + 4, 30);
+    if (n > 3000) LBL(c, '시작 비용은 앱이 더 커요', X(2500) + 120, Y(8000) - 30, { s: 15, bd: '#2350C8', c: '#2350C8' });
+    // 오른쪽 패널
+    RR(c, 800, 20, 380, 360, 14); c.fillStyle = '#F3F5F9'; c.fill();
+    TXT(c, `👥 손님 ${n.toLocaleString()}명`, 990, 52, { s: 24, w: 900 });
+    RR(c, 816, 80, 348, 120, 12); c.fillStyle = '#FFF1E0'; c.fill(); TXT(c, '🏪 분식집 총비용', 990, 104, { s: 18, w: 900, c: '#B85E00' }); TXT(c, won(shop(n)), 990, 138, { s: 26, w: 900 }); TXT(c, '손님 1명 더 → +3,000원 (재료·포장)', 990, 176, { s: 16, w: 800 });
+    RR(c, 816, 210, 348, 120, 12); c.fillStyle = '#E6EDFC'; c.fill(); TXT(c, '📱 앱 총비용', 990, 234, { s: 18, w: 900, c: '#2350C8' }); TXT(c, won(app(n)), 990, 268, { s: 26, w: 900 }); TXT(c, '사용자 1명 더 → +20원 (서버)', 990, 306, { s: 16, w: 800 });
+    TXT(c, '한계비용 ≈ 0 → 사용자가 늘수록 유리!', 990, 356, { s: 17, w: 900, c: n > 20000 ? '#137A3A' : '#8A93A8' });
+    TXT(c, '숫자는 예시', 1176, 394, { s: 13, w: 800, c: '#B85E00', a: 'right' });
+  });
+})();
+
+// ---------- H. MVP: 한 번에 다 만들기 vs 작게 먼저 ----------
+(() => {
+  const cv = $('cvMvp'); if (!cv) return; const c = cv.getContext('2d'), W = 1192, H = 400; let t0 = performance.now();
+  simBind('sbMvp', () => { t0 = performance.now(); });
+  const TX0 = 300, TX1 = 1060, M = 12, SP = .85; const X = m => TX0 + (TX1 - TX0) * m / M;
+  const lane = (y, col, title, sub) => { RR(c, 10, y, 1172, 178, 14); c.fillStyle = col; c.fill(); TXT(c, title, 150, y + 30, { s: 20, w: 900 }); TXT(c, sub, 150, y + 56, { s: 15, w: 800 }); };
+  const money = (y, v, bad) => { TXT(c, '💰 남은 돈', 70, y + 98, { s: 15, w: 900 }); RR(c, 120, y + 88, 160, 20, 6); c.fillStyle = '#E3E7F1'; c.fill(); BOX(c, 120, y + 88, 160 * cl(v, 0, 1), 20, bad ? '#D0261E' : '#137A3A'); };
+  const users = (y, n, face) => { for (let i = 0; i < n; i++) EM(c, face, 40 + (i % 10) * 25, y + 140 + Math.floor(i / 10) * 24, 20); };
+  runLoop(cv, now => {
+    const t = Math.max(0, (now - t0) / 1000), m = cl(t / SP, 0, M);
+    c.clearRect(0, 0, W, H); BOX(c, 0, 0, W, H, '#fff');
+    // 시간축
+    for (let k = 0; k <= M; k += 2) TXT(c, `${k}개월`, X(k), 202, { s: 13, w: 800 });
+    // A: 한 번에 다 만들기
+    const yA = 10; lane(yA, '#FDF1EE', '🅰 기능 10개를 다 만들고 출시', '1년 가까이 개발만');
+    const launchA = 10; const buildA = cl(m / launchA, 0, 1);
+    RR(c, X(0), yA + 70, X(launchA) - X(0), 34, 8); c.fillStyle = '#F3D9D3'; c.fill(); RR(c, X(0), yA + 70, (X(launchA) - X(0)) * buildA, 34, 8); c.fillStyle = '#D0261E'; c.fill();
+    TXT(c, m < launchA ? `🔨 개발 중… 기능 ${Math.floor(buildA * 10)} / 10` : '🚀 출시!', (X(0) + X(launchA)) / 2, yA + 88, { s: 17, w: 900, c: buildA > .45 ? '#fff' : '#1B2230' });
+    money(yA, 1 - .085 * m, m > 8);
+    if (m >= launchA) { const k = ez((m - launchA) / 1.2);
+      c.globalAlpha = k; LBL(c, '“이 기능들은 안 써요” 👎', X(11), yA + 132, { s: 16, bg: '#FDEBEA', bd: '#D0261E', c: '#D0261E' }); users(yA, 2, '😕');
+      if (m > 11.2) LBL(c, '💸 돈과 시간을 다 쓴 뒤에야 알게 됨', 680, yA + 150, { s: 17, bg: '#fff', bd: '#D0261E', c: '#D0261E' }); c.globalAlpha = 1; }
+    // B: MVP
+    const yB = 214; lane(yB, '#EEF6EF', '🅱 MVP로 먼저 확인', '핵심 기능 1개로 시작');
+    const REL = [[1.5, 'v1 · 기능 1개', '“사진만 찍으면 알려 줘서 편해요!”'], [4.5, 'v2 · 요일 알림 추가', '“수거 요일도 알려 주세요”'], [7.5, 'v3 · 포인트 적립', '“친구랑 같이 쓰고 싶어요”'], [10.5, 'v4 · 반별 랭킹', '“반 대항 하면 재밌겠다!”']];
+    REL.forEach(([at, v, fb], i) => { if (m < at) return; const k = ez((m - at) / .6);
+      c.globalAlpha = k; RR(c, X(at) - 70, yB + 70, 140, 34, 8); c.fillStyle = '#137A3A'; c.fill(); TXT(c, '🚀 ' + v, X(at), yB + 88, { s: 14, w: 900, c: '#fff' });
+      const nx = REL[i + 1]; if (!nx || m < nx[0]) LBL(c, fb, cl(X(at) + 60, 470, 900), yB + 132, { s: 15, bd: '#137A3A', c: '#137A3A' });
+      if (nx && m >= at + .8) { c.strokeStyle = '#137A3A'; c.lineWidth = 3; c.setLineDash([6, 5]); c.beginPath(); c.moveTo(X(at) + 72, yB + 87); c.lineTo(X(nx[0]) - 72, yB + 87); c.stroke(); c.setLineDash([]); TXT(c, '피드백 반영 🔧', (X(at) + X(nx[0])) / 2, yB + 62, { s: 13, w: 800, c: '#137A3A' }); }
+      c.globalAlpha = 1; });
+    money(yB, 1 - .03 * m, false);
+    users(yB, Math.floor(cl((m - 1.5) / 10.5, 0, 1) * 18), '🙂');
+    TXT(c, '모형 애니메이션', 1176, 394, { s: 13, w: 800, c: '#B85E00', a: 'right' });
+  });
+})();
+
+// ---------- I. 프로젝트 순환: 평가 → 다시 설계·제작 ----------
+(() => {
+  const cv = $('cvCyc'); if (!cv) return; const c = cv.getContext('2d'), W = 1192, H = 400; let t0 = performance.now();
+  simBind('sbCyc', () => { t0 = performance.now(); });
+  const ST = [['① 사용자 요구 분석', '및 주제 선정', '#6A4C93'], ['② 해결 아이디어', '구상', '#2350C8'], ['③ 소프트웨어', '설계 및 제작', '#0F7C80'], ['④ 소프트웨어', '평가', '#B85E00']];
+  const BX = i => 40 + i * 284, BW = 250, BY = 40, BH = 92, CX = i => BX(i) + BW / 2;
+  // 경로: 0→1→2→3 (v1), 3→2 (되돌아감), 2→3 (v2), 3 끝
+  const SEG = [[0, 1, 1.4], [1, 2, 1.4], [2, 3, 1.4], ['fb1', 2.6], [3, 2, 1.6], [2, 3, 1.4], ['fb2', 2.6]];
+  const TOT = SEG.reduce((s, x) => s + x[x.length - 1], 0);
+  runLoop(cv, now => {
+    let t = Math.max(0, (now - t0) / 1000); if (t > TOT + 2.5) t = TOT + 2.5;
+    c.clearRect(0, 0, W, H); BOX(c, 0, 0, W, H, '#fff');
+    let pos = CX(0), stage = 0, ver = 1, fb = null, back = false, acc = 0;
+    for (const s of SEG) { const d = s[s.length - 1]; if (t < acc + d) { const k = ez((t - acc) / d);
+        if (typeof s[0] === 'number') { pos = lp(CX(s[0]), CX(s[1]), k); stage = k > .5 ? s[1] : s[0]; back = s[1] < s[0]; } else { pos = CX(3); stage = 3; fb = s[0]; }
+        break; }
+      acc += d; if (typeof s[0] === 'number') { pos = CX(s[1]); stage = s[1]; if (s[1] < s[0]) ver = 2; } else { fb = s[0]; } }
+    if (t >= TOT) { fb = 'done'; stage = 3; pos = CX(3); }
+    if (acc >= 0 && t > SEG.slice(0, 5).reduce((s, x) => s + x[x.length - 1], 0)) ver = 2;
+    ST.forEach((s, i) => { RR(c, BX(i), BY, BW, BH, 14); c.fillStyle = i === stage ? s[2] : '#F3F5F9'; c.fill(); c.lineWidth = 3; c.strokeStyle = s[2]; c.stroke();
+      TXT(c, s[0], CX(i), BY + 34, { s: 21, w: 900, c: i === stage ? '#fff' : '#1B2230' }); TXT(c, s[1], CX(i), BY + 64, { s: 19, w: 800, c: i === stage ? '#fff' : '#1B2230' });
+      if (i < 3) { TXT(c, '➜', BX(i) + BW + 17, BY + BH / 2, { s: 26, w: 900 }); } });
+    // 되돌아가는 화살표 (④ → ③)
+    const showBack = t > SEG.slice(0, 3).reduce((s, x) => s + x[x.length - 1], 0) + 1.2;
+    if (showBack) { c.strokeStyle = '#D0261E'; c.lineWidth = 5; c.beginPath(); c.moveTo(CX(3), BY + BH + 6); c.bezierCurveTo(CX(3), BY + BH + 80, CX(2), BY + BH + 80, CX(2), BY + BH + 10); c.stroke();
+      c.fillStyle = '#D0261E'; c.beginPath(); c.moveTo(CX(2) - 11, BY + BH + 24); c.lineTo(CX(2), BY + BH + 6); c.lineTo(CX(2) + 11, BY + BH + 24); c.fill();
+      LBL(c, '문제 발견 → 다시 고치기 🔧', (CX(2) + CX(3)) / 2, BY + BH + 84, { s: 17, bg: '#FDEBEA', bd: '#D0261E', c: '#D0261E' }); }
+    // 프로그램 토큰
+    const ty = back ? BY + BH + 40 : BY - 4; RR(c, pos - 56, ty - 16, 112, 32, 10); c.fillStyle = '#1B2230'; c.fill(); TXT(c, `📱 앱 v${ver}`, pos, ty, { s: 17, w: 900, c: '#fff' });
+    // 피드백 말풍선
+    const fbox = (col, bd, a, b) => { RR(c, 560, 262, 600, 76, 14); c.fillStyle = col; c.fill(); c.lineWidth = 3; c.strokeStyle = bd; c.stroke(); TXT(c, a, 860, 286, { s: 19, w: 900, c: bd }); TXT(c, b, 860, 316, { s: 16, w: 800 }); };
+    if (fb === 'fb1') fbox('#FFF1E0', '#B85E00', '🧪 테스트: “유리병 색깔에 따라 인식 결과가 달라요!”', '→ 피드백 수집, 정확도 측정 (p.193)');
+    if (fb === 'fb2' || fb === 'done') fbox('#E6F4EA', '#137A3A', '✅ v2: 여러 색 유리병 사진을 더 학습 → 잘 인식!', '다른 불편한 점은? → 피드백을 모아 계속 개선');
+    const T3 = 4.2, T4 = T3 + 2.6, T5 = T4 + 1.6, T7 = T5 + 1.4;
+    const LOG = [[T3, '① v1 완성 → ④ 평가', '#1B2230'], [T4, '② 문제 발견 → ③으로 되돌아감', '#D0261E'], [T5, '③ 고쳐서 v2 완성', '#0F7C80'], [T7, '④ 다시 평가 → 개선 확인 ✅', '#137A3A']];
+    LOG.forEach(([at, s, col], i) => { if (t < at) return; c.globalAlpha = ez((t - at) / .5); TXT(c, s, 60, 176 + i * 34, { s: 19, w: 900, c: col, a: 'left' }); c.globalAlpha = 1; });
+    TXT(c, '평가는 끝이 아니라 개선의 시작!', 60, 360, { s: 23, w: 900, c: '#1B2230', a: 'left' });
+    TXT(c, '모형 애니메이션', 1176, 394, { s: 13, w: 800, c: '#B85E00', a: 'right' });
+  });
+})();
+
+// 활동 타이머
+stage.querySelectorAll('.timer').forEach(t => {
+  const total = +t.dataset.s; let left = total, id = null;
+  const show = () => { t.textContent = '⏱ ' + Math.floor(left / 60) + ':' + String(left % 60).padStart(2, '0'); };
+  t.addEventListener('click', () => {
+    if (id) { clearInterval(id); id = null; t.classList.remove('run'); return; }
+    if (left <= 0) { left = total; t.classList.remove('end'); show(); return; }
+    t.classList.add('run');
+    id = setInterval(() => { left--; show(); if (left <= 0) { clearInterval(id); id = null; t.classList.remove('run'); t.classList.add('end'); t.textContent = '⏱ 끝!'; } }, 1000);
+  });
+});
+const slides = [...stage.querySelectorAll('.slide')];
+let cur = 0;
+function go(i){
+  const prev = cur;
+  cur = Math.max(0, Math.min(slides.length - 1, i));
+  slides.forEach((s, j) => s.hidden = j !== cur);
+  if (prev !== cur || !go.ok) { if (go.ok) slides[prev].dispatchEvent(new Event('hide')); slides[cur].dispatchEvent(new Event('show')); go.ok = true; }
+  if (slides[cur]._fit) slides[cur]._fit();
+  $('dots').querySelectorAll('i').forEach((d, j) => d.classList.toggle('on', j === cur));
+  $('pg').textContent = `${cur + 1} / ${slides.length}`;
+  $('prev').disabled = cur === 0; $('next').disabled = cur === slides.length - 1;
+  try { history.replaceState(null, '', '#' + (cur + 1)); } catch (e) {}
+}
+$('dots').innerHTML = slides.map((s, j) => `<i class="${s.classList.contains('oxq') ? 'q' : ''}" title="${j + 1}. ${s.dataset.t}" data-i="${j}"></i>`).join('');
+$('dots').querySelectorAll('i').forEach(d => d.addEventListener('click', () => go(+d.dataset.i)));
+$('prev').addEventListener('click', () => go(cur - 1)); $('next').addEventListener('click', () => go(cur + 1));
+addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || [...stage.querySelectorAll('.ov')].some(o => !o.hidden)) return;
+  if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); go(cur + 1); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(cur - 1); }
+});
+function fit(){ const k = Math.min((innerWidth - 16) / 1280, (innerHeight - 16) / 720); stage.style.transform = `translate(-50%,-50%) scale(${k})`; }
+addEventListener('resize', fit); fit();
+const h = parseInt(location.hash.slice(1)); go(h > 0 ? h - 1 : 0);
+})();
+</script>
+
+</body>
+</html>
